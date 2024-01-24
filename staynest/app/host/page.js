@@ -2,14 +2,12 @@
 //
 import React from 'react';
 import Link from 'next/link';
+import GoogleMap from '@/Components/Maps';
 
-export default function Page() {
+export default function GuesrRootPage() {
     return (
         <div>
-            <h1>Page</h1>
-            <Link href="/guest">
-                <div>Go back home</div>
-            </Link>
+       <GoogleMap />
         </div>
     );
 }

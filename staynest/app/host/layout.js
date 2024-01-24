@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '@/Components/HostNavbar';
 
-export default function Layout({ children }) {
+export default function GuestLayout({ children }) {
     return (
         <html lang="en">
             <body>
