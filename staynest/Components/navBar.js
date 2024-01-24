@@ -31,9 +31,12 @@ const Navbar = () => {
           <i className="fa fa-search"></i>
         </button>
       </form>
-      <div className="account-image">
+      <Link href="/account">
+      
+      <div className="account-image">  Your Account
         <img src="your-account-image.png" alt="Your Account" />
       </div>
+      </Link>
     </nav>
   );
 };
