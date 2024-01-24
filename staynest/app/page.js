@@ -1,13 +1,13 @@
-import React from 'react'
-import Testapi from '../API/testapi'
+import React from 'react';
 
-export default async function Home() {
 
-  const res= await Testapi();
-  console.log(res);
+export default async function RootPage() {
+
   return (
-    <main>
-      Hello World
+    <main className=" flex min-h-screen">
+     <div>
+      Hello World from root page
+     </div>
     </main>
   )
 }
