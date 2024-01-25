@@ -21,7 +21,7 @@ const Navbar = () => {
     <nav className="navbar">
       <Link href="/">
         <div className="logo">
-            <img src="logo.png" alt="Staynest" />
+            <Image src="/logo.png" alt="logo" width={100} height={100} />
         </div>
 
       </Link>
@@ -34,7 +34,7 @@ const Navbar = () => {
       <Link href="/account">
       
       <div className="account-image">  Your Account
-        <img src="your-account-image.png" alt="Your Account" />
+        <Image src="/account.png" alt="account" width={100} height={100} />
       </div>
       </Link>
     </nav>

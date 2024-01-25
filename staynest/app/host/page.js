@@ -7,7 +7,8 @@ import GoogleMap from '@/Components/Maps';
 export default function GuesrRootPage() {
     return (
         <div>
-       <GoogleMap />
+            <h1 className="title text-center">Welcome to StayNest</h1>
+            <GoogleMap />
         </div>
     );
 }
