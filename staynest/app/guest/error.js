@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-export default function Error() {
+export default function Error(error, reset) {
     return (
         <div>
             <h1>404 Error - Page Not Found</h1>

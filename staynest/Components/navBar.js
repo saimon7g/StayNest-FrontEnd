@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import '@/Components/style/navBar.css';
+import Image from 'next/image';
+import Logo from '@/StaticImage/Meta_Inc._logo.jpg';
 
 
 const Navbar = () => {
@@ -21,7 +23,7 @@ const Navbar = () => {
     <nav className="navbar">
       <Link href="/">
         <div className="logo">
-            <Image src="/logo.png" alt="logo" width={100} height={100} />
+            <Image src={Logo} alt="logo" width={100} height={100} />
         </div>
 
       </Link>
@@ -34,7 +36,7 @@ const Navbar = () => {
       <Link href="/account">
       
       <div className="account-image">  Your Account
-        <Image src="/account.png" alt="account" width={100} height={100} />
+        <Image src={Logo} alt="logo" width={100} height={100} />
       </div>
       </Link>
     </nav>
