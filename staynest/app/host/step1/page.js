@@ -11,31 +11,51 @@ import { FaHotel } from "react-icons/fa6";
 import { FaLandmarkDome } from "react-icons/fa6";
 import { MdOutlineCastle } from "react-icons/md";
 
+import { Step1Post } from "@/API/Registration";
+
+
 
 
 
 const Step1 = () => {
-    const [propertyType, setPropertyType] = React.useState("");
-    const [propertySubType, setPropertySubType] = React.useState("");
-    const [location, setLocation] = React.useState("");
-    const [guests, setGuests] = React.useState("");
-    const [bedrooms, setBedrooms] = React.useState("");
-    const [beds, setBeds] = React.useState("");
-    const [bathrooms, setBathrooms] = React.useState("");
+    const [propertyType, setPropertyType] = React.useState("House");
+    const [propertySubType, setPropertySubType] = React.useState("Entire Room");
+    const [locationName, setLocation] = React.useState("Dhaka");
+    const [latitute, setLatitute] = React.useState("12345");
+    const [longitute, setLongitute] = React.useState("09876");
+    const [guests, setGuests] = React.useState("5");
+    const [bedrooms, setBedrooms] = React.useState("4");
+    const [beds, setBeds] = React.useState("3");
+    const [bathrooms, setBathrooms] = React.useState("2");
 
     const handlePropertyType = (event, type) => {
+
+        console.log(type);
         event.preventDefault();
         setPropertyType(type);
     };
 
     const handlePropertySubType = (event, subtype) => {
+        console.log(subtype);
         setPropertySubType(subtype);
     };
-    const handleFormSubmit = (event, location) => {
-    
-        setLocation(location);
-    }
 
+    const handleLocationName = (event) => {
+        setLocation(event.target.value);
+    }
+    const handleLatitude = (event) => {
+        setLatitute(event.target.value);
+    }
+    const handleLongitude = (event) => {
+        setLongitute(event.target.value);
+    }
+    const handleLocationClick = (event) => {
+        event.preventDefault();
+        console.log(locationName);
+        console.log(latitute);
+        console.log(longitute);
+        console.log("location  submit clicked");
+    }
     const handleGuests = (event) => {
         setGuests(event.target.value);
     }
@@ -48,9 +68,39 @@ const Step1 = () => {
     const handleBathrooms = (event) => {
         setBathrooms(event.target.value);
     }
+
     const handleSubmit = (event) => {
+
+        console.log("submit");
         event.preventDefault();
-        console.log(propertyType, propertySubType, location, guests, bedrooms, beds, bathrooms);
+        // console.log(propertyType, propertySubType, locationName, latitute, longitute, guests, bedrooms, beds, bathrooms);\
+        // use json object to store the data
+
+       
+
+        const result = {
+            "user": 1,
+            "property_type": propertyType,
+            "property_sub_type": propertySubType,
+            "location": {
+                "latitude": latitute,
+                "longitude": longitute,
+                "selected_location": locationName
+            },
+            "some_basics": {
+                "number_of_guests": guests,
+                "number_of_bedrooms": bedrooms,
+                "number_of_beds": beds,
+                "number_of_bathrooms": bathrooms
+            }
+        }
+
+        console.log(result);
+        Step1Post(result);
+
+
+
+        console.log("submit clicked");
     }
 
 
@@ -98,13 +148,13 @@ const Step1 = () => {
             <div>
                 <text className="text-2xl font-bold">2. What type of place your guest will be staying?</text>
                 <div className="flex justify-center">
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={() => handlePropertySubType("Entire place")} >
+                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handlePropertySubType(e, "Entire place")} >
                         <text className="text-center">Entire place</text>
                     </div>
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={() => handlePropertySubType("Private room")} >
+                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handlePropertySubType(e, "Private room")} >
                         <text className="text-center">Private room</text>
                     </div>
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={() => handlePropertySubType("Shared room")} >
+                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handlePropertySubType(e, "Shared room")} >
                         <text className="text-center">Shared room</text>
                     </div>
                 </div>
@@ -113,25 +163,28 @@ const Step1 = () => {
             {/* location selection using google map */}
             <div>
                 <text className="text-2xl font-bold">3. Where is your place located?</text>
-                {/* a form to collect location data */}
-                <form >
-                    <input type="text" placeholder="location" />
-                    <button type="submit">Submit</button>
-                </form>
-                    
-
-               
-
-
+                <div className="flex justify-center">
+                    <div className="border-2 border-indigo-600 w-40 p-5">
+                        <text className="text-center">Location</text>
+                        <input type="text" value={locationName} onChange={handleLocationName} className="w-30" />
+                    </div>
+                    <div className="border-2 border-indigo-600 w-40 p-5">
+                        <text className="text-center">Latitude</text>
+                        <input type="text" value={latitute} onChange={handleLatitude} className="w-30" />
+                    </div>
+                    <div className="border-2 border-indigo-600 w-40 p-5">
+                        <text className="text-center">Longitude</text>
+                        <input type="text" value={longitute} onChange={handleLongitude} className="w-30" />
+                    </div>
+                    <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full" onClick={handleLocationClick}>Submit</button>
+                </div>
             </div>
             <div>
                 <text className="text-2xl font-bold">4. How many guests can your place accommodate?</text>
                 <div className="flex justify-center">
                     <div className="border-2 border-indigo-600 w-40 p-5">
                         <text className="text-center">Guests</text>
-                        {/* scroll bar to add or remove number of guest */}
-                        <input type="range" min="1" max="10" value={guests} onChange={handleGuests} />
-                        
+                        <input type="text" value={guests} onChange={handleGuests} className="w-30" />
                     </div>
                 </div>
 
@@ -139,6 +192,7 @@ const Step1 = () => {
                 <div className="flex justify-center">
                     <div className="border-2 border-indigo-600 w-40 p-5">
                         <text className="text-center">Bedrooms</text>
+                        <input type="text" value={bedrooms} onChange={handleBedrooms} className="w-30" />
                     </div>
                 </div>
 
@@ -146,6 +200,7 @@ const Step1 = () => {
                 <div className="flex justify-center">
                     <div className="border-2 border-indigo-600 w-40 p-5">
                         <text className="text-center">Beds</text>
+                        <input type="text" value={beds} onChange={handleBeds} className="w-30" />
                     </div>
                 </div>
 
@@ -153,8 +208,12 @@ const Step1 = () => {
                 <div className="flex justify-center">
                     <div className="border-2 border-indigo-600 w-40 p-5">
                         <text className="text-center">Bathrooms</text>
+                        <input type="text" value={bathrooms} onChange={handleBathrooms} className="w-30" />
                     </div>
                 </div>
+
+
+                <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full" onClick={handleSubmit}>Next</button>
 
             </div>
         </div>
