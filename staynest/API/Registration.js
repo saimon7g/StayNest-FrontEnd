@@ -25,8 +25,8 @@ export async function Step2PUT(data) {
     console.log(data);
     console.log("step2put                    11111111 ");
     try {
-        const response = await fetch("http://localhost:8000/api/property_registration/step2/", {
-            method: "POST",
+        const response = await fetch("http://localhost:8000/api/property_registration/step2/6/", {
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
