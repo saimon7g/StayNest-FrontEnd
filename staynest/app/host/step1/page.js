@@ -1,6 +1,5 @@
 'use client';
 import React from "react";
-import Link from "next/link";
 import { FaHouse } from "react-icons/fa6";
 import { MdApartment } from "react-icons/md";
 import { MdOutlineCabin } from "react-icons/md";
@@ -10,7 +9,6 @@ import { MdHouseboat } from "react-icons/md";
 import { FaHotel } from "react-icons/fa6";
 import { FaLandmarkDome } from "react-icons/fa6";
 import { MdOutlineCastle } from "react-icons/md";
-
 import { Step1Post } from "@/API/Registration";
 
 
@@ -29,7 +27,6 @@ const Step1 = () => {
     const [bathrooms, setBathrooms] = React.useState("2");
 
     const handlePropertyType = (event, type) => {
-
         console.log(type);
         event.preventDefault();
         setPropertyType(type);
@@ -97,9 +94,6 @@ const Step1 = () => {
 
         console.log(result);
         Step1Post(result);
-
-
-
         console.log("submit clicked");
     }
 

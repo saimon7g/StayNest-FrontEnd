@@ -19,3 +19,24 @@ export async function Step1Post(data) {
         console.log(error);
     }
 }
+
+export async function Step2PUT(data) {
+    console.log("step2put");
+    console.log(data);
+    console.log("step2put                    11111111 ");
+    try {
+        const response = await fetch("http://localhost:8000/api/property_registration/step2/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data),
+        });
+        const result = await response.json();
+        console.log(result);
+        return result;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
