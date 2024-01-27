@@ -24,6 +24,8 @@ import FileUpload from "@/Components/ImageUpload";
 import { useState } from "react";
 import { Step2PUT } from "@/API/Registration";
 import { Step2GET } from "@/API/Registration";
+import { useEffect } from 'react';
+
 
 
 const Step2 = () => {
@@ -31,6 +33,11 @@ const Step2 = () => {
     const [regular_amenities, setRegularAmenities] = React.useState([]);
     const [standout_amenities, setStandoutAmenities] = React.useState([]);
     const [uploadedFiles, setUploadedFiles] = React.useState([]);
+
+    useEffect(() => {
+        Step2GET();
+    }, []);
+    
 
     const handleRegularAmenities = (event, type) => {
         console.log(type);

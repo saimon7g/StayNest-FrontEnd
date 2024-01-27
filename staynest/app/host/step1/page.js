@@ -11,7 +11,7 @@ import { FaLandmarkDome } from "react-icons/fa6";
 import { MdOutlineCastle } from "react-icons/md";
 import { Step1Post } from "@/API/Registration";
 import { Step1GET } from "@/API/Registration";
-
+import { useEffect } from 'react';
 
 
 
@@ -26,6 +26,11 @@ const Step1 = () => {
     const [bedrooms, setBedrooms] = React.useState("4");
     const [beds, setBeds] = React.useState("3");
     const [bathrooms, setBathrooms] = React.useState("2");
+
+    useEffect(() => {
+        Step1GET();
+    }, []);
+    
 
     const handlePropertyType = (event, type) => {
         console.log(type);
