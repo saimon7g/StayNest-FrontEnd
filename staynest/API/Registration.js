@@ -21,7 +21,7 @@ export async function Step1Post(data) {
 export async function Step1GET() {
     console.log("step1get");
     try {
-        const response = await fetch("http://localhost:8000/host/api/property_registration/step1/4/");
+        const response = await fetch("http://localhost:8000/host/api/property_registration/step1/");
         const result = await response.json();
         console.log(result);
         return result;
