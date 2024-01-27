@@ -16,7 +16,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-yellow-400 p-1">
+    <nav className="bg-yellow-200 p-1">
       <dif className="mx-auto flex justify-between items-center">
         <Link href="/">
           <div ><Image
