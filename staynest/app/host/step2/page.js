@@ -23,6 +23,7 @@ import { FaUmbrellaBeach } from "react-icons/fa";
 import FileUpload from "@/Components/ImageUpload";
 import { useState } from "react";
 import { Step2PUT } from "@/API/Registration";
+import { Step2GET } from "@/API/Registration";
 
 
 const Step2 = () => {
@@ -68,29 +69,46 @@ const Step2 = () => {
         // need to change regular aminities and standout aminities to json format
 
         // for loop to change regular aminities and standout aminities to json format
-        const regular_amenities_json = [];
-        for (let i = 0; i < regular_amenities.length; i++) {
-            regular_amenities_json.push({ "name": regular_amenities[i] });
-        }
-        const standout_amenities_json = [];
-        for (let i = 0; i < standout_amenities.length; i++) {
-            standout_amenities_json.push({ "name": standout_amenities[i] });
-        }
-        const photos_json = [];
-        for (let i = 0; i < uploadedFiles.length; i++) {
-            // need to extract from formdata
-            photos_json.push({ "url": uploadedFiles[i], "description": "Living Room" });
 
-        }
-
-        const data = {
-            "regular_amenities": regular_amenities_json,
-            "standout_amenities": standout_amenities_json,
-            "photos": photos_json
-        }
-        
-        const result = Step2PUT(data);
+        const result = Step2GET();
         console.log(result);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // const regular_amenities_json = [];
+        // for (let i = 0; i < regular_amenities.length; i++) {
+        //     regular_amenities_json.push({ "name": regular_amenities[i] });
+        // }
+        // const standout_amenities_json = [];
+        // for (let i = 0; i < standout_amenities.length; i++) {
+        //     standout_amenities_json.push({ "name": standout_amenities[i] });
+        // }
+        // const photos_json = [];
+        // for (let i = 0; i < uploadedFiles.length; i++) {
+        //     // need to extract from formdata
+        //     photos_json.push({ "url": uploadedFiles[i], "description": "Living Room" });
+
+        // }
+
+        // const data = {
+        //     "regular_amenities": regular_amenities_json,
+        //     "standout_amenities": standout_amenities_json,
+        //     "photos": photos_json
+        // }
+        
+        // const result = Step2PUT(data);
+        // console.log(result);
     }
 
 

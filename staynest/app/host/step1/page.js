@@ -10,6 +10,7 @@ import { FaHotel } from "react-icons/fa6";
 import { FaLandmarkDome } from "react-icons/fa6";
 import { MdOutlineCastle } from "react-icons/md";
 import { Step1Post } from "@/API/Registration";
+import { Step1GET } from "@/API/Registration";
 
 
 
@@ -52,6 +53,13 @@ const Step1 = () => {
         console.log(latitute);
         console.log(longitute);
         console.log("location  submit clicked");
+
+
+        const result = Step1GET();
+        console.log(result);
+
+
+
     }
     const handleGuests = (event) => {
         setGuests(event.target.value);
