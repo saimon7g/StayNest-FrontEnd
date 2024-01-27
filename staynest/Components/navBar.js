@@ -2,7 +2,7 @@
 'use client';
 import Link from 'next/link';
 import { useState } from 'react';
-import '@/Components/style/navBar.css';
+// import "@/styles/"
 import Image from 'next/image';
 import Logo from '@/StaticImage/Meta_Inc._logo.jpg';
 
