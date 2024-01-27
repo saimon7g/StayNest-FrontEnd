@@ -12,6 +12,7 @@ import { MdOutlineCastle } from "react-icons/md";
 import { Step1Post } from "@/API/Registration";
 import { Step1GET } from "@/API/Registration";
 import { useEffect } from 'react';
+import Link from 'next/link';
 
 
 
@@ -30,7 +31,7 @@ const Step1 = () => {
     useEffect(() => {
         Step1GET();
     }, []);
-    
+
 
     const handlePropertyType = (event, type) => {
         console.log(type);
@@ -86,7 +87,7 @@ const Step1 = () => {
         // console.log(propertyType, propertySubType, locationName, latitute, longitute, guests, bedrooms, beds, bathrooms);\
         // use json object to store the data
 
-       
+
 
         const result = {
             "user": 1,
@@ -222,6 +223,20 @@ const Step1 = () => {
 
                 <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full" onClick={handleSubmit}>Next</button>
 
+            </div>
+
+            {/* next button to go to the next page and prev button to go to the prev page */}
+            <div className="flex justify-between items-center">
+                <Link href="/host">
+                    <button className="border border-gray-400 rounded-lg p-2 m-2">
+                        Prev
+                    </button>
+                </Link>
+                <Link href="/host/step2">
+                    <button className="border border-gray-400 rounded-lg p-2 m-2">
+                        Next
+                    </button>
+                </Link>
             </div>
         </div>
 

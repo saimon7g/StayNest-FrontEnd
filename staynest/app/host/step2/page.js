@@ -25,6 +25,7 @@ import { useState } from "react";
 import { Step2PUT } from "@/API/Registration";
 import { Step2GET } from "@/API/Registration";
 import { useEffect } from 'react';
+import Link from "next/link";
 
 
 
@@ -37,7 +38,7 @@ const Step2 = () => {
     useEffect(() => {
         Step2GET();
     }, []);
-    
+
 
     const handleRegularAmenities = (event, type) => {
         console.log(type);
@@ -113,7 +114,7 @@ const Step2 = () => {
         //     "standout_amenities": standout_amenities_json,
         //     "photos": photos_json
         // }
-        
+
         // const result = Step2PUT(data);
         // console.log(result);
     }
@@ -135,119 +136,133 @@ const Step2 = () => {
 
 
 
-return (
-    <div>
-        <h1>Make your place stand out</h1>
-        <div className="flex-1">
-            <text className="text-2xl font-bold">4. Tell us what your place has to offer</text>
-            <div className="flex justify-center">
-                <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleRegularAmenities(e, "Wifi")} >
-                    <FaWifi className="text-6xl text-center" />
-                </div>
-                <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleRegularAmenities(e, "TV")} >
-                    <PiTelevisionSimpleDuotone className="text-6xl text-center" />
-                </div>
-                <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleRegularAmenities(e, "Kitchen")} >
-                    <MdOutlineSoupKitchen className="text-6xl text-center" />
-                </div>
-            </div>
-            <div className="flex justify-center">
-                <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleRegularAmenities(e, "Workspace")} >
-                    <BsPersonWorkspace className="text-6xl text-center" />
-                </div>
-                <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleRegularAmenities(e, "Parking")} >
-                    <FaParking className="text-6xl text-center" />
-                </div>
-                <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleRegularAmenities(e, "Air conditioning")} >
-                    <TbAirConditioning className="text-6xl text-center" />
-                </div>
-            </div>
-
-            <div className="flex justify-center">
-                <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleRegularAmenities(e, "Washing machine")} >
-                    <GiWashingMachine className="text-6xl text-center" />
-                </div>
-            </div>
-
-        </div>
-
-        <div className="flex-1">
-            <text className="text-2xl font-bold">5. Do you have any stand out features?</text>
-            <div className="flex justify-center">
-                <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Pool")} >
-                    <TbPool className="text-6xl text-center" />
-                </div>
-                <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Hot tub")} >
-                    <FaHotTub className="text-6xl text-center" />
-                </div>
-                <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Barbecue")} >
-                    <GiBarbecue className="text-6xl text-center" />
-                </div>
-            </div>
-            <div className="flex justify-center">
-                <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Dining")} >
-                    <MdOutlineDinnerDining className="text-6xl text-center" />
-                </div>
-                <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Bonfire")} >
-                    <IoMdBonfire className="text-6xl text-center" />
-                </div>
-                <div className="border-2 border-indigo-600 w-40 p-5 " onClick={(e) => handleStandoutAmenities(e, "Fireplace")} >
-                    <GiFireplace className="text-6xl text-center" />
-                </div>
-            </div>
-            <div className="flex justify-center">
-                <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Piano")} >
-                    <CgPiano className="text-6xl text-center" />
-                </div>
-                <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Pool table")} >
-                    <GiPoolTableCorner className="text-6xl text-center" />
-                </div>
-                <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Gym")} >
-                    <CgGym className="text-6xl text-center" />
-                </div>
-            </div>
-            <div className="flex justify-center">
-                <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Beach")} >
-                    <FaUmbrellaBeach className="text-6xl text-center" />
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-        <div className="flex-1">
-            <text className="text-2xl font-bold">6.Add some Photos of your House</text>
-
-            <div>
-                <h1>Multiple Photo Upload</h1>
-                <FileUpload onUpload={handleUpload} />
-                {uploadedFiles.length > 0 && (
-                    <div>
-                        <h2>Uploaded Files:</h2>
-                        <ul>
-                            {uploadedFiles.map((file, index) => (
-                                <li key={index}>{file}</li>
-                            ))}
-                        </ul>
+    return (
+        <div>
+            <h1>Make your place stand out</h1>
+            <div className="flex-1">
+                <text className="text-2xl font-bold">4. Tell us what your place has to offer</text>
+                <div className="flex justify-center">
+                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleRegularAmenities(e, "Wifi")} >
+                        <FaWifi className="text-6xl text-center" />
                     </div>
-                )}
+                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleRegularAmenities(e, "TV")} >
+                        <PiTelevisionSimpleDuotone className="text-6xl text-center" />
+                    </div>
+                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleRegularAmenities(e, "Kitchen")} >
+                        <MdOutlineSoupKitchen className="text-6xl text-center" />
+                    </div>
+                </div>
+                <div className="flex justify-center">
+                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleRegularAmenities(e, "Workspace")} >
+                        <BsPersonWorkspace className="text-6xl text-center" />
+                    </div>
+                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleRegularAmenities(e, "Parking")} >
+                        <FaParking className="text-6xl text-center" />
+                    </div>
+                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleRegularAmenities(e, "Air conditioning")} >
+                        <TbAirConditioning className="text-6xl text-center" />
+                    </div>
+                </div>
+
+                <div className="flex justify-center">
+                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleRegularAmenities(e, "Washing machine")} >
+                        <GiWashingMachine className="text-6xl text-center" />
+                    </div>
+                </div>
+
+            </div>
+
+            <div className="flex-1">
+                <text className="text-2xl font-bold">5. Do you have any stand out features?</text>
+                <div className="flex justify-center">
+                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Pool")} >
+                        <TbPool className="text-6xl text-center" />
+                    </div>
+                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Hot tub")} >
+                        <FaHotTub className="text-6xl text-center" />
+                    </div>
+                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Barbecue")} >
+                        <GiBarbecue className="text-6xl text-center" />
+                    </div>
+                </div>
+                <div className="flex justify-center">
+                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Dining")} >
+                        <MdOutlineDinnerDining className="text-6xl text-center" />
+                    </div>
+                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Bonfire")} >
+                        <IoMdBonfire className="text-6xl text-center" />
+                    </div>
+                    <div className="border-2 border-indigo-600 w-40 p-5 " onClick={(e) => handleStandoutAmenities(e, "Fireplace")} >
+                        <GiFireplace className="text-6xl text-center" />
+                    </div>
+                </div>
+                <div className="flex justify-center">
+                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Piano")} >
+                        <CgPiano className="text-6xl text-center" />
+                    </div>
+                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Pool table")} >
+                        <GiPoolTableCorner className="text-6xl text-center" />
+                    </div>
+                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Gym")} >
+                        <CgGym className="text-6xl text-center" />
+                    </div>
+                </div>
+                <div className="flex justify-center">
+                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Beach")} >
+                        <FaUmbrellaBeach className="text-6xl text-center" />
+                    </div>
+                </div>
             </div>
 
 
 
-        </div>
 
-        <div className="flex-1">
-            {/* next button  */}
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleSubmit}>
-                Next
-            </button>
-        </div>
 
-    </div>
-);
+            <div className="flex-1">
+                <text className="text-2xl font-bold">6.Add some Photos of your House</text>
+
+                <div>
+                    <h1>Multiple Photo Upload</h1>
+                    <FileUpload onUpload={handleUpload} />
+                    {uploadedFiles.length > 0 && (
+                        <div>
+                            <h2>Uploaded Files:</h2>
+                            <ul>
+                                {uploadedFiles.map((file, index) => (
+                                    <li key={index}>{file}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+                </div>
+
+
+
+            </div>
+
+            <div className="flex-1">
+                {/* next button  */}
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleSubmit}>
+                    Next
+                </button>
+            </div>
+
+            {/* next button to go to the next page and prev button to go to the prev page */}
+            <div className="flex justify-between items-center">
+                <Link href="/host/step1">
+                    <button className="border border-gray-400 rounded-lg p-2 m-2">
+                        Prev
+                    </button>
+                </Link>
+                <Link href="/host/step3">
+                    <button className="border border-gray-400 rounded-lg p-2 m-2">
+                        Next
+                    </button>
+                </Link>
+            </div>
+
+        </div>
+    );
 
 
 

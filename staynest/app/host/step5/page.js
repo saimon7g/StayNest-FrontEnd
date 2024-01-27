@@ -2,6 +2,7 @@
 import React from "react";
 import { useEffect } from 'react';
 import { useState } from 'react';
+import Link from 'next/link';
 
 const Step5 = () => {
 
@@ -273,6 +274,20 @@ const Step5 = () => {
 
 
 
+            </div>
+
+            {/* next button to go to the next page and prev button to go to the prev page */}
+            <div className="flex justify-between items-center">
+                <Link href="/host/step4">
+                    <button className="border border-gray-400 rounded-lg p-2 m-2">
+                        Prev
+                    </button>
+                </Link>
+                <Link href="/host/step6">
+                    <button className="border border-gray-400 rounded-lg p-2 m-2">
+                        Next
+                    </button>
+                </Link>
             </div>
         </div>
     );
