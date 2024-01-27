@@ -116,40 +116,87 @@ const Step1 = () => {
 
     return (
         <div>
-            <div>
-                <text className="text-2xl font-bold">1. What type of place are you listing?</text>
+            <div className="flex flex-col items-center justify-center">
+            <div className="pb-5">
+                <text className="text-2xl font-bold ">1. What type of place are you listing?</text>
+            </div>
                 <div className="flex justify-center">
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handlePropertyType(e, "House")} >
-                        <FaHouse className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
+                        <div  onClick={(e) => handlePropertyType(e, "House")} >
+                            <FaHouse className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                                house
+                        </div>
                     </div>
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handlePropertyType(e, "Apartment")} >
-                        <MdApartment className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
+                        <div  onClick={(e) => handlePropertyType(e, "Apartment")} >
+                            <MdApartment className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                                house
+                        </div>
                     </div>
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handlePropertyType(e, "Cabin")} >
-                        <MdOutlineCabin className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
+                        <div  onClick={(e) => handlePropertyType(e, "Cabin")} >
+                            <MdOutlineCabin className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                                house
+                        </div>
                     </div>
                 </div>
 
                 <div className="flex justify-center">
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handlePropertyType(e, "Campground")} >
-                        <FaCampground className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
+                        <div  onClick={(e) => handlePropertyType(e, "Campground")} >
+                            <FaCampground className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                                house
+                        </div>
                     </div>
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handlePropertyType(e, "Tower")} >
-                        <LuTowerControl className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
+                        <div  onClick={(e) => handlePropertyType(e, "Tower")} >
+                            <LuTowerControl className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                                house
+                        </div>
                     </div>
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handlePropertyType(e, "Castle")} >
-                        <MdOutlineCastle className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
+                        <div  onClick={(e) => handlePropertyType(e, "Castle")} >
+                            <MdOutlineCastle className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                                house
+                        </div>
                     </div>
                 </div>
                 <div className="flex justify-center">
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handlePropertyType(e, "Houseboat")} >
-                        <MdHouseboat className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
+                        <div  onClick={(e) => handlePropertyType(e, "Houseboat")} >
+                            <MdHouseboat className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                                house
+                        </div>
                     </div>
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handlePropertyType(e, "Hotel")} >
-                        <FaHotel className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
+                        <div  onClick={(e) => handlePropertyType(e, "Hotel")} >
+                            <FaHotel className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                                house
+                        </div>
                     </div>
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handlePropertyType(e, "Dome")} >
-                        <FaLandmarkDome className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
+                        <div  onClick={(e) => handlePropertyType(e, "Dome")} >
+                            <FaLandmarkDome className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                                house
+                        </div>
                     </div>
                 </div>
             </div>
