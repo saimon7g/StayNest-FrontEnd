@@ -13,7 +13,7 @@ import { FaPeopleArrows } from "react-icons/fa6";
 
 
 
-const Step2 = () => {
+const Step3 = () => {
 
     const [regular_amenities, setRegularAmenities] = React.useState([]);
     const [standout_amenities, setStandoutAmenities] = React.useState([]);
@@ -204,4 +204,4 @@ return (
 
 };
 
-export default Step2;
+export default Step3;
