@@ -121,8 +121,8 @@ const Step1 = () => {
             }
         }
 
-        console.log(result);
-        const resul = Step1Post(result);
+        // console.log(result);
+        // Step1Post(result);
         // console.log("submit clicked");
     }
 
@@ -326,11 +326,13 @@ const Step1 = () => {
 
                 {/* <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full" onClick={handleSubmit}>Next</button> */}
 
-                <Link href="/host/step2">
-                    <button className="border border-gray-400 rounded-lg p-2 m-2" onClick={handleSubmit}>
-                        Next
-                    </button>
-                </Link>
+                <div className="flex justify-between items-center" onClick={handleSubmit}>
+                    <Link href="/host/step2">
+                        <button className="border border-gray-400 rounded-lg p-2 m-2" >
+                            Next
+                        </button>
+                    </Link>
+                </div>
             </div>
         </div>
     );
