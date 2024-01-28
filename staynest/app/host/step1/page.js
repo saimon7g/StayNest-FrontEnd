@@ -1,5 +1,10 @@
 'use client';
 import React from "react";
+import Link from 'next/link';
+import { useEffect } from "react";
+import { Step1Post } from "@/API/Registration";
+import { Step1GET } from "@/API/Registration";
+
 import { FaHouse } from "react-icons/fa6";
 import { MdApartment } from "react-icons/md";
 import { MdOutlineCabin } from "react-icons/md";
@@ -9,12 +14,6 @@ import { MdHouseboat } from "react-icons/md";
 import { FaHotel } from "react-icons/fa6";
 import { FaLandmarkDome } from "react-icons/fa6";
 import { MdOutlineCastle } from "react-icons/md";
-import { Step1Post } from "@/API/Registration";
-import { Step1GET } from "@/API/Registration";
-import { useEffect } from 'react';
-import Link from 'next/link';
-
-
 
 
 const Step1 = () => {
@@ -28,9 +27,27 @@ const Step1 = () => {
     const [beds, setBeds] = React.useState("3");
     const [bathrooms, setBathrooms] = React.useState("2");
 
+    // const receivedVariable = useRouter().query;
+    // console.log("received variable");
+    // console.log(receivedVariable);
+
     useEffect(() => {
         Step1GET();
+        clearState();
+
     }, []);
+
+    const clearState = () => {
+        setPropertyType("");
+        setPropertySubType("");
+        setLocation("");
+        setLatitute("");
+        setLongitute("");
+        setGuests("");
+        setBedrooms("");
+        setBeds("");
+        setBathrooms("");
+    }
 
 
     const handlePropertyType = (event, type) => {
@@ -58,14 +75,7 @@ const Step1 = () => {
         console.log(locationName);
         console.log(latitute);
         console.log(longitute);
-        console.log("location  submit clicked");
-
-
-        const result = Step1GET();
-        console.log(result);
-
-
-
+        // console.log("location  submit clicked");
     }
     const handleGuests = (event) => {
         setGuests(event.target.value);
@@ -82,15 +92,11 @@ const Step1 = () => {
 
     const handleSubmit = (event) => {
 
-        console.log("submit");
+        // console.log("submit");
         event.preventDefault();
-        // console.log(propertyType, propertySubType, locationName, latitute, longitute, guests, bedrooms, beds, bathrooms);\
         // use json object to store the data
-
-
-
         const result = {
-            "user": 1,
+            "user": 3,
             "property_type": propertyType,
             "property_sub_type": propertySubType,
             "location": {
@@ -107,8 +113,8 @@ const Step1 = () => {
         }
 
         console.log(result);
-        Step1Post(result);
-        console.log("submit clicked");
+       const resul = Step1Post(result);
+        // console.log("submit clicked");
     }
 
 
@@ -221,7 +227,6 @@ const Step1 = () => {
                 </div>
 
 
-                <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full" onClick={handleSubmit}>Next</button>
 
             </div>
 
@@ -232,16 +237,16 @@ const Step1 = () => {
                         Prev
                     </button>
                 </Link>
+
+                {/* <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full" onClick={handleSubmit}>Next</button> */}
+
                 <Link href="/host/step2">
-                    <button className="border border-gray-400 rounded-lg p-2 m-2">
+                    <button className="border border-gray-400 rounded-lg p-2 m-2" onClick={handleSubmit}>
                         Next
                     </button>
                 </Link>
             </div>
         </div>
-
-
-
     );
 };
 
