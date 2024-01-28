@@ -14,7 +14,6 @@ const Step6 = () => {
         allow_children: false,
         allow_infants: false,
         allow_events: false,
-
         mealPrice: 0,
         mealDescription: '',
     });
@@ -22,12 +21,12 @@ const Step6 = () => {
 
 
     return (
-        <div>
+        <div className="flex flex-col justify-center items-center">
             {/* do you allow paying guest */}
             <div>
                 <h1 className="text-2xl font-bold">Do you allow paying guests?</h1>
                 {/* two option yes or no */}
-                <div>
+                <div className="flex justify-between">
                     <button className="border border-gray-400 rounded-lg p-2 m-2" onClick={() => setState({ ...state, allow_paying_guests: true })}>Yes</button>
                     <button className="border border-gray-400 rounded-lg p-2 m-2" onClick={() => setState({ ...state, allow_paying_guests: false })}>No</button>
                 </div>
@@ -37,9 +36,9 @@ const Step6 = () => {
             {state.allow_paying_guests ? (
                 <div>
                     <h1 className="text-2xl font-bold">Meal price</h1>
-                    <input type="number" value={state.mealPrice} onChange={(e) => setState({ ...state, mealPrice: e.target.value })} />
+                    <input className="block m-0 m-auto border-2 border-black" type="number" value={state.mealPrice} onChange={(e) => setState({ ...state, mealPrice: e.target.value })} />
                     <h1 className="text-2xl font-bold">Meal description</h1>
-                    <textarea value={state.mealDescription} onChange={(e) => setState({ ...state, mealDescription: e.target.value })} />
+                    <textarea className="border-2 border-black" value={state.mealDescription} rows="10" cols="50" onChange={(e) => setState({ ...state, mealDescription: e.target.value })} />
                 </div>
             ) : null}
 
