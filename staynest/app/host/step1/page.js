@@ -122,7 +122,7 @@ const Step1 = () => {
         }
 
         console.log(result);
-       const resul = Step1Post(result);
+        const resul = Step1Post(result);
         // console.log("submit clicked");
     }
 
@@ -136,123 +136,123 @@ const Step1 = () => {
                     <text className="text-2xl font-bold ">1. What type of place are you listing?</text>
                 </div>
                 <div className="flex justify-center">
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
-                        <div  onClick={(e) => handlePropertyType(e, "House")} >
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2" onClick={(e) => handlePropertyType(e, "House")} >
+                        <div >
                             <FaHouse className="text-2xl text-center" />
                         </div>
                         <div className="pl-5 font-bold">
-                                house
+                            House
                         </div>
                     </div>
                     <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
-                        <div  onClick={(e) => handlePropertyType(e, "Apartment")} >
+                        <div onClick={(e) => handlePropertyType(e, "Apartment")} >
                             <MdApartment className="text-2xl text-center" />
                         </div>
                         <div className="pl-5 font-bold">
-                                house
+                            Apartment
                         </div>
                     </div>
                     <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
-                        <div  onClick={(e) => handlePropertyType(e, "Cabin")} >
+                        <div onClick={(e) => handlePropertyType(e, "Cabin")} >
                             <MdOutlineCabin className="text-2xl text-center" />
                         </div>
                         <div className="pl-5 font-bold">
-                                house
+                            Cabin
                         </div>
                     </div>
                 </div>
 
                 <div className="flex justify-center">
                     <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
-                        <div  onClick={(e) => handlePropertyType(e, "Campground")} >
+                        <div onClick={(e) => handlePropertyType(e, "Campground")} >
                             <FaCampground className="text-2xl text-center" />
                         </div>
                         <div className="pl-5 font-bold">
-                                house
+                            Campground
                         </div>
                     </div>
                     <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
-                        <div  onClick={(e) => handlePropertyType(e, "Tower")} >
+                        <div onClick={(e) => handlePropertyType(e, "Tower")} >
                             <LuTowerControl className="text-2xl text-center" />
                         </div>
                         <div className="pl-5 font-bold">
-                                house
+                            Tower
                         </div>
                     </div>
                     <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
-                        <div  onClick={(e) => handlePropertyType(e, "Castle")} >
+                        <div onClick={(e) => handlePropertyType(e, "Castle")} >
                             <MdOutlineCastle className="text-2xl text-center" />
                         </div>
                         <div className="pl-5 font-bold">
-                                house
+                            Castle
                         </div>
                     </div>
                 </div>
                 <div className="flex justify-center">
                     <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
-                        <div  onClick={(e) => handlePropertyType(e, "Houseboat")} >
+                        <div onClick={(e) => handlePropertyType(e, "Houseboat")} >
                             <MdHouseboat className="text-2xl text-center" />
                         </div>
                         <div className="pl-5 font-bold">
-                                house
+                            Houseboat
                         </div>
                     </div>
                     <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
-                        <div  onClick={(e) => handlePropertyType(e, "Hotel")} >
+                        <div onClick={(e) => handlePropertyType(e, "Hotel")} >
                             <FaHotel className="text-2xl text-center" />
                         </div>
                         <div className="pl-5 font-bold">
-                                house
+                            Hotel
                         </div>
                     </div>
                     <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
-                        <div  onClick={(e) => handlePropertyType(e, "Dome")} >
+                        <div onClick={(e) => handlePropertyType(e, "Dome")} >
                             <FaLandmarkDome className="text-2xl text-center" />
                         </div>
                         <div className="pl-5 font-bold">
-                                house
+                            Dome
                         </div>
                     </div>
                 </div>
             </div>
 
             <div className="flex flex-col items-center justify-center">
-                <div className="mb-16"> 
+                <div className="mb-16">
                     <text className="text-2xl font-bold">2. What type of place your guest will be staying?</text>
                 </div>
-                <div className="flex items-center justify-between border-2 border-black rounded-lg p-6 mb-4" 
+                <div className="flex items-center justify-between border-2 border-black rounded-lg p-6 mb-4"
                     onClick={(e) => handlePropertySubType(e, "Entire place")} >
                     <div className="w-96">
-                            <text className="text-lg font-bold ">An entire place</text>
-                            <br></br>
-                            <text className="text-base text-gray-400 font-bold">Guests have the whole place to themselves</text>
+                        <text className="text-lg font-bold ">An entire place</text>
+                        <br></br>
+                        <text className="text-base text-gray-400 font-bold">Guests have the whole place to themselves</text>
                     </div>
                     <div className="ml-10">
                         <FaHome className="text-4xl text-center" />
                     </div>
                 </div>
 
-                <div className="flex items-center justify-between border-2 border-black rounded-lg p-6 mb-4" 
+                <div className="flex items-center justify-between border-2 border-black rounded-lg p-6 mb-4"
                     onClick={(e) => handlePropertySubType(e, "Private room")} >
                     <div className="w-96">
-                            <text className="text-lg font-bold ">A room</text>
-                            <br></br>
-                            <text className="text-base text-gray-400 font-bold">Guests have their own room and access to a shared place</text>
+                        <text className="text-lg font-bold ">A room</text>
+                        <br></br>
+                        <text className="text-base text-gray-400 font-bold">Guests have their own room and access to a shared place</text>
                     </div>
                     <div className="ml-10">
                         <FaDoorClosed className="text-4xl text-center" />
-                        </div>
+                    </div>
                 </div>
-                <div className="flex items-center justify-between border-2 border-black rounded-lg p-6 mb-4" 
+                <div className="flex items-center justify-between border-2 border-black rounded-lg p-6 mb-4"
                     onClick={(e) => handlePropertySubType(e, "Shared room")} >
                     <div className="w-96">
-                            <text className="text-lg font-bold ">A shared place</text>
-                            <br></br>
-                            <text className="text-base text-gray-400 font-bold">Guests sleep in an area that may be shared by others</text>
+                        <text className="text-lg font-bold ">A shared place</text>
+                        <br></br>
+                        <text className="text-base text-gray-400 font-bold">Guests sleep in an area that may be shared by others</text>
                     </div>
                     <div className="ml-10">
                         <MdAirlineSeatIndividualSuite className="text-4xl text-center" />
-                     </div>
+                    </div>
                 </div>
             </div>
 
