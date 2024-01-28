@@ -281,7 +281,7 @@ const Step1 = () => {
                         <text className="text-center">Bedrooms</text>
                     </div>
                     <div className="ml-80">
-                        <textarea value={guests} onChange={handleBedrooms} rows="1" cols="2" className=" bg-slate-200"></textarea>
+                        <textarea value={bedrooms} onChange={handleBedrooms} rows="1" cols="2" className=" bg-slate-200"></textarea>
                     </div>
                 </div>
                 <div className="flex items-center justify-between p-4 mb-4 w-96">
@@ -289,7 +289,7 @@ const Step1 = () => {
                         <text className="text-center">Beds</text>
                     </div>
                     <div className="ml-80">
-                        <textarea value={guests} onChange={handleBeds} rows="1" cols="2" className=" bg-slate-200"></textarea>
+                        <textarea value={beds} onChange={handleBeds} rows="1" cols="2" className=" bg-slate-200"></textarea>
                     </div>
                 </div>
                 <div className="flex items-center justify-between p-4 mb-4 w-96">
@@ -297,7 +297,7 @@ const Step1 = () => {
                         <text className="text-center">Bathrooms</text>
                     </div>
                     <div className="ml-80">
-                        <textarea value={guests} onChange={handleBathrooms} rows="1" cols="2" className=" bg-slate-200"></textarea>
+                        <textarea value={bathrooms} onChange={handleBathrooms} rows="1" cols="2" className=" bg-slate-200"></textarea>
                     </div>
                 </div>
 
