@@ -20,7 +20,7 @@ return (
                 <div className="">
                         <text className="text-xl font-bold ">Enable negotiation with client</text>
                         <br></br>
-                        <text className="text-lg text-gray-400 font-bold pl-10">Client can offer different</text>
+                        <text className="text-lg text-gray-400 font-bold pl-10">Client can offer different price</text>
                 </div>
                 <div className="pl-10">
                     <MdAttachMoney className="text-4xl text-center" />

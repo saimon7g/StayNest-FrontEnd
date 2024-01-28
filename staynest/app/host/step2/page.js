@@ -139,77 +139,170 @@ const Step2 = () => {
     return (
         <div>
             <h1>Make your place stand out</h1>
-            <div className="flex-1">
-                <text className="text-2xl font-bold">4. Tell us what your place has to offer</text>
+            <div className="flex flex-col justify-center items-center mb-48">
+                <div className="my-10">
+                    <text className="text-2xl font-bold">4. Tell us what your place has to offer</text>
+                    <br></br>
+                    <text className="text-lg text-gray-400 font-bold pl-10">You can add more amenities later</text>
+                </div>
                 <div className="flex justify-center">
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleRegularAmenities(e, "Wifi")} >
-                        <FaWifi className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
+                        <div  onClick={(e) => handleRegularAmenities(e, "Wifi")} >
+                            <FaWifi className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                                wifi
+                        </div>
                     </div>
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleRegularAmenities(e, "TV")} >
-                        <PiTelevisionSimpleDuotone className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
+                        <div  onClick={(e) => handleRegularAmenities(e, "TV")} >
+                            <PiTelevisionSimpleDuotone className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                                TV
+                        </div>
                     </div>
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleRegularAmenities(e, "Kitchen")} >
-                        <MdOutlineSoupKitchen className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
+                        <div  onClick={(e) => handleRegularAmenities(e, "Kitchen")} >
+                            <MdOutlineSoupKitchen className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                                Kitchen
+                        </div>
                     </div>
                 </div>
                 <div className="flex justify-center">
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleRegularAmenities(e, "Workspace")} >
-                        <BsPersonWorkspace className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
+                        <div  onClick={(e) => handleRegularAmenities(e, "Workspace")} >
+                            <BsPersonWorkspace className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                            Workspace
+                        </div>
                     </div>
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleRegularAmenities(e, "Parking")} >
-                        <FaParking className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
+                        <div  onClick={(e) => handleRegularAmenities(e, "Parking")} >
+                            <FaParking className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                            Parking
+                        </div>
                     </div>
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleRegularAmenities(e, "Air conditioning")} >
-                        <TbAirConditioning className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
+                        <div  onClick={(e) => handleRegularAmenities(e, "Air conditioning")} >
+                            <TbAirConditioning className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                            Air conditioning
+                        </div>
                     </div>
                 </div>
 
                 <div className="flex justify-center">
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleRegularAmenities(e, "Washing machine")} >
-                        <GiWashingMachine className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
+                        <div  onClick={(e) => handleRegularAmenities(e, "Washing machine")} >
+                            <GiWashingMachine className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                            Washing machine
+                        </div>
                     </div>
                 </div>
 
             </div>
 
-            <div className="flex-1">
-                <text className="text-2xl font-bold">5. Do you have any stand out features?</text>
+            <div className="flex flex-col justify-center items-center mb-48">
+                <div className="mb-16">
+                    <text className="text-2xl font-bold">5. Do you have any stand out features?</text>
+                    <br></br>
+                    <text className="text-lg text-gray-400 font-bold pl-10">You can add more later</text>
+                </div>
                 <div className="flex justify-center">
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Pool")} >
-                        <TbPool className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
+                        <div  onClick={(e) => handleStandoutAmenities(e, "Pool")} >
+                            <TbPool className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                            Pool
+                        </div>
                     </div>
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Hot tub")} >
-                        <FaHotTub className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
+                        <div  onClick={(e) => handleStandoutAmenities(e, "Hot tub")} >
+                            <FaHotTub className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                        Hot tub
+                        </div>
                     </div>
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Barbecue")} >
-                        <GiBarbecue className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
+                        <div  onClick={(e) => handleStandoutAmenities(e, "Barbecue")} >
+                            <GiBarbecue className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                            Barbecue
+                        </div>
                     </div>
                 </div>
                 <div className="flex justify-center">
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Dining")} >
-                        <MdOutlineDinnerDining className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
+                        <div  onClick={(e) => handleStandoutAmenities(e, "Dining")} >
+                            <MdOutlineDinnerDining className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                        Dining
+                        </div>
                     </div>
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Bonfire")} >
-                        <IoMdBonfire className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
+                        <div  onClick={(e) => handleStandoutAmenities(e, "Bonfire")} >
+                            <IoMdBonfire className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                        Bonfire
+                        </div>
                     </div>
-                    <div className="border-2 border-indigo-600 w-40 p-5 " onClick={(e) => handleStandoutAmenities(e, "Fireplace")} >
-                        <GiFireplace className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
+                        <div  onClick={(e) => handleStandoutAmenities(e, "Fireplace")} >
+                            <GiFireplace className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                        Fireplace
+                        </div>
                     </div>
                 </div>
                 <div className="flex justify-center">
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Piano")} >
-                        <CgPiano className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
+                        <div  onClick={(e) => handleStandoutAmenities(e, "Piano")} >
+                            <CgPiano className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                        Piano
+                        </div>
                     </div>
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Pool table")} >
-                        <GiPoolTableCorner className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
+                        <div  onClick={(e) => handleStandoutAmenities(e, "Pool table")} >
+                            <GiPoolTableCorner className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                        Pool table
+                        </div>
                     </div>
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Gym")} >
-                        <CgGym className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
+                        <div  onClick={(e) => handleStandoutAmenities(e, "Gym")} >
+                            <CgGym className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                        Gym
+                        </div>
                     </div>
                 </div>
                 <div className="flex justify-center">
-                    <div className="border-2 border-indigo-600 w-40 p-5" onClick={(e) => handleStandoutAmenities(e, "Beach")} >
-                        <FaUmbrellaBeach className="text-6xl text-center" />
+                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
+                        <div  onClick={(e) => handleStandoutAmenities(e, "Beach")} >
+                            <FaUmbrellaBeach className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                        Beach
+                        </div>
                     </div>
                 </div>
             </div>
@@ -218,9 +311,12 @@ const Step2 = () => {
 
 
 
-            <div className="flex-1">
-                <text className="text-2xl font-bold">6.Add some Photos of your House</text>
-
+            <div className="flex flex-col items-center justify-center mb-16">
+                <div className="my-10">
+                    <text className="text-2xl font-bold">6.Add some Photos of your House</text>
+                    <br></br>
+                    <text className="text-lg text-gray-400 font-bold pl-10">Upload 5 photos. You can add more later</text>
+                </div>
                 <div>
                     <h1>Multiple Photo Upload</h1>
                     <FileUpload onUpload={handleUpload} />
@@ -235,12 +331,9 @@ const Step2 = () => {
                         </div>
                     )}
                 </div>
-
-
-
             </div>
 
-            <div className="flex-1">
+            <div className="flex flex-col items-center justify-center mb-16">
                 {/* next button  */}
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleSubmit}>
                     Next
@@ -248,7 +341,7 @@ const Step2 = () => {
             </div>
 
             {/* next button to go to the next page and prev button to go to the prev page */}
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center mx-16 mb-16">
                 <Link href="/host/step1">
                     <button className="border border-gray-400 rounded-lg p-2 m-2">
                         Prev
