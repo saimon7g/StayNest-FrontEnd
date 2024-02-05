@@ -1,11 +1,11 @@
 import React from "react";
-import NAV from "@/Components/navBar";
+import Navbar from "@/Components/GuestSide/GuestNavBar";
 
 export default function GuestLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <NAV />
+        <Navbar/>
         {children}
       </body>
     </html>

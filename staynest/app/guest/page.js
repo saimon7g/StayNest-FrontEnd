@@ -1,21 +1,21 @@
-import React from 'react'
-import Link from 'next/link'
-
+import React from 'react';
+import Image from 'next/image';
 
 export default async function GuestHome() {
 
+  const [data, setData] = useState(initialData);
+
+
+
   return (
     <main className=" flex min-h-screen">
-     {/* // className=" flex min-h-screen flex-col items-center justify-center" */}
-     <div>
-      Hello World from Guest page
-
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-       <Link href="/">
-        Button
-        </Link>
-      </button>
-    </div>
+      {/* // className=" flex min-h-screen flex-col items-center justify-center" */}
+      <div>
+        Hello World from Guest page
+      </div>
     </main>
-    )
+  )
+
+
+  
 }
