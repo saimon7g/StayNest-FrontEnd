@@ -1,8 +1,18 @@
+'use client';
 import Link from 'next/link';
 import React from 'react';
+import { LogInAPI } from '@/API/test';
 
 
 export default async function RootPage() {
+  const handleLogin = async () => {
+    const data = {
+      "username": "nahin",
+      "password": "12345"
+    }
+    const response = await LogInAPI(data);
+    console.log(response);
+   }
 
   return (
     <main className=" flex min-h-screen">
@@ -14,6 +24,9 @@ export default async function RootPage() {
         </button>
         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           <Link href="/guest/">Guest</Link>
+        </button>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleLogin}>
+          log in
         </button>
         </div>
      </div>
