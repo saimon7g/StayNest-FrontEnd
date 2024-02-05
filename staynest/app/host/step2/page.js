@@ -102,7 +102,7 @@ const Step2 = () => {
         const photos_json = [];
         for (let i = 0; i < uploadedFiles.length; i++) {
             // need to extract from formdata
-            photos_json.push({ "url": uploadedFiles[i], "description": "Living Room" });
+            photos_json.push({ "image_data": uploadedFiles[i], "description": "Living Room" });
 
         }
 
