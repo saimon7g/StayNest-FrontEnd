@@ -24,21 +24,47 @@ import FileUpload from "@/Components/ImageUpload";
 import { useState } from "react";
 import { Step2PUT } from "@/API/Registration";
 import { Step2GET } from "@/API/Registration";
-import { useEffect } from 'react';
+import { useEffect,useContext } from 'react';
 import Link from "next/link";
 
-
-
+import RegistrationContext from "@/contexts/registrationContext";
 const Step2 = () => {
+    const { registrationId} = useContext(RegistrationContext);  // use the context
 
     const [regular_amenities, setRegularAmenities] = React.useState([]);
     const [standout_amenities, setStandoutAmenities] = React.useState([]);
     const [uploadedFiles, setUploadedFiles] = React.useState([]);
 
+    // useEffect(() => {
+    //     Step2GET();
+    // }, []);
     useEffect(() => {
-        Step2GET();
-    }, []);
+        console.log("useEffect step2")
+        const fetchStep2Data = async () => {
+            try {
+                const response = await Step2GET(registrationId);
+                console.log("step2get")
+                console.log(response);
+                // Check if response status is 404 (Not Found)
+                if (response.status === 404) {
+                    console.log("Empty data form");
+                // Handle the case of an empty data form
+             } else {
+                // Handle the response data as needed
+             }
+                // Handle the response data as needed
+            } catch (error) {
+                console.error('Error fetching step 2 data: ', error);
+            }
+        };
 
+        if (registrationId) {
+            console.log("registrationId--page2 --",registrationId);
+            fetchStep2Data();
+            
+            
+        }
+    }, [registrationId]);
 
     const handleRegularAmenities = (event, type) => {
         console.log(type);

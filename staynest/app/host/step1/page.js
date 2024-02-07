@@ -1,9 +1,11 @@
 'use client';
 import React from "react";
 import Link from 'next/link';
-import { useEffect } from "react";
+import { useEffect,useContext } from "react";
 import { Step1Post } from "@/API/Registration";
 import { Step1GET } from "@/API/Registration";
+import RegistrationContext from "@/contexts/registrationContext";
+
 
 import { FaHouse } from "react-icons/fa6";
 import { MdApartment } from "react-icons/md";
@@ -25,6 +27,9 @@ import { MdAirlineSeatIndividualSuite } from "react-icons/md";
 
 
 
+    
+  
+
 const Step1 = () => {
     const [propertyType, setPropertyType] = React.useState("House");
     const [propertySubType, setPropertySubType] = React.useState("Entire Room");
@@ -35,6 +40,7 @@ const Step1 = () => {
     const [bedrooms, setBedrooms] = React.useState("4");
     const [beds, setBeds] = React.useState("3");
     const [bathrooms, setBathrooms] = React.useState("2");
+    const { setRegistrationId } = useContext(RegistrationContext);  // use the context
 
     // const receivedVariable = useRouter().query;
     // console.log("received variable");
@@ -45,6 +51,8 @@ const Step1 = () => {
         clearState();
 
     }, []);
+    //--
+    
 
     const clearState = () => {
         setPropertyType("");
@@ -99,7 +107,7 @@ const Step1 = () => {
         setBathrooms(event.target.value);
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
 
         // console.log("submit");
         event.preventDefault();
@@ -120,10 +128,17 @@ const Step1 = () => {
                 "number_of_bathrooms": bathrooms
             }
         }
-
-        // console.log(result);
-        // Step1Post(result);
-        // console.log("submit clicked");
+        const response_data= await Step1Post(result);
+        console.log('RESponSE Dta is here ');
+        try {
+           
+            setRegistrationId(response_data.registration_id);  // set the context variable 
+            console.log("registration id is set to ----- ", response_data.registration_id);      
+        } catch (error) {       
+            console.log("error SETTING registration id in context");
+        }
+        
+        console.log("submit clicked");
     }
 
 
