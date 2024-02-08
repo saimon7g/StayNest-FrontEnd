@@ -4,100 +4,64 @@ import Link from "next/link";
 
 import FileUpload from "@/Components/ImageUpload";
 import { useState } from "react";
-import { Step2PUT } from "@/API/Registration";
+import { Step3PUT } from "@/API/Registration";
+
 import { FaTree } from "react-icons/fa";
 import { FaLightbulb } from "react-icons/fa6";
 import { MdOutlineFamilyRestroom } from "react-icons/md";
 import { HiMiniHomeModern } from "react-icons/hi2";
 import { IoLocation } from "react-icons/io5";
 import { FaPeopleArrows } from "react-icons/fa6";
+import { useEffect,useContext } from 'react';
+import RegistrationContext from "@/contexts/registrationContext"; // Line 24
+
 
 
 
 const Step3 = () => {
-
-    const [regular_amenities, setRegularAmenities] = React.useState([]);
-    const [standout_amenities, setStandoutAmenities] = React.useState([]);
-    const [uploadedFiles, setUploadedFiles] = React.useState([]);
-
-    const handleRegularAmenities = (event, type) => {
-        console.log(type);
-        event.preventDefault();
-        setRegularAmenities([...regular_amenities, type]);
+    const { registrationId, setRegistrationId } = useContext(RegistrationContext);  // use the context
+    const [houseTitle, setHouseTitle] = React.useState('');
+    const [highlights, setHighlights] = React.useState([]);
+    const [description, setDescription] = React.useState('');
+    
+    const handleTitleChange = (event) => {
+        setHouseTitle(event.target.value);
+        console.log("Title: ", event.target.value);
     }
-    const handleStandoutAmenities = (event, type) => {
-        console.log(type);
-        event.preventDefault();
-        setStandoutAmenities([...standout_amenities, type]);
+    
+    const handleHighlightChange = (highlight) => {
+        // Check if the highlight already exists in the array
+        if (!highlights.includes(highlight)) {
+            console.log("Adding highlight: ", highlight);
+            setHighlights([...highlights, highlight]);
+        }
     }
+    
+    const handleDescriptionChange = (event) => {
 
-
-    const handleUpload = async (files) => {
-        try {
-            const formData = [];
-            files.forEach((file) => {
-                // change file into json format image base64
-                var reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = function () {
-                    // console.log(reader.result);
-                    uploadedFiles.push(reader.result);
-                };
-                reader.onerror = function (error) {
-                    console.log('Error converting image to base64: ', error);
-                };
-            });
-
-        } catch (error) {
-            console.error('Error uploading files:         ', error);
+        setDescription(event.target.value);
+        console.log("Description: ", event.target.value);
+    }
+    
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+    
+        // Prepare data to send to the server
+        const data = {
+            houseTitle: houseTitle,
+            highlights: highlights,
+            description: description,
+        };
+    
+        // Send the data to the server
+        if (registrationId) {
+            await Step3PUT(data, registrationId);
+        }
+        else {
+            console.error('No registration ID found');
         }
     };
-
-    const handleSubmit = (event) => {
-        // need to change regular aminities and standout aminities to json format
-
-        // for loop to change regular aminities and standout aminities to json format
-        const regular_amenities_json = [];
-        for (let i = 0; i < regular_amenities.length; i++) {
-            regular_amenities_json.push({ "name": regular_amenities[i] });
-        }
-        const standout_amenities_json = [];
-        for (let i = 0; i < standout_amenities.length; i++) {
-            standout_amenities_json.push({ "name": standout_amenities[i] });
-        }
-        const photos_json = [];
-        for (let i = 0; i < uploadedFiles.length; i++) {
-            // need to extract from formdata
-            photos_json.push({ "url": uploadedFiles[i], "description": "Living Room" });
-
-        }
-
-        const data = {
-            "regular_amenities": regular_amenities_json,
-            "standout_amenities": standout_amenities_json,
-            "photos": photos_json
-        }
-
-        const result = Step2PUT(data);
-        console.log(result);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
     return (
         <div className="flex flex-col items-center justify-center">
@@ -108,7 +72,8 @@ const Step3 = () => {
                     <text className="text-bg text-gray-400 font-bold pl-10">Short titles work best. Have fun with it-you can always change it later.</text>
                 </div>
                 <div className="pl-10">
-                    <textarea className="border-2 border-black rounded" rows="7" cols="60" placeholder="Type your text here..."></textarea>
+                    <textarea className="border-2 border-black rounded" rows="7" cols="60" placeholder="Type your text here..." value={houseTitle} onChange={(e) => handleTitleChange(e)}></textarea>
+
                 </div>
             </div>
 
@@ -121,7 +86,7 @@ const Step3 = () => {
                     <text className="text-bg text-gray-400 font-bold pb-15 pl-10">Choose upto 2 highlights. We'll use these to get your description started</text>
                 </div>
                 <div className="flex">
-                    <div className="flex border-2 border-stone-600 rounded-full w-auto p-5 m-2">
+                    <div className="flex border-2 border-stone-600 rounded-full w-auto p-5 m-2" onClick={() => handleHighlightChange("Peaceful")}>
                         <div>
                             <FaTree className="text-2xl text-center" />
                         </div>
@@ -129,7 +94,8 @@ const Step3 = () => {
                             Peaceful
                         </div>
                     </div>
-                    <div className="flex border-2 border-stone-600 rounded-full w-auto p-5 m-2">
+                    <div className="flex border-2 border-stone-600 rounded-full w-auto p-5 m-2" onClick={() => handleHighlightChange("Unique")}>
+
                         <div>
                             <FaLightbulb className="text-2xl text-center" />
                         </div>
@@ -137,7 +103,7 @@ const Step3 = () => {
                             Unique
                         </div>
                     </div>
-                    <div className="flex border-2 border-stone-600 rounded-full w-auto p-5 m-2">
+                    <div className="flex border-2 border-stone-600 rounded-full w-auto p-5 m-2" onClick={() => handleHighlightChange("Family-friendly")}>
                         <div>
                             <MdOutlineFamilyRestroom className="text-2xl text-center" />
                         </div>
@@ -145,7 +111,8 @@ const Step3 = () => {
                             Family-friendly
                         </div>
                     </div>
-                    <div className="flex border-2 border-stone-600 rounded-full w-auto p-5 m-2">
+                    <div className="flex border-2 border-stone-600 rounded-full w-auto p-5 m-2" onClick={() => handleHighlightChange("Stylish")}>
+
                         <div>
                             <HiMiniHomeModern className="text-2xl text-center" />
                         </div>
@@ -157,7 +124,7 @@ const Step3 = () => {
 
 
                 <div className="flex">
-                    <div className="flex border-2 border-stone-600 rounded-full w-auto p-5 m-2">
+                <div className="flex border-2 border-stone-600 rounded-full w-auto p-5 m-2" onClick={() => handleHighlightChange("Central")}>
                         <div>
                             <IoLocation className="text-2xl text-center" />
                         </div>
@@ -165,7 +132,7 @@ const Step3 = () => {
                             Central
                         </div>
                     </div>
-                    <div className="flex border-2 border-stone-600 rounded-full w-auto p-5 m-2">
+                    <div className="flex border-2 border-stone-600 rounded-full w-auto p-5 m-2" onClick={() => handleHighlightChange("Spacious")}>
                         <div>
                             <FaPeopleArrows className="text-2xl text-center" />
                         </div>
@@ -185,7 +152,7 @@ const Step3 = () => {
                     <text className="text-bg text-gray-400 font-bold pb-15 pl-10">Share what makes your place special</text>
                 </div>
                 <div className="pl-10">
-                    <textarea className="border-2 border-black rounded" rows="10" cols="60" placeholder="Type your text here..."></textarea>
+                    <textarea className="border-2 border-black rounded" rows="10" cols="60" placeholder="Type your text here..." value={description} onChange={(e) => handleDescriptionChange(e)}></textarea>                
                 </div>
             </div>
 

@@ -65,7 +65,7 @@ const Step2 = () => {
             
         }
     }, [registrationId]);
-
+ 
     const handleRegularAmenities = (event, type) => {
         console.log(type);
         event.preventDefault();
@@ -138,7 +138,7 @@ const Step2 = () => {
             "photos": photos_json
         }
 
-        const result = Step2PUT(data);
+        const result = Step2PUT(data,registrationId);
         console.log(result);
     }
 

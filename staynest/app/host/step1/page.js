@@ -113,7 +113,7 @@ const Step1 = () => {
         event.preventDefault();
         // use json object to store the data
         const result = {
-            "user": 3,
+            
             "property_type": propertyType,
             "property_sub_type": propertySubType,
             "location": {
