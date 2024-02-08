@@ -80,47 +80,60 @@ const Navbar = ( ) => {
             {/* Dynamic Search Form */}
             {isSearchFormVisible && (
                 <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-4 border border-gray-300 rounded-md shadow-md">
+                    <text className=""> search your stay</text>
                     <form onSubmit={handleSearchSubmit}>
+                        <div>
+                            <label for="fname">Location</label>
+                            <input
+                                type="text"
+                                placeholder="Anywhere"
+                                value={location}
+                                onChange={handleLocationChange}
+                                className="mb-2 border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-full"
+                            />
+                        </div>
                         {/* Date Pickers */}
                         <div className="flex items-center mb-2">
-                            <IoIosCalendar size={20} className="mr-2" />
-                            <DatePicker
-                                selected={startDate}
-                                onChange={handleStartDateChange}
-                                selectsStart
-                                startDate={startDate}
-                                endDate={endDate}
-                                placeholderText="Start Date"
-                            />
-                            <DatePicker
-                                selected={endDate}
-                                onChange={handleEndDateChange}
-                                selectsEnd
-                                startDate={startDate}
-                                endDate={endDate}
-                                placeholderText="End Date"
-                                className="ml-2"
+                            
+                            <div className="flex flex-col">
+                                <label for="fname">Arrival</label>
+                                <DatePicker
+                                    selected={startDate}
+                                    onChange={handleStartDateChange}
+                                    selectsStart
+                                    startDate={startDate}
+                                    endDate={endDate}
+                                    placeholderText="mm/dd/yyyy"
+                                />
+                            </div>
+                            <div className="flex flex-col">
+                                <label for="fname">Departure</label>
+                                <DatePicker
+                                    selected={endDate}
+                                    onChange={handleEndDateChange}
+                                    selectsEnd
+                                    startDate={startDate}
+                                    endDate={endDate}
+                                    placeholderText="mm/dd/yyyy"
+                                    className="ml-2"
+                                />
+                            </div>
+                        </div>
+                        {/* Number of People and Location */}
+                        <div>
+                            <label for="fname">Travelers</label>
+                            <input
+                                type="number"
+                                placeholder="Number of People"
+                                value={numberOfPeople}
+                                onChange={handleNumberOfPeopleChange}
+                                className="mb-2 border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-full"
                             />
                         </div>
 
-                        {/* Number of People and Location */}
-                        <input
-                            type="number"
-                            placeholder="Number of People"
-                            value={numberOfPeople}
-                            onChange={handleNumberOfPeopleChange}
-                            className="mb-2 border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
-                        />
-                        <input
-                            type="text"
-                            placeholder="Location"
-                            value={location}
-                            onChange={handleLocationChange}
-                            className="mb-2 border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
-                        />
 
                         {/* Submit Button */}
-                        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">
+                        <button type="submit" class="text-white bg-red-400 hover:bg-red-500 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
                             Search
                         </button>
                     </form>
