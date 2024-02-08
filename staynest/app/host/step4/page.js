@@ -85,6 +85,14 @@ const Step4 = () => {
                 </div>
             </div>
 
+            <div className="my-20 border-2 border-black rounded-lg p-6">
+                <div className="">
+                    <Link href="/host/step5">
+                    <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full" > Offer meals</button>
+                    </Link>
+                </div>
+            </div>
+
 
 
             <div className="flex justify-between items-center">
@@ -97,7 +105,7 @@ const Step4 = () => {
                 {/* <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full" onClick={handleSubmit}>Next</button> */}
 
                 <div className="flex justify-between items-center">
-                    <Link href="/host/step5">
+                    <Link href="/host/step6">
                         <button className="border border-gray-400 rounded-lg p-2 m-2" >
                             Next
                         </button>
