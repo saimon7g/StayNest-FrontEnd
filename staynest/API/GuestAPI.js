@@ -72,3 +72,23 @@ export async function getPropertyByID(propertyId) {
 
 
 }
+
+export async function getProperties() {
+    const apicalldata = {
+        "results": [
+          {
+            "property_id": "123456",
+            "name": "Cozy Apartment in New York",
+            "location_name": "New York",
+            "price_per_night": 150,
+            "availability": {
+              "check_in": "2024-01-12",
+              "check_out": "2024-01-15"
+            },
+            "photo": "base64convertedstring"
+          },
+        ]
+      }
+    return apicalldata;
+}
+      
