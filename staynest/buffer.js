@@ -1,49 +1,27 @@
-'use client';
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Link from "next/link";
-
-import RegistrationContext from "@/contexts/registrationContext"; // Line 24
-import { useEffect,useContext } from 'react';
-import { Step7GET,Step7PUT } from "@/API/Registration";
-
+import { Step7PUT } from "@/API/Registration";
+import RegistrationContext from "@/contexts/registrationContext";
 
 const Step7 = () => {
-    const { registrationId, setRegistrationId} = useContext(RegistrationContext);  // use the context
+    const { registrationId } = useContext(RegistrationContext);
 
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    useEffect(() => {
-        console.log("useEffect step7")
-        const fetchStep7Data = async () => {
-            try {
-                const response = await Step7GET(registrationId);
-                if (response.status === 404) {
-                    console.log("Empty data form");
-                // Handle the case of an empty data form
-             } else {
-                console.log("response--page7 --",response);
-                // Handle the response data as needed
-             }
-                // Handle the response data as needed
-            } catch (error) {
-                console.error('Error fetching step 7 data: ', error);
-            }
-        };
 
-        if (registrationId) {
-            console.log("registrationId--page7 --",registrationId);
-            fetchStep7Data();        
+    const handleSubmit = async () => {
+        try {
+            const response = await Step7PUT(registrationId, {
+                start_date: startDate,
+                end_date: endDate,
+            });
+            console.log(response.data.message); // Assuming your API returns a message upon successful update
+        } catch (error) {
+            console.error('Error updating step 7 data: ', error);
         }
-    }, [registrationId]);
-
-    const handleSubmit = (event) => {
-        console.log(startDate);
-        console.log(endDate);
-
     };
-
 
     return (
         <div>
@@ -65,8 +43,7 @@ const Step7 = () => {
                 />
             </div>
 
-
-            {/* a button to  confirm the dates */}
+            {/* a button to confirm the dates */}
             <div>
                 <button onClick={handleSubmit}>Confirm</button>
             </div>

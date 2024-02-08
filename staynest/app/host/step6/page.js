@@ -4,21 +4,70 @@ import { useState } from "react";
 // use nxt/link to link to other pages
 import Link from 'next/link';
 
+import RegistrationContext from "@/contexts/registrationContext";
+import { useEffect,useContext } from 'react';
+import { Step6GET,Step6PUT } from "@/API/Registration";
+
+
 
 const Step6 = () => {
-
+    const { registrationId, setRegistrationId} = useContext(RegistrationContext);  // use the context
     const [state, setState] = useState({
         allow_paying_guests: false,
-        allow_pets: false,
-        allow_smoking: false,
-        allow_children: false,
-        allow_infants: false,
-        allow_events: false,
         mealPrice: 0,
         mealDescription: '',
     });
 
 
+    useEffect(() => {
+        console.log("useEffect step6")
+        const fetchStep6Data = async () => {
+            try {
+                const response = await Step6GET(registrationId);
+                if (response.status === 404) {
+                    console.log("Empty data form");
+                // Handle the case of an empty data form
+             } else {
+                console.log("response--page6 --",response);
+                // Handle the response data as needed
+             }
+                // Handle the response data as needed
+            } catch (error) {
+                console.error('Error fetching step 6 data: ', error);
+            }
+        };
+
+        if (registrationId) {
+            console.log("registrationId--page6 --",registrationId);
+            fetchStep6Data();        
+        }
+    }, [registrationId]);
+
+    const handleMealPriceChange = (e) => {
+        setState({
+            ...state,
+            mealPrice: e.target.value,
+        });
+    };
+
+    const handleMealDescriptionChange = (e) => {
+        setState({
+            ...state,
+            mealDescription: e.target.value,
+        });
+    };
+    const handleSubmit = async () => {
+        try {
+            const response = await Step6PUT(registrationId, {
+                allow_paying_guests: state.allow_paying_guests,
+                meal_price: state.mealPrice,
+                description: state.mealDescription,
+            });
+            // console.log(response.data.message); // Assuming your API returns a message upon successful update
+        } catch (error) {
+            console.error('Error updating step 6 data: ', error);
+        }
+    };
 
     return (
         <div className="flex flex-col justify-center items-center">
@@ -36,9 +85,9 @@ const Step6 = () => {
             {state.allow_paying_guests ? (
                 <div>
                     <h1 className="text-2xl font-bold">Meal price</h1>
-                    <input className="block m-0 m-auto border-2 border-black" type="number" value={state.mealPrice} onChange={(e) => setState({ ...state, mealPrice: e.target.value })} />
+                    <input className="block m-0 m-auto border-2 border-black" type="number" value={state.mealPrice} onChange={handleMealPriceChange} />
                     <h1 className="text-2xl font-bold">Meal description</h1>
-                    <textarea className="border-2 border-black" value={state.mealDescription} rows="10" cols="50" onChange={(e) => setState({ ...state, mealDescription: e.target.value })} />
+                    <textarea className="border-2 border-black" value={state.mealDescription} rows="10" cols="50"   onChange={handleMealDescriptionChange}  />
                 </div>
             ) : null}
 
@@ -48,7 +97,7 @@ const Step6 = () => {
                     <button className="border border-gray-400 rounded-lg p-2 m-2">Prev</button>
                 </Link>
                 <Link href="/host/step7">
-                    <button className="border border-gray-400 rounded-lg p-2 m-2">Next</button>
+                    <button className="border border-gray-400 rounded-lg p-2 m-2" onClick={handleSubmit}>Next</button>
                 </Link>
             </div>
         </div>

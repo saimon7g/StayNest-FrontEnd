@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import FileUpload from "@/Components/ImageUpload";
 import { useState } from "react";
-import { Step3PUT } from "@/API/Registration";
+import { Step3GET,Step3PUT } from "@/API/Registration";
 
 import { FaTree } from "react-icons/fa";
 import { FaLightbulb } from "react-icons/fa6";
@@ -24,6 +24,30 @@ const Step3 = () => {
     const [highlights, setHighlights] = React.useState([]);
     const [description, setDescription] = React.useState('');
     
+    useEffect(() => {
+        console.log("useEffect step3")
+        const fetchStep3Data = async () => {
+            try {
+                const response = await Step3GET(registrationId);
+                if (response.status === 404) {
+                    console.log("Empty data form");
+                // Handle the case of an empty data form
+             } else {
+                console.log("response--page3 --",response);
+                // Handle the response data as needed
+             }
+                // Handle the response data as needed
+            } catch (error) {
+                console.error('Error fetching step 3 data: ', error);
+            }
+        };
+
+        if (registrationId) {
+            console.log("registrationId--page3 --",registrationId);
+            fetchStep3Data();        
+        }
+    }, [registrationId]);
+ 
     const handleTitleChange = (event) => {
         setHouseTitle(event.target.value);
         console.log("Title: ", event.target.value);

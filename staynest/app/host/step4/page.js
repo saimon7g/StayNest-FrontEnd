@@ -4,12 +4,90 @@ import Link from "next/link";
 
 import FileUpload from "@/Components/ImageUpload";
 import { useState } from "react";
-import { Step2PUT } from "@/API/Registration";
+import { Step4GET,Step4PUT } from "@/API/Registration";
 import { MdAttachMoney } from "react-icons/md";
+
+import RegistrationContext from "@/contexts/registrationContext";
+import { useEffect,useContext } from 'react';
+
 
 
 
 const Step4 = () => {
+    const { registrationId, setRegistrationId} = useContext(RegistrationContext);  // use the context
+    const [negotiationAvailability, setNegotiationAvailability] = useState(false);
+    const [securityFeatures, setSecurityFeatures] = useState({
+        "24/7 Security": false,
+        "Security Camera": false
+    });
+    const [price, setPrice] = useState("");
+    const [discount, setDiscount] = useState("");
+
+    useEffect(() => {
+        console.log("useEffect step4")
+        const fetchStep4Data = async () => {
+            try {
+                const response = await Step4GET(registrationId);
+                if (response.status === 404) {
+                    console.log("Empty data form");
+                // Handle the case of an empty data form
+             } else {
+                console.log("response--page4 --",response);
+                // Handle the response data as needed
+             }
+                // Handle the response data as needed
+            } catch (error) {
+                console.error('Error fetching step 4 data: ', error);
+            }
+        };
+
+        if (registrationId) {
+            console.log("registrationId--page4 --",registrationId);
+            fetchStep4Data();        
+        }
+    }, [registrationId]);
+
+    const handleNegotiationAvailabilityChange = (e) => {
+        setNegotiationAvailability(e.target.checked);
+        console.log("Negotiation availability: ", e.target.checked);
+    };
+
+    const handleSecurityFeatureChange = (feature) => {
+        setSecurityFeatures(prevState => ({
+            ...prevState,
+            [feature]: !prevState[feature]
+        }));
+        console.log("Security features: ", securityFeatures);
+    };
+
+    const handlePriceChange = (e) => {
+        setPrice(e.target.value);
+        console.log("Price: ", e.target.value);
+    };
+
+    const handleDiscountChange = (e) => {
+        setDiscount(e.target.value);
+        console.log("Discount: ", e.target.value);
+    };
+
+    const handleSubmit = async () => {
+        try {
+            const data= {   
+                negotiation_availability: negotiationAvailability,
+                price: parseFloat(price),
+                discounts: {
+                    earlyBooking: parseFloat(discount),
+                    weeklyStay: 15 
+                },
+                security_features: Object.keys(securityFeatures).filter(feature => securityFeatures[feature])
+            }
+            await step4PUT(registrationId, data);
+           
+        } catch (error) {
+            console.error('Error submitting form data step6:', error);
+        }
+    };
+
     return (
         <div className="flex flex-col items-center justify-center">
 
@@ -28,7 +106,7 @@ const Step4 = () => {
                     </div>
 
                     <div className="pl-8">
-                        <input type="checkbox" className="w-7 h-7">
+                    <input type="checkbox" className="w-7 h-7" checked={negotiationAvailability} onChange={handleNegotiationAvailabilityChange} >
                         </input>
                     </div>
 
@@ -41,26 +119,17 @@ const Step4 = () => {
                 <div className="pb-10">
                     <text className="text-2xl font-bold ">11. Do you have any of these security features?</text>
                 </div>
-                <div className="flex  justify-between p-2 w-96">
-                    <div className="">
-                        <text className="text-xl font-bold ">24/7 Security</text>
+                {Object.keys(securityFeatures).map((feature, index) => (
+                    <div className="flex justify-between p-2 w-96" key={index}>
+                        <div>
+                            <text className="text-xl font-bold ">{feature}</text>
+                        </div>
+                        <div className="pl-8">
+                            <input type="checkbox" className="w-7 h-7" checked={securityFeatures[feature]} onChange={() => handleSecurityFeatureChange(feature)} />
+                        </div>
                     </div>
-                    <div className="pl-8">
-                        <input type="checkbox" className="w-7 h-7">
-                        </input>
-                    </div>
-
-                </div>
-                <div className="flex  justify-between p-2 w-96">
-                    <div className="">
-                        <text className="text-xl font-bold ">Security camera</text>
-                    </div>
-                    <div className="pl-8">
-                        <input type="checkbox" className="w-7 h-7">
-                        </input>
-                    </div>
-
-                </div>
+                ))}
+                
             </div>
 
 
@@ -71,7 +140,8 @@ const Step4 = () => {
                     <text className="text-lg text-gray-400 font-bold pl-10">You can change it anytime.</text>
                 </div>
                 <div className="">
-                    <textarea className="mr-24 mt-4 border-2 border-black rounded text-6xl" rows="1" cols="10" type="number" placeholder="Price"></textarea>
+                    <textarea className="mr-24 mt-4 border-2 border-black rounded text-6xl" rows="1" cols="10" type="number" placeholder="Price" value={price} onChange={handlePriceChange} />
+
                 </div>
             </div>
             <div className="my-20 border-2 border-black rounded-lg p-6">
@@ -81,7 +151,7 @@ const Step4 = () => {
                     <text className="text-lg text-gray-400 font-bold pl-10">You can change it anytime.</text>
                 </div>
                 <div className="">
-                    <textarea className="mt-4 border-2 border-black rounded text-6xl" rows="1" cols="10" type="number" placeholder="Discount %"></textarea>
+                    <textarea className="mt-4 border-2 border-black rounded text-6xl" rows="1" cols="10" type="number" placeholder="Discount %" value={discount} onChange={handleDiscountChange} />
                 </div>
             </div>
 
@@ -106,7 +176,7 @@ const Step4 = () => {
 
                 <div className="flex justify-between items-center">
                     <Link href="/host/step6">
-                        <button className="border border-gray-400 rounded-lg p-2 m-2" >
+                        <button className="border border-gray-400 rounded-lg p-2 m-2"onClick={handleSubmit} >
                             Next
                         </button>
                     </Link>
