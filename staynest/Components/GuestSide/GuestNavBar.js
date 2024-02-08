@@ -64,7 +64,7 @@ const Navbar = ( ) => {
    
 
     return (
-        <nav className="flex justify-between items-center h-16 bg-white text-black relative shadow-sm font-mono" role="navigation">
+        <nav className="flex justify-between items-center h-16 bg-blue-200 text-black relative shadow-sm font-mono" role="navigation">
             {/* Existing Logo */}
             <Link href="/">
                 <div className="pl-8">
@@ -73,15 +73,16 @@ const Navbar = ( ) => {
             </Link>
 
             {/* Search Icon */}
-            <div className="pr-8 cursor-pointer" onClick={() => setIsSearchFormVisible(!isSearchFormVisible)}>
-                <FiSearch size={24} />
+            <div className="flex justify-between bg-slate-100 rounded-full py-2 px-6 cursor-pointer" onClick={() => setIsSearchFormVisible(!isSearchFormVisible)}>
+                <text className="text-2xl text-slate-400 px-20">Where | When</text>
+                <FiSearch size={30} />
             </div>
 
             {/* Dynamic Search Form */}
             {isSearchFormVisible && (
-                <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-4 border border-gray-300 rounded-md shadow-md">
-                    <text className=""> search your stay</text>
-                    <form onSubmit={handleSearchSubmit}>
+                <div className="bg-slate-100 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-4 border border-gray-300 rounded-md shadow-md">
+                    <text className="text-3xl ml-20 my-16"> Search your stay</text>
+                    <form onSubmit={handleSearchSubmit} >
                         <div>
                             <label for="fname">Location</label>
                             <input
@@ -142,8 +143,8 @@ const Navbar = ( ) => {
 
             {/* Existing Account Link */}
             <Link href="/account">
-                <div className="pr-8">
-                    <Image src={Logo} alt="account" width={100} height={100} />
+                <div className=" pr-8">
+                    <Image src={Logo} alt="account" width={100} height={100} className='rounded-full' />
                 </div>
             </Link>
         </nav>
