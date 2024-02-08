@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import Image from 'next/image';
-import Logo from '@/StaticImage/Meta_Inc._logo.jpg';
+import Logo from '@/StaticImage/logo1.png';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FiSearch } from 'react-icons/fi'; // Import the search icon

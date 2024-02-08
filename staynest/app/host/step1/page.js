@@ -40,7 +40,7 @@ const Step1 = () => {
     const [bedrooms, setBedrooms] = React.useState("4");
     const [beds, setBeds] = React.useState("3");
     const [bathrooms, setBathrooms] = React.useState("2");
-    const { setRegistrationId } = useContext(RegistrationContext);  // use the context
+    const { registrationId, setRegistrationId} = useContext(RegistrationContext);  // use the context
 
     // const receivedVariable = useRouter().query;
     // console.log("received variable");
@@ -129,15 +129,13 @@ const Step1 = () => {
             }
         }
         const response_data= await Step1Post(result);
-        console.log('RESponSE Dta is here ');
+        console.log('RESponSE Data is here ');
         try {
-           
             setRegistrationId(response_data.registration_id);  // set the context variable 
             console.log("registration id is set to ----- ", response_data.registration_id);      
         } catch (error) {       
             console.log("error SETTING registration id in context");
         }
-        
         console.log("submit clicked");
     }
 

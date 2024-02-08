@@ -29,7 +29,7 @@ import Link from "next/link";
 
 import RegistrationContext from "@/contexts/registrationContext";
 const Step2 = () => {
-    const { registrationId} = useContext(RegistrationContext);  // use the context
+    const { registrationId, setRegistrationId} = useContext(RegistrationContext);  // use the context
 
     const [regular_amenities, setRegularAmenities] = React.useState([]);
     const [standout_amenities, setStandoutAmenities] = React.useState([]);
@@ -60,9 +60,7 @@ const Step2 = () => {
 
         if (registrationId) {
             console.log("registrationId--page2 --",registrationId);
-            fetchStep2Data();
-            
-            
+            fetchStep2Data();        
         }
     }, [registrationId]);
 

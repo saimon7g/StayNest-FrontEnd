@@ -3,8 +3,6 @@ import Image from 'next/image';
 
 export default async function GuestHome() {
 
-  const [data, setData] = useState(initialData);
-
 
 
   return (
@@ -17,5 +15,5 @@ export default async function GuestHome() {
   )
 
 
-  
+
 }
