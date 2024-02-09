@@ -79,11 +79,44 @@ export async function getProperties() {
           {
             "property_id": "123456",
             "name": "Cozy Apartment in New York",
-            "location_name": "New York",
+            "location_name": "New York klhugkyftjhrshxdtcjfyguihivucyfxdt jhfszdfxtcfyguyihujbhgvf",
             "price_per_night": 150,
             "availability": {
               "check_in": "2024-01-12",
               "check_out": "2024-01-15"
+            },
+            "photo": "base64convertedstring"
+          },
+          {
+            "property_id": "123457",
+            "name": "hen ten hen ten",
+            "location_name": "Dacca",
+            "price_per_night": 350,
+            "availability": {
+              "check_in": "2024-01-22",
+              "check_out": "2024-01-25"
+            },
+            "photo": "base64convertedstring"
+          },
+          {
+            "property_id": "123457",
+            "name": "hen ten hen ten",
+            "location_name": "Dacca",
+            "price_per_night": 350,
+            "availability": {
+              "check_in": "2024-01-22",
+              "check_out": "2024-01-25"
+            },
+            "photo": "base64convertedstring"
+          },
+          {
+            "property_id": "123457",
+            "name": "hen ten hen ten",
+            "location_name": "Dacca",
+            "price_per_night": 350,
+            "availability": {
+              "check_in": "2024-01-22",
+              "check_out": "2024-01-25"
             },
             "photo": "base64convertedstring"
           },
