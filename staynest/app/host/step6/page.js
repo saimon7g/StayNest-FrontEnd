@@ -18,7 +18,7 @@ const Step6 = () => {
         mealDescription: '',
     });
 
-
+    // setRegistrationId(57);
     useEffect(() => {
         console.log("useEffect step6")
         const fetchStep6Data = async () => {
@@ -28,8 +28,13 @@ const Step6 = () => {
                     console.log("Empty data form");
                 // Handle the case of an empty data form
              } else {
+                setState({ ...state, allow_paying_guests: response.data.allow_paying_guests });
+                setRegistrationId(registrationId);
                 console.log("response--page6 --",response);
                 // Handle the response data as needed
+                setState({ ...state, mealPrice: response.data.meal_price });
+                setState({ ...state, mealDescription: response.data.description });
+                
              }
                 // Handle the response data as needed
             } catch (error) {
@@ -58,11 +63,13 @@ const Step6 = () => {
     };
     const handleSubmit = async () => {
         try {
-            const response = await Step6PUT(registrationId, {
+            setRegistrationId(registrationId)
+            const response = await Step6PUT( {
                 allow_paying_guests: state.allow_paying_guests,
                 meal_price: state.mealPrice,
                 description: state.mealDescription,
-            });
+                'photo':'No photo uploaded',
+            },registrationId);
             // console.log(response.data.message); // Assuming your API returns a message upon successful update
         } catch (error) {
             console.error('Error updating step 6 data: ', error);
@@ -93,8 +100,8 @@ const Step6 = () => {
 
             {/* next button to go to next page  and prev button to go to prev page */}
             <div className="flex justify-between items-center">
-                <Link href="/host/step5">
-                    <button className="border border-gray-400 rounded-lg p-2 m-2">Prev</button>
+                <Link href="/host/step4">
+                    <button className="border border-gray-400 rounded-lg p-2 m-2" onClick={() => setRegistrationId(registrationId)}>Prev</button>
                 </Link>
                 <Link href="/host/step7">
                     <button className="border border-gray-400 rounded-lg p-2 m-2" onClick={handleSubmit}>Next</button>

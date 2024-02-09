@@ -5,7 +5,7 @@ export async function Step1GET() {
         const response = await axios.get("http://127.0.0.1:8000/host/api/property_registration/step1/");
         console.log(" from api step1get");
         console.log(response.data);
-        return response.data;
+        return response;
     } catch (error) {
         console.error(error);
     }
@@ -28,7 +28,7 @@ export async function Step1Post(data) {
             }
         });
         console.log(response.data);
-        return response.data;
+        return response;
     }
     catch (error) {
         console.error(error);
@@ -52,8 +52,8 @@ export async function Step2GET(registrationId) {
             headers: {   'Authorization': `Token ${authToken}`, 
             'Content-Type': 'application/json' }
         });
-        console.log(response.data);
-        return response.data;
+        console.log(response);
+        return response;
         
     }
     catch (error) {
@@ -70,10 +70,10 @@ export async function Step2PUT(data,registration_id) {
             headers: {
                 'Authorization': `Token ${authToken}`,
                 'Content-Type': 'application/json'
-            }
+            },
         });
-        console.log(response.data);
-        return response.data;
+        console.log(response);
+        return response;
     }
     catch (error) {
         console.error(error);
@@ -86,7 +86,7 @@ export async function Step3GET(registrationId) {
         const authToken = sessionStorage.getItem('authToken');
         if (authToken === null) {
             console.log("//-----No token found");
-            return;
+            return ;
         }
         else
         {
@@ -94,10 +94,10 @@ export async function Step3GET(registrationId) {
         }
         const response = await axios.get(`http://127.0.0.1:8000/host/api/property_registration/step3/${registrationId}/`, {
             headers: {   'Authorization': `Token ${authToken}`, 
-            'Content-Type': 'application/json' }
+            'Content-Type': 'application/json' },
         });
-        console.log(response.data);
-        return response.data;
+        console.log(response);
+        return response;
         
     }
     catch (error) {
@@ -113,11 +113,13 @@ export async function Step3PUT(data,registration_id) {
         const response = await axios.put(`http://127.0.0.1:8000/host/api/property_registration/step3/${registration_id}/`, data, {
             headers: {
                 'Authorization': `Token ${authToken}`,
-                'Content-Type': 'application/json'
-            }
+                'Content-Type': 'application/json',
+                
+
+            },
         });
-        console.log(response.data);
-        return response.data;
+        console.log(response);
+        return response;
     }
     catch (error) {
         console.error(error);
@@ -140,7 +142,7 @@ export async function Step4GET(registrationId) {
             'Content-Type': 'application/json' }
         });
         console.log(response.data);
-        return response.data;
+        return response;
         
     }
     catch (error) {
@@ -159,7 +161,7 @@ export async function Step4PUT(data,registration_id) {
             }
         });
         console.log(response.data);
-        return response.data;
+        return response;
     }
     catch (error) {
         console.error(error);
@@ -195,7 +197,7 @@ export async function Step5PUT(data,registration_id) {
             }
         });
         console.log(response.data);
-        return response.data;
+        return response;
     }
     catch (error) {
         console.error(error);
@@ -218,7 +220,7 @@ export async function Step6GET(registrationId) {
             'Content-Type': 'application/json' }
         });
         console.log(response.data);
-        return response.data;
+        return response;
         
     }
     catch (error) {
@@ -237,7 +239,7 @@ export async function Step6PUT(data,registration_id) {
             }
         });
         console.log(response.data);
-        return response.data;
+        return response;
     }
     catch (error) {
         console.error(error);
@@ -260,7 +262,7 @@ export async function Step7GET(registrationId) {
             'Content-Type': 'application/json' }
         });
         console.log(response.data);
-        return response.data;
+        return response;
         
     }
     catch (error) {
@@ -279,7 +281,7 @@ export async function Step7PUT(data,registration_id) {
             }
         });
         console.log(response.data);
-        return response.data;
+        return response;
     }
     catch (error) {
         console.error(error);

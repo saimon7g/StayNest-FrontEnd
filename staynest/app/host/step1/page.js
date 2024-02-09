@@ -128,11 +128,11 @@ const Step1 = () => {
                 "number_of_bathrooms": bathrooms
             }
         }
-        const response_data= await Step1Post(result);
+        const response= await Step1Post(result);
         console.log('RESponSE Data is here ');
         try {
-            setRegistrationId(response_data.registration_id);  // set the context variable 
-            console.log("registration id is set to ----- ", response_data.registration_id);      
+            setRegistrationId(response.data.registration_id);  // set the context variable 
+            console.log("registration id is set to ----- ", response.data.registration_id);      
         } catch (error) {       
             console.log("error SETTING registration id in context");
         }

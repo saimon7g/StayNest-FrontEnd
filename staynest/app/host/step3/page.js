@@ -13,7 +13,7 @@ import { HiMiniHomeModern } from "react-icons/hi2";
 import { IoLocation } from "react-icons/io5";
 import { FaPeopleArrows } from "react-icons/fa6";
 import { useEffect,useContext } from 'react';
-import RegistrationContext from "@/contexts/registrationContext"; // Line 24
+import RegistrationContext from "@/contexts/registrationContext"; // Line 24setRegistrationId
 
 
 
@@ -23,7 +23,7 @@ const Step3 = () => {
     const [houseTitle, setHouseTitle] = React.useState('');
     const [highlights, setHighlights] = React.useState([]);
     const [description, setDescription] = React.useState('');
-    
+    // (57);
     useEffect(() => {
         console.log("useEffect step3")
         const fetchStep3Data = async () => {
@@ -35,6 +35,10 @@ const Step3 = () => {
              } else {
                 console.log("response--page3 --",response);
                 // Handle the response data as needed
+                setHouseTitle(response.data.house_title);
+                setHighlights(response.data.highlights);
+                setDescription(response.data.description);
+                
              }
                 // Handle the response data as needed
             } catch (error) {
@@ -72,14 +76,15 @@ const Step3 = () => {
     
         // Prepare data to send to the server
         const data = {
-            houseTitle: houseTitle,
-            highlights: highlights,
-            description: description,
+            "house_title": houseTitle,
+            "highlights": highlights,
+            "description": description,
         };
     
         // Send the data to the server
         if (registrationId) {
             await Step3PUT(data, registrationId);
+            setRegistrationId(registrationId);
         }
         else {
             console.error('No registration ID found');
@@ -184,7 +189,7 @@ const Step3 = () => {
 
                 <div className="flex justify-between items-center">
                     <Link href="/host/step2">
-                        <button className="border border-gray-400 rounded-lg p-2 m-2">
+                        <button className="border border-gray-400 rounded-lg p-2 m-2"onClick={() => setRegistrationId(registrationId)}>
                             Prev
                         </button>
                     </Link>

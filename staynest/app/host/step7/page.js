@@ -25,6 +25,8 @@ const Step7 = () => {
              } else {
                 console.log("response--page7 --",response);
                 // Handle the response data as needed
+                setStartDate(new Date(response.data.selected_dates[0].start_date));
+                setEndDate(new Date(response.data.selected_dates[0].end_date));
              }
                 // Handle the response data as needed
             } catch (error) {
@@ -38,10 +40,25 @@ const Step7 = () => {
         }
     }, [registrationId]);
 
-    const handleSubmit = (event) => {
-        console.log(startDate);
-        console.log(endDate);
-
+    const handleSubmit = async () => {
+        try {
+            setRegistrationId(registrationId);
+            let start_date=startDate.toISOString().split('T')[0];
+            let end_date=endDate.toISOString().split('T')[0];
+            const data= {
+                selected_dates: [{
+                    start_date: start_date,
+                    end_date: end_date
+                }]
+                
+            }
+            console.log("data--page7 --",data);
+            const response = await Step7PUT(data,registrationId);
+            console.log(response)
+            // console.log(response.data.message); // Assuming your API returns a message upon successful update
+        } catch (error) {
+            console.error('Error updating step 7 data: ', error);
+        }
     };
 
 
@@ -74,12 +91,12 @@ const Step7 = () => {
             {/* next button to go to the next page and prev button to go to the prev page */}
             <div className="flex justify-between items-center">
                 <Link href="/host/step6">
-                    <button className="border border-gray-400 rounded-lg p-2 m-2">
+                    <button className="border border-gray-400 rounded-lg p-2 m-2"onClick={() => setRegistrationId(registrationId)}>
                         Prev
                     </button>
                 </Link>
                 <Link href="/host/step7">
-                    <button className="border border-gray-400 rounded-lg p-2 m-2">
+                    <button className="border border-gray-400 rounded-lg p-2 m-2"onClick={handleSubmit}>
                         Register
                     </button>
                 </Link>

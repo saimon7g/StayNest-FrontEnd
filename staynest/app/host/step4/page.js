@@ -34,6 +34,15 @@ const Step4 = () => {
              } else {
                 console.log("response--page4 --",response);
                 // Handle the response data as needed
+                setNegotiationAvailability(response.data.negotiation_availability);
+                setPrice(response.data.price);
+                setDiscount(response.data.discounts.earlyBooking);
+                const securityFeatures = response.data.security_features.reduce((acc, feature) => {
+                    acc[feature] = true;
+                    return acc;
+                }, {});
+                setSecurityFeatures(securityFeatures);
+                
              }
                 // Handle the response data as needed
             } catch (error) {
@@ -73,15 +82,16 @@ const Step4 = () => {
     const handleSubmit = async () => {
         try {
             const data= {   
-                negotiation_availability: negotiationAvailability,
-                price: parseFloat(price),
-                discounts: {
-                    earlyBooking: parseFloat(discount),
-                    weeklyStay: 15 
+                "negotiation_availability": negotiationAvailability,
+                "price": parseFloat(price),
+                "discounts": {
+                    "earlyBooking": parseFloat(discount),
+                    "weeklyStay": 15 
                 },
-                security_features: Object.keys(securityFeatures).filter(feature => securityFeatures[feature])
+                "security_features": Object.keys(securityFeatures).filter(feature => securityFeatures[feature])
             }
-            await step4PUT(registrationId, data);
+            setRegistrationId(registrationId)
+            await Step4PUT( data,registrationId);
            
         } catch (error) {
             console.error('Error submitting form data step6:', error);
@@ -167,7 +177,7 @@ const Step4 = () => {
 
             <div className="flex justify-between items-center">
                 <Link href="/host/step3">
-                    <button className="border border-gray-400 rounded-lg p-2 m-2">
+                    <button className="border border-gray-400 rounded-lg p-2 m-2" onClick={() => setRegistrationId(registrationId)}>
                         Prev
                     </button>
                 </Link>
