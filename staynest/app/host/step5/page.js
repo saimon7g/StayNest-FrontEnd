@@ -1,12 +1,19 @@
 'use client';
 import React from "react";
-import { useEffect } from 'react';
 import { useState } from 'react';
 import Link from 'next/link';
+
+import { useEffect,useContext } from 'react';
+import { Step5GET,Step5PUT } from "@/API/Registration";
+import  RegistrationContext from "@/contexts/registrationContext";
+
+
 
 const Step5 = () => {
 
     //array to hold breakfast wgich have name, price, description, image
+    const { registrationId, setRegistrationId} = useContext(RegistrationContext);  // use the context
+
     const [breakfast, setBreakfast] = useState([]);
     const [lunch, setLunch] = useState([]);
     const [dinner, setDinner] = useState([]);
@@ -30,6 +37,29 @@ const Step5 = () => {
     // flag variable to check which meal is selected
     const [meal, setMeal] = useState("breakfast");
     const [modalState, setModalState] = useState(false);
+    useEffect(() => {
+        console.log("useEffect step5")
+        const fetchStep5Data = async () => {
+            try {
+                const response = await Step5GET(registrationId);
+                if (response.status === 404) {
+                    console.log("Empty data form");
+                // Handle the case of an empty data form
+             } else {
+                console.log("response--page5 --",response);
+                // Handle the response data as needed
+             }
+                // Handle the response data as needed
+            } catch (error) {
+                console.error('Error fetching step 5 data: ', error);
+            }
+        };
+
+        if (registrationId) {
+            console.log("registrationId--page5 --",registrationId);
+            fetchStep5Data();        
+        }
+    }, [registrationId]);
 
     useEffect(() => {
 
@@ -40,7 +70,7 @@ const Step5 = () => {
 
 
     }, []);
-
+    
     const AddMore = (meal) => {
         setMeal(meal);
         setModalState(true);

@@ -14,7 +14,13 @@ export default async function GuestHome() {
   return (
       <div className="flex flex-col items-center justify-center">
         <div className="">
-          <Image src={Logo} alt="logo" className="w-full" />
+        <Image
+                    key={response.results[0].property_id} // Unique key for each image
+                    src={response.results[0].photo} // Image URL
+                    alt="StayNest" // Alt text
+                    layout="fill" // Optional: Responsive layout
+                    objectFit="cover" // Optional: Image cropping behavior
+                />
         </div>
         <div>
           <text>discover safe travel with stay nest</text>

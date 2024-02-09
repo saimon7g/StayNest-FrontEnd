@@ -44,13 +44,18 @@ const Step2 = () => {
             try {
                 const response = await Step2GET(registrationId);
                 console.log("step2get")
-                console.log(response);
                 // Check if response status is 404 (Not Found)
                 if (response.status === 404) {
                     console.log("Empty data form");
                 // Handle the case of an empty data form
              } else {
+                console.log(response.data);
+                
                 // Handle the response data as needed
+                setRegularAmenities(response.data.regular_amenities);
+                setStandoutAmenities(response.data.standout_amenities);
+                setUploadedFiles(response.data.photos);
+                
              }
                 // Handle the response data as needed
             } catch (error) {
@@ -63,7 +68,7 @@ const Step2 = () => {
             fetchStep2Data();        
         }
     }, [registrationId]);
-
+ 
     const handleRegularAmenities = (event, type) => {
         console.log(type);
         event.preventDefault();
@@ -136,7 +141,8 @@ const Step2 = () => {
             "photos": photos_json
         }
 
-        const result = Step2PUT(data);
+        const result = Step2PUT(data,registrationId);
+        setRegistrationId(registrationId)
         console.log(result);
     }
 
@@ -364,7 +370,7 @@ const Step2 = () => {
             {/* next button to go to the next page and prev button to go to the prev page */}
             <div className="flex justify-between items-center">
                 <Link href="/host/step1">
-                    <button className="border border-gray-400 rounded-lg p-2 m-2">
+                    <button className="border border-gray-400 rounded-lg p-2 m-2"onClick={() => setRegistrationId(registrationId)}>
                         Prev
                     </button>
                 </Link>
