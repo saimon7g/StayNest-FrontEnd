@@ -147,6 +147,12 @@ const Navbar = ( ) => {
                     <Image src={Logo} alt="account" width={100} height={100} className='rounded-full' />
                 </div>
             </Link>
+            <Link href="/host">
+                <button>
+                    bhung chung
+                </button>
+            </Link>
+            
         </nav>
     );
 };
