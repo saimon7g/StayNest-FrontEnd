@@ -2,7 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { useState } from 'react';
-import Logo from '@/StaticImage/Meta_Inc._logo.jpg';
+import Logo from '@/StaticImage/home_page.jpg';
 import { getProperties } from '@/API/GuestAPI';
 
 
@@ -14,7 +14,7 @@ export default async function GuestHome() {
   return (
       <div className="flex flex-col items-center justify-center">
         <div className="">
-            <Image src={Logo} alt="logo" className='w-full h-full'/>
+            <Image src={Logo} alt="logo" width={1400} height={1000}/>
         </div>
         <div className="mb-20">
           <p className='text-3xl font-bold'>discover safe travel with stay nest</p>

@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image'
-import Logo from '@/StaticImage/Meta_Inc._logo.jpg'
+import Logo from '@/StaticImage/logo2.png'
 
 export default function Navbar() {
 
@@ -46,8 +46,8 @@ export default function Navbar() {
             </Link>
           </div>
           <Link href="/account">
-            <div>
-              <Image src={Logo} width={65} alt="Picture of the author" />
+            <div >
+              <Image src={Logo} width={65} alt="Picture of the author" className='border rounded-full'/>
             </div>
           </Link>
         </div>
