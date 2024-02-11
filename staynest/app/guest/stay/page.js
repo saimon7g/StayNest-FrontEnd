@@ -1,20 +1,38 @@
 'use client';
-import React from 'react';
+import React, {  useState } from 'react';
 import Image from 'next/image';
-import { useState } from 'react';
-import Logo from '@/StaticImage/Meta_Inc._logo.jpg';
 import { getProperties } from '@/API/GuestAPI';
 import { FaHome } from "react-icons/fa";
 import { GiMeal } from "react-icons/gi";
 import { FaHandshake } from "react-icons/fa";
+import { useEffect,useContext } from 'react';
+import QueryParamsContext from '@/contexts/queryParamsContext';
 
+export default function GuestStay() {
+  const [properties, setProperties] = useState([]);
+  const {queryParams, setQueryParams}= useContext(QueryParamsContext);
 
-export default async function GuestStay() {
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
 
-  const response = await getProperties();
+            console.log('-----queryParams');
+            console.log(queryParams);
+          const response = await getProperties(queryParams);
+          setProperties(response.results);
+        } catch (error) {
+          console.error('Error fetching properties:', error);
+        }
+      };
+      if(queryParams){
+        fetchData();
+      }
+      
+    }, [queryParams]);
 
+   
   return (
-      <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center">
         <div className='flex flex-row items-center justify-center w-11/12 my-20'>
             <div className='border-4 border-black rounded-lg w-1/4 ml-8'>
                 <p className="text-slate-400">Location</p>
@@ -68,7 +86,7 @@ export default async function GuestStay() {
         </div>
         <div className="ml-8 grid grid-cols-3 grid-rows-1">
           {
-            response.results.map((e)=>{
+            properties.map((e)=>{
               return <div className='row-span-1 col-span-1' key={e.property_id}>
                         <div className="max-w-sm h-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                             <a href="#">
@@ -99,8 +117,7 @@ export default async function GuestStay() {
           
         </div>
       </div>
+
   )
-
-
-
 }
+    

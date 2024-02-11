@@ -8,6 +8,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { FiSearch } from 'react-icons/fi'; // Import the search icon
 import { IoIosCalendar } from 'react-icons/io'; // Import other icons as needed
 
+import { useEffect,useContext } from 'react';
+import  QueryParamsContext from '@/contexts/queryParamsContext';
 
 const Navbar = ( ) => {
 
@@ -28,12 +30,13 @@ const Navbar = ( ) => {
     //       },
     //     ]
     //   }
-      
+    const {queryParams, setQueryParams}= useContext(QueryParamsContext);
     const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [numberOfPeople, setNumberOfPeople] = useState(1);
     const [location, setLocation] = useState('');
+    const [queryString, setQueryString] = useState('');
 
     const handleStartDateChange = (date) => {
         setStartDate(date);
@@ -54,8 +57,19 @@ const Navbar = ( ) => {
     const handleSearchSubmit = (event) => {
         event.preventDefault();
 
-
-
+        const searchParams = {
+            location: location,
+            check_in: startDate,
+            check_in:endDate,
+            guests: numberOfPeople,
+            room_type: "Entire home/apt",
+            "price_range": {
+    "min": 50,
+    "max": 2000
+  },
+"category":"any",
+        };
+         setQueryParams(searchParams);
 
 
 
@@ -134,9 +148,12 @@ const Navbar = ( ) => {
 
 
                         {/* Submit Button */}
-                        <button type="submit" class="text-white bg-red-400 hover:bg-red-500 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
+                        <Link href={`/guest/stay/`}>
+                           <button type="submit" class="text-white bg-red-400 hover:bg-red-500 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
                             Search
                         </button>
+                        </Link>
+                        
                     </form>
                 </div>
             )}
