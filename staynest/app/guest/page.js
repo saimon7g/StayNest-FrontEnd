@@ -1,9 +1,8 @@
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { useState } from 'react';
+
 import Logo from '@/StaticImage/home_page.jpg';
-import Logo from '@/StaticImage/Meta_Inc._logo.jpg';
 import MyLogo from '@/StaticImage/logo1.png';
 import { getProperties } from '@/API/GuestAPI';
 import { useEffect,useContext } from 'react';
@@ -48,7 +47,7 @@ export default function GuestHome() {
         </div>
         <div className="ml-8 grid grid-cols-3 grid-rows-1">
           {
-            response.results.map((e)=>{
+            properties.map((e)=>{
               return <div className='row-span-1 col-span-1' key={e.property_id}>
                         <div className="max-w-sm h-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                             <a href="#">
@@ -79,7 +78,7 @@ export default function GuestHome() {
           
         </div>
       </div>
-    </div>
+    
   );
 }
 //         });
