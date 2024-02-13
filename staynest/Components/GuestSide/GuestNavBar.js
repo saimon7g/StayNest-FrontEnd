@@ -7,12 +7,16 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FiSearch } from 'react-icons/fi'; // Import the search icon
 import { IoIosCalendar } from 'react-icons/io'; // Import other icons as needed
+<<<<<<< Updated upstream
 
 import { useEffect,useContext } from 'react';
 import  QueryParamsContext from '@/contexts/queryParamsContext';
+=======
+import { useRouter } from 'next/navigation';
+>>>>>>> Stashed changes
 
 const Navbar = ( ) => {
-
+const router = useRouter();
 
 
     // {
@@ -69,9 +73,16 @@ const Navbar = ( ) => {
   },
 "category":"any",
         };
+<<<<<<< Updated upstream
          setQueryParams(searchParams);
 
 
+=======
+
+        const queryString =  JSON.stringify(searchParams);
+
+        router.push(`/guest/stay/?search=${queryString}`);
+>>>>>>> Stashed changes
 
         setIsSearchFormVisible(false);
     };
@@ -148,7 +159,13 @@ const Navbar = ( ) => {
 
 
                         {/* Submit Button */}
+<<<<<<< Updated upstream
                         <Link href={`/guest/stay/`}>
+=======
+                        <Link href="/guest/stay">
+                        <button type="submit" class="text-white bg-red-400 hover:bg-red-500 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
+                        
+>>>>>>> Stashed changes
                            <button type="submit" class="text-white bg-red-400 hover:bg-red-500 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
                             Search
                         </button>

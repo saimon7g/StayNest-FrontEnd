@@ -98,6 +98,40 @@ export async function getProperties(data) {
     catch (error) {
         console.error(error);
     }
+<<<<<<< Updated upstream
+=======
+
+    return result;
+
+
+}
+
+export async function getProperties(data) {
+  console.log(data)
+    try {
+      console.log('getProperties')
+      console.log(data)
+        const authToken = sessionStorage.getItem('authToken');
+        if (authToken === null) {
+            console.log("//-----No token found");
+            
+        }
+        else
+        {
+            console.log(authToken);
+        }
+        const response = await axios.put("http://127.0.0.1:8000/host/api/properties/search/", data,{
+            headers: {   'Authorization': `Token ${authToken}`, 
+            'Content-Type': 'application/json' },
+        });
+        // console.log(response);
+        return response.data;
+        
+    }
+    catch (error) {
+        console.error(error);
+    }
+>>>>>>> Stashed changes
 }
 //     const apicalldata = {
 //         "results": [

@@ -6,6 +6,7 @@ import { FaHome } from "react-icons/fa";
 import { GiMeal } from "react-icons/gi";
 import { FaHandshake } from "react-icons/fa";
 import { useEffect,useContext } from 'react';
+<<<<<<< Updated upstream
 import QueryParamsContext from '@/contexts/queryParamsContext';
 
 export default function GuestStay() {
@@ -19,16 +20,40 @@ export default function GuestStay() {
             console.log('-----queryParams');
             console.log(queryParams);
           const response = await getProperties(queryParams);
+=======
+import { useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
+
+export default function GuestStay() {
+  const [properties, setProperties] = useState([]);
+  const router = useRouter();
+  const params = useSearchParams();
+  console.log('--------------params');
+  console.log(params.get('search'));
+ 
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+
+          const response = await getProperties(params.get('search'));
+>>>>>>> Stashed changes
           setProperties(response.results);
         } catch (error) {
           console.error('Error fetching properties:', error);
         }
       };
+<<<<<<< Updated upstream
       if(queryParams){
         fetchData();
       }
       
     }, [queryParams]);
+=======
+      fetchData();
+      
+    }, []);
+>>>>>>> Stashed changes
 
    
   return (
