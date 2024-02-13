@@ -98,8 +98,6 @@ export async function getProperties(data) {
     catch (error) {
         console.error(error);
     }
-<<<<<<< Updated upstream
-=======
 
     return result;
 
@@ -131,7 +129,6 @@ export async function getProperties(data) {
     catch (error) {
         console.error(error);
     }
->>>>>>> Stashed changes
 }
 //     const apicalldata = {
 //         "results": [
