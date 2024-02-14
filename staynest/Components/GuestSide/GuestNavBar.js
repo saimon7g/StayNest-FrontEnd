@@ -7,13 +7,8 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FiSearch } from 'react-icons/fi'; // Import the search icon
 import { IoIosCalendar } from 'react-icons/io'; // Import other icons as needed
-<<<<<<< Updated upstream
-
-import { useEffect,useContext } from 'react';
-import  QueryParamsContext from '@/contexts/queryParamsContext';
-=======
 import { useRouter } from 'next/navigation';
->>>>>>> Stashed changes
+import { formatDate } from '@Components/utills';
 
 const Navbar = ( ) => {
 const router = useRouter();
@@ -34,7 +29,6 @@ const router = useRouter();
     //       },
     //     ]
     //   }
-    const {queryParams, setQueryParams}= useContext(QueryParamsContext);
     const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
@@ -60,11 +54,11 @@ const router = useRouter();
 
     const handleSearchSubmit = (event) => {
         event.preventDefault();
-
+        console.log(startDate, endDate, numberOfPeople, location);
         const searchParams = {
             location: location,
-            check_in: startDate,
-            check_in:endDate,
+            check_in: formatDate(startDate),
+            check_out: formatDate(endDate),
             guests: numberOfPeople,
             room_type: "Entire home/apt",
             "price_range": {
@@ -73,16 +67,10 @@ const router = useRouter();
   },
 "category":"any",
         };
-<<<<<<< Updated upstream
-         setQueryParams(searchParams);
-
-
-=======
 
         const queryString =  JSON.stringify(searchParams);
 
         router.push(`/guest/stay/?search=${queryString}`);
->>>>>>> Stashed changes
 
         setIsSearchFormVisible(false);
     };
@@ -158,18 +146,10 @@ const router = useRouter();
                         </div>
 
 
-                        {/* Submit Button */}
-<<<<<<< Updated upstream
-                        <Link href={`/guest/stay/`}>
-=======
-                        <Link href="/guest/stay">
-                        <button type="submit" class="text-white bg-red-400 hover:bg-red-500 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
-                        
->>>>>>> Stashed changes
-                           <button type="submit" class="text-white bg-red-400 hover:bg-red-500 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
+                        {/* Submit Button */}                        
+                           <button type="submit" className="text-white bg-red-400 hover:bg-red-500 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
                             Search
                         </button>
-                        </Link>
                         
                     </form>
                 </div>
@@ -178,7 +158,7 @@ const router = useRouter();
             {/* Existing Account Link */}
             <div className='flex '>
                 <Link href="/host">
-                <button type="button" class="py-2.5 px-5 me-2 mb-2 mt-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700">
+                <button type="button" className="py-2.5 px-5 me-2 mb-2 mt-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700">
                     switch to host
                 </button>
 

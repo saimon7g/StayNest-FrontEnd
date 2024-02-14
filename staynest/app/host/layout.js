@@ -1,6 +1,6 @@
 import React from 'react';
 import { RegistrationProvider } from '@/contexts/registrationContext';
-import Navbar from '@/Components/HostNavbar';
+import Navbar from '@/Components/HostSide/HostNavbar';
 
 export default function GuestLayout({ children }) {
     return (

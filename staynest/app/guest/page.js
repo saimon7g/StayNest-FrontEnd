@@ -52,8 +52,8 @@ export default function GuestHome() {
                         <div className="max-w-sm h-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                             <a href="#">
                             <Image
-                                key={response.results[0].property_id} // Unique key for each image
-                                src={response.results[0].photo} // Image URL
+                                key={e.property_id} // Unique key for each image
+                                src={e.photo} // Image URL
                                 width={400}
                                 height={240}
                                 alt="StayNest" // Alt text
@@ -66,7 +66,7 @@ export default function GuestHome() {
                                 </a>
                                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{e.name}</p>
                                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Starting from {e.price_per_night} taka per night</p>
-                                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"> from {e.availability.check_in} to {e.availability.check_out}</p>
+                                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"> from {e.availability.start_date} to {e.availability.end_date}</p>
                             </div>
                         </div>
                       </div>
