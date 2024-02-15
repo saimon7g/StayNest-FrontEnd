@@ -8,7 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { FiSearch } from 'react-icons/fi'; // Import the search icon
 import { IoIosCalendar } from 'react-icons/io'; // Import other icons as needed
 import { useRouter } from 'next/navigation';
-import { formatDate } from '../utills.js';
+import { formatDate } from '../utills';
 
 const Navbar = ( ) => {
 const router = useRouter();
