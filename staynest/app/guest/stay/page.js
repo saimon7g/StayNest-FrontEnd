@@ -1,21 +1,21 @@
 'use client';
-import React, {  useState } from 'react';
+import React, {  useState , useEffect} from 'react';
 import Image from 'next/image';
-import { getProperties } from '@/API/GuestAPI';
 import { FaHome } from "react-icons/fa";
 import { GiMeal } from "react-icons/gi";
 import { FaHandshake } from "react-icons/fa";
 import { getProperties } from '@/API/GuestAPI';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-
+import { Card, Button } from 'flowbite-react';
+import { FaRegStar } from "react-icons/fa";
+import { GiRibbonMedal } from "react-icons/gi";
 
 export default function GuestStay() {
   const [properties, setProperties] = useState([]);
-  const router = useRouter();
   const params = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState('stay');
-
+  const [newParams, setNewParams] = useState({});
 
   useEffect(() => {
     setNewParams(JSON.parse(params.get('search')));
