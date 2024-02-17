@@ -8,8 +8,7 @@ import { getProperties } from '@/API/GuestAPI';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Card, Button } from 'flowbite-react';
-import { FaRegStar } from "react-icons/fa";
-import { GiRibbonMedal } from "react-icons/gi";
+
 
 export default function GuestStay() {
   const [properties, setProperties] = useState([]);
@@ -172,7 +171,8 @@ export default function GuestStay() {
                 />
               </a>
               <div className="p-5">
-                <Link href={`guest/singleproperty/${e.property_id}`}>
+                {/*  */}
+                <Link href="/guest/singleproperty/[id]" as={`/guest/singleproperty/${e.property_id}`}>
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{e.location_name}</h5>
                 </Link>
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{e.name}</p>
