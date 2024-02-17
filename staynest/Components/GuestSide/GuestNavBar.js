@@ -10,8 +10,8 @@ import { IoIosCalendar } from 'react-icons/io'; // Import other icons as needed
 import { useRouter } from 'next/navigation';
 import { formatDate } from '../utills';
 
-const Navbar = ( ) => {
-const router = useRouter();
+const Navbar = () => {
+    const router = useRouter();
 
 
     // {
@@ -62,19 +62,19 @@ const router = useRouter();
             guests: numberOfPeople,
             room_type: "Entire home/apt",
             "price_range": {
-    "min": 50,
-    "max": 2000
-  },
-"category":"any",
+                "min": 50,
+                "max": 2000
+            },
+            "category": "any",
         };
 
-        const queryString =  JSON.stringify(searchParams);
+        const queryString = JSON.stringify(searchParams);
 
         router.push(`/guest/stay/?search=${queryString}`);
 
         setIsSearchFormVisible(false);
     };
-   
+
 
     return (
         <nav className="flex justify-between items-center h-16 bg-blue-200 text-black relative shadow-sm font-mono" role="navigation">
@@ -108,7 +108,7 @@ const router = useRouter();
                         </div>
                         {/* Date Pickers */}
                         <div className="flex items-center mb-2">
-                            
+
                             <div className="flex flex-col">
                                 <label for="fname">Arrival</label>
                                 <DatePicker
@@ -146,11 +146,11 @@ const router = useRouter();
                         </div>
 
 
-                        {/* Submit Button */}                        
-                           <button type="submit" className="text-white bg-red-400 hover:bg-red-500 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
+                        {/* Submit Button */}
+                        <button type="submit" className="text-white bg-red-400 hover:bg-red-500 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
                             Search
                         </button>
-                        
+
                     </form>
                 </div>
             )}
@@ -158,9 +158,9 @@ const router = useRouter();
             {/* Existing Account Link */}
             <div className='flex '>
                 <Link href="/host">
-                <button type="button" className="py-2.5 px-5 me-2 mb-2 mt-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700">
-                    switch to host
-                </button>
+                    <button type="button" className="py-2.5 px-5 me-2 mb-2 mt-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700">
+                        switch to host
+                    </button>
 
                 </Link>
                 <Link href="/account">
@@ -169,8 +169,8 @@ const router = useRouter();
                     </div>
                 </Link>
             </div>
-            
-            
+
+
         </nav>
     );
 };
