@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react';
-import { Button, Card, List } from 'flowbite-react';
+import { Button, Card, List,Modal } from 'flowbite-react';
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa';
 
 // Stepper component
@@ -28,7 +28,7 @@ const Stepper = ({ value, onChange }) => {
 };
 
 // Meal Selection Form Component
-export  function MealSelectionForm ({ breakfast, lunch, dinner, updateCart })  {
+export  function MealSelectionForm ({ breakfast, lunch, dinner, updateCart,openModal ,setOpenModal })  {
  
 const [selectedMeals, setSelectedMeals] = useState({});
 const [selectedType, setSelectedType] = useState('Breakfast');
@@ -54,16 +54,25 @@ const handleQuantityChange = (mealId, newValue) => {
   };
 
   const handleConfirm = () => {
-    console.log(JSON.stringify(cart));
+    setOpenModal(false);
+    // console.log(JSON.stringify(cart));
   };
 
   return (
-    <div className="container mx-auto mt-8 xl:w-9/10">
-      <div className="flex justify-center mb-4">
-        <Button className={`mr-4 ${selectedType === 'Breakfast' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`} onClick={() => handleMealTypeChange('Breakfast')}>Breakfast</Button>
-        <Button className={`mr-4 ${selectedType === 'Lunch' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`} onClick={() => handleMealTypeChange('Lunch')}>Lunch</Button>
-        <Button className={`${selectedType === 'Dinner' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`} onClick={() => handleMealTypeChange('Dinner')}>Dinner</Button>
+    <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
+        <Modal.Header  className="flex justify-center">
+          <div>  </div>
+        <div className="flex justify-center">
+        <Button className={`mr-4 ${selectedType === 'Breakfast' ? 'bg-blue-500 text-white' : 'bg-gray-400'}`} onClick={() => handleMealTypeChange('Breakfast')}>Breakfast</Button>
+        <Button className={`mr-4 ${selectedType === 'Lunch' ? 'bg-blue-500 text-white' : 'bg-gray-400'}`} onClick={() => handleMealTypeChange('Lunch')}>Lunch</Button>
+        <Button className={`${selectedType === 'Dinner' ? 'bg-blue-500 text-white' : 'bg-gray-400'}`} onClick={() => handleMealTypeChange('Dinner')}>Dinner</Button>
       </div>
+        </Modal.Header>
+        <Modal.Body>
+          
+        
+        <div className="container mx-auto mt-8 xl:w-9/10">
+      
       <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
         <List className="w-96">
           {(selectedType === 'Breakfast' ? breakfast : selectedType === 'Lunch' ? lunch : dinner).map((meal) => (
@@ -86,11 +95,17 @@ const handleQuantityChange = (mealId, newValue) => {
           ))}
         </List>
       </div>
-      <div className="mt-4 flex justify-center">
-        <Button onClick={handleAddToCart}>Add to Cart</Button>
-        <Button onClick={handleConfirm}>Confirm</Button>
-      </div>
+      
     </div>
+    </Modal.Body>
+    <Modal.Footer className="flex justify-center">
+  <div className="mt-4 flex justify-center space-x-4"> {/* Added space-x-4 class for horizontal spacing */}
+    <Button onClick={handleAddToCart}>Add to Cart</Button>
+    <Button onClick={handleConfirm}>Confirm</Button>
+  </div>
+</Modal.Footer>
+      </Modal>
+   
   );
 };
 
