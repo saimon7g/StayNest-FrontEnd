@@ -131,10 +131,7 @@ export default function SingleProperty({ params }) {
 
           <div className=''>
             <p className='font-medium'>
-              Description: blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
-              blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
-              blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
-              blah blah blah blah blah blah blah blah blah blah
+              Description: blah blah blah
             </p>
           </div>
         </div>

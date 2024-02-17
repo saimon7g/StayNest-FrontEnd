@@ -1,11 +1,11 @@
 'use client';
 import React from "react";
 import Link from 'next/link';
-import { useEffect,useContext } from "react";
+import { useEffect, useContext } from "react";
 import { Step1Post } from "@/API/Registration";
 import { Step1GET } from "@/API/Registration";
 import RegistrationContext from "@/contexts/registrationContext";
-
+import { useState } from "react";
 
 import { FaHouse } from "react-icons/fa6";
 import { MdApartment } from "react-icons/md";
@@ -19,6 +19,9 @@ import { MdOutlineCastle } from "react-icons/md";
 import { FaHome } from "react-icons/fa";
 import { FaDoorClosed } from "react-icons/fa";
 import { MdAirlineSeatIndividualSuite } from "react-icons/md";
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import "@/app/styles/leaflet.css";
+import { useRef } from "react";
 
 
 
@@ -27,8 +30,9 @@ import { MdAirlineSeatIndividualSuite } from "react-icons/md";
 
 
 
-    
-  
+
+
+
 
 const Step1 = () => {
     const [propertyType, setPropertyType] = React.useState("House");
@@ -40,7 +44,10 @@ const Step1 = () => {
     const [bedrooms, setBedrooms] = React.useState("4");
     const [beds, setBeds] = React.useState("3");
     const [bathrooms, setBathrooms] = React.useState("2");
-    const { registrationId, setRegistrationId} = useContext(RegistrationContext);  // use the context
+    const [center, setCenter] = React.useState({ lat: 51.505, lng: -0.09 });
+    const [zoom, setZoom] = React.useState(9);
+    const { registrationId, setRegistrationId } = useContext(RegistrationContext);  // use the context
+    const mapRef = useRef();
 
     // const receivedVariable = useRouter().query;
     // console.log("received variable");
@@ -52,7 +59,7 @@ const Step1 = () => {
 
     }, []);
     //--
-    
+
 
     const clearState = () => {
         setPropertyType("");
@@ -113,7 +120,7 @@ const Step1 = () => {
         event.preventDefault();
         // use json object to store the data
         const result = {
-            
+
             "property_type": propertyType,
             "property_sub_type": propertySubType,
             "location": {
@@ -128,12 +135,12 @@ const Step1 = () => {
                 "number_of_bathrooms": bathrooms
             }
         }
-        const response= await Step1Post(result);
+        const response = await Step1Post(result);
         console.log('RESponSE Data is here ');
         try {
             setRegistrationId(response.data.registration_id);  // set the context variable 
-            console.log("registration id is set to ----- ", response.data.registration_id);      
-        } catch (error) {       
+            console.log("registration id is set to ----- ", response.data.registration_id);
+        } catch (error) {
             console.log("error SETTING registration id in context");
         }
         console.log("submit clicked");
@@ -272,20 +279,15 @@ const Step1 = () => {
             {/* location selection using google map */}
             <div>
                 <text className="text-2xl font-bold">3. Where is your place located?</text>
-                <div className="flex justify-center">
-                    <div className="border-2 border-indigo-600 w-40 p-5">
-                        <text className="text-center">Location</text>
-                        <input type="text" value={locationName} onChange={handleLocationName} className="w-30" />
-                    </div>
-                    <div className="border-2 border-indigo-600 w-40 p-5">
-                        <text className="text-center">Latitude</text>
-                        <input type="text" value={latitute} onChange={handleLatitude} className="w-30" />
-                    </div>
-                    <div className="border-2 border-indigo-600 w-40 p-5">
-                        <text className="text-center">Longitude</text>
-                        <input type="text" value={longitute} onChange={handleLongitude} className="w-30" />
-                    </div>
-                    <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full" onClick={handleLocationClick}>Submit</button>
+
+                {/* a fixed div section with 256x256 to contain map */}
+                <div className="border-2 border-indigo-600 w-40 p-5" width="256" height="256">
+                    <MapContainer center={center} zoom={zoom} scrollWheelZoom={true} dragging={false} ref={mapRef} style={{ height: "256px", width: "256px" }}>
+                        <TileLayer
+                            url="https://api.maptiler.com/maps/basic-v2/256/{z}/{x}/{y}.png?key=SV7rIFRpYvBytdOVysIj"
+                            attribution="&copy; <a href='https://www.maptiler.com/copyright'> MapTiler</a> &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a>"
+                        />
+                    </MapContainer>
                 </div>
             </div>
 
