@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
-
+import Link from 'next/link';
 import Logo from '@/StaticImage/home_page.jpg';
 import MyLogo from '@/StaticImage/logo1.png';
 import { getProperties } from '@/API/GuestAPI';
@@ -49,6 +49,7 @@ export default function GuestHome() {
           {
             properties.map((e)=>{
               return <div className='row-span-1 col-span-1' key={e.property_id}>
+                 <Link href="/guest/singleproperty/[id]" as={`/guest/singleproperty/${e.property_id}`}>
                         <div className="max-w-sm h-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                             <a href="#">
                             <Image
@@ -61,14 +62,15 @@ export default function GuestHome() {
                             />
                             </a>
                             <div className="p-5">
-                                <a href="#">
-                                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"> { e.location_name}</h5>
-                                </a>
-                                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{e.name}</p>
-                                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Starting from {e.price_per_night} taka per night</p>
-                                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"> from {e.availability.start_date} to {e.availability.end_date}</p>
-                            </div>
+                          <a href="#">
+                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"> {e?.location_name}</h5>
+                          </a>
+                          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{e?.name}</p>
+                          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Starting from {e?.price_per_night} taka per night</p>
+                          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"> from {e?.availability?.start_date} to {e?.availability?.end_date}</p>
                         </div>
+                        </div>
+                        </Link>
                       </div>
             })
           }

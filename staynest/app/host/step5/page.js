@@ -1,326 +1,240 @@
 'use client';
-import React from "react";
-import { useState } from 'react';
-import Link from 'next/link';
-
+import React, { useState } from 'react';
+import { Button, Card, Textarea, TextInput,List,Table } from 'flowbite-react';
+import { FaPlus } from 'react-icons/fa';
+import Link from "next/link";
+import FileUpload from "@/Components/ImageUpload";
+import { Step5GET, Step5PUT } from "@/API/Registration";
 import { useEffect,useContext } from 'react';
-import { Step5GET,Step5PUT } from "@/API/Registration";
-import  RegistrationContext from "@/contexts/registrationContext";
+import RegistrationContext from "@/contexts/registrationContext";
+const Modal = ({ isOpen, onClose }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [mealType, setMealType] = useState('Breakfast');
+  const [mealName, setMealName] = useState('');
+  const [price, setPrice] = useState('');
+  const [breakfastMenu, setBreakfastMenu] = useState([]);
+  const [lunchMenu, setLunchMenu] = useState([]);
+  const [dinnerMenu, setDinnerMenu] = useState([]);
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const { registrationId, setRegistrationId} = useContext(RegistrationContext); 
 
-
-
-const Step5 = () => {
-
-    //array to hold breakfast wgich have name, price, description, image
-    const { registrationId, setRegistrationId} = useContext(RegistrationContext);  // use the context
-
-    const [breakfast, setBreakfast] = useState([]);
-    const [lunch, setLunch] = useState([]);
-    const [dinner, setDinner] = useState([]);
-
-    const [breakfastName, setBreakfastName] = useState("breakfast1");
-    const [breakfastPrice, setBreakfastPrice] = useState("100");
-    const [breakfastDescription, setBreakfastDescription] = useState("breakfast1 is good");
-    const [breakfastImage, setBreakfastImage] = useState("");
-
-
-    const [lunchName, setLunchName] = useState("lunch1");
-    const [lunchPrice, setLunchPrice] = useState("100");
-    const [lunchDescription, setLunchDescription] = useState("lunch1 is good");
-    const [lunchImage, setLunchImage] = useState("");
-
-    const [dinnerName, setDinnerName] = useState("dinner1");
-    const [dinnerPrice, setDinnerPrice] = useState("100");
-    const [dinnerDescription, setDinnerDescription] = useState("dinner1 is good");
-    const [dinnerImage, setDinnerImage] = useState("");
-
-    // flag variable to check which meal is selected
-    const [meal, setMeal] = useState("breakfast");
-    const [modalState, setModalState] = useState(false);
-    useEffect(() => {
-        console.log("useEffect step5")
-        const fetchStep5Data = async () => {
-            try {
-                const response = await Step5GET(registrationId);
-                if (response.status === 404) {
-                    console.log("Empty data form");
-                // Handle the case of an empty data form
-             } else {
-                console.log("response--page5 --",response);
-                // Handle the response data as needed
-             }
-                // Handle the response data as needed
-            } catch (error) {
-                console.error('Error fetching step 5 data: ', error);
-            }
-        };
-
-        if (registrationId) {
-            console.log("registrationId--page5 --",registrationId);
-            fetchStep5Data();        
+  useEffect(() => {
+    console.log("useEffect step5")
+    const fetchStep5Data = async () => {
+        try {
+            const response = await Step5GET(registrationId);
+            console.log("step5get")
+            // Check if response status is 404 (Not Found)
+            if (response.status === 404) {
+                console.log("Empty data form");
+            // Handle the case of an empty data form
+         } else {
+            console.log(response.data);
+            
+            // Handle the response data as needed
+            
+            // setRegularAmenities(response.data.regular_amenities);
+            // setStandoutAmenities(response.data.standout_amenities);
+            // setUploadedFiles(response.data.photos);
+            
+         }
+            // Handle the response data as needed
+        } catch (error) {
+            console.error('Error fetching step 2 data: ', error);
         }
-    }, [registrationId]);
-
-    useEffect(() => {
-
-        setBreakfast(prevBreakfast => [...prevBreakfast, { name: breakfastName, price: breakfastPrice, description: breakfastDescription, image: breakfastImage }]);
-        setLunch(prevLunch => [...prevLunch, { name: lunchName, price: lunchPrice, description: lunchDescription, image: lunchImage }]);
-        setDinner(prevDinner => [...prevDinner, { name: dinnerName, price: dinnerPrice, description: dinnerDescription, image: dinnerImage }]);
-
-
-
-    }, []);
-    
-    const AddMore = (meal) => {
-        setMeal(meal);
-        setModalState(true);
-    }
-
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
-
-        // Get input values from the form
-        const newItem = {
-            name: event.target.name.value,
-            price: event.target.price.value,
-            description: event.target.description.value,
-            image: event.target.image.value,
-        };
-
-        // Update the state by adding the new item
-        if (meal === "breakfast") {
-            setBreakfast(prevBreakfast => [...prevBreakfast, newItem]);
-        }
-        else if (meal === "lunch") {
-            setLunch(prevLunch => [...prevLunch, newItem]);
-        }
-        else {
-            setDinner(prevDinner => [...prevDinner, newItem]);
-        }
-
-
     };
 
+    if (registrationId) {
+        console.log("registrationId--page2 --",registrationId);
+        fetchStep5Data();        
+    }
+}, [registrationId]);
+  const handleFileChange = (event) => {
+    setSelectedFiles(Array.from(event.target.files));
+  };
+  const handleMealType = (type) => {
+    setMealType(type);
+    console.log('Meal Type:', type);
+  };
 
+  const handleSubmit = () => {
+    const newMeal = {
+      name: mealName,
+      price: price,
+      photo: 'image',
+      description:'meal description dummy'
+    };
+    console.log('New Meal:', newMeal);
+    if (mealType === 'Breakfast') {
+      setBreakfastMenu([...breakfastMenu, newMeal]);
+    } else if (mealType === 'Lunch') {
+      setLunchMenu([...lunchMenu, newMeal]);
+    } else if (mealType === 'Dinner') {
+      setDinnerMenu([...dinnerMenu, newMeal]);
+    }
+    setMealName('');
+    setPrice('');
+  };
 
+  const handleConfirm =async () => {
+    // Handle confirming the selections
+    
+    onClose();
+    const meal={
+        breakfast:breakfastMenu,
+        lunch:lunchMenu,
+        dinner:dinnerMenu
+    }
+    try {
+        setRegistrationId(registrationId);
+        await Step5PUT(meal,registrationId);
+    } catch (error) {
+        console.error('Error submitting form data step5:', error);
+    }
+    };
+    
 
+  
 
-    return (
-        <div>
+  return (
+    <div className={`modal ${isOpen ? 'flex justify-center items-center' : 'hidden'}`}>
+      <div className="modal-overlay"></div>
+      <div className="modal-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '80%' }}>
+      <div style={{ width: '25%' }}></div>
 
-            <div className="container">
-                {/* breakfast name price description image  show row wise */}
-                <div className="row">
-                    <div className="col-12">
-                        <h1 className="text-2xl font-bold justify-center ">breakfast</h1>
-                    </div>
-
-                    {/* make gaps even */}
-                    <div className="row flex flex-row gap-4 ">
-                        <div className="col-3">
-                            <h3>Name</h3>
-                        </div>
-                        <div className="col-3">
-                            <h3>Price</h3>
-                        </div>
-                        <div className="col-3">
-                            <h3>Description</h3>
-                        </div>
-                        <div className="col-3">
-                            <h3>Image</h3>
-                        </div>
-                    </div>
-
-
-                    {/* show  items from breakfast array  by mapping */}
-
-                    {breakfast.map((item, index) => (
-                        <div className="row flex flex-row gap-4 ">
-                            <div className="col-3">
-                                <h3>{item.name}</h3>
-                            </div>
-                            <div className="col-3">
-                                <h3>{item.price}</h3>
-                            </div>
-                            <div className="col-3">
-                                <h3>{item.description}</h3>
-                            </div>
-                            <div className="col-3">
-                                <h3>{item.image}</h3>
-                            </div>
-                        </div>
-                    ))}
-
-                    {/* add more button to pop up modal of add more */}
-                    <div className="col-12">
-                        {/* visible if modalstate is false */}
-                        {!modalState && (
-                            <button className="btn btn-primary" onClick={() => AddMore("breakfast")}>Add More</button>
-                        )}
-                    </div>
-
-                    {/* modal for add more */}
-                    {modalState && (
-                        <div className="modal">
-                            <div className="modal-content">
-                                <div className="modal-body">
-                                    <form onSubmit={handleFormSubmit}>
-                                        <div className="form-group">
-                                            <label htmlFor="name">Name</label>
-                                            <input type="text" className="form-control" id="name" placeholder="Enter name" name="name" />
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="price">Price</label>
-                                            <input type="text" className="form-control" id="price" placeholder="Enter price" name="price" />
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="description">Description</label>
-                                            <input type="text" className="form-control" id="description" placeholder="Enter description" name="description" />
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="image">Image</label>
-                                            <input type="text" className="form-control" id="image" placeholder="Enter image" name="image" />
-                                        </div>
-
-                                        <button type="submit" className="btn btn-primary">Submit</button>
-                                    </form>
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-danger" onClick={() => setModalState(false)}>Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div>
-
-                {/* lunch name price description image  show row wise */}
-                <div className="row">
-                    <div className="col-12">
-                        <h1 className="text-2xl font-bold justify-center ">lunch</h1>
-                    </div>
-
-                    {/* make gaps even */}
-                    <div className="row flex flex-row gap-4 ">
-                        <div className="col-3">
-                            <h3>Name</h3>
-                        </div>
-                        <div className="col-3">
-                            <h3>Price</h3>
-                        </div>
-                        <div className="col-3">
-                            <h3>Description</h3>
-                        </div>
-                        <div className="col-3">
-                            <h3>Image</h3>
-                        </div>
-                    </div>
-                    {/*  show  items from lunch array  by mapping */}
-                    {lunch.map((item, index) => (
-                        <div className="row flex flex-row gap-4 ">
-                            <div className="col-3">
-                                <h3>{item.name}</h3>
-                            </div>
-                            <div className="col-3">
-                                <h3>{item.price}</h3>
-                            </div>
-                            <div className="col-3">
-                                <h3>{item.description}</h3>
-                            </div>
-                            <div className="col-3">
-                                <h3>{item.image}</h3>
-                            </div>
-                        </div>
-                    ))}
-
-                    {/* add more button to pop up modal of add more */}
-
-                    <div className="col-12">
-                        {/* visible if modalstate is false */}
-                        {!modalState && (
-                            <button className="btn btn-primary" onClick={() => AddMore("lunch")}>Add More</button>
-                        )}
-                    </div>
-
-                </div>
-
-
-                {/* dinner name price description image  show row wise */}
-                <div className="row">
-                    <div className="col-12">
-                        <h1 className="text-2xl font-bold justify-center ">dinner</h1>
-                    </div>
-
-                    {/* make gaps even */}
-                    <div className="row flex flex-row gap-4 ">
-                        <div className="col-3">
-                            <h3>Name</h3>
-                        </div>
-                        <div className="col-3">
-                            <h3>Price</h3>
-                        </div>
-                        <div className="col-3">
-                            <h3>Description</h3>
-                        </div>
-                        <div className="col-3">
-                            <h3>Image</h3>
-                        </div>
-                    </div>
-
-                    {/* show  items from dinner array  by mapping */}
-                    {dinner.map((item, index) => (
-                        <div className="row flex flex-row gap-4 ">
-                            <div className="col-3">
-                                <h3>{item.name}</h3>
-                            </div>
-                            <div className="col-3">
-                                <h3>{item.price}</h3>
-                            </div>
-                            <div className="col-3">
-                                <h3>{item.description}</h3>
-                            </div>
-                            <div className="col-3">
-                                <h3>{item.image}</h3>
-                            </div>
-                        </div>
-                    ))}
-
-                    {/* add more button to pop up modal of add more */}
-
-                    <div className="col-12">
-                        {/* visible if modalstate is false */}
-                        {!modalState && (
-                            <button className="btn btn-primary" onClick={() => AddMore("dinner")}>Add More</button>
-                        )}
-                    </div>
-                </div>
-
-
-
-
-
-
-
-
-
-
-
+      <div className="modal-content" style={{ width: '35%' }}>
+        
+          <div>
+            <h2>Select Meal Type</h2>
+            <div className="flex">
+              <Button className={`mr-4 ${mealType === 'Breakfast' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`} onClick={() => handleMealType('Breakfast')}>Breakfast</Button>
+              <Button className={`mr-4 ${mealType === 'Lunch' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`} onClick={() => handleMealType('Lunch')}>Lunch</Button>
+              <Button className={`${mealType === 'Dinner' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`} onClick={() => handleMealType('Dinner')}>Dinner</Button>
             </div>
+          </div>
+          {mealType && (
+            <div>
+              <TextInput type="text" placeholder="Meal Name" value={mealName} onChange={(e) => setMealName(e.target.value)} className="mt-2 p-2 border" />
+              <TextInput type="text" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} className="mt-2 p-2 border" />
+                            
+              <div class="flex items-center justify-center w-full">
+                  <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-50 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                  
+                      <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                          <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                          </svg>
+                          <div>
+                            {selectedFiles.map((file, index) => (
+                              <div key={index}>{file.name}</div>
+                            ))}
+                          </div>
+                          <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                          <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                      </div>
+                      <input id="dropzone-file" type="file" multiple class="mt-6 hidden" onChange={handleFileChange}/>
 
-            {/* next button to go to the next page and prev button to go to the prev page */}
-            <div className="flex justify-between items-center">
+                  </label>
+              </div> 
+
+              <div className="flex justify-end">
+                    <Button onClick={handleSubmit} className="mt-1 mr-4 bg-blue-300 text-white px-4 py-0.1"><FaPlus/></Button>
+              </div>
+            </div>
+          )}
+          <div>
+            <div class='flex justify-center'>
+            <Link href="/host/step4">
+                    <Button  className="mt-4 mr-4 bg-green-500 text-white px-3 py-1"onClick={() => setRegistrationId(registrationId)}>Prev</Button>
+                </Link>
                 <Link href="/host/step4">
-                    <button className="border border-gray-400 rounded-lg p-2 m-2">
-                        Prev
-                    </button>
+                <Button onClick={handleConfirm}  className="mt-4 mr-4 bg-green-500 text-white px-3 py-1">Next</Button>
                 </Link>
-                <Link href="/host/step6">
-                    <button className="border border-gray-400 rounded-lg p-2 m-2">
-                        Next
-                    </button>
-                </Link>
-            </div>
+                </div>
+          </div>
+         
         </div>
-    );
-}
+        <div style={{ width: '10%' }}></div>
 
-export default Step5;
+        <div className="modal-content" style={{ width: '30%' }}>
+          <div>
+            <h2>Selected Meals</h2>
+            <div>
+              <h3>Breakfast</h3>
+              <div className="overflow-x-auto">
+                <Table>
+                  <Table.Body className="divide-y">
+                    {breakfastMenu.map((meal, index) => (
+                      <Table.Row key={index} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                        <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                          {meal.name}
+                        </Table.Cell>
+                        <Table.Cell>{meal.price}</Table.Cell>
+                      </Table.Row>
+                    ))}
+                  </Table.Body>
+                </Table>
+              </div>
+            </div>
+            <div>
+              <h3>Lunch</h3>
+              <div className="overflow-x-auto">
+                <Table>
+                  <Table.Body className="divide-y">
+                    {lunchMenu.map((meal, index) => (
+                      <Table.Row key={index} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                        <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                          {meal.name}
+                        </Table.Cell>
+                        <Table.Cell>{meal.price}</Table.Cell>
+                      </Table.Row>
+                    ))}
+                  </Table.Body>
+                </Table>
+              </div>             
+            </div>
+            <div>
+              <h3>Dinner</h3>
+              <div className="overflow-x-auto">
+                <Table>
+                  <Table.Body className="divide-y">
+                    {dinnerMenu.map((meal, index) => (
+                      <Table.Row key={index} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                        <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                          {meal.name}
+                        </Table.Cell>
+                        <Table.Cell>{meal.price}</Table.Cell>
+                      </Table.Row>
+                    ))}
+                  </Table.Body>
+                </Table>
+              </div>
+            </div>
+          </div>
+          </div>
+      </div>
+     
+    </div>
+  );
+};
+
+const App = () => {
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  return (
+    <div className="container mx-auto mt-8 xl:w-9/10">
+      <Button onClick={openModal} className="bg-blue-500 text-white px-4 py-2 hidden ">Add Meal</Button>
+      <Modal isOpen={isModalOpen} onClose={closeModal} />
+    </div>
+  );
+};
+
+export default App;
