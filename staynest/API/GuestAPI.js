@@ -51,7 +51,9 @@ export async function  getMealOption(registration_id) {
             'Content-Type': 'application/json' }
         });
         
-        console.log(response);
+        console.log('mealoption',response.json());
+        
+        console.log(response.data);
         return response.data;
     }
     catch (error) {
@@ -161,46 +163,25 @@ export async function getProperties(data) {
 
 export async function reserveProperty(data) {
     try {
-      
-        
-        const response = {
-            "status": "success",
-            "message": "Reservation and meal booking successful",
-            "reservation_id": "abcd1234",
-            "booking_dates": {
-                "check_in_date": "2024-01-12",
-                "check_out_date": "2024-01-15"
-            },
-            "pricing": {
-                "reservation_price": 300.0,
-                "staying_price_per_night": 100.0,
-                "number_of_nights": 3,
-                "number_of_persons": 2,
-                "total_staying_price": 300.0,
-                "meals": {
-                    "breakfast": {
-                        "selected": true,
-                        "options": ["Continental", "Full English"],
-                        "quantity": 2,
-                        "price_per_meal": 10.0
-                    },
-                    "lunch": {
-                        "selected": false,
-                        "options": [],
-                        "quantity": 0,
-                        "price_per_meal": 0.0
-                    },
-                    "dinner": {
-                        "selected": true,
-                        "options": ["Italian", "BBQ"],
-                        "quantity": 2,
-                        "price_per_meal": 15.0
-                    }
-                },
-                "total_meals_price": 50.0
-            }
+        console.log('getProperties')
+        console.log(data)
+        const authToken = sessionStorage.getItem('authToken');
+        if (authToken === null) {
+            console.log("//-----No token found");
+
         }
+        else {
+            console.log(authToken);
+        }
+        const response = await axios.post("http://127.0.0.1:8000/guest/api/reserve/", data, {
+            headers: {
+                'Authorization': `Token ${authToken}`,
+                'Content-Type': 'application/json'
+            },
+        });
+        console.log(response);
         return response;
+
     }
     catch (error) {
         console.error(error);

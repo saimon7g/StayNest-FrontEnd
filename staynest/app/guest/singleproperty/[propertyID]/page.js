@@ -15,7 +15,7 @@ import { useState,useEffect } from 'react';
 import { MealSelectionForm } from '@/Components/GuestSide/MealSelectionForm';
 import { Button,Card,Modal } from 'flowbite-react';
 import { Datepicker } from 'flowbite-react';
-
+import { formatDate } from '@/Components/utills';
 
 export default function SingleProperty({ params }) {
   const [openModal, setOpenModal] = useState(false);
@@ -27,19 +27,19 @@ export default function SingleProperty({ params }) {
   const [meals, setMeals] = useState({ breakfast: [], lunch: [], dinner: [] });
   const router = useRouter()
   const breakfast = [
-        { id: 1, name: 'Meal 1', price: '$10', photo: 'meal1.jpg' },
-        { id: 2, name: 'Meal 2', price: '$15', photo: 'meal2.jpg' },
-        { id: 3, name: 'Meal 3', price: '$12', photo: 'meal3.jpg' },
+        { id: 1, name: 'Khichuri', price: '100', photo: 'meal1.jpg' },
+       
+        
       ];
       const lunch = [
-        { id: 1, name: 'Meal 5', price: '$10', photo: 'meal1.jpg' },
-        { id: 2, name: 'Meal 9', price: '$15', photo: 'meal2.jpg' },
-        { id: 3, name: 'Meal 6', price: '$12', photo: 'meal3.jpg' },
+        { id: 1, name: 'Kalavuna', price: '300', photo: 'meal1.jpg' },
+        { id: 2, name: 'Morog Polao', price: '250', photo: 'meal2.jpg' },
+       
       ];
       const dinner = [
-        { id: 1, name: 'Meal 1', price: '$10', photo: 'meal1.jpg' },
-        { id: 2, name: 'Meal 2', price: '$15', photo: 'meal2.jpg' },
-        { id: 3, name: 'Meal 3', price: '$12', photo: 'meal3.jpg' },
+        { id: 1, name: 'Kalavuna', price: '300', photo: 'meal1.jpg' },
+        { id: 2, name: 'Morog Polao', price: '250', photo: 'meal2.jpg' },
+        
       ];
     
   // Function to update the cart
@@ -97,28 +97,36 @@ useEffect(() => {
   //   console.log('property.host', property.host);
   // }, [property]);
 
-
+ 
   const handleReserve = async () => {
+    let total_meals_price=500;
+    let total_staying_price=1500*numberOfGuests;
+    cart.breakfast.forEach((meal) => {
+      total_meals_price += 150;
+    });
+    let differenceInMs = checkOutDate.getTime() - checkInDate.getTime();
+
+    // Convert milliseconds to days
+    let millisecondsPerDay = 1000 * 60 * 60 * 24; // Number of milliseconds in a day
+    let number_of_days = Math.floor(differenceInMs / millisecondsPerDay) + 1;
+    
+
     const data = {
       property_id: id,
-      check_in: "2024-01-12",
-      check_out: "2024-01-15",
-      number_of_persons: 2,
-      meals: {
-        breakfast: {
-          selected: true,
-          options: ["Continental", "Full English"],
-          quantity: 2
-        },
-        lunch: {
-          selected: false,
-          quantity: 0
-        },
-        dinner: {
-          selected: true,
-          quantity: 2
-        }
-      }
+      property_name: property.name,
+      
+      number_of_persons: numberOfGuests,
+      number_of_persons: numberOfGuests,
+      numer_of_nights:'3',
+      total_staying_price: total_staying_price,
+      total_meals_price: total_meals_price,
+      total_price: total_staying_price+total_meals_price,
+      host_id: 3,
+      guest_id: 5,
+      start_date:formatDate(checkInDate),
+      end_date: formatDate(checkOutDate),
+
+     
     };
 
     const queryString = JSON.stringify(data);

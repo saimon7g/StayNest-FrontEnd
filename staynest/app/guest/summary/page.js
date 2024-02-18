@@ -19,18 +19,26 @@ export default function ReservationSummary({ reservation }) {
 
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchData =() => {
             if (parsedData) {
-                const data = await reserveProperty(parsedData);
-                setReservationData(data);
+                
+                setReservationData(parsedData);
             }
         };
 
         fetchData();
     }, [parsedData]);
 
-    const handlePayment = () => {
-        console.log('Payment initiated');
+    const handlePayment =async () => {
+        const response = await reserveProperty(parsedData);
+        if (response.status /100===2 ) {
+            setOpenModal(true);
+            alert('Booking successful');
+        }
+        else {
+            alert('Booking failed');
+        }
+       
     };
 
     return (
@@ -39,32 +47,29 @@ export default function ReservationSummary({ reservation }) {
                 <div className="grid grid-cols-2 gap-4">
                     <div className="pr-4 border-r border-gray-400">
                         <h1 className="text-4xl font-bold mb-4">Reservation Summary</h1>
+                    
                         {reservationData && (
                             <>
-                                <p>Reservation ID: {reservationData.reservation_id}</p>
-                                <p>Check-out: {reservationData.booking_dates && reservationData.booking_dates.check_out_date}</p>
-                                <p>Number of nights: {reservationData.pricing && reservationData.pricing.number_of_nights}</p>
-                                <p>Number of persons: {reservationData.pricing && reservationData.pricing.number_of_persons}</p>
-                                <p>Total staying price: {reservationData.pricing && reservationData.pricing.total_staying_price}</p>
-                                <p>Total meals price: {reservationData.pricing && reservationData.pricing.total_meals_price}</p>
-                                <p>Total price: {reservationData.pricing && reservationData.pricing.reservation_price}</p>
+                                <p>Check-In: {reservationData.start_date}</p>
+                                <p>Check-In: {reservationData.end_date}</p>
+
+                                <p>Number of nights: {parsedData.number_of_nights}</p>
+                                <p>Number of persons: {reservationData.number_of_persons}</p>
+                                <p>Total staying price: {reservationData.total_staying_price}</p>
+                                
                             </>
                         )}
                     </div>
                     <div className="pl-4">
                         {reservationData && (
                             <>
-                                <p>Breakfast: {reservationData.pricing && reservationData.pricing.meals.breakfast.selected ? 'Yes' : 'No'}</p>
-                                <p>Lunch: {reservationData.pricing && reservationData.pricing.meals.lunch.selected ? 'Yes' : 'No'}</p>
-                                <p>Dinner: {reservationData.pricing && reservationData.pricing.meals.dinner.selected ? 'Yes' : 'No'}</p>
-                                <p>Payment status: {reservationData.status}</p>
-                                <p>Message: {reservationData.message}</p>
+                               <p>Total meals price: {reservationData.total_meals_price}</p>
+                                <p>Total price: {reservationData.total_price}</p>
                             </>
                         )}
-                        <Button className="mt-8 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" onClick={() => setOpenModal(true)}>
+                        <Button className="mt-8 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" onClick={() => handlePayment()}>
                             Make Payment
                         </Button>
-                        <Payment openModal={openModal} setOpenModel={setOpenModal} onPaymentComplete={handlePaymentComplete} />
                     </div>
                 </div>
             </Card>
