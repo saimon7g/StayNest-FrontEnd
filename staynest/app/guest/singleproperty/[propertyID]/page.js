@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import { getPropertyByID } from '@/API/GuestAPI';
+import { getPropertyByID, getMealOption } from '@/API/GuestAPI';
 import { FaRegStar } from "react-icons/fa";
 import { GiRibbonMedal } from "react-icons/gi";
 import { CiShare1 } from "react-icons/ci";
@@ -24,6 +24,7 @@ export default function SingleProperty({ params }) {
   const [checkOutDate, setCheckOutDate] = useState(new Date());
   const [numberOfGuests, setNumberOfGuests] = useState(1);
   const [property, setProperty] = useState({});
+  const [meals, setMeals] = useState({ breakfast: [], lunch: [], dinner: [] });
   const router = useRouter()
   const breakfast = [
         { id: 1, name: 'Meal 1', price: '$10', photo: 'meal1.jpg' },
@@ -78,6 +79,19 @@ export default function SingleProperty({ params }) {
   
     fetchData();
   }, []);
+useEffect(() => {
+  async function fetchData() {
+    try {
+      const response = await getMealOption(id);
+      setMeals(response);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  fetchData();
+}, []);
 
   useEffect(() => {
     console.log('property.host', property.host);
@@ -98,12 +112,10 @@ export default function SingleProperty({ params }) {
         },
         lunch: {
           selected: false,
-          options: [],
           quantity: 0
         },
         dinner: {
           selected: true,
-          options: ["Italian", "BBQ"],
           quantity: 2
         }
       }

@@ -15,6 +15,25 @@ export async function getServerSideProps() {
     };
 }
 
+
+export async function  getMealOption(registration_id) {
+  
+    try {
+        const authToken = 'Token 12345';
+        const response = await fetch(`http://127.0.0.1:8000/host/api/property_registration/step5/${registration_id}/`,{
+            headers: {   'Authorization': `Token ${authToken}`, 
+            'Content-Type': 'application/json' }
+        });
+        
+        console.log(response);
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+
 export async function getPropertyByID(propertyId) {
     const response =          
     {

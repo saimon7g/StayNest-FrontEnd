@@ -174,11 +174,17 @@ export default function GuestStay() {
               <div className="p-5">
                 {/*  */}
                
-                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{e.location_name}</h5>
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"> {e?.location_name}</h5>
+                          
+                          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{e?.name}</p>
+                          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Starting from {e?.price_per_night} taka per night</p>
+                          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"> from {e?.availability?.start_date} to {e?.availability?.end_date}</p>
+                      
+                  {/* <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{e.location_name}</h5>
                 
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{e.name}</p>
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Starting from {e.price_per_night} taka per night</p>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">from {e.availability.start_date} to {e.availability.end_date}</p>
+                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">from {e.availability.start_date} to {e.availability.end_date}</p> */}
               </div>
               </Link>
             </Card>

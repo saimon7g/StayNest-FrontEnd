@@ -5,15 +5,13 @@ import { useState } from 'react';
 import { Modal, Card, Button } from 'flowbite-react';
 
 export function Payment({ openModal, setOpenModal, onPaymentComplete }) {
-    const [paymentProcessing, setPaymentProcessing] = useState(false);
+  
 
     const handlePayment = () => {
         // Simulate payment processing
-        setPaymentProcessing(true);
-        setTimeout(() => {
-            setPaymentProcessing(false);
-            onPaymentComplete(); // Notify parent component that payment is complete
-        }, 2000);
+      
+        onPaymentComplete();
+        setOpenModal(false);
     };
 
     return (
@@ -31,9 +29,9 @@ export function Payment({ openModal, setOpenModal, onPaymentComplete }) {
                 <Button
                     onClick={handlePayment}
                     className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-                    disabled={paymentProcessing}
+                   
                 >
-                    {paymentProcessing ? 'Processing...' : 'Confirm Payment'}
+                    
                 </Button>
                 <Button color="gray" onClick={() => setOpenModal(false)}>Cancel</Button>
             </Modal.Footer>

@@ -176,9 +176,9 @@ export async function Step5GET(registration_id) {
             headers: {   'Authorization': `Token ${authToken}`, 
             'Content-Type': 'application/json' }
         });
-        const result = await response.json();
-        console.log(result);
-        return result;
+        // const result = await response.json();
+        // console.log(re);
+        return response;
     }
     catch (error) {
         console.log(error);
