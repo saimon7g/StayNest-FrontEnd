@@ -125,6 +125,7 @@ export async function Step3PUT(data,registration_id) {
         console.error(error);
     }
 }
+
 export async function Step4GET(registrationId) {
     console.log("step4get");
     try {

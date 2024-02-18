@@ -1,4 +1,6 @@
 import axios from 'axios';
+
+
 export async function getServerSideProps() {
     // const response = await fetch('your-api-endpoint');
     // const data = await response.json();
@@ -15,6 +17,30 @@ export async function getServerSideProps() {
     };
 }
 
+export async function Step4GET(registrationId) {
+    console.log("step4get");
+    try {
+        const authToken = sessionStorage.getItem('authToken');
+        if (authToken === null) {
+            console.log("//-----No token found");
+            return;
+        }
+        else
+        {
+            console.log(authToken);
+        }
+        const response = await axios.get(`http://127.0.0.1:8000/host/api/property_registration/step4/${registrationId}/`, {
+            headers: {   'Authorization': `Token ${authToken}`, 
+            'Content-Type': 'application/json' }
+        });
+        console.log(response.data);
+        return response;
+        
+    }
+    catch (error) {
+        console.error(error);
+    }
+}
 
 export async function  getMealOption(registration_id) {
   
@@ -33,6 +59,24 @@ export async function  getMealOption(registration_id) {
     }
 }
 
+export async function getPropertyByIDd(property_id) {
+    console.log("single property get");
+    try {
+        const authToken = 'Token 12345';
+        const response = await axios.get(`http://127.0.0.1:8000/host/api/property/${property_id}/`, {
+            headers: {   'Authorization': `Token ${authToken}`, 
+            'Content-Type': 'application/json' }
+        });
+       
+       
+        // const result = await response.json();
+         console.log(response.data);
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
 
 export async function getPropertyByID(propertyId) {
     const response =          

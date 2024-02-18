@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import { getPropertyByID, getMealOption } from '@/API/GuestAPI';
+import { getPropertyByIDd, getMealOption } from '@/API/GuestAPI';
 import { FaRegStar } from "react-icons/fa";
 import { GiRibbonMedal } from "react-icons/gi";
 import { CiShare1 } from "react-icons/ci";
@@ -67,7 +67,7 @@ export default function SingleProperty({ params }) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await getPropertyByID(id);
+        const response = await getPropertyByIDd(id);
         setProperty(response);
         //console.log(response);
         console.log('host ',response.host);
@@ -93,9 +93,9 @@ useEffect(() => {
   fetchData();
 }, []);
 
-  useEffect(() => {
-    console.log('property.host', property.host);
-  }, [property]);
+  // useEffect(() => {
+  //   console.log('property.host', property.host);
+  // }, [property]);
 
 
   const handleReserve = async () => {
@@ -177,7 +177,7 @@ useEffect(() => {
         </div>
       </div> */}
      
-     {property.photos && property.photos.map((photo, index) => (
+     {property&& property.photos && property.photos.map((photo, index) => (
   <Image
     key={index}
     src={photo.image_data}
@@ -194,11 +194,11 @@ useEffect(() => {
         <div className='flex flex-col items-around justify-center w-1/2'>
           <div className='flex flex-row items-around justify-center my-16'>
           <div className=''>
-  {property.name && (
+  {property&&property.name && (
     <p className='text-3xl font-bold'>{property.name} hosted by {property.host && property.host.host_name}</p>
   )}
   
-  {property.some_basics && (
+  {property&&property.some_basics && (
     <p className=''>
       {property.some_basics.number_of_guests} guests . {property.some_basics.number_of_bedrooms} bedrooms . 
       {property.some_basics.number_of_beds} bed . {property.some_basics.number_of_bathrooms} bath
@@ -231,7 +231,7 @@ useEffect(() => {
 
           <div className=''>
           <p className='font-medium'>
-          {property.description && property.description}
+          {property&&property.description && property.description}
         </p>
           </div>
         </div>
