@@ -51,7 +51,7 @@ export default function ReservationSummary({ reservation }) {
                         {reservationData && (
                             <>
                                 <p>Check-In: {reservationData.start_date}</p>
-                                <p>Check-In: {reservationData.end_date}</p>
+                                <p>Check-Out: {reservationData.end_date}</p>
 
                                 <p>Number of nights: {parsedData.number_of_nights}</p>
                                 <p>Number of persons: {reservationData.number_of_persons}</p>

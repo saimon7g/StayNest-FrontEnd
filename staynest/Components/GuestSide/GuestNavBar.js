@@ -1,40 +1,21 @@
-'use client';
-import Link from 'next/link';
+'use client'
+import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import { useState } from 'react';
 import Image from 'next/image';
 import Logo from '@/StaticImage/logo1.png';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { FiSearch } from 'react-icons/fi'; // Import the search icon
-import { IoIosCalendar } from 'react-icons/io'; // Import other icons as needed
+import { FiSearch, FiBell } from 'react-icons/fi'; // Import notification icon
 import { useRouter } from 'next/navigation';
 import { formatDate } from '../utills';
 
-const Navbar = () => {
+const GuestNavbar = () => {
     const router = useRouter();
-
-
-    // {
-    //     "results": [
-    //       {
-    //         "listing_id": "123456",
-    //         "name": "Cozy Apartment in New York",
-    //         "location": "New York",
-    //         "price": 150,
-    //         "availability": {
-    //           "check_in": "2024-01-12",
-    //           "check_out": "2024-01-15"
-    //         },
-    //         "photo": "https://example.com/cozy_apartment_photo.jpg"
-    //       },
-    //     ]
-    //   }
     const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [numberOfPeople, setNumberOfPeople] = useState(1);
     const [location, setLocation] = useState('');
-    const [queryString, setQueryString] = useState('');
 
     const handleStartDateChange = (date) => {
         setStartDate(date);
@@ -75,29 +56,61 @@ const Navbar = () => {
         setIsSearchFormVisible(false);
     };
 
-
     return (
-        <nav className="flex justify-between items-center h-16 bg-blue-200 text-black relative shadow-sm font-mono" role="navigation">
-            {/* Existing Logo */}
-            <Link href="/">
-                <div className="pl-8">
-                    <Image src={Logo} alt="logo" width={100} height={100} />
+        <Navbar fluid rounded className="bg-blue-200">
+            {/* Logo on the left */}
+            <Navbar.Brand href="/">
+                <Image src={Logo} alt="logo" width={100} height={100} />
+            </Navbar.Brand>
+            
+            {/* Search bar in the middle */}
+            <div className="flex justify-center items-center flex-grow">
+                <div className="flex justify-between bg-slate-100 rounded-full py-2 px-6 cursor-pointer" onClick={() => setIsSearchFormVisible(!isSearchFormVisible)}>
+                    <text className="text-2xl text-slate-400 px-20">Where | When</text>
+                    <FiSearch size={30} />
                 </div>
-            </Link>
-
-            {/* Search Icon */}
-            <div className="flex justify-between bg-slate-100 rounded-full py-2 px-6 cursor-pointer" onClick={() => setIsSearchFormVisible(!isSearchFormVisible)}>
-                <text className="text-2xl text-slate-400 px-20">Where | When</text>
-                <FiSearch size={30} />
             </div>
 
-            {/* Dynamic Search Form */}
+            {/* User login/profile dropdown and notification icon on the right */}
+            <div className="flex items-center ml-auto">
+                <FiBell className="cursor-pointer text-white mr-4" size={24} />
+                {/* Notification icon */}
+                <Dropdown
+                    arrowIcon={false}
+                    inline
+                    label={
+                        <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
+                    }
+                >
+                    <Dropdown.Header>
+                        <span className="block text-sm">Bonnie Green</span>
+                        <span className="block truncate text-sm font-medium">name@flowbite.com</span>
+                    </Dropdown.Header>
+                    <Dropdown.Item>Dashboard</Dropdown.Item>
+                    <Dropdown.Item>Settings</Dropdown.Item>
+                    <Dropdown.Item>Earnings</Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item>Sign out</Dropdown.Item>
+                    {/* Switch to toggle between host and guest modes */}
+                    <div className="flex items-center ml-4">
+                        <label htmlFor="switch" className="flex items-center cursor-pointer">
+                            <span className="mr-2">Switch to</span>
+                            <input type="checkbox" id="switch" className="hidden" />
+                            <div className="toggle-wrapper relative w-12 h-6 bg-gray-400 rounded-full border-2 border-gray-400">
+                                <div className="toggle-block absolute w-6 h-6 bg-white rounded-full shadow-md transform duration-300 ease-in-out"></div>
+                            </div>
+                        </label>
+                    </div>
+                </Dropdown>
+            </div>
+
+            {/* Search form */}
             {isSearchFormVisible && (
                 <div className="bg-slate-100 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-4 border border-gray-300 rounded-md shadow-md">
                     <text className="text-3xl ml-20 my-16"> Search your stay</text>
                     <form onSubmit={handleSearchSubmit} >
                         <div>
-                            <label for="fname">Location</label>
+                            <label htmlFor="location">Location</label>
                             <input
                                 type="text"
                                 placeholder="Anywhere"
@@ -106,11 +119,9 @@ const Navbar = () => {
                                 className="mb-2 border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-full"
                             />
                         </div>
-                        {/* Date Pickers */}
                         <div className="flex items-center mb-2">
-
                             <div className="flex flex-col">
-                                <label for="fname">Arrival</label>
+                                <label htmlFor="arrival">Arrival</label>
                                 <DatePicker
                                     selected={startDate}
                                     onChange={handleStartDateChange}
@@ -121,7 +132,7 @@ const Navbar = () => {
                                 />
                             </div>
                             <div className="flex flex-col">
-                                <label for="fname">Departure</label>
+                                <label htmlFor="departure">Departure</label>
                                 <DatePicker
                                     selected={endDate}
                                     onChange={handleEndDateChange}
@@ -133,9 +144,8 @@ const Navbar = () => {
                                 />
                             </div>
                         </div>
-                        {/* Number of People and Location */}
                         <div>
-                            <label for="fname">Travelers</label>
+                            <label htmlFor="travelers">Travelers</label>
                             <input
                                 type="number"
                                 placeholder="Number of People"
@@ -144,35 +154,14 @@ const Navbar = () => {
                                 className="mb-2 border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-full"
                             />
                         </div>
-
-
-                        {/* Submit Button */}
                         <button type="submit" className="text-white bg-red-400 hover:bg-red-500 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
                             Search
                         </button>
-
                     </form>
                 </div>
             )}
-
-            {/* Existing Account Link */}
-            <div className='flex '>
-                <Link href="/host">
-                    <button type="button" className="py-2.5 px-5 me-2 mb-2 mt-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700">
-                        switch to host
-                    </button>
-
-                </Link>
-                <Link href="/account">
-                    <div className=" pr-8">
-                        <Image src={Logo} alt="account" width={100} height={100} className='rounded-full' />
-                    </div>
-                </Link>
-            </div>
-
-
-        </nav>
+        </Navbar>
     );
 };
 
-export default Navbar;
+export default GuestNavbar;
