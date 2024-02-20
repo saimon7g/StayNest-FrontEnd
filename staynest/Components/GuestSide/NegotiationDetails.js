@@ -5,6 +5,8 @@ import { use, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { FaArrowCircleLeft } from "react-icons/fa";
 import { getNegotiationDetails } from '@/API/UserDashBoard';
+import { offerAcceptedByGuest } from "@/API/Negotiations";
+import { offerRejectedByGuest } from "@/API/Negotiations";
 
 export function NegotiationDetails({ negotiationId, handleOptionClick }) {
 
@@ -27,6 +29,29 @@ export function NegotiationDetails({ negotiationId, handleOptionClick }) {
         fetchNegotiationDetails();
     }
         , [negotiationId]);
+
+    const acceptOffer = () => {
+
+        // accept booking price offered by host
+        const data = {
+            negotiation_id: negotiationId,
+            accepeted_price: negotiationDetails.negotiation_details.host_price,
+            negotiation_status: "acceptedbyguest"
+        };
+        // send data to server
+        offerAcceptedByGuest(data);
+
+
+    }
+    const rejectOffer = () => {
+        // reject offer
+        const data = {
+            negotiation_id: negotiationId,
+            negotiation_status: "rejectedbyguest"
+        };
+        // send data to server
+        offerRejectedByGuest(data);
+    }
 
 
 
@@ -161,7 +186,7 @@ export function NegotiationDetails({ negotiationId, handleOptionClick }) {
                                             <>
                                                 <h4 className="text-lg">Regular Price: {negotiationDetails.negotiation_details.default_price}</h4>
                                                 <h4 className="text-lg">Guest Offer: {guestSideOffer}</h4>
-                                                <h4 className="text-lg">No Offer from Host</h4>
+                                                <h4 className="text-lg"> Still No Offer from Host</h4>
                                             </>
                                         );
                                     } else if (negotiationDetails.negotiation_details.negotiation_status === "offeredbyhost") {
@@ -170,6 +195,9 @@ export function NegotiationDetails({ negotiationId, handleOptionClick }) {
                                                 <h4 className="text-lg">Regular Price: {negotiationDetails.negotiation_details.default_price}</h4>
                                                 <h4 className="text-lg">Guest Offer: {guestSideOffer}</h4>
                                                 <h4 className="text-lg">Host Offer: {hostSideOffer}</h4>
+                                                {/* two button to accept or reject offer */}
+                                                <button className="bg-green-500 text-white p-2 rounded-lg" onClick={acceptOffer}>Accept</button>
+                                                <button className="bg-red-500 text-white p-2 rounded-lg" onClick={rejectOffer}>Reject</button>
                                             </>
                                         );
                                     } else if (negotiationDetails.negotiation_details.negotiation_status === "acceptedbyhost") {
@@ -177,7 +205,7 @@ export function NegotiationDetails({ negotiationId, handleOptionClick }) {
                                             <>
                                                 <h4 className="text-lg">Regular Price: {negotiationDetails.negotiation_details.default_price}</h4>
                                                 <h4 className="text-lg">Guest Offer: {guestSideOffer}</h4>
-                                                <h4 className="text-lg">Negotiation Accepted</h4>
+                                                <h4 className="text-lg">Negotiation Accepted by Host</h4>
                                             </>
                                         );
                                     } else if (negotiationDetails.negotiation_details.negotiation_status === "rejectedbyhost") {
@@ -185,7 +213,7 @@ export function NegotiationDetails({ negotiationId, handleOptionClick }) {
                                             <>
                                                 <h4 className="text-lg">Regular Price: {negotiationDetails.negotiation_details.default_price}</h4>
                                                 <h4 className="text-lg">Guest Offer: {guestSideOffer}</h4>
-                                                <h4 className="text-lg">Negotiation Rejected</h4>
+                                                <h4 className="text-lg">Negotiation Rejected by Host</h4>
                                             </>
                                         );
                                     } else if (negotiationDetails.negotiation_details.negotiation_status === "acceptedbyguest") {
@@ -193,7 +221,7 @@ export function NegotiationDetails({ negotiationId, handleOptionClick }) {
                                             <>
                                                 <h4 className="text-lg">Regular Price: {negotiationDetails.negotiation_details.default_price}</h4>
                                                 <h4 className="text-lg">Host Offer: {hostSideOffer}</h4>
-                                                <h4 className="text-lg">Negotiation Accepted</h4>
+                                                <h4 className="text-lg">Negotiation Accepted by Guest</h4>
                                             </>
                                         );
                                     } else if (negotiationDetails.negotiation_details.negotiation_status === "rejectedbyguest") {
@@ -201,7 +229,7 @@ export function NegotiationDetails({ negotiationId, handleOptionClick }) {
                                             <>
                                                 <h4 className="text-lg">Regular Price: {negotiationDetails.negotiation_details.default_price}</h4>
                                                 <h4 className="text-lg">Host Offer: {hostSideOffer}</h4>
-                                                <h4 className="text-lg">Negotiation Rejected</h4>
+                                                <h4 className="text-lg">Negotiation Rejected by Guest</h4>
                                             </>
                                         );
                                     } else {

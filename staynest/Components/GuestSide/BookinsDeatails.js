@@ -4,12 +4,16 @@ import { getBookingDetails } from '@/API/UserDashBoard';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { FaArrowCircleLeft } from "react-icons/fa";
+import { cancelBooking } from '@/API/UserDashBoard';
 
 
 
-export function BookingDetails({ bookingId , handleOptionClick }) {
+export function BookingDetails({ bookingId, handleOptionClick }) {
 
     const [fullDeatils, setDetails] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+
     const fetchBookingDetails = async () => {
         const data = await getBookingDetails(bookingId);
         setDetails(data);
@@ -21,6 +25,31 @@ export function BookingDetails({ bookingId , handleOptionClick }) {
 
     const goBack = () => {
         handleOptionClick('MyBookings');
+    }
+
+    const handleCancelBooking = () => {
+
+        // Call the API to cancel the booking
+        // If successful, close the modal and display a success message
+        // If failed, display an error message
+        setIsModalOpen(false);
+        const data = {
+            "booking_id": bookingId
+        };
+        cancelBooking(data);
+
+
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    const cancelBooking = async () => {
+        // Call the API to cancel the booking
+        // If successful, close the modal and display a success message
+        // If failed, display an error message
+        setIsModalOpen(true);
     }
 
 
@@ -87,7 +116,7 @@ export function BookingDetails({ bookingId , handleOptionClick }) {
         fullDeatils ? (
 
             <div>
-                <FaArrowCircleLeft  onClick={goBack} className="text-2xl cursor-pointer" />
+                <FaArrowCircleLeft onClick={goBack} className="text-2xl cursor-pointer" />
 
                 <div className="flex flex-col items-center">
                     <h2 className="text-2xl font-semibold">{fullDeatils.data.propert_details.property_name}</h2>
@@ -178,6 +207,80 @@ export function BookingDetails({ bookingId , handleOptionClick }) {
                             )}
                         </div>
                     </Card>
+                </div>
+
+
+
+
+
+
+
+
+
+
+                {/* 
+
+                <div className="flex flex-row items-center justify-center">
+            {fullDetails.data.booking_details.booking_status === 'upcoming' && (
+                <button className="bg-blue-500 text-white p-2 rounded-lg mt-5" onClick={handleCancelBooking}>
+                    Cancel Booking
+                </button>
+            )}
+            
+            {/* Modal */}
+                {/* {isModalOpen && (
+                <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50">
+                    <div className="bg-white p-8 rounded-lg">
+                        <h2 className="text-2xl font-bold mb-4">Confirmation</h2>
+                        <p>Are you sure you want to cancel this booking?</p>
+                        <div className="flex justify-end mt-4">
+                            <button className="bg-gray-500 text-white px-4 py-2 rounded mr-4" onClick={closeModal}>Close</button>
+                            <button className="bg-red-500 text-white px-4 py-2 rounded" onClick={handleCancelBooking}>Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div> */}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div className="flex flex-row items-center justify-center">
+                    {fullDeatils.data.booking_details.booking_status === 'upcoming' && (
+                        <button className="bg-blue-500 text-white p-2 rounded-lg mt-5" onClick={cancelBooking}>
+                            Cancel Booking
+                        </button>
+                    )}
+
+
+                    {/* Modal */}
+                    {isModalOpen && (
+                        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50">
+                            <div className="bg-white p-8 rounded-lg">
+                                <h2 className="text-2xl font-bold mb-4">Confirmation</h2>
+                                <p>Are you sure you want to cancel this booking?</p>
+                                <div className="flex justify-end mt-4">
+                                    <button className="bg-gray-500 text-white px-4 py-2 rounded mr-4" onClick={closeModal}>Close</button>
+                                    <button className="bg-red-500 text-white px-4 py-2 rounded" onClick={handleCancelBooking}>Confirm</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+
                 </div>
             </div>
 
