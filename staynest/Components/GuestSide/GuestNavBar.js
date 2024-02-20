@@ -93,7 +93,7 @@ const Navbar = () => {
 
             {/* Dynamic Search Form */}
             {isSearchFormVisible && (
-                <div className="bg-slate-100 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-4 border border-gray-300 rounded-md shadow-md">
+                <div className="bg-slate-100 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-4 border border-gray-300 rounded-md shadow-md">
                     <text className="text-3xl ml-20 my-16"> Search your stay</text>
                     <form onSubmit={handleSearchSubmit} >
                         <div>
