@@ -142,9 +142,7 @@ export async function offerAcceptedByGuest(data) {
         const authToken = sessionStorage.getItem('authToken');
         if (authToken === null) {
             console.log("//-----No token found");
-            // geenrate error
-            // return;
-            return constantdata;
+            return;
         }
         const response = await axios.post(`http://127.0.0.1:8000/guest/api/offer_accepted_by_guest/`, data, {
             headers: {
@@ -156,7 +154,7 @@ export async function offerAcceptedByGuest(data) {
     }
     catch (error) {
         console.error(error);
-        return constantdata;
+        return error
     }
 }
 
@@ -174,8 +172,8 @@ export async function offerRejectedByGuest(data) {
         if (authToken === null) {
             console.log("//-----No token found");
             // geenrate error
-            // return;
-            return constantdata;
+            return;
+          
         }
         const response = await axios.post(`http://127.0.0.1:8000/guest/api/offer_rejected_by_guest/`, data, {
             headers: {
@@ -187,6 +185,6 @@ export async function offerRejectedByGuest(data) {
     }
     catch (error) {
         console.error(error);
-        return constantdata;
+        return error;
     }
 }

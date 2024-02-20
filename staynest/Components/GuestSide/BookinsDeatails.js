@@ -32,13 +32,11 @@ export function BookingDetails({ bookingId, handleOptionClick }) {
         // Call the API to cancel the booking
         // If successful, close the modal and display a success message
         // If failed, display an error message
-        setIsModalOpen(false);
         const data = {
             "booking_id": bookingId
         };
         cancelBooking(data);
-
-
+        closeModal();
     };
 
     const closeModal = () => {
@@ -46,9 +44,6 @@ export function BookingDetails({ bookingId, handleOptionClick }) {
     };
 
     const cancelBooking = async () => {
-        // Call the API to cancel the booking
-        // If successful, close the modal and display a success message
-        // If failed, display an error message
         setIsModalOpen(true);
     }
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { HiUser, HiArrowSmRight } from "react-icons/hi";
-import { getNegotiations } from '@/API/UserDashBoard'; 
+import { getNegotiations } from '@/API/Negotiations';
 import { useEffect } from 'react';
 
 export function Negotiation({ handleOptionClick, setSelectedNegotiationId }) {

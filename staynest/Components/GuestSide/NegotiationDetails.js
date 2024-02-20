@@ -4,7 +4,7 @@ import { Card } from 'flowbite-react';
 import { use, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { FaArrowCircleLeft } from "react-icons/fa";
-import { getNegotiationDetails } from '@/API/UserDashBoard';
+import { getNegotiationDetails } from "@/API/Negotiations";
 import { offerAcceptedByGuest } from "@/API/Negotiations";
 import { offerRejectedByGuest } from "@/API/Negotiations";
 
@@ -32,6 +32,8 @@ export function NegotiationDetails({ negotiationId, handleOptionClick }) {
 
     const acceptOffer = () => {
 
+        // negotiationDetails.negotiation_details.negotiation_status = "acceptedbyguest";
+        setNegotiationDetails({ ...negotiationDetails, negotiation_details: { ...negotiationDetails.negotiation_details, negotiation_status: "acceptedbyguest" } });
         // accept booking price offered by host
         const data = {
             negotiation_id: negotiationId,
@@ -44,6 +46,8 @@ export function NegotiationDetails({ negotiationId, handleOptionClick }) {
 
     }
     const rejectOffer = () => {
+
+        setNegotiationDetails({ ...negotiationDetails, negotiation_details: { ...negotiationDetails.negotiation_details, negotiation_status: "rejectedbyguest" } });
         // reject offer
         const data = {
             negotiation_id: negotiationId,
