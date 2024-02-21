@@ -11,7 +11,7 @@ export async function getNegotiations() {
                     "property_name": "Property Name 1",
                     "booking_type": "Stay",
                     "negotiation_status": "pending",
-                    "photo": "base64 encoded image"// photo of property
+                    "photo": "base64 encoded image"// photo of propertyy
                 },
                 {
                     "negotiation_id": "<negotiation id>",
@@ -34,18 +34,19 @@ export async function getNegotiations() {
     console.log("getNegotiations");
     try {
         const authToken = sessionStorage.getItem('authToken');
-        if (authToken === null) {
-            console.log("//-----No token found");
-            // geenrate error
-            // return;
-            return constantdata;
-        }
-        const response = await axios.get(`http://127.0.0.1:8000/guest/api/negotiations/`, {
+        // if (authToken === null) {
+        //     console.log("//-----No token found");
+        //     // geenrate error
+        //     // return;
+        //     return constantdata;
+        // }
+        const response = await axios.get(`http://127.0.0.1:8000/guest/api/nego/negotiations/`, {
             headers: {
                 'Authorization': `Token ${authToken}`,
                 'Content-Type': 'application/json'
             }
         });
+        console.log("getNegotiations response", response);
         return response;
     }
     catch (error) {
@@ -59,8 +60,6 @@ export async function getNegotiationDetails(negotiationId) {
         "status": "success",
         "message": "Negotiation details retrieved successfully",
         "data": {
-            "negotiation_id": "<negotiation id>",
-            "negotiation_status": "pending",
             "host": {
                 "host_id": 123456,
                 "host_name": "John Doe",
@@ -100,6 +99,7 @@ export async function getNegotiationDetails(negotiationId) {
                 ]
             },
             "negotiation_details": {
+                "negotiation_id": "<negotiation id>",
                 "default_price": 300,
                 "guest_price": 250,
                 "host_price": 200,
@@ -109,13 +109,13 @@ export async function getNegotiationDetails(negotiationId) {
     };
     try {
         const authToken = sessionStorage.getItem('authToken');
-        if (authToken === null) {
-            console.log("//-----No token found");
-            // geenrate error
-            // return;
-            return constantdata;
-        }
-        const response = await axios.get(`http://127.0.0.1:8000/guest/api/negotiation_details/${negotiationId}/`, {
+        // if (authToken === null) {
+        //     console.log("//-----No token found");
+        //     // geenrate error
+        //     // return;
+        //     return constantdata;
+        // }
+        const response = await axios.get(`http://127.0.0.1:8000/guest/api/nego/negotiation_details/${negotiationId}/`, {
             headers: {
                 'Authorization': `Token ${authToken}`,
                 'Content-Type': 'application/json'
@@ -142,11 +142,11 @@ export async function offerAcceptedByGuest(data) {
 
     try {
         const authToken = sessionStorage.getItem('authToken');
-        if (authToken === null) {
-            console.log("//-----No token found");
-            return;
-        }
-        const response = await axios.post(`http://127.0.0.1:8000/guest/api/offer_accepted_by_guest/`, data, {
+        // if (authToken === null) {
+        //     console.log("//-----No token found");
+        //     return;
+        // }
+        const response = await axios.put(`http://127.0.0.1:8000/guest/api/nego/offer_accepted_by_guest/`, data, {
             headers: {
                 'Authorization': `Token ${authToken}`,
                 'Content-Type': 'application/json'
@@ -156,7 +156,7 @@ export async function offerAcceptedByGuest(data) {
     }
     catch (error) {
         console.error(error);
-        return error
+        return error;
     }
 }
 
@@ -177,7 +177,7 @@ export async function offerRejectedByGuest(data) {
             return;
           
         }
-        const response = await axios.post(`http://127.0.0.1:8000/guest/api/offer_rejected_by_guest/`, data, {
+        const response = await axios.post(`http://127.0.0.1:8000/guest/api/nego/offer_rejected_by_guest/`, data, {
             headers: {
                 'Authorization': `Token ${authToken}`,
                 'Content-Type': 'application/json'

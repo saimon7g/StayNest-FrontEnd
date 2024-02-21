@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import { getPropertyByIDd, getMealOption } from '@/API/GuestAPI';
+import { getPropertyByID, getMealOption } from '@/API/GuestAPI';
 import { FaRegStar } from "react-icons/fa";
 import { GiRibbonMedal } from "react-icons/gi";
 import { CiShare1 } from "react-icons/ci";
@@ -70,8 +70,8 @@ export default function SingleProperty({ params }) {
         const response = await getPropertyByID(id);
         setProperty(response);
         //console.log(response);
-        console.log('host ',response.host);
-        console.log('property host',property.host);
+        console.log('host ',response);
+        //console.log('property host',property.host);
       } catch (error) {
         console.error(error);
       }
@@ -79,7 +79,7 @@ export default function SingleProperty({ params }) {
   
     fetchData();
   }, []);
-useEffect(() => {
+/*useEffect(() => {
   async function fetchData() {
     try {
       const response = await getMealOption(id);
@@ -91,7 +91,7 @@ useEffect(() => {
   }
 
   fetchData();
-}, []);
+}, []);*/
 
   // useEffect(() => {
   //   console.log('property.host', property.host);
@@ -152,14 +152,10 @@ useEffect(() => {
           <text className='text-slate-400 underline underline-offset-4 ml-4'>Mohakhali Dhaka</text>
         </div>
         <div className='flex flex-row items-center justify-center'>
-          <div></div>
           <CiShare1 className='mx-2' /><FaRegHeart className='mx-2' />
         </div>
       </div>
       <div className='my-8'>
-        {/* <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ">
-          Meals option
-        </button> */}
         <Button onClick={() => setOpenModal(true)}>Add meal</Button>
         <MealSelectionForm
            breakfast={breakfast} 
@@ -186,14 +182,14 @@ useEffect(() => {
       </div> */}
      
      {property&& property.photos && property.photos.map((photo, index) => (
-  <Image
-    key={index}
-    src={photo.image_data}
-    width={400}
-    height={240}
-    alt={`StayNest Photo ${index + 1}`}
-  />
-))}
+      <Image
+        key={index}
+        src={photo.image_data}
+        width={400}
+        height={240}
+        alt={`StayNest Photo ${index + 1}`}
+      />
+    ))}
       
 
 
@@ -201,18 +197,18 @@ useEffect(() => {
       <div className='flex flex-row items-center justify-left mb-20'>
         <div className='flex flex-col items-around justify-center w-1/2'>
           <div className='flex flex-row items-around justify-center my-16'>
-          <div className=''>
-  {property&&property.name && (
-    <p className='text-3xl font-bold'>{property.name} hosted by {property.host && property.host.host_name}</p>
-  )}
-  
-  {property&&property.some_basics && (
-    <p className=''>
-      {property.some_basics.number_of_guests} guests . {property.some_basics.number_of_bedrooms} bedrooms . 
-      {property.some_basics.number_of_beds} bed . {property.some_basics.number_of_bathrooms} bath
-    </p>
-  )}
-</div>
+            <div className=''>
+              {property&&property.name && (
+                <p className='text-3xl font-bold'>{property.name} hosted by {property.host && property.host.name}</p>
+              )}
+    
+              {property&&property.some_basics && (
+                <p className=''>
+                  {property.some_basics.number_of_guests} guests . {property.some_basics.number_of_bedrooms} bedrooms . 
+                  {property.some_basics.number_of_beds} bed . {property.some_basics.number_of_bathrooms} bath
+                </p>
+              )}
+            </div>
             <div className='ml-auto'>
               <Image src={Profile} alt="profile" className='w-20 border rounded-full' />
             </div>
