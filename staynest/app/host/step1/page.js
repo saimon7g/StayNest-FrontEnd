@@ -20,8 +20,10 @@ import { FaHome } from "react-icons/fa";
 import { FaDoorClosed } from "react-icons/fa";
 import { MdAirlineSeatIndividualSuite } from "react-icons/md";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import "@/app/styles/leaflet.css";
-import { useRef } from "react";
+// import "@/app/styles/leaflet.css";
+// import { useRef } from "react";
+
+import Map from "@/Components/HostSide/Map";
 
 
 
@@ -46,8 +48,7 @@ const Step1 = () => {
     const [bathrooms, setBathrooms] = React.useState("2");
     const [center, setCenter] = React.useState({ lat: 51.505, lng: -0.09 });
     const [zoom, setZoom] = React.useState(9);
-    const { registrationId, setRegistrationId } = useContext(RegistrationContext);  // use the context
-    const mapRef = useRef();
+
 
     // const receivedVariable = useRouter().query;
     // console.log("received variable");
@@ -151,6 +152,9 @@ const Step1 = () => {
 
     return (
         <div>
+
+
+
             <div className="flex flex-col items-center justify-center">
                 <div className="pb-5">
                     <text className="text-2xl font-bold ">1. What type of place are you listing?</text>
@@ -276,20 +280,18 @@ const Step1 = () => {
                 </div>
             </div>
 
-            {/* location selection using google map */}
-            <div>
-                <text className="text-2xl font-bold">3. Where is your place located?</text>
+            <div className="flex flex-col">
+                <div className="flex justify-center">
+                    <text className="text-2xl font-bold">3. Where's your place located?</text>
+                </div>
+                <div className="flex justify-center ">
+                    <div className="w-6/12"><Map /></div>
 
-                {/* a fixed div section with 256x256 to contain map */}
-                <div className="border-2 border-indigo-600 w-40 p-5" width="256" height="256">
-                    <MapContainer center={center} zoom={zoom} scrollWheelZoom={true} dragging={false} ref={mapRef} style={{ height: "256px", width: "256px" }}>
-                        <TileLayer
-                            url="https://api.maptiler.com/maps/basic-v2/256/{z}/{x}/{y}.png?key=SV7rIFRpYvBytdOVysIj"
-                            attribution="&copy; <a href='https://www.maptiler.com/copyright'> MapTiler</a> &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a>"
-                        />
-                    </MapContainer>
+
                 </div>
             </div>
+
+
 
             <div className="flex flex-col items-center justify-center" >
                 <div>
