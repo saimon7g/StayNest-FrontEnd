@@ -134,6 +134,7 @@ export async function getPropertyByID(propertyId) {
                     "reviewer_name": "John",
                     "review":"Great Host"
              }],
+            },
 
         "photos": [
             {
@@ -156,8 +157,6 @@ export async function getPropertyByID(propertyId) {
                     "review":"Great place to stay"
              },
             ]
-        
-    }
     }
 
     return response;
