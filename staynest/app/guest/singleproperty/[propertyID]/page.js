@@ -47,6 +47,13 @@ export default function SingleProperty({ params }) {
     setCart(updatedCart);
     console.log('Updated Cart:', updatedCart);
   };
+  /*const rating = () => {
+    let x=0;
+    for (let i = 0; i < property.reviews.length; i++) {
+      x+=property.reviews[i].
+      
+    }
+  };*/
   const handleCheckInDateChange = (date) => {
     setCheckInDate(date);
   };
@@ -146,9 +153,11 @@ export default function SingleProperty({ params }) {
         <div className='flex flex-row items-center justify-center'>
           <FaRegStar />
           <text className='font-bold ml-2'>5.0</text>
-          <text className='font-bold ml-2 underline underline-offset-4 mx-4'>7 reviews</text>
+          {/*property&&property.reviews&& (<text className='font-bold ml-2 underline underline-offset-4 mx-4'>{property.reviews.length} reviews</text>)*/}
+          {property&&property.reviews&& (<text className='font-bold ml-2 underline underline-offset-4 mx-4'>{property.reviews.length} reviews</text>)}
           <GiRibbonMedal />
-          <text className='text-slate-400'>Super Host</text>
+          {property&&property.host&&property.host.super_host&& (<text className='text-slate-400'>Super Host</text>)}
+          {property&&property.host&& !property.host.super_host&& (<text className='text-slate-400'>Normal Host</text>)}
           <text className='text-slate-400 underline underline-offset-4 ml-4'>Mohakhali Dhaka</text>
         </div>
         <div className='flex flex-row items-center justify-center'>
@@ -166,33 +175,15 @@ export default function SingleProperty({ params }) {
            setOpenModal={setOpenModal} />
         
       </div>
-      {/* <div className='grid grid-rows-2 grid-cols-4  gap-4'>
-        <div className='row-span-1 col-span-2'>
-          <Image src={Logo} alt="logo" className='w-auto h-auto border' />
-        </div>
-        <div className='row-span-1 col-span-2'>
-          <Image src={Logo} alt="logo" className='w-auto h-auto border' />
-        </div>
-        <div className='row-span-1 col-span-2'>
-          <Image src={Logo} alt="logo" className='w-auto h-auto border' />
-        </div>
-        <div className='row-span-1 col-span-2'>
-          <Image src={Logo} alt="logo" className='w-auto h-auto border' />
-        </div>
-      </div> */}
-     
-     {property&& property.photos && property.photos.map((photo, index) => (
-      <Image
-        key={index}
-        src={photo.image_data}
-        width={400}
-        height={240}
-        alt={`StayNest Photo ${index + 1}`}
-      />
-    ))}
+      <div className='grid grid-rows-1 grid-cols-6 gap-2'>
+        {property&& property.photos && property.photos.map((photo, index) => (
+            <div className='row-span-1 col-span-2'>
+              <Image src={photo.image_data} alt="logo" width={0} height={0} className='border w-full object-cover' />
+            </div>
+          
+        ))}
+      </div> 
       
-
-
 
       <div className='flex flex-row items-center justify-left mb-20'>
         <div className='flex flex-col items-around justify-center w-1/2'>
@@ -210,7 +201,10 @@ export default function SingleProperty({ params }) {
               )}
             </div>
             <div className='ml-auto'>
-              <Image src={Profile} alt="profile" className='w-20 border rounded-full' />
+              {property&&property.host&&property.host.profile_pic && (
+                  <Image src={property.host.profile_pic} alt="profile" width={20} height={20}className='w-20 border rounded-full' />
+                )
+              }
             </div>
           </div>
           <hr />
