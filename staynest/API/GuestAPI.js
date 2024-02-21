@@ -90,15 +90,24 @@ export async function getPropertyByID(propertyId) {
             "number_of_guests": 4,
             "number_of_bedrooms": 2,
             "number_of_beds": 2,
-            "number_of_bathrooms": 2.0
+            "number_of_bathrooms": 2
         },
         "property_type": "Houseboat",
         "property_sub_type": "Entire place",
         "description": "sdjfbn hjb jfnvjdkdf fdkffng jfhg",
         "price": "1700.00",
-        "availability": [{
-            "start_date": "2024-01-12",
-            "end_date": "2024-01-15"
+        "availability": [
+        {
+            "start_date": "2024-02-12",
+            "end_date": "2024-02-15"
+        },
+        {
+            "start_date": "2024-02-18",
+            "end_date": "2024-02-21"
+        },
+        {
+            "start_date": "2024-02-25",
+            "end_date": "2024-02-27"
         },],
         "regular_amenities": [
             "Wifi",
@@ -156,15 +165,22 @@ export async function getPropertyByID(propertyId) {
                     "review_id": "123",
                     "reviewer_id": "456",
                     "reviewer_name": "Tina",
-                    "review":"Great Place to stay"
+                    "review":"Great Place to stay",
+                    "rating": 4.0
                  },
                 {
                     "review_id": "124",
                     "reviewer_id": "457",
                     "reviewer_name": "John",
-                    "review":"Great place to stay"
-             },
-            ]
+                    "review":"Great place to stay",
+                    "rating" : 5.0
+                },
+            ],
+        "booking_options":{
+            "stay":true,
+            "stay_with_meal":true,
+            "paying_guest":true
+        }
     }
 
     return response;

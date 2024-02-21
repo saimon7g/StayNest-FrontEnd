@@ -16,6 +16,9 @@ import { MealSelectionForm } from '@/Components/GuestSide/MealSelectionForm';
 import { Button,Card,Modal } from 'flowbite-react';
 import { Datepicker } from 'flowbite-react';
 import { formatDate } from '@/Components/utills';
+import { Label, Radio } from 'flowbite-react';
+import DatePicker from "react-datepicker";
+import { addDays } from 'date-fns';
 
 export default function SingleProperty({ params }) {
   const [openModal, setOpenModal] = useState(false);
@@ -47,13 +50,23 @@ export default function SingleProperty({ params }) {
     setCart(updatedCart);
     console.log('Updated Cart:', updatedCart);
   };
-  /*const rating = () => {
-    let x=0;
+  const rating = () => {
+    let total_rating=0;
     for (let i = 0; i < property.reviews.length; i++) {
-      x+=property.reviews[i].
-      
+      total_rating+=property.reviews[i].rating;
     }
-  };*/
+    return total_rating/property.reviews.length
+  };
+  const dateIntervals = () => {
+    let list=[];
+    /*property.availability.forEach(e => {
+      list.push({
+        start:new Date(e.start_date),
+        end : new Date(e.end_date)
+      })
+    });*/
+    return list;
+  };
   const handleCheckInDateChange = (date) => {
     setCheckInDate(date);
   };
@@ -147,18 +160,18 @@ export default function SingleProperty({ params }) {
 
     <div className='flex flex-col items-around justify-center w-4/6 mx-auto'>
       <div className='my-6 '>
-        <p className='text-3xl font-bold'>Adnan HomeStay</p>
+        {property&&property.name && (<p className='text-3xl font-bold'>{property.name}</p>)}
       </div>
       <div className='flex flex-row items-center justify-between w-full'>
         <div className='flex flex-row items-center justify-center'>
           <FaRegStar />
-          <text className='font-bold ml-2'>5.0</text>
-          {/*property&&property.reviews&& (<text className='font-bold ml-2 underline underline-offset-4 mx-4'>{property.reviews.length} reviews</text>)*/}
+          {property&&property.reviews&& (<text className='font-bold ml-2'>{rating()}</text>)}
           {property&&property.reviews&& (<text className='font-bold ml-2 underline underline-offset-4 mx-4'>{property.reviews.length} reviews</text>)}
           <GiRibbonMedal />
           {property&&property.host&&property.host.super_host&& (<text className='text-slate-400'>Super Host</text>)}
           {property&&property.host&& !property.host.super_host&& (<text className='text-slate-400'>Normal Host</text>)}
-          <text className='text-slate-400 underline underline-offset-4 ml-4'>Mohakhali Dhaka</text>
+          {property&&property.location && (<text className='text-slate-400 underline underline-offset-4 ml-4'>{property.location}</text>)}
+          
         </div>
         <div className='flex flex-row items-center justify-center'>
           <CiShare1 className='mx-2' /><FaRegHeart className='mx-2' />
@@ -189,8 +202,8 @@ export default function SingleProperty({ params }) {
         <div className='flex flex-col items-around justify-center w-1/2'>
           <div className='flex flex-row items-around justify-center my-16'>
             <div className=''>
-              {property&&property.name && (
-                <p className='text-3xl font-bold'>{property.name} hosted by {property.host && property.host.name}</p>
+              {property&&property.property_type && (
+                <p className='text-3xl font-bold'>{property.property_type} hosted by {property.host && property.host.name}</p>
               )}
     
               {property&&property.some_basics && (
@@ -213,7 +226,7 @@ export default function SingleProperty({ params }) {
               <p className='font-bold text-black'>Emenities :</p>
             </div>
             <div className='my-2 '>
-              <p className='font-bold text-black'>Entire home</p>
+              {property && property.property_sub_type && (<p className='font-bold text-black'>{property.property_sub_type}</p>)}
               <p className="text-slate-400">You will have the apartment to yourself</p>
             </div>
             <div className='my-2 '>
@@ -230,10 +243,10 @@ export default function SingleProperty({ params }) {
           <div className=''>
           <p className='font-medium'>
           {property&&property.description && property.description}
-        </p>
+          </p>
           </div>
         </div>
-        <div className='flex flex-col items-around justify-center ml-auto w-2/6'>
+        <div className='flex flex-col items-around justify-center border-4 p-4 ml-auto w-2/6 mt-16 shadow-xl'>
           <div className='flex flex-row items-center justify-between w-full my-2'>
             <div className='flex font-bold '>
               <FaBangladeshiTakaSign className='mr-1' /> 700 / night
@@ -244,18 +257,36 @@ export default function SingleProperty({ params }) {
               <text className='font-bold ml-2'>5.0</text>
             </div>
           </div>
+          <div className='border-2 rounded-lg '>
+              <fieldset className="flex max-w-md flex-col gap-4 p-4 ">
+                <legend className="mb-4">Choose your booking option</legend>
+                <div className="flex items-center gap-2">
+                  <Radio  name="bookingOption" defaultChecked />
+                  <Label>Stay</Label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Radio  name="bookingOption" />
+                  <Label>Stay with meal</Label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Radio  name="bookingOption" />
+                  <Label>Paying guest</Label>
+                </div>
+              </fieldset>
+            </div>
           <div className='grid grid-rows-2 grid-cols-2 w-full border rounded-lg my-2'>
       <div className='row-span-1 col-span-1 border p-2'>
         <p className='font-bold'>Check in</p>
-        <Datepicker
-          value={checkInDate}
+        <DatePicker
+          selected={checkInDate}
           onChange={handleCheckInDateChange}
+          includeDateIntervals={dateIntervals()}
         />
       </div>
       <div className='row-span-1 col-span-1 border p-2'>
         <p className='font-bold'>Check out</p>
-        <Datepicker
-          value={checkOutDate}
+        <DatePicker
+          selected={checkOutDate}
           onChange={handleCheckOutDateChange}
         />
       </div>
@@ -269,7 +300,7 @@ export default function SingleProperty({ params }) {
           max={10} // Adjust maximum number of guests as needed
         />
       </div>
-    </div>
+        </div>
           <div className='my-2'>
             <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-4 me-2 mb-2 w-full" onClick={() => handleReserve()}>
               Reserve
@@ -282,7 +313,6 @@ export default function SingleProperty({ params }) {
           </div>
 
         </div>
-
 
 
       </div>
