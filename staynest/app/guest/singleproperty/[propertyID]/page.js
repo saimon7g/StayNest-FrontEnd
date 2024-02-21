@@ -67,7 +67,7 @@ export default function SingleProperty({ params }) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await getPropertyByIDd(id);
+        const response = await getPropertyByID(id);
         setProperty(response);
         //console.log(response);
         console.log('host ',response.host);
