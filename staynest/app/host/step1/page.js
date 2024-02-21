@@ -19,44 +19,21 @@ import { MdOutlineCastle } from "react-icons/md";
 import { FaHome } from "react-icons/fa";
 import { FaDoorClosed } from "react-icons/fa";
 import { MdAirlineSeatIndividualSuite } from "react-icons/md";
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import "@/app/styles/leaflet.css";
-import { useRef } from "react";
-
-
-
-
-
-
-
-
-
-
+import Map from "@/Components/HostSide/Map";
 
 
 const Step1 = () => {
     const [propertyType, setPropertyType] = React.useState("House");
     const [propertySubType, setPropertySubType] = React.useState("Entire Room");
     const [locationName, setLocation] = React.useState("Dhaka");
-    const [latitute, setLatitute] = React.useState("12345");
-    const [longitute, setLongitute] = React.useState("09876");
+    const [latlng, setLatlng] = React.useState({ lat: 23.8103, lng: 90.4125 });
     const [guests, setGuests] = React.useState("5");
     const [bedrooms, setBedrooms] = React.useState("4");
     const [beds, setBeds] = React.useState("3");
     const [bathrooms, setBathrooms] = React.useState("2");
-    const [center, setCenter] = React.useState({ lat: 51.505, lng: -0.09 });
-    const [zoom, setZoom] = React.useState(9);
-    const { registrationId, setRegistrationId } = useContext(RegistrationContext);  // use the context
-    const mapRef = useRef();
-
-    // const receivedVariable = useRouter().query;
-    // console.log("received variable");
-    // console.log(receivedVariable);
-
     useEffect(() => {
         Step1GET();
         clearState();
-
     }, []);
     //--
 
@@ -65,8 +42,7 @@ const Step1 = () => {
         setPropertyType("");
         setPropertySubType("");
         setLocation("");
-        setLatitute("");
-        setLongitute("");
+        setLatlng({ lat: 23.8103, lng: 90.4125 });
         setGuests("");
         setBedrooms("");
         setBeds("");
@@ -85,22 +61,10 @@ const Step1 = () => {
         setPropertySubType(subtype);
     };
 
-    const handleLocationName = (event) => {
-        setLocation(event.target.value);
+    const handleLocation = (event) => {
+        console.log(latlng);
     }
-    const handleLatitude = (event) => {
-        setLatitute(event.target.value);
-    }
-    const handleLongitude = (event) => {
-        setLongitute(event.target.value);
-    }
-    const handleLocationClick = (event) => {
-        event.preventDefault();
-        console.log(locationName);
-        console.log(latitute);
-        console.log(longitute);
-        // console.log("location  submit clicked");
-    }
+
     const handleGuests = (event) => {
         setGuests(event.target.value);
     }
@@ -124,9 +88,9 @@ const Step1 = () => {
             "property_type": propertyType,
             "property_sub_type": propertySubType,
             "location": {
-                "latitude": latitute,
-                "longitude": longitute,
-                "selected_location": locationName
+                "latitude": latlng.lat,
+                "longitude": latlng.lng,
+                "name": locationName
             },
             "some_basics": {
                 "number_of_guests": guests,
@@ -276,20 +240,20 @@ const Step1 = () => {
                 </div>
             </div>
 
-            {/* location selection using google map */}
-            <div>
-                <text className="text-2xl font-bold">3. Where is your place located?</text>
-
-                {/* a fixed div section with 256x256 to contain map */}
-                <div className="border-2 border-indigo-600 w-40 p-5" width="256" height="256">
-                    <MapContainer center={center} zoom={zoom} scrollWheelZoom={true} dragging={false} ref={mapRef} style={{ height: "256px", width: "256px" }}>
-                        <TileLayer
-                            url="https://api.maptiler.com/maps/basic-v2/256/{z}/{x}/{y}.png?key=SV7rIFRpYvBytdOVysIj"
-                            attribution="&copy; <a href='https://www.maptiler.com/copyright'> MapTiler</a> &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a>"
-                        />
-                    </MapContainer>
+            <div className="flex flex-col">
+                <div className="flex justify-center">
+                    <text className="text-2xl font-bold">3. Where's your place located?</text>
                 </div>
+                <div className="flex justify-center ">
+                    <div className="w-6/12"><Map setLatlng={setLatlng} /></div>
+                </div>
+                <div className="flex justify-center">
+                    <button className="border border-gray-400 rounded-lg p-2 m-2" onClick={handleLocation}>Set Location</button>
+                </div>
+
             </div>
+
+
 
             <div className="flex flex-col items-center justify-center" >
                 <div>
