@@ -37,7 +37,7 @@ const login = async (username, password) => {
     const response = await axios.post('/auth/login/', { username, password });
     const token = response.data.token;
     setAuthToken(token);
-    return response.data;
+    return response;
   } catch (error) {
     console.error('Login failed:', error.response.data);
     throw error;
