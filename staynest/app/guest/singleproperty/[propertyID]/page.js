@@ -59,12 +59,12 @@ export default function SingleProperty({ params }) {
   };
   const dateIntervals = () => {
     let list=[];
-    /*property.availability.forEach(e => {
+    property.availability.forEach(e => {
       list.push({
         start:new Date(e.start_date),
         end : new Date(e.end_date)
       })
-    });*/
+    });
     return list;
   };
   const handleCheckInDateChange = (date) => {
@@ -280,7 +280,7 @@ export default function SingleProperty({ params }) {
         <DatePicker
           selected={checkInDate}
           onChange={handleCheckInDateChange}
-          includeDateIntervals={dateIntervals()}
+          includeDateIntervals={property&&property.availability&&dateIntervals()}
         />
       </div>
       <div className='row-span-1 col-span-1 border p-2'>
