@@ -1,3 +1,5 @@
+import axios from './axios'; // Import the configured Axios instance
+
 export async function getNegotiations() {
     const constantdata = {
         "status": "success",
