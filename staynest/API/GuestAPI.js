@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'; // Import the configured Axios instance
 
 
 export async function getServerSideProps() {
