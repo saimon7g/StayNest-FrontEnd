@@ -38,12 +38,12 @@ export async function getUpcomingBookings() {
     console.log("getUpcomingBookings");
     try {
         const authToken = sessionStorage.getItem('authToken');
-        if (authToken === null) {
-            console.log("//-----No token found");
-            // geenrate error
-            // return;
-            return constantdata;
-        }
+        // if (authToken === null) {
+        //     console.log("//-----No token found");
+        //     // geenrate error
+        //     // return;
+        //     return constantdata;
+        // }
         const response = await axios.get(`http://127.0.0.1:8000/guest/api/upcoming_bookings/`, {
             headers: {
                 'Authorization': `Token ${authToken}`,
