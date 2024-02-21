@@ -8,6 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { FiSearch, FiBell } from 'react-icons/fi'; // Import notification icon
 import { useRouter } from 'next/navigation';
 import { formatDate } from '../utills';
+import Link from 'next/link';
 
 const GuestNavbar = () => {
     const router = useRouter();
@@ -86,7 +87,8 @@ const GuestNavbar = () => {
                         <span className="block text-sm">Bonnie Green</span>
                         <span className="block truncate text-sm font-medium">name@flowbite.com</span>
                     </Dropdown.Header>
-                    <Dropdown.Item>Dashboard</Dropdown.Item>
+                    <Link href="/guest/dashboard">
+                    <Dropdown.Item>Dashboard</Dropdown.Item></Link>
                     <Dropdown.Item>Settings</Dropdown.Item>
                     <Dropdown.Item>Earnings</Dropdown.Item>
                     <Dropdown.Divider />
@@ -156,6 +158,10 @@ const GuestNavbar = () => {
                         </div>
                         <button type="submit" className="text-white bg-red-400 hover:bg-red-500 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
                             Search
+                        </button>
+                        {/* add a close button  on the right bottom corner */}
+                        <button onClick={() => setIsSearchFormVisible(false)} className="text-white bg-red-400 hover:bg-red-500 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2">
+                            Close
                         </button>
                     </form>
                 </div>
