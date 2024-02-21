@@ -8,28 +8,42 @@ import '@/app/styles/leaflet.css';
 export default function Map() {
     const mapContainer = useRef(null);
     const map = useRef(null);
-    const BUET = { lng: 90.394 , lat: 23.726};
-    const [zoom] = useState(7);
     maptilersdk.config.apiKey = '9TvH7aINcUcL3mYdyzPP';
-    const[markerPosition, setMarkerPosition] = useState({lng: BUET.lng, lat: BUET.lat});
+
+    const BUET = { lng: 90.394, lat: 23.726 };
+
+
+    const [markerPosition, setMarkerPosition] = useState({ lng: BUET.lng, lat: BUET.lat });
+    const [clickedLocation, setClickedLocation] = useState();
+    const [zoom, setZoom] = useState(7);
+    const [center, setCenter] = useState([BUET.lng, BUET.lat]);
+
+
+
+
 
     useEffect(() => {
-        if (map.current) return; // stops map from intializing more than once
-
         map.current = new maptilersdk.Map({
             container: mapContainer.current,
             style: maptilersdk.MapStyle.STREETS,
-            center: [BUET.lng, BUET.lat],
+            center: center,
             zoom: zoom
         });
 
+        map.current.on('click', handleMapClick); // Attach click event handler
+        map.current.on('zoom', () => {
+            setZoom(map.current.getZoom());
+            setCenter(map.current.getCenter());
+        });
+
         new maptilersdk.Marker({ color: "#FF0000" })
-            .setLngLat([BUET.lng, BUET.lat])
+            .setLngLat([markerPosition.lng, markerPosition.lat])
             .addTo(map.current);
-    }, [BUET.lng, BUET.lat, zoom, markerPosition]);
+    }, [clickedLocation]);
 
     const handleMapClick = (e) => {
-        setMarkerPosition({lng: e.lngLat.lng, lat: e.lngLat.lat});
+        setClickedLocation({ lng: 23.0, lat: 23.0 }); // Update state with clicked location
+        setMarkerPosition({ lng: e.lngLat.lng, lat: e.lngLat.lat });
     }
 
 
@@ -37,6 +51,12 @@ export default function Map() {
     return (
         <div className="map-wrap justify-center">
             <div ref={mapContainer} className="map"></div>
+            {clickedLocation && (
+                <div>
+                    <p>Latitude: {clickedLocation.lat}</p>
+                    <p>Longitude: {clickedLocation.lng}</p>
+                </div>
+            )}
         </div>
     );
 }

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Map from "@/Components/HostSide/Map";
 
 
+
 export default function Test() {
 
 
@@ -15,7 +16,7 @@ export default function Test() {
             <div className="flex justify-center ">
                 <div className="w-10/12">
                     
-                    <Map />
+                    <Map/>
                 
                 
                 </div>
