@@ -90,7 +90,7 @@ export default function SingleProperty({ params }) {
         const response = await getPropertyByID(id);
         setProperty(response);
         //console.log(response);
-        console.log('host ',response);
+        //console.log('host ',response);
         //console.log('property host',property.host);
       } catch (error) {
         console.error(error);
