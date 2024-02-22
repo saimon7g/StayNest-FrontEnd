@@ -48,7 +48,7 @@ export function MealSelectionForm({ breakfast, lunch, dinner, updateCart, openMo
 
   const handleAddToCart = () => {
     console.log('Selected Meals:', selectedMeals);
-    const selection = Object.entries(selectedMeals).map(([id, quantity]) => ({ id: parseInt(id), quantity, date: formatDate(selectedDate) ,name: (selectedType === 'Breakfast' ? breakfast : selectedType === 'Lunch' ? lunch : dinner).find((meal) => meal.id === parseInt(id)).name }));
+    const selection = Object.entries(selectedMeals).map(([id, quantity]) => ({ id: parseInt(id), quantity, date: formatDate(selectedDate) , meal_name: (selectedType === 'Breakfast' ? breakfast : selectedType === 'Lunch' ? lunch : dinner).find((meal) => meal.id === parseInt(id)).name, price: (selectedType === 'Breakfast' ? breakfast : selectedType === 'Lunch' ? lunch : dinner).find((meal) => meal.id === parseInt(id)).price }));
 
     let updatedCart = { ...cart };
     updatedCart[selectedType.toLowerCase()].push(selection);

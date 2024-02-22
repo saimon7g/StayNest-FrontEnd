@@ -6,6 +6,67 @@ import { Card, Button } from 'flowbite-react';
 import {Payment} from '@/Components/Payment';
 
 export default function ReservationSummary({ reservation }) {
+
+    // const reservation={
+    //     "property_id": 123,
+    //     "guest_id": 456,
+    //     "host_id": 789,
+    //     "booking_type": "stay_with_meal",
+    //     "start_date": "2024-02-22",
+    //     "end_date": "2024-02-24",
+    //     "base_price": 1000.00,
+    //     "platform_fee": 50.00,
+    //     "tax": 25.00,
+    //     "number_of_guests": 2,
+    //     "breakfast": [
+    //       {
+            
+    //         "meal_name": "Continental Breakfast",
+    //         "quantity": 2,
+    //         "date": "2024-02-22",
+    //         "price": 10.00
+    //       },
+    //       { 
+    //         "meal_name": "Pasta",
+    //         "quantity": 2,
+    //         "date": "2024-02-22",
+    //         "price": 15.00
+    //       }
+    //     ],
+    //     "lunch": [
+    //         {
+              
+    //           "meal_name": "Continental Breakfast",
+    //           "quantity": 2,
+    //           "date": "2024-02-22",
+    //           "price": 10.00
+    //         },
+    //         { 
+    //           "meal_name": "Pasta",
+    //           "quantity": 2,
+    //           "date": "2024-02-22",
+    //           "price": 15.00
+    //         }
+    //       ],
+    //       "dinner": [
+    //         {
+              
+    //           "meal_name": "Continental Breakfast",
+    //           "quantity": 2,
+    //           "date": "2024-02-22",
+    //           "price": 10.00
+    //         },
+    //         { 
+    //           "meal_name": "Pasta",
+    //           "quantity": 2,
+    //           "date": "2024-02-22",
+    //           "price": 15.00
+    //         }
+    //       ]
+    //   };
+
+
+
     const [reservationData, setReservationData] = useState({});
     const params = useSearchParams();
     const parsedData = JSON.parse(params.get('query'));
@@ -50,12 +111,52 @@ export default function ReservationSummary({ reservation }) {
                     
                         {reservationData && (
                             <>
+                                <p>Property ID: {reservationData.property_id}</p>
+                                <p>Guest ID: {reservationData.guest_id}</p>
+                                <p>Host ID: {reservationData.host_id}</p>
+                                <p>Booking Type: {reservationData.booking_type}</p>
                                 <p>Check-In: {reservationData.start_date}</p>
                                 <p>Check-Out: {reservationData.end_date}</p>
+                                <p>Base Price: {reservationData.base_price}</p>
+                                <p>Platform Fee: {reservationData.plaform_fee}</p>
+                                <p>Tax: {reservationData.tax}</p>
+                                <p>Number of Guests: {reservationData.number_of_guests}</p>
+                                <h2>Meals</h2>
+                                <p>Breakfast</p>
+                                <ul>
+                                    {reservationData.breakfast && reservationData.breakfast.map((meal, index) => (
+                                        <li key={index}>
+                                            <p>Meal Name: {meal.meal_name}</p>
+                                            <p>Quantity: {meal.quantity}</p>
+                                            <p>Date: {meal.date}</p>
+                                            <p>Price: {meal.price}</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                                <p>Lunch</p>
+                                <ul>
+                                    {reservationData.lunch && reservationData.lunch.map((meal, index) => (
+                                        <li key={index}>
+                                            <p>Meal Name: {meal.meal_name}</p>
+                                            <p>Quantity: {meal.quantity}</p>
+                                            <p>Date: {meal.date}</p>
+                                            <p>Price: {meal.price}</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                                <p>Dinner</p>
+                                <ul>
+                                    {reservationData.dinner && reservationData.dinner.map((meal, index) => (
+                                        <li key={index}>
+                                            <p>Meal Name: {meal.meal_name}</p>
+                                            <p>Quantity: {meal.quantity}</p>
+                                            <p>Date: {meal.date}</p>
+                                            <p>Price: {meal.price}</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                                
 
-                                <p>Number of nights: {parsedData.number_of_nights}</p>
-                                <p>Number of persons: {reservationData.number_of_persons}</p>
-                                <p>Total staying price: {reservationData.total_staying_price}</p>
                                 
                             </>
                         )}

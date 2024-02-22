@@ -28,13 +28,12 @@ export default function SingleProperty({ params }) {
   const [breakfast, setBreakfast] = useState([]);
   const [lunch, setLunch] = useState([]);
   const [dinner, setDinner] = useState([]);
+  const [booking_options, setBookingOptions] = useState('stay');
   const id = params.propertyID;
 
   const router = useRouter();
-  // Function to update the cart
   const updateCart = (updatedCart) => {
     setCart(updatedCart);
-    // console.log('Updated Cart:', updatedCart);
   };
   const rating = () => {
     if (!property || !property.reviews || !property.reviews.length) {
@@ -86,9 +85,9 @@ export default function SingleProperty({ params }) {
 
 
   const print = () => {
-    console.log(breakfast);
-    console.log(lunch);
-    console.log(dinner);
+    // console.log(breakfast);
+    // console.log(lunch);
+    // console.log(dinner);
     console.log(cart);
   }
 
@@ -103,24 +102,11 @@ export default function SingleProperty({ params }) {
         console.error(error);
       }
       try {
-        console.log('id                 for  meal     ', id);
         const mealresponse = await getMealOption(id);
-        console.log('mealresponse', mealresponse);
         setBreakfast(mealresponse.breakfast);
         setLunch(mealresponse.lunch);
         setDinner(mealresponse.dinner);
-        console.log('breakfast', breakfast);
-        console.log('lunch', lunch);
-        console.log('dinner', dinner);
-
-
-        // random delay for 2 sec
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-
-
-        console.log('breakfast', breakfast);
-        console.log('lunch', lunch);
-        console.log('dinner', dinner);
+      
 
       }
       catch (error) {
@@ -133,36 +119,23 @@ export default function SingleProperty({ params }) {
 
 
   const handleReserve = async () => {
-    let total_meals_price = 500;
-    let total_staying_price = 1500 * numberOfGuests;
-    cart.breakfast.forEach((meal) => {
-      total_meals_price += 150;
-    });
-    let differenceInMs = checkOutDate.getTime() - checkInDate.getTime();
-
-    // Convert milliseconds to days
-    let millisecondsPerDay = 1000 * 60 * 60 * 24; // Number of milliseconds in a day
-    let number_of_days = Math.floor(differenceInMs / millisecondsPerDay) + 1;
-
-
     const data = {
       property_id: id,
-      property_name: property.name,
-
-      number_of_persons: numberOfGuests,
-      number_of_persons: numberOfGuests,
-      numer_of_nights: '3',
-      total_staying_price: total_staying_price,
-      total_meals_price: total_meals_price,
-      total_price: total_staying_price + total_meals_price,
-      host_id: 3,
       guest_id: 5,
+      host_id: property.host.host_id,
+      booking_type: booking_options,
       start_date: formatDate(checkInDate),
       end_date: formatDate(checkOutDate),
+      base_price: property.price,
+      plaform_fee: 0.05 * property.price,
+      tax: 0.1 * property.price,
+      number_of_guests: numberOfGuests,
+      breakfast: cart.breakfast[0],
+      lunch: cart.lunch[0],
+      dinner: cart.dinner[0],
 
 
     };
-
     const queryString = JSON.stringify(data);
     // Redirect to the next page with response data
     router.push(`/guest/summary/?query=${queryString}`);
@@ -282,19 +255,19 @@ export default function SingleProperty({ params }) {
               <legend className="mb-4">Choose your booking option</legend>
               {property && property.booking_options && property.booking_options.stay && (
                 <div className="flex items-center gap-2">
-                  <Radio name="bookingOption" defaultChecked />
+                  <Radio name="bookingOption" onClick={() => setBookingOptions('stay')} defaultChecked />
                   <Label>Stay</Label>
                 </div>
               )}
               {property && property.booking_options && property.booking_options.stay_with_meal && (
                 <div className="flex items-center gap-2">
-                  <Radio name="bookingOption" />
+                  <Radio name="bookingOption" onClick={() => setBookingOptions('stay_with_meal')} />
                   <Label>Stay with meal</Label>
                 </div>
               )}
               {property && property.booking_options && property.booking_options.paying_guest && (
                 <div className="flex items-center gap-2">
-                  <Radio name="bookingOption" />
+                  <Radio name="bookingOption" onClick={() => setBookingOptions('paying_guest')} />
                   <Label>Paying guest</Label>
                 </div>
               )}
