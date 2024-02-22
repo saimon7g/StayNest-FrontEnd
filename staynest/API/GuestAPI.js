@@ -1,6 +1,22 @@
 import axios from 'axios'; // Import the configured Axios instance
 
 
+
+export async function getHostByID(hostId) {
+    console.log("single host get");
+    try {
+        const response = await fetch(`http://127.0.0.1:8000/auth/host_profile/${hostId}/`); // Fetch the data
+        const data = await response.json(); // Get the data in JSON format
+        console.log(data);
+        return data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+
+
 export async function getServerSideProps() {
     // const response = await fetch('your-api-endpoint');
     // const data = await response.json();
@@ -51,7 +67,8 @@ export async function  getMealOption(registration_id) {
             'Content-Type': 'application/json' }
         });
         
-        console.log('mealoption',response.json());
+        console.log('mealoption from API         ',response);
+        console
         
         console.log(response.data);
         return response.data;
@@ -69,11 +86,13 @@ export async function getPropertyByIDd(property_id) {
             headers: {   'Authorization': `Token ${authToken}`, 
             'Content-Type': 'application/json' }
         });
-       
-       
-        // const result = await response.json();
-         console.log(response.data);
-        return response.data;
+
+        let data = response.data;
+        const host_id = data.host.host_id;
+        const host = await getHostByID(host_id);
+        data.host = host;
+        console.log(data);
+        return data;
     }
     catch (error) {
         console.log(error);

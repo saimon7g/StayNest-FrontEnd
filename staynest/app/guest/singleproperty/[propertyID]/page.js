@@ -11,9 +11,9 @@ import Profile from '@/StaticImage/logo2.png';
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { useRouter } from 'next/navigation';
 import { reserveProperty } from '@/API/GuestAPI';
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { MealSelectionForm } from '@/Components/GuestSide/MealSelectionForm';
-import { Button,Card,Modal } from 'flowbite-react';
+import { Button, Card, Modal } from 'flowbite-react';
 import { Datepicker } from 'flowbite-react';
 import { formatDate } from '@/Components/utills';
 import { Label, Radio } from 'flowbite-react';
@@ -30,39 +30,39 @@ export default function SingleProperty({ params }) {
   const [meals, setMeals] = useState({ breakfast: [], lunch: [], dinner: [] });
   const router = useRouter()
   const breakfast = [
-        { id: 1, name: 'Khichuri', price: '100', photo: 'meal1.jpg' },
-       
-        
-      ];
-      const lunch = [
-        { id: 1, name: 'Kalavuna', price: '300', photo: 'meal1.jpg' },
-        { id: 2, name: 'Morog Polao', price: '250', photo: 'meal2.jpg' },
-       
-      ];
-      const dinner = [
-        { id: 1, name: 'Kalavuna', price: '300', photo: 'meal1.jpg' },
-        { id: 2, name: 'Morog Polao', price: '250', photo: 'meal2.jpg' },
-        
-      ];
-    
+    { id: 1, name: 'Khichuri', price: '100', photo: 'meal1.jpg' },
+
+
+  ];
+  const lunch = [
+    { id: 1, name: 'Kalavuna', price: '300', photo: 'meal1.jpg' },
+    { id: 2, name: 'Morog Polao', price: '250', photo: 'meal2.jpg' },
+
+  ];
+  const dinner = [
+    { id: 1, name: 'Kalavuna', price: '300', photo: 'meal1.jpg' },
+    { id: 2, name: 'Morog Polao', price: '250', photo: 'meal2.jpg' },
+
+  ];
+
   // Function to update the cart
   const updateCart = (updatedCart) => {
     setCart(updatedCart);
     console.log('Updated Cart:', updatedCart);
   };
   const rating = () => {
-    let total_rating=0;
+    let total_rating = 0;
     for (let i = 0; i < property.reviews.length; i++) {
-      total_rating+=property.reviews[i].rating;
+      total_rating += property.reviews[i].rating;
     }
-    return total_rating/property.reviews.length
+    return total_rating / property.reviews.length
   };
   const dateIntervals = () => {
-    let list=[];
+    let list = [];
     property.availability.forEach(e => {
       list.push({
-        start:subDays(new Date(e.start_date),1),
-        end : new Date(e.end_date)
+        start: subDays(new Date(e.start_date), 1),
+        end: new Date(e.end_date)
       })
     });
     return list;
@@ -81,8 +81,8 @@ export default function SingleProperty({ params }) {
 
 
   const id = params.propertyID;
-  console.log(id);
-  console.log("Hello from SingleProperty");
+  // console.log(id);
+  // console.log("Hello from SingleProperty");
 
   useEffect(() => {
     async function fetchData() {
@@ -92,32 +92,32 @@ export default function SingleProperty({ params }) {
       } catch (error) {
         console.error(error);
       }
+      try {
+        console.log('id                 for  meal     ', id);
+        const mealresponse = await getMealOption(id);
+        console.log('mealresponse', mealresponse);
+        setMeals(mealresponse);
+
+      }
+      catch (error) {
+        console.error(error);
+      }
+
+
     }
-  
+
     fetchData();
   }, []);
-/*useEffect(() => {
-  async function fetchData() {
-    try {
-      const response = await getMealOption(id);
-      setMeals(response);
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
-  fetchData();
-}, []);*/
 
   // useEffect(() => {
   //   console.log('property.host', property.host);
   // }, [property]);
 
- 
+
   const handleReserve = async () => {
-    let total_meals_price=500;
-    let total_staying_price=1500*numberOfGuests;
+    let total_meals_price = 500;
+    let total_staying_price = 1500 * numberOfGuests;
     cart.breakfast.forEach((meal) => {
       total_meals_price += 150;
     });
@@ -126,24 +126,24 @@ export default function SingleProperty({ params }) {
     // Convert milliseconds to days
     let millisecondsPerDay = 1000 * 60 * 60 * 24; // Number of milliseconds in a day
     let number_of_days = Math.floor(differenceInMs / millisecondsPerDay) + 1;
-    
+
 
     const data = {
       property_id: id,
       property_name: property.name,
-      
+
       number_of_persons: numberOfGuests,
       number_of_persons: numberOfGuests,
-      numer_of_nights:'3',
+      numer_of_nights: '3',
       total_staying_price: total_staying_price,
       total_meals_price: total_meals_price,
-      total_price: total_staying_price+total_meals_price,
+      total_price: total_staying_price + total_meals_price,
       host_id: 3,
       guest_id: 5,
-      start_date:formatDate(checkInDate),
+      start_date: formatDate(checkInDate),
       end_date: formatDate(checkOutDate),
 
-     
+
     };
 
     const queryString = JSON.stringify(data);
@@ -157,75 +157,80 @@ export default function SingleProperty({ params }) {
 
     <div className='flex flex-col items-around justify-center w-4/6 mx-auto'>
       <div className='my-6 '>
-        {property&&property.name && (<p className='text-3xl font-bold'>{property.name}</p>)}
+        {property && property.name && (<p className='text-3xl font-bold'>{property.name}</p>)}
       </div>
       <div className='flex flex-row items-center justify-between w-full'>
         <div className='flex flex-row items-center justify-center'>
           <FaRegStar />
-          {property&&property.reviews&& (<text className='font-bold ml-2'>{rating()}</text>)}
-          {property&&property.reviews&& (<text className='font-bold ml-2 underline underline-offset-4 mx-4'>{property.reviews.length} reviews</text>)}
+          {property && property.reviews && (<text className='font-bold ml-2'>{rating()}</text>)}
+          {property && property.reviews && (<text className='font-bold ml-2 underline underline-offset-4 mx-4'>{property.reviews.length} reviews</text>)}
           <GiRibbonMedal />
-          {property&&property.host&&property.host.super_host&& (<text className='text-slate-400'>Super Host</text>)}
-          {property&&property.host&& !property.host.super_host&& (<text className='text-slate-400'>Normal Host</text>)}
-          {property&&property.location && (<text className='text-slate-400 underline underline-offset-4 ml-4'>{property.location}</text>)}
-          
+          {property && property.host && property.host.super_host && (<text className='text-slate-400'>Super Host</text>)}
+          {property && property.host && !property.host.super_host && (<text className='text-slate-400'>Normal Host</text>)}
+          {property && property.location && (<text className='text-slate-400 underline underline-offset-4 ml-4'>{property.location}</text>)}
+
         </div>
         <div className='flex flex-row items-center justify-center'>
           <CiShare1 className='mx-2' /><FaRegHeart className='mx-2' />
         </div>
       </div>
       <div className='my-8'>
-        <Button onClick={() => setOpenModal(true)}>Add meal</Button>
-        <MealSelectionForm
-          breakfast={breakfast} 
-          lunch={lunch} 
-          dinner={dinner} 
-          updateCart={updateCart}
-          openModal={openModal}
-          setOpenModal={setOpenModal} />
-        
+        {meals && (
+          <>
+            <Button onClick={() => setOpenModal(true)}>Add meal</Button>
+            <MealSelectionForm
+              breakfast={meals.breakfast}
+              lunch={meals.lunch}
+              dinner={meals.dinner}
+              updateCart={updateCart}
+              openModal={openModal}
+              setOpenModal={setOpenModal}
+            />
+          </>
+        )}
+
       </div>
       <div className='grid grid-rows-1 grid-cols-6 gap-2'>
-        {property&& property.photos && property.photos.map((photo, index) => (
-            <div className='row-span-1 col-span-2'>
-              <Image src={photo.image_data} alt="logo" width={0} height={0} className='border w-full object-cover' />
-            </div>
-          
+        {property && property.photos && property.photos.map((photo, index) => (
+          <div className='row-span-1 col-span-2'>
+            <Image src={photo.image_data} alt="logo" width={0} height={0} className='border w-full object-cover' />
+          </div>
+
         ))}
-      </div> 
-      
+      </div>
+
       {/* left right card */}
       <div className='flex flex-row items-center justify-left mb-20'>
         {/*left card*/}
         <div className='flex flex-col items-around justify-center w-1/2'>
           <div className='flex flex-row items-around justify-center my-16'>
             <div className=''>
-              {property&&property.property_type && (
+              {property && property.property_type && (
                 <p className='text-3xl font-bold'>{property.property_type} hosted by {property.host && property.host.name}</p>
               )}
-    
-              {property&&property.some_basics && (
+
+              {property && property.some_basics && (
                 <p className=''>
-                  {property.some_basics.number_of_guests} guests . {property.some_basics.number_of_bedrooms} bedrooms . 
+                  {property.some_basics.number_of_guests} guests . {property.some_basics.number_of_bedrooms} bedrooms .
                   {property.some_basics.number_of_beds} bed . {property.some_basics.number_of_bathrooms} bath
                 </p>
               )}
             </div>
             <div className='ml-auto'>
-              {property&&property.host&&property.host.profile_pic && (
-                  <Image src={property.host.profile_pic} alt="profile" width={20} height={20}className='w-20 border rounded-full' />
-                )
+              {property && property.host && property.host.profile_pic && (
+                <Image src={property.host.profile_pic} alt="profile" width={20} height={20} className='w-20 border rounded-full' />
+              )
               }
             </div>
           </div>
           <hr />
           <div className='mb-10 '>
             {property && property.property_sub_type && (
-            <div className='flex justify-center items-center my-4 w-3/4 py-4 border-4 border-black rounded-lg font-bold text-black hover:bg-slate-200 '>
-              {property.property_sub_type}
-            </div>
+              <div className='flex justify-center items-center my-4 w-3/4 py-4 border-4 border-black rounded-lg font-bold text-black hover:bg-slate-200 '>
+                {property.property_sub_type}
+              </div>
             )}
-            {property&&property.highlights&& property.highlights.map((h)=>(
+            {property && property.highlights && property.highlights.map((h) => (
               <div className='flex justify-center items-center w-3/4 my-4 py-4 border-4 border-black rounded-lg font-bold text-black hover:bg-slate-200'>
                 {h}
               </div>
@@ -235,37 +240,37 @@ export default function SingleProperty({ params }) {
 
           <div className=''>
             <p className='font-medium'>
-            {property&&property.description && property.description}
+              {property && property.description && property.description}
             </p>
           </div>
         </div>
         {/*right floating card*/}
         <div className='flex flex-col items-around justify-center border-4 p-4 ml-auto w-auto mt-16 shadow-xl'>
           <div className='flex flex-row items-center justify-between w-full my-2'>
-            {property&&property.price && (
-            <div className='flex font-bold '>
-              <FaBangladeshiTakaSign className='mr-1' /> {property.price} / night
-            </div>
+            {property && property.price && (
+              <div className='flex font-bold '>
+                <FaBangladeshiTakaSign className='mr-1' /> {property.price} / night
+              </div>
             )}
             <div className='flex flex-row items-center justify-around '>
-              {property&&property.reviews&& (<text className='font-bold ml-2 mx-4'>{property.reviews.length} reviews</text>)}
+              {property && property.reviews && (<text className='font-bold ml-2 mx-4'>{property.reviews.length} reviews</text>)}
               <FaRegStar />
-              {property&&property.reviews&& (<text className='font-bold ml-2'>{rating()}</text>)}
+              {property && property.reviews && (<text className='font-bold ml-2'>{rating()}</text>)}
             </div>
           </div>
           <div className='border-2 rounded-lg '>
             <fieldset className="flex max-w-md flex-col gap-4 p-4 ">
               <legend className="mb-4">Choose your booking option</legend>
               <div className="flex items-center gap-2">
-                <Radio  name="bookingOption" defaultChecked />
+                <Radio name="bookingOption" defaultChecked />
                 <Label>Stay</Label>
               </div>
               <div className="flex items-center gap-2">
-                <Radio  name="bookingOption" />
+                <Radio name="bookingOption" />
                 <Label>Stay with meal</Label>
               </div>
               <div className="flex items-center gap-2">
-                <Radio  name="bookingOption" />
+                <Radio name="bookingOption" />
                 <Label>Paying guest</Label>
               </div>
             </fieldset>
@@ -273,12 +278,12 @@ export default function SingleProperty({ params }) {
           <div className='grid grid-rows-2 grid-cols-2 w-full border rounded-lg my-2'>
             <div className='row-span-1 col-span-1 border p-2'>
               <p className='font-bold'>Check in</p>
-                <DatePicker
-                  selected={checkInDate}
-                  onChange={handleCheckInDateChange}
-                  minDate={new Date()}
-                  includeDateIntervals={property&&property.availability&&dateIntervals()}
-                />
+              <DatePicker
+                selected={checkInDate}
+                onChange={handleCheckInDateChange}
+                minDate={new Date()}
+                includeDateIntervals={property && property.availability && dateIntervals()}
+              />
             </div>
             <div className='row-span-1 col-span-1 border p-2'>
               <p className='font-bold'>Check out</p>
@@ -286,7 +291,7 @@ export default function SingleProperty({ params }) {
                 selected={checkOutDate}
                 onChange={handleCheckOutDateChange}
                 minDate={checkInDate}
-                includeDateIntervals={property&&property.availability&&dateIntervals()}
+                includeDateIntervals={property && property.availability && dateIntervals()}
               />
             </div>
             <div className='row-span-1 col-span-2 border p-2'>
