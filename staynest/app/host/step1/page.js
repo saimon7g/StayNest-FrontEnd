@@ -19,10 +19,13 @@ import { MdOutlineCastle } from "react-icons/md";
 import { FaHome } from "react-icons/fa";
 import { FaDoorClosed } from "react-icons/fa";
 import { MdAirlineSeatIndividualSuite } from "react-icons/md";
+
 import Map from "@/Components/HostSide/Map";
 
 
 const Step1 = () => {
+    const { registrationId, setRegistrationId} = useContext(RegistrationContext);  // use the context
+
     const [propertyType, setPropertyType] = React.useState("House");
     const [propertySubType, setPropertySubType] = React.useState("Entire Room");
     const [locationName, setLocation] = React.useState("Dhaka");
@@ -88,9 +91,10 @@ const Step1 = () => {
             "property_type": propertyType,
             "property_sub_type": propertySubType,
             "location": {
+                "selected_location": "Dhaka",
                 "latitude": latlng.lat,
                 "longitude": latlng.lng,
-                "name": locationName
+               
             },
             "some_basics": {
                 "number_of_guests": guests,
@@ -100,13 +104,15 @@ const Step1 = () => {
             }
         }
         const response = await Step1Post(result);
-        console.log('RESponSE Data is here ');
+        console.log('Response Data:', response.data);
+        
         try {
-            setRegistrationId(response.data.registration_id);  // set the context variable 
-            console.log("registration id is set to ----- ", response.data.registration_id);
+            setRegistrationId(response.data.registration_id);
+            console.log("Registration ID is set to:", response.data.registration_id);
         } catch (error) {
-            console.log("error SETTING registration id in context");
+            console.error("Error setting registration ID in context:", error);
         }
+        
         console.log("submit clicked");
     }
 

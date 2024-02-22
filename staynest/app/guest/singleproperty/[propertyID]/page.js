@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import { getPropertyByID, getMealOption } from '@/API/GuestAPI';
+import { getPropertyByIDd, getMealOption } from '@/API/GuestAPI';
 import { FaRegStar } from "react-icons/fa";
 import { GiRibbonMedal } from "react-icons/gi";
 import { CiShare1 } from "react-icons/ci";
@@ -87,7 +87,7 @@ export default function SingleProperty({ params }) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await getPropertyByID(id);
+        const response = await getPropertyByIDd(id);
         setProperty(response);
         //console.log(response);
         //console.log('host ',response);
