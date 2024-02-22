@@ -190,6 +190,63 @@ export async function getProperties(data) {
 
 export async function reserveProperty(data) {
     try {
+        const data={
+            "property_id": 123,
+            "guest_id": 456,
+            "host_id": 789,
+            "booking_type": "stay_with_meal",
+            "start_date": "2024-02-22",
+            "end_date": "2024-02-24",
+            "base_price": 1000.00,
+            "platform_fee": 50.00,
+            "tax": 25.00,
+            "number_of_guests": 2,
+            "breakfast": [
+              {
+                
+                "meal_name": "Continental Breakfast",
+                "quantity": 2,
+                "date": "2024-02-22",
+                "price": 10.00
+              },
+              { 
+                "meal_name": "Pasta",
+                "quantity": 2,
+                "date": "2024-02-22",
+                "price": 15.00
+              }
+            ],
+            "lunch": [
+                {
+                  
+                  "meal_name": "Continental Breakfast",
+                  "quantity": 2,
+                  "date": "2024-02-22",
+                  "price": 10.00
+                },
+                { 
+                  "meal_name": "Pasta",
+                  "quantity": 2,
+                  "date": "2024-02-22",
+                  "price": 15.00
+                }
+              ],
+              "dinner": [
+                {
+                  
+                  "meal_name": "Continental Breakfast",
+                  "quantity": 2,
+                  "date": "2024-02-22",
+                  "price": 10.00
+                },
+                { 
+                  "meal_name": "Pasta",
+                  "quantity": 2,
+                  "date": "2024-02-22",
+                  "price": 15.00
+                }
+              ]
+          };
        
         const response = await axios.post("guest/api/reserve/", data );
         console.log(response);
