@@ -37,20 +37,30 @@ export default function SingleProperty({ params }) {
     // console.log('Updated Cart:', updatedCart);
   };
   const rating = () => {
+    if (!property || !property.reviews || !property.reviews.length) {
+      return null; // or any other default value you prefer
+    }
+
     let total_rating = 0;
     for (let i = 0; i < property.reviews.length; i++) {
-      total_rating += property.reviews[i].rating;
+      total_rating += property.reviews[i].rating || 0; // Handle if rating is null or undefined
     }
-    return total_rating / property.reviews.length
+    return total_rating / property.reviews.length;
   };
+
   const hostRating = () => {
-    let total_rating=0;
-    for (let i = 0; i < property.host.reviews.length; i++) {
-      total_rating+=property.host.reviews[i].rating;
+    if (!property || !property.host || !property.host.reviews || !property.host.reviews.length) {
+      return null; // or any other default value you prefer
     }
-    return total_rating/property.host.reviews.length
+
+    let total_rating = 0;
+    for (let i = 0; i < property.host.reviews.length; i++) {
+      total_rating += property.host.reviews[i].rating || 0; // Handle if rating is null or undefined
+    }
+    return total_rating / property.host.reviews.length;
   };
-  
+
+
   const dateIntervals = () => {
     let list = [];
     property.availability.forEach(e => {
@@ -79,7 +89,7 @@ export default function SingleProperty({ params }) {
     console.log(breakfast);
     console.log(lunch);
     console.log(dinner);
-    console.log(cart);  
+    console.log(cart);
   }
 
 
@@ -172,9 +182,9 @@ export default function SingleProperty({ params }) {
           {property && property.reviews && (<text className='font-bold ml-2'>{rating()}</text>)}
           {property && property.reviews && (<text className='font-bold ml-2 underline underline-offset-4 mx-4'>{property.reviews.length} reviews</text>)}
           <GiRibbonMedal />
-          {property&&property.host&&property.host.super_host&& (<text className='text-slate-400'>Super Host</text>)}
-          {property&&property.host&& !property.host.super_host&& (<text className='text-slate-400'>Normal Host</text>)}
-          {property&&property.location && (<text className='text-slate-400 underline underline-offset-4 ml-4'>{property.location}</text>)}
+          {property && property.host && property.host.super_host && (<text className='text-slate-400'>Super Host</text>)}
+          {property && property.host && !property.host.super_host && (<text className='text-slate-400'>Normal Host</text>)}
+          {property && property.location && (<text className='text-slate-400 underline underline-offset-4 ml-4'>{property.location}</text>)}
         </div>
         <div className='flex flex-row items-center justify-center'>
           <CiShare1 className='mx-2' /><FaRegHeart className='mx-2' />
@@ -249,7 +259,7 @@ export default function SingleProperty({ params }) {
           <div className=''>
             <p className='font-bold '>Property description: </p>
             <p className='font-medium '>
-            {property&&property.description && property.description}
+              {property && property.description && property.description}
             </p>
           </div>
         </div>
@@ -270,23 +280,23 @@ export default function SingleProperty({ params }) {
           <div className='border-2 rounded-lg '>
             <fieldset className="flex max-w-md flex-col gap-4 p-4 ">
               <legend className="mb-4">Choose your booking option</legend>
-              {property&&property.booking_options&&property.booking_options.stay&&(
-              <div className="flex items-center gap-2">
-              <Radio  name="bookingOption" defaultChecked />
-              <Label>Stay</Label>
-              </div>
+              {property && property.booking_options && property.booking_options.stay && (
+                <div className="flex items-center gap-2">
+                  <Radio name="bookingOption" defaultChecked />
+                  <Label>Stay</Label>
+                </div>
               )}
-              {property&&property.booking_options&&property.booking_options.stay_with_meal&&(
-              <div className="flex items-center gap-2">
-                <Radio name="bookingOption" />
-                <Label>Stay with meal</Label>
-              </div>
+              {property && property.booking_options && property.booking_options.stay_with_meal && (
+                <div className="flex items-center gap-2">
+                  <Radio name="bookingOption" />
+                  <Label>Stay with meal</Label>
+                </div>
               )}
-              {property&&property.booking_options&&property.booking_options.paying_guest&&(
-              <div className="flex items-center gap-2">
-                <Radio name="bookingOption" />
-                <Label>Paying guest</Label>
-              </div>
+              {property && property.booking_options && property.booking_options.paying_guest && (
+                <div className="flex items-center gap-2">
+                  <Radio name="bookingOption" />
+                  <Label>Paying guest</Label>
+                </div>
               )}
             </fieldset>
           </div>
@@ -336,30 +346,30 @@ export default function SingleProperty({ params }) {
       <div className='grid grid-rows-1 grid-cols-2 gap-2 my-20'>
         <div className='row-span-1 col-span-1'>
           <p className='font-bold'>Regular amenities</p>
-          {property&&property.regular_amenities&&property.regular_amenities.map((a)=>(
-          <div className='flex justify-center items-center w-3/4 my-4 py-4 border-4 border-black rounded-lg font-bold bg-black text-white '>
-            {a}
-          </div>
+          {property && property.regular_amenities && property.regular_amenities.map((a) => (
+            <div className='flex justify-center items-center w-3/4 my-4 py-4 border-4 border-black rounded-lg font-bold bg-black text-white '>
+              {a}
+            </div>
           ))}
         </div>
         <div className='row-span-1 col-span-1'>
           <p className='font-bold'>Standout amenities</p>
-          {property&&property.standout_amenities&&property.standout_amenities.map((a)=>(
-          <div className='flex justify-center items-center w-3/4 my-4 py-4 border-4 border-black rounded-lg font-bold bg-black text-white '>
-            {a}
-          </div>
+          {property && property.standout_amenities && property.standout_amenities.map((a) => (
+            <div className='flex justify-center items-center w-3/4 my-4 py-4 border-4 border-black rounded-lg font-bold bg-black text-white '>
+              {a}
+            </div>
           ))}
         </div>
       </div>
 
       <div>
         <p className='font-bold text-2xl'>
-            Reviews:
+          Reviews:
         </p>
       </div>
       <hr />
       <div className='grid grid-rows-1 grid-cols-2 gap-2 my-20'>
-        {property&&property.reviews&&property.reviews.map((r)=>(
+        {property && property.reviews && property.reviews.map((r) => (
           <div className='row-span-1 col-span-1'>
             <p className='font-bold'>{r.reviewer_name}</p>
             <p className='text-slate-400'>{r.date}</p>
@@ -370,26 +380,26 @@ export default function SingleProperty({ params }) {
       <hr />
       <div className='my-20'>
         <div className='flex mb-4'>
-          {property&&property.host&&property.host.profile_pic&&(<Image src={property.host.profile_pic} alt="profile" width={20} height={20}className='w-20 border rounded-full' />)}
-          {property&&property.host&&(<p className='ml-4 text-3xl'>Hosted by {property.host.name}</p>)}
+          {property && property.host && property.host.profile_pic && (<Image src={property.host.profile_pic} alt="profile" width={20} height={20} className='w-20 border rounded-full' />)}
+          {property && property.host && (<p className='ml-4 text-3xl'>Hosted by {property.host.name}</p>)}
         </div>
         <div className='flex flex-row justify-between w-1/2'>
           <div className='flex'>
             <GiRibbonMedal />
-            {property&&property.host&&property.host.super_host&& (<text className='font-bold'>Super Host</text>)}
-            {property&&property.host&& !property.host.super_host&& (<text className='font-bold'>Normal Host</text>)}
-            <FaRegStar className='ml-4'/>
-            {property&&property.reviews&& (<text className='font-bold ml-2'>{hostRating()}</text>)}
-            {property&&property.host&&property.host.reviews&& (<text className='font-bold ml-4 mx-4'>{property.host.reviews.length} reviews</text>)}
+            {property && property.host && property.host.super_host && (<text className='font-bold'>Super Host</text>)}
+            {property && property.host && !property.host.super_host && (<text className='font-bold'>Normal Host</text>)}
+            <FaRegStar className='ml-4' />
+            {property && property.reviews && (<text className='font-bold ml-2'>{hostRating()}</text>)}
+            {property && property.host && property.host.reviews && (<text className='font-bold ml-4 mx-4'>{property.host.reviews.length} reviews</text>)}
           </div>
         </div>
         <div className='my-2'>
-          {property&&property.host&&property.host.response_rate&& (<text className='text-slate-400 ml-4 mx-4'>response rate {property.host.response_rate}</text>)}
+          {property && property.host && property.host.response_rate && (<text className='text-slate-400 ml-4 mx-4'>response rate {property.host.response_rate}</text>)}
         </div>
         <div className='my-2'>
-          {property&&property.host&&property.host.response_time&& (<text className='text-slate-400 ml-4 mx-4'>response rate {property.host.response_time}</text>)}
+          {property && property.host && property.host.response_time && (<text className='text-slate-400 ml-4 mx-4'>response rate {property.host.response_time}</text>)}
         </div>
-        
+
       </div>
 
 
