@@ -13,7 +13,7 @@ const setAuthToken = (token) => {
 const signup = async (userData) => {
   try {
     const response = await axios.post('/auth/signup/', userData);
-    return response.data;
+    return response;
   } catch (error) {
     console.error('Signup failed:', error.response.data);
     throw error;
