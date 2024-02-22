@@ -18,7 +18,7 @@ import { Datepicker } from 'flowbite-react';
 import { formatDate } from '@/Components/utills';
 import { Label, Radio } from 'flowbite-react';
 import DatePicker from "react-datepicker";
-import { addDays } from 'date-fns';
+import { subDays } from 'date-fns';
 
 export default function SingleProperty({ params }) {
   const [openModal, setOpenModal] = useState(false);
@@ -61,7 +61,7 @@ export default function SingleProperty({ params }) {
     let list=[];
     property.availability.forEach(e => {
       list.push({
-        start:new Date(e.start_date),
+        start:subDays(new Date(e.start_date),1),
         end : new Date(e.end_date)
       })
     });
@@ -180,12 +180,12 @@ export default function SingleProperty({ params }) {
       <div className='my-8'>
         <Button onClick={() => setOpenModal(true)}>Add meal</Button>
         <MealSelectionForm
-           breakfast={breakfast} 
-           lunch={lunch} 
-           dinner={dinner} 
-           updateCart={updateCart}
-           openModal={openModal}
-           setOpenModal={setOpenModal} />
+          breakfast={breakfast} 
+          lunch={lunch} 
+          dinner={dinner} 
+          updateCart={updateCart}
+          openModal={openModal}
+          setOpenModal={setOpenModal} />
         
       </div>
       <div className='grid grid-rows-1 grid-cols-6 gap-2'>
@@ -197,8 +197,9 @@ export default function SingleProperty({ params }) {
         ))}
       </div> 
       
-
+      {/* left right card */}
       <div className='flex flex-row items-center justify-left mb-20'>
+        {/*left card*/}
         <div className='flex flex-col items-around justify-center w-1/2'>
           <div className='flex flex-row items-around justify-center my-16'>
             <div className=''>
@@ -221,86 +222,87 @@ export default function SingleProperty({ params }) {
             </div>
           </div>
           <hr />
-          <div className='mb-10'>
-            <div className='my-4'>
-              <p className='font-bold text-black'>Emenities :</p>
+          <div className='mb-10 '>
+            {property && property.property_sub_type && (
+            <div className='flex justify-center items-center my-4 w-3/4 py-4 border-4 border-black rounded-lg font-bold text-black hover:bg-black hover:text-white'>
+              {property.property_sub_type}
             </div>
-            <div className='my-2 '>
-              {property && property.property_sub_type && (<p className='font-bold text-black'>{property.property_sub_type}</p>)}
-              <p className="text-slate-400">You will have the apartment to yourself</p>
-            </div>
-            <div className='my-2 '>
-              <p className='font-bold text-black'>Enhanced clean</p>
-              <p className="text-slate-400">The host committed to StayNest cleaning process</p>
-            </div>
-            <div className='my-2 '>
-              <p className='font-bold text-black'>Self check-in</p>
-              <p className="text-slate-400">Check yourself in with keypad</p>
-            </div>
+            )}
+            {property&&property.highlights&& property.highlights.map((h)=>(
+              <div className='flex justify-center items-center w-3/4 my-4 py-4 border-4 border-black rounded-lg font-bold text-black hover:bg-black hover:text-white'>
+                {h}
+              </div>
+            ))}
             <hr />
           </div>
 
           <div className=''>
-          <p className='font-medium'>
-          {property&&property.description && property.description}
-          </p>
+            <p className='font-medium'>
+            {property&&property.description && property.description}
+            </p>
           </div>
         </div>
-        <div className='flex flex-col items-around justify-center border-4 p-4 ml-auto w-2/6 mt-16 shadow-xl'>
+        {/*right floating card*/}
+        <div className='flex flex-col items-around justify-center border-4 p-4 ml-auto w-auto mt-16 shadow-xl'>
           <div className='flex flex-row items-center justify-between w-full my-2'>
+            {property&&property.price && (
             <div className='flex font-bold '>
-              <FaBangladeshiTakaSign className='mr-1' /> 700 / night
+              <FaBangladeshiTakaSign className='mr-1' /> {property.price} / night
             </div>
+            )}
             <div className='flex flex-row items-center justify-around '>
-              <text className='font-bold ml-2 underline underline-offset-4 mx-4'>7 reviews</text>
+              {property&&property.reviews&& (<text className='font-bold ml-2 mx-4'>{property.reviews.length} reviews</text>)}
               <FaRegStar />
-              <text className='font-bold ml-2'>5.0</text>
+              {property&&property.reviews&& (<text className='font-bold ml-2'>{rating()}</text>)}
             </div>
           </div>
           <div className='border-2 rounded-lg '>
-              <fieldset className="flex max-w-md flex-col gap-4 p-4 ">
-                <legend className="mb-4">Choose your booking option</legend>
-                <div className="flex items-center gap-2">
-                  <Radio  name="bookingOption" defaultChecked />
-                  <Label>Stay</Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Radio  name="bookingOption" />
-                  <Label>Stay with meal</Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Radio  name="bookingOption" />
-                  <Label>Paying guest</Label>
-                </div>
-              </fieldset>
-            </div>
+            <fieldset className="flex max-w-md flex-col gap-4 p-4 ">
+              <legend className="mb-4">Choose your booking option</legend>
+              <div className="flex items-center gap-2">
+                <Radio  name="bookingOption" defaultChecked />
+                <Label>Stay</Label>
+              </div>
+              <div className="flex items-center gap-2">
+                <Radio  name="bookingOption" />
+                <Label>Stay with meal</Label>
+              </div>
+              <div className="flex items-center gap-2">
+                <Radio  name="bookingOption" />
+                <Label>Paying guest</Label>
+              </div>
+            </fieldset>
+          </div>
           <div className='grid grid-rows-2 grid-cols-2 w-full border rounded-lg my-2'>
-      <div className='row-span-1 col-span-1 border p-2'>
-        <p className='font-bold'>Check in</p>
-        <DatePicker
-          selected={checkInDate}
-          onChange={handleCheckInDateChange}
-          includeDateIntervals={property&&property.availability&&dateIntervals()}
-        />
-      </div>
-      <div className='row-span-1 col-span-1 border p-2'>
-        <p className='font-bold'>Check out</p>
-        <DatePicker
-          selected={checkOutDate}
-          onChange={handleCheckOutDateChange}
-        />
-      </div>
-      <div className='row-span-1 col-span-2 border p-2'>
-        <p className='font-bold'>Guests</p>
-        <input
-          type='number'
-          value={numberOfGuests}
-          onChange={handleNumberOfGuestsChange}
-          min={1}
-          max={10} // Adjust maximum number of guests as needed
-        />
-      </div>
-        </div>
+            <div className='row-span-1 col-span-1 border p-2'>
+              <p className='font-bold'>Check in</p>
+                <DatePicker
+                  selected={checkInDate}
+                  onChange={handleCheckInDateChange}
+                  minDate={new Date()}
+                  includeDateIntervals={property&&property.availability&&dateIntervals()}
+                />
+            </div>
+            <div className='row-span-1 col-span-1 border p-2'>
+              <p className='font-bold'>Check out</p>
+              <DatePicker
+                selected={checkOutDate}
+                onChange={handleCheckOutDateChange}
+                minDate={checkInDate}
+                includeDateIntervals={property&&property.availability&&dateIntervals()}
+              />
+            </div>
+            <div className='row-span-1 col-span-2 border p-2'>
+              <p className='font-bold'>Guests</p>
+              <input
+                type='number'
+                value={numberOfGuests}
+                onChange={handleNumberOfGuestsChange}
+                min={1}
+                max={10} // Adjust maximum number of guests as needed
+              />
+            </div>
+          </div>
           <div className='my-2'>
             <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-4 me-2 mb-2 w-full" onClick={() => handleReserve()}>
               Reserve
@@ -316,15 +318,6 @@ export default function SingleProperty({ params }) {
 
 
       </div>
-
-
-
-
-
-
-
-
-
     </div>
 
 
