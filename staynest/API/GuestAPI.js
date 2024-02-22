@@ -52,11 +52,18 @@ export async function  getMealOption(registration_id) {
     try {
         const response = await axios.get(`host/api/property_registration/step5/${registration_id}/`);
         
-        console.log('mealoption from API         ',response);
-        console
+        // console.log('mealoption from API         ',response);
+        // converte the response.data to json
+        if (typeof response.data === 'string') {
+            // If response.data is a string, parse it to JSON
+            return JSON.parse(response.data);
+        } else {
+            // If response.data is already JSON, return it directly
+            return response.data;
+        }
+
         
-        console.log(response.data);
-        return response.data;
+        
     }
     catch (error) {
         console.log(error);

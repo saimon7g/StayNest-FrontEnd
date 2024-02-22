@@ -6,8 +6,6 @@ import { FaRegStar } from "react-icons/fa";
 import { GiRibbonMedal } from "react-icons/gi";
 import { CiShare1 } from "react-icons/ci";
 import { FaRegHeart } from "react-icons/fa";
-import Logo from '@/StaticImage/Meta_Inc._logo.jpg';
-import Profile from '@/StaticImage/logo2.png';
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { useRouter } from 'next/navigation';
 import { reserveProperty } from '@/API/GuestAPI';
@@ -27,28 +25,16 @@ export default function SingleProperty({ params }) {
   const [checkOutDate, setCheckOutDate] = useState(new Date());
   const [numberOfGuests, setNumberOfGuests] = useState(1);
   const [property, setProperty] = useState({});
-  const [meals, setMeals] = useState({ breakfast: [], lunch: [], dinner: [] });
-  const router = useRouter()
-  const breakfast = [
-    { id: 1, name: 'Khichuri', price: '100', photo: 'meal1.jpg' },
+  const [breakfast, setBreakfast] = useState([]);
+  const [lunch, setLunch] = useState([]);
+  const [dinner, setDinner] = useState([]);
+  const id = params.propertyID;
 
-
-  ];
-  const lunch = [
-    { id: 1, name: 'Kalavuna', price: '300', photo: 'meal1.jpg' },
-    { id: 2, name: 'Morog Polao', price: '250', photo: 'meal2.jpg' },
-
-  ];
-  const dinner = [
-    { id: 1, name: 'Kalavuna', price: '300', photo: 'meal1.jpg' },
-    { id: 2, name: 'Morog Polao', price: '250', photo: 'meal2.jpg' },
-
-  ];
-
+  const router = useRouter();
   // Function to update the cart
   const updateCart = (updatedCart) => {
     setCart(updatedCart);
-    console.log('Updated Cart:', updatedCart);
+    // console.log('Updated Cart:', updatedCart);
   };
   const rating = () => {
     let total_rating = 0;
@@ -80,9 +66,15 @@ export default function SingleProperty({ params }) {
   };
 
 
-  const id = params.propertyID;
-  // console.log(id);
-  // console.log("Hello from SingleProperty");
+
+  const print = () => {
+    console.log(breakfast);
+    console.log(lunch);
+    console.log(dinner);
+    console.log(cart);  
+  }
+
+
 
   useEffect(() => {
     async function fetchData() {
@@ -96,23 +88,30 @@ export default function SingleProperty({ params }) {
         console.log('id                 for  meal     ', id);
         const mealresponse = await getMealOption(id);
         console.log('mealresponse', mealresponse);
-        setMeals(mealresponse);
+        setBreakfast(mealresponse.breakfast);
+        setLunch(mealresponse.lunch);
+        setDinner(mealresponse.dinner);
+        console.log('breakfast', breakfast);
+        console.log('lunch', lunch);
+        console.log('dinner', dinner);
+
+
+        // random delay for 2 sec
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
+
+        console.log('breakfast', breakfast);
+        console.log('lunch', lunch);
+        console.log('dinner', dinner);
 
       }
       catch (error) {
         console.error(error);
       }
-
-
     }
 
     fetchData();
   }, []);
-
-
-  // useEffect(() => {
-  //   console.log('property.host', property.host);
-  // }, [property]);
 
 
   const handleReserve = async () => {
@@ -175,13 +174,15 @@ export default function SingleProperty({ params }) {
         </div>
       </div>
       <div className='my-8'>
-        {meals && (
+
+        <Button className='bg-blue-500 text-white' onClick={() => print()}>Print</Button>
+        {breakfast && lunch && dinner && (
           <>
             <Button onClick={() => setOpenModal(true)}>Add meal</Button>
             <MealSelectionForm
-              breakfast={meals.breakfast}
-              lunch={meals.lunch}
-              dinner={meals.dinner}
+              breakfast={breakfast}
+              lunch={lunch}
+              dinner={dinner}
               updateCart={updateCart}
               openModal={openModal}
               setOpenModal={setOpenModal}
