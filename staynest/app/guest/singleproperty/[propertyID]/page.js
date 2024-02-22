@@ -224,12 +224,12 @@ export default function SingleProperty({ params }) {
           <hr />
           <div className='mb-10 '>
             {property && property.property_sub_type && (
-            <div className='flex justify-center items-center my-4 w-3/4 py-4 border-4 border-black rounded-lg font-bold text-black hover:bg-black hover:text-white'>
+            <div className='flex justify-center items-center my-4 w-3/4 py-4 border-4 border-black rounded-lg font-bold text-black hover:bg-slate-200 '>
               {property.property_sub_type}
             </div>
             )}
             {property&&property.highlights&& property.highlights.map((h)=>(
-              <div className='flex justify-center items-center w-3/4 my-4 py-4 border-4 border-black rounded-lg font-bold text-black hover:bg-black hover:text-white'>
+              <div className='flex justify-center items-center w-3/4 my-4 py-4 border-4 border-black rounded-lg font-bold text-black hover:bg-slate-200'>
                 {h}
               </div>
             ))}
