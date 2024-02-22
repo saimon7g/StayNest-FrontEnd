@@ -51,7 +51,7 @@ const handleFileChange = (event) => {
       profile: {
         phone: formData.phone,
         profile_picture: formData.profilePhoto,
-        address: '',  // Add address field if needed
+        address: 'abc',  // Add address field if needed
         nid_document: null,  // Assuming nid_document and passport_document are not included in the form data
         passport_document: null,
         superhost: false,
