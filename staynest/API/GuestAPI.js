@@ -178,7 +178,7 @@ export async function getPropertyByID(propertyId) {
             ],
         "booking_options":{
             "stay":true,
-            "stay_with_meal":true,
+            "stay_with_meal":false,
             "paying_guest":true
         }
     }

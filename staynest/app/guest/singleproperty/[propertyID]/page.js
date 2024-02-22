@@ -259,18 +259,24 @@ export default function SingleProperty({ params }) {
           <div className='border-2 rounded-lg '>
             <fieldset className="flex max-w-md flex-col gap-4 p-4 ">
               <legend className="mb-4">Choose your booking option</legend>
+              {property&&property.booking_options&&property.booking_options.stay&&(
               <div className="flex items-center gap-2">
-                <Radio  name="bookingOption" defaultChecked />
-                <Label>Stay</Label>
+              <Radio  name="bookingOption" defaultChecked />
+              <Label>Stay</Label>
               </div>
+              )}
+              {property&&property.booking_options&&property.booking_options.stay_with_meal&&(
               <div className="flex items-center gap-2">
                 <Radio  name="bookingOption" />
                 <Label>Stay with meal</Label>
               </div>
+              )}
+              {property&&property.booking_options&&property.booking_options.paying_guest&&(
               <div className="flex items-center gap-2">
                 <Radio  name="bookingOption" />
                 <Label>Paying guest</Label>
               </div>
+              )}
             </fieldset>
           </div>
           <div className='grid grid-rows-2 grid-cols-2 w-full border rounded-lg my-2'>
@@ -318,6 +324,19 @@ export default function SingleProperty({ params }) {
 
 
       </div>
+      <div className='grid grid-rows-1 grid-cols-2 gap-2'>
+        {property&&property.reviews&&property.reviews.map((r)=>(
+          <div className='row-span-1 col-span-1'>
+            <p>{r.reviewer_name}</p>
+            <p>
+              {r.review}
+            </p>
+          </div>
+        ))}
+
+      </div>
+
+
     </div>
 
 
