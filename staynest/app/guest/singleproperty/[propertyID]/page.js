@@ -311,20 +311,8 @@ export default function SingleProperty({ params }) {
               Negotiate
             </button>
           </div>
-
         </div>
-
-
       </div>
-
-
-
-
-
-
-
-
-
     </div>
 
 
