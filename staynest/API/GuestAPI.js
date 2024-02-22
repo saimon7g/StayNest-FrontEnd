@@ -34,7 +34,7 @@ export async function Step4GET(registrationId) {
 export async function  getMealOption(registration_id) {
   
     try {
-        const response = await fetch(`host/api/property_registration/step5/${registration_id}/`);
+        const response = await axios.get(`host/api/property_registration/step5/${registration_id}/`);
         
         console.log('mealoption',response.json());
         
@@ -190,22 +190,8 @@ export async function getProperties(data) {
 
 export async function reserveProperty(data) {
     try {
-        console.log('getProperties')
-        console.log(data)
-        const authToken = sessionStorage.getItem('authToken');
-        if (authToken === null) {
-            console.log("//-----No token found");
-
-        }
-        else {
-            console.log(authToken);
-        }
-        const response = await axios.post("guest/api/reserve/", data, {
-            headers: {
-                'Authorization': `Token ${authToken}`,
-                'Content-Type': 'application/json'
-            },
-        });
+       
+        const response = await axios.post("guest/api/reserve/", data );
         console.log(response);
         return response;
 
