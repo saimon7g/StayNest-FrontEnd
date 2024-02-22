@@ -95,15 +95,15 @@ export async function getPropertyByID(propertyId) {
         "property_type": "Houseboat",
         "property_sub_type": "Entire place",
         "description": "sdjfbn hjb jfnvjdkdf fdkffng jfhg",
-        "price": "1700.00",
+        "price": "1700",
         "availability": [
         {
-            "start_date": "2024-02-12",
-            "end_date": "2024-02-15"
+            "start_date": "2024-03-12",
+            "end_date": "2024-03-15"
         },
         {
-            "start_date": "2024-02-18",
-            "end_date": "2024-02-21"
+            "start_date": "2024-03-18",
+            "end_date": "2024-03-21"
         },
         {
             "start_date": "2024-02-25",
