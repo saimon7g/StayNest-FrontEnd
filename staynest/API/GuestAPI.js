@@ -193,19 +193,8 @@ export async function getProperties(data) {
     try {
         console.log('getProperties')
         console.log(data)
-        const authToken = sessionStorage.getItem('authToken');
-        if (authToken === null) {
-            console.log("//-----No token found");
-
-        }
-        else {
-            console.log(authToken);
-        }
-        const response = await axios.put("http://127.0.0.1:8000/host/api/properties/search/", data, {
-            headers: {
-                'Authorization': `Token ${authToken}`,
-                'Content-Type': 'application/json'
-            },
+        const response = await axios.put(`host/api/properties/search/`, data, {
+           
         });
         // console.log(response);
         return response.data;
