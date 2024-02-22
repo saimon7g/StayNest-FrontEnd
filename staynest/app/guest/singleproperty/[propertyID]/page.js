@@ -237,7 +237,8 @@ export default function SingleProperty({ params }) {
           </div>
 
           <div className=''>
-            <p className='font-medium'>
+            <p className='font-bold '>Property description: </p>
+            <p className='font-medium '>
             {property&&property.description && property.description}
             </p>
           </div>
@@ -324,13 +325,33 @@ export default function SingleProperty({ params }) {
 
 
       </div>
-      <div className='grid grid-rows-1 grid-cols-2 gap-2'>
+      <hr />
+      <div className='grid grid-rows-1 grid-cols-2 gap-2 my-20'>
+        <div className='row-span-1 col-span-1'>
+          <p className='font-bold'>Regular amenities</p>
+          {property&&property.regular_amenities&&property.regular_amenities.map((a)=>(
+          <div className='flex justify-center items-center w-3/4 my-4 py-4 border-4 border-black rounded-lg font-bold bg-black text-white '>
+            {a}
+          </div>
+          ))}
+        </div>
+        <div className='row-span-1 col-span-1'>
+          <p className='font-bold'>Standout amenities</p>
+          {property&&property.standout_amenities&&property.standout_amenities.map((a)=>(
+          <div className='flex justify-center items-center w-3/4 my-4 py-4 border-4 border-black rounded-lg font-bold bg-black text-white '>
+            {a}
+          </div>
+          ))}
+        </div>
+      </div>
+
+
+      <div className='grid grid-rows-1 grid-cols-2 gap-2 my-20'>
         {property&&property.reviews&&property.reviews.map((r)=>(
           <div className='row-span-1 col-span-1'>
-            <p>{r.reviewer_name}</p>
-            <p>
-              {r.review}
-            </p>
+            <p className='font-bold'>{r.reviewer_name}</p>
+            <p className='text-slate-400'>{r.date}</p>
+            <p>{r.review}</p>
           </div>
         ))}
 

@@ -160,20 +160,21 @@ export async function getPropertyByID(propertyId) {
             }
         ],
         "reviews": [
-            
                 {
                     "review_id": "123",
                     "reviewer_id": "456",
                     "reviewer_name": "Tina",
                     "review":"Great Place to stay",
-                    "rating": 4.0
+                    "rating": 4.0,
+                    "date":"2024-02-15"
                  },
                 {
                     "review_id": "124",
                     "reviewer_id": "457",
                     "reviewer_name": "John",
                     "review":"Great place to stay",
-                    "rating" : 5.0
+                    "rating" : 5.0,
+                    "date":"2024-02-19"
                 },
             ],
         "booking_options":{
