@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import { getPropertyByID, getMealOption } from '@/API/GuestAPI';
+import { getPropertyByIDd, getMealOption } from '@/API/GuestAPI';
 import { FaRegStar } from "react-icons/fa";
 import { GiRibbonMedal } from "react-icons/gi";
 import { CiShare1 } from "react-icons/ci";
@@ -95,11 +95,8 @@ export default function SingleProperty({ params }) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await getPropertyByID(id);
+        const response = await getPropertyByIDd(id);
         setProperty(response);
-        //console.log(response);
-        //console.log('host ',response);
-        //console.log('property host',property.host);
       } catch (error) {
         console.error(error);
       }
@@ -327,10 +324,7 @@ export default function SingleProperty({ params }) {
               Negotiate
             </button>
           </div>
-
         </div>
-
-
       </div>
       <hr />
       <div className='grid grid-rows-1 grid-cols-2 gap-2 my-20'>

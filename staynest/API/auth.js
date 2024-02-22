@@ -1,10 +1,12 @@
-import axios from './axios'; // Import the configured Axios instance
+import axios from './axios';
 
-// Set the authentication token in request headers
+// Function to set the authentication token in localStorage and axios headers
 const setAuthToken = (token) => {
   if (token) {
+    localStorage.setItem('authToken', token); // Store token in localStorage
     axios.defaults.headers.common['Authorization'] = `Token ${token}`;
   } else {
+    localStorage.removeItem('authToken'); // Remove token from localStorage
     delete axios.defaults.headers.common['Authorization'];
   }
 };
@@ -36,7 +38,7 @@ const login = async (username, password) => {
   try {
     const response = await axios.post('/auth/login/', { username, password });
     const token = response.data.token;
-    setAuthToken(token);
+    setAuthToken(token); // Set the authentication token
     return response;
   } catch (error) {
     console.error('Login failed:', error.response.data);
@@ -48,7 +50,7 @@ const login = async (username, password) => {
 const logout = async () => {
   try {
     const response = await axios.post('/auth/logout/');
-    setAuthToken(null);
+    setAuthToken(null); // Clear the authentication token
     return response.data;
   } catch (error) {
     console.error('Logout failed:', error.response.data);
@@ -56,5 +58,4 @@ const logout = async () => {
   }
 };
 
-// Export the signup, hostSignup, login, and logout functions
-export { signup, hostSignup, login, logout };
+export { setAuthToken, signup, hostSignup, login, logout };

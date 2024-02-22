@@ -22,7 +22,7 @@ const Step4 = () => {
     });
     const [price, setPrice] = useState("");
     const [discount, setDiscount] = useState("");
-    setRegistrationId(65);
+    // setRegistrationId(65);
     useEffect(() => {
         const fetchStep4Data = async () => {
             try {

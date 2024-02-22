@@ -1,4 +1,4 @@
-import axios from 'axios'; // Import the configured Axios instance
+import axios from './axios'; // Import the configured Axios instance
 
 
 export async function getServerSideProps() {
@@ -20,19 +20,8 @@ export async function getServerSideProps() {
 export async function Step4GET(registrationId) {
     console.log("step4get");
     try {
-        const authToken = sessionStorage.getItem('authToken');
-        if (authToken === null) {
-            console.log("//-----No token found");
-            return;
-        }
-        else
-        {
-            console.log(authToken);
-        }
-        const response = await axios.get(`http://127.0.0.1:8000/host/api/property_registration/step4/${registrationId}/`, {
-            headers: {   'Authorization': `Token ${authToken}`, 
-            'Content-Type': 'application/json' }
-        });
+       
+        const response = await axios.get(`host/api/property_registration/step4/${registrationId}/`);
         console.log(response.data);
         return response;
         
@@ -45,11 +34,7 @@ export async function Step4GET(registrationId) {
 export async function  getMealOption(registration_id) {
   
     try {
-        const authToken = 'Token 12345';
-        const response = await fetch(`http://127.0.0.1:8000/host/api/property_registration/step5/${registration_id}/`,{
-            headers: {   'Authorization': `Token ${authToken}`, 
-            'Content-Type': 'application/json' }
-        });
+        const response = await axios.get(`host/api/property_registration/step5/${registration_id}/`);
         
         console.log('mealoption',response.json());
         
@@ -65,10 +50,7 @@ export async function getPropertyByIDd(property_id) {
     console.log("single property get");
     try {
         const authToken = 'Token 12345';
-        const response = await axios.get(`http://127.0.0.1:8000/host/api/property/${property_id}/`, {
-            headers: {   'Authorization': `Token ${authToken}`, 
-            'Content-Type': 'application/json' }
-        });
+        const response = await axios.get(`host/api/property/${property_id}/`);
        
        
         // const result = await response.json();
@@ -196,19 +178,8 @@ export async function getProperties(data) {
     try {
         console.log('getProperties')
         console.log(data)
-        const authToken = sessionStorage.getItem('authToken');
-        if (authToken === null) {
-            console.log("//-----No token found");
-
-        }
-        else {
-            console.log(authToken);
-        }
-        const response = await axios.put("http://127.0.0.1:8000/host/api/properties/search/", data, {
-            headers: {
-                'Authorization': `Token ${authToken}`,
-                'Content-Type': 'application/json'
-            },
+        const response = await axios.put(`host/api/properties/search/`, data, {
+           
         });
         // console.log(response);
         return response.data;
@@ -222,22 +193,8 @@ export async function getProperties(data) {
 
 export async function reserveProperty(data) {
     try {
-        console.log('getProperties')
-        console.log(data)
-        const authToken = sessionStorage.getItem('authToken');
-        if (authToken === null) {
-            console.log("//-----No token found");
-
-        }
-        else {
-            console.log(authToken);
-        }
-        const response = await axios.post("http://127.0.0.1:8000/guest/api/reserve/", data, {
-            headers: {
-                'Authorization': `Token ${authToken}`,
-                'Content-Type': 'application/json'
-            },
-        });
+       
+        const response = await axios.post("guest/api/reserve/", data );
         console.log(response);
         return response;
 
