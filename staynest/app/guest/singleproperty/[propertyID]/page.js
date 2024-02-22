@@ -57,6 +57,14 @@ export default function SingleProperty({ params }) {
     }
     return total_rating/property.reviews.length
   };
+  const hostRating = () => {
+    let total_rating=0;
+    for (let i = 0; i < property.host.reviews.length; i++) {
+      total_rating+=property.host.reviews[i].rating;
+    }
+    return total_rating/property.host.reviews.length
+  };
+  
   const dateIntervals = () => {
     let list=[];
     property.availability.forEach(e => {
@@ -171,7 +179,6 @@ export default function SingleProperty({ params }) {
           {property&&property.host&&property.host.super_host&& (<text className='text-slate-400'>Super Host</text>)}
           {property&&property.host&& !property.host.super_host&& (<text className='text-slate-400'>Normal Host</text>)}
           {property&&property.location && (<text className='text-slate-400 underline underline-offset-4 ml-4'>{property.location}</text>)}
-          
         </div>
         <div className='flex flex-row items-center justify-center'>
           <CiShare1 className='mx-2' /><FaRegHeart className='mx-2' />
@@ -345,7 +352,12 @@ export default function SingleProperty({ params }) {
         </div>
       </div>
 
-
+      <div>
+        <p className='font-bold text-2xl'>
+            Reviews:
+        </p>
+      </div>
+      <hr />
       <div className='grid grid-rows-1 grid-cols-2 gap-2 my-20'>
         {property&&property.reviews&&property.reviews.map((r)=>(
           <div className='row-span-1 col-span-1'>
@@ -354,7 +366,30 @@ export default function SingleProperty({ params }) {
             <p>{r.review}</p>
           </div>
         ))}
-
+      </div>
+      <hr />
+      <div className='my-20'>
+        <div className='flex mb-4'>
+          {property&&property.host&&property.host.profile_pic&&(<Image src={property.host.profile_pic} alt="profile" width={20} height={20}className='w-20 border rounded-full' />)}
+          {property&&property.host&&(<p className='ml-4 text-3xl'>Hosted by {property.host.name}</p>)}
+        </div>
+        <div className='flex flex-row justify-between w-1/2'>
+          <div className='flex'>
+            <GiRibbonMedal />
+            {property&&property.host&&property.host.super_host&& (<text className='font-bold'>Super Host</text>)}
+            {property&&property.host&& !property.host.super_host&& (<text className='font-bold'>Normal Host</text>)}
+            <FaRegStar className='ml-4'/>
+            {property&&property.reviews&& (<text className='font-bold ml-2'>{hostRating()}</text>)}
+            {property&&property.host&&property.host.reviews&& (<text className='font-bold ml-4 mx-4'>{property.host.reviews.length} reviews</text>)}
+          </div>
+        </div>
+        <div className='my-2'>
+          {property&&property.host&&property.host.response_rate&& (<text className='text-slate-400 ml-4 mx-4'>response rate {property.host.response_rate}</text>)}
+        </div>
+        <div className='my-2'>
+          {property&&property.host&&property.host.response_time&& (<text className='text-slate-400 ml-4 mx-4'>response rate {property.host.response_time}</text>)}
+        </div>
+        
       </div>
 
 
