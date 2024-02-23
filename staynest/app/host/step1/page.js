@@ -125,7 +125,8 @@ const Step1 = () => {
                     <text className="text-2xl font-bold ">1. What type of place are you listing?</text>
                 </div>
                 <div className="flex justify-center">
-                    <div onClick={(e) => handlePropertyType(e, "House")} className={`flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black ${propertyType=="House" ? 'text-white bg-black' : 'text-black bg-white'}`} >
+                    <div onClick={(e) => handlePropertyType(e, "House")} className={`flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black 
+                    ${propertyType=="House" ? 'text-white bg-black' : 'text-black bg-white'}`} >
                         <div >
                             <FaHouse className="text-2xl text-center" />
                         </div>
@@ -133,7 +134,8 @@ const Step1 = () => {
                             House
                         </div>
                     </div>
-                    <div  onClick={(e) => handlePropertyType(e, "Apartment")} className={`flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black ${propertyType=="Apartment" ? 'text-white bg-black' : 'text-black bg-white'}`}>
+                    <div  onClick={(e) => handlePropertyType(e, "Apartment")} className={`flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black 
+                    ${propertyType=="Apartment" ? 'text-white bg-black' : 'text-black bg-white'}`}>
                         <div>
                             <MdApartment className="text-2xl text-center" />
                         </div>
@@ -141,7 +143,8 @@ const Step1 = () => {
                             Apartment
                         </div>
                     </div>
-                    <div onClick={(e) => handlePropertyType(e, "Cabin")} className={`flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black ${propertyType=="Cabin" ? 'text-white bg-black' : 'text-black bg-white'}`}>
+                    <div onClick={(e) => handlePropertyType(e, "Cabin")} className={`flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black 
+                    ${propertyType=="Cabin" ? 'text-white bg-black' : 'text-black bg-white'}`}>
                         <div >
                             <MdOutlineCabin className="text-2xl text-center" />
                         </div>
@@ -152,7 +155,8 @@ const Step1 = () => {
                 </div>
 
                 <div className="flex justify-center">
-                    <div onClick={(e) => handlePropertyType(e, "Campground")} className={`flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black ${propertyType=="Campground" ? 'text-white bg-black' : 'text-black bg-white'}`}>
+                    <div onClick={(e) => handlePropertyType(e, "Campground")} className={`flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black 
+                    ${propertyType=="Campground" ? 'text-white bg-black' : 'text-black bg-white'}`}>
                         <div >
                             <FaCampground className="text-2xl text-center" />
                         </div>
@@ -160,7 +164,8 @@ const Step1 = () => {
                             Campground
                         </div>
                     </div>
-                    <div onClick={(e) => handlePropertyType(e, "Tower")} className={`flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black ${propertyType=="Tower" ? 'text-white bg-black' : 'text-black bg-white'}`}>
+                    <div onClick={(e) => handlePropertyType(e, "Tower")} className={`flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black 
+                    ${propertyType=="Tower" ? 'text-white bg-black' : 'text-black bg-white'}`}>
                         <div >
                             <LuTowerControl className="text-2xl text-center" />
                         </div>
@@ -168,7 +173,8 @@ const Step1 = () => {
                             Tower
                         </div>
                     </div>
-                    <div onClick={(e) => handlePropertyType(e, "Castle")} className={`flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black ${propertyType=="Castle" ? 'text-white bg-black' : 'text-black bg-white'}`}>
+                    <div onClick={(e) => handlePropertyType(e, "Castle")} className={`flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black 
+                    ${propertyType=="Castle" ? 'text-white bg-black' : 'text-black bg-white'}`}>
                         <div >
                             <MdOutlineCastle className="text-2xl text-center" />
                         </div>
@@ -178,7 +184,8 @@ const Step1 = () => {
                     </div>
                 </div>
                 <div className="flex justify-center">
-                    <div onClick={(e) => handlePropertyType(e, "Houseboat")} className={`flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black ${propertyType=="Houseboat" ? 'text-white bg-black' : 'text-black bg-white'}`}>
+                    <div onClick={(e) => handlePropertyType(e, "Houseboat")} className={`flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black 
+                    ${propertyType=="Houseboat" ? 'text-white bg-black' : 'text-black bg-white'}`}>
                         <div >
                             <MdHouseboat className="text-2xl text-center" />
                         </div>
@@ -186,7 +193,8 @@ const Step1 = () => {
                             Houseboat
                         </div>
                     </div>
-                    <div onClick={(e) => handlePropertyType(e, "Hotel")} className={`flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black ${propertyType=="Hotel" ? 'text-white bg-black' : 'text-black bg-white'}`}>
+                    <div onClick={(e) => handlePropertyType(e, "Hotel")} className={`flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black 
+                    ${propertyType=="Hotel" ? 'text-white bg-black' : 'text-black bg-white'}`}>
                         <div >
                             <FaHotel className="text-2xl text-center" />
                         </div>
@@ -194,7 +202,8 @@ const Step1 = () => {
                             Hotel
                         </div>
                     </div>
-                    <div onClick={(e) => handlePropertyType(e, "Dome")} className={`flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black ${propertyType=="Dome" ? 'text-white bg-black' : 'text-black bg-white'}`}>
+                    <div onClick={(e) => handlePropertyType(e, "Dome")} className={`flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black 
+                    ${propertyType=="Dome" ? 'text-white bg-black' : 'text-black bg-white'}`}>
                         <div >
                             <FaLandmarkDome className="text-2xl text-center" />
                         </div>
@@ -209,7 +218,8 @@ const Step1 = () => {
                 <div className="mb-16">
                     <text className="text-2xl font-bold">2. What type of place your guest will be staying?</text>
                 </div>
-                <div className="flex items-center justify-between border-2 border-black rounded-lg p-6 mb-4 hover:text-white hover:bg-black"
+                <div className={`flex items-center justify-between border-2 border-black rounded-lg p-6 mb-4 hover:text-white hover:bg-black
+                ${propertySubType=="Entire place" ? 'text-white bg-black' : 'text-black bg-white'}`}
                     onClick={(e) => handlePropertySubType(e, "Entire place")} >
                     <div className="w-96 ">
                         <text className="text-lg font-bold ">An entire place</text>
@@ -221,7 +231,8 @@ const Step1 = () => {
                     </div>
                 </div>
 
-                <div className="flex items-center justify-between border-2 border-black rounded-lg p-6 mb-4 hover:text-white hover:bg-black"
+                <div className={`flex items-center justify-between border-2 border-black rounded-lg p-6 mb-4 hover:text-white hover:bg-black
+                ${propertySubType=="Private room" ? 'text-white bg-black' : 'text-black bg-white'}`}
                     onClick={(e) => handlePropertySubType(e, "Private room")} >
                     <div className="w-96">
                         <text className="text-lg font-bold ">A room</text>
@@ -232,7 +243,8 @@ const Step1 = () => {
                         <FaDoorClosed className="text-4xl text-center" />
                     </div>
                 </div>
-                <div className="flex items-center justify-between border-2 border-black rounded-lg p-6 mb-4 hover:text-white hover:bg-black"
+                <div className={`flex items-center justify-between border-2 border-black rounded-lg p-6 mb-4 hover:text-white hover:bg-black
+                ${propertySubType=="Shared room" ? 'text-white bg-black' : 'text-black bg-white'}`}
                     onClick={(e) => handlePropertySubType(e, "Shared room")} >
                     <div className="w-96">
                         <text className="text-lg font-bold ">A shared place</text>
