@@ -19,7 +19,6 @@ import { MdOutlineCastle } from "react-icons/md";
 import { FaHome } from "react-icons/fa";
 import { FaDoorClosed } from "react-icons/fa";
 import { MdAirlineSeatIndividualSuite } from "react-icons/md";
-
 import Map from "@/Components/HostSide/Map";
 
 
@@ -126,7 +125,7 @@ const Step1 = () => {
                     <text className="text-2xl font-bold ">1. What type of place are you listing?</text>
                 </div>
                 <div className="flex justify-center">
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2" onClick={(e) => handlePropertyType(e, "House")} >
+                    <div onClick={(e) => handlePropertyType(e, "House")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black" >
                         <div >
                             <FaHouse className="text-2xl text-center" />
                         </div>
@@ -134,16 +133,16 @@ const Step1 = () => {
                             House
                         </div>
                     </div>
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
-                        <div onClick={(e) => handlePropertyType(e, "Apartment")} >
+                    <div  onClick={(e) => handlePropertyType(e, "Apartment")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black">
+                        <div>
                             <MdApartment className="text-2xl text-center" />
                         </div>
                         <div className="pl-5 font-bold">
                             Apartment
                         </div>
                     </div>
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
-                        <div onClick={(e) => handlePropertyType(e, "Cabin")} >
+                    <div onClick={(e) => handlePropertyType(e, "Cabin")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black">
+                        <div >
                             <MdOutlineCabin className="text-2xl text-center" />
                         </div>
                         <div className="pl-5 font-bold">
@@ -153,24 +152,24 @@ const Step1 = () => {
                 </div>
 
                 <div className="flex justify-center">
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
-                        <div onClick={(e) => handlePropertyType(e, "Campground")} >
+                    <div onClick={(e) => handlePropertyType(e, "Campground")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black">
+                        <div >
                             <FaCampground className="text-2xl text-center" />
                         </div>
                         <div className="pl-5 font-bold">
                             Campground
                         </div>
                     </div>
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
-                        <div onClick={(e) => handlePropertyType(e, "Tower")} >
+                    <div onClick={(e) => handlePropertyType(e, "Tower")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black">
+                        <div >
                             <LuTowerControl className="text-2xl text-center" />
                         </div>
                         <div className="pl-5 font-bold">
                             Tower
                         </div>
                     </div>
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
-                        <div onClick={(e) => handlePropertyType(e, "Castle")} >
+                    <div onClick={(e) => handlePropertyType(e, "Castle")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black">
+                        <div >
                             <MdOutlineCastle className="text-2xl text-center" />
                         </div>
                         <div className="pl-5 font-bold">
@@ -179,24 +178,24 @@ const Step1 = () => {
                     </div>
                 </div>
                 <div className="flex justify-center">
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
-                        <div onClick={(e) => handlePropertyType(e, "Houseboat")} >
+                    <div onClick={(e) => handlePropertyType(e, "Houseboat")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black">
+                        <div >
                             <MdHouseboat className="text-2xl text-center" />
                         </div>
                         <div className="pl-5 font-bold">
                             Houseboat
                         </div>
                     </div>
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
-                        <div onClick={(e) => handlePropertyType(e, "Hotel")} >
+                    <div onClick={(e) => handlePropertyType(e, "Hotel")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black">
+                        <div >
                             <FaHotel className="text-2xl text-center" />
                         </div>
                         <div className="pl-5 font-bold">
                             Hotel
                         </div>
                     </div>
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2">
-                        <div onClick={(e) => handlePropertyType(e, "Dome")} >
+                    <div onClick={(e) => handlePropertyType(e, "Dome")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black">
+                        <div >
                             <FaLandmarkDome className="text-2xl text-center" />
                         </div>
                         <div className="pl-5 font-bold">
@@ -210,9 +209,9 @@ const Step1 = () => {
                 <div className="mb-16">
                     <text className="text-2xl font-bold">2. What type of place your guest will be staying?</text>
                 </div>
-                <div className="flex items-center justify-between border-2 border-black rounded-lg p-6 mb-4"
+                <div className="flex items-center justify-between border-2 border-black rounded-lg p-6 mb-4 hover:text-white hover:bg-black"
                     onClick={(e) => handlePropertySubType(e, "Entire place")} >
-                    <div className="w-96">
+                    <div className="w-96 ">
                         <text className="text-lg font-bold ">An entire place</text>
                         <br></br>
                         <text className="text-base text-gray-400 font-bold">Guests have the whole place to themselves</text>
@@ -222,7 +221,7 @@ const Step1 = () => {
                     </div>
                 </div>
 
-                <div className="flex items-center justify-between border-2 border-black rounded-lg p-6 mb-4"
+                <div className="flex items-center justify-between border-2 border-black rounded-lg p-6 mb-4 hover:text-white hover:bg-black"
                     onClick={(e) => handlePropertySubType(e, "Private room")} >
                     <div className="w-96">
                         <text className="text-lg font-bold ">A room</text>
@@ -233,7 +232,7 @@ const Step1 = () => {
                         <FaDoorClosed className="text-4xl text-center" />
                     </div>
                 </div>
-                <div className="flex items-center justify-between border-2 border-black rounded-lg p-6 mb-4"
+                <div className="flex items-center justify-between border-2 border-black rounded-lg p-6 mb-4 hover:text-white hover:bg-black"
                     onClick={(e) => handlePropertySubType(e, "Shared room")} >
                     <div className="w-96">
                         <text className="text-lg font-bold ">A shared place</text>
