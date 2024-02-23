@@ -127,12 +127,13 @@ export default function SingleProperty({ params }) {
       start_date: formatDate(checkInDate),
       end_date: formatDate(checkOutDate),
       base_price: property.price,
-      plaform_fee: 0.05 * property.price,
+      platform_fee: 0.05 * property.price,
       tax: 0.1 * property.price,
       number_of_guests: numberOfGuests,
       breakfast: cart.breakfast[0],
       lunch: cart.lunch[0],
       dinner: cart.dinner[0],
+      total_price: property.price * (checkOutDate - checkInDate) + 0.05 * property.price + 0.1 * property.price,
 
 
     };

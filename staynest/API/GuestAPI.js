@@ -1,3 +1,4 @@
+import { data } from '@maptiler/sdk';
 import axios from './axios'; // Import the configured Axios instance
 
 
@@ -78,7 +79,10 @@ export async function getPropertyByIDd(property_id) {
        
        
         // const result = await response.json();
-         console.log(response.data);
+        console.log(response.data);
+        if(typeof response.data === 'string'){
+            return JSON.parse(response.data);
+        }
         return response.data;
     }
     catch (error) {
@@ -214,67 +218,116 @@ export async function getProperties(data) {
 
 export async function reserveProperty(data) {
     try {
-        const data={
-            "property_id": 123,
-            "guest_id": 456,
-            "host_id": 789,
-            "booking_type": "stay_with_meal",
-            "start_date": "2024-02-22",
-            "end_date": "2024-02-24",
-            "base_price": 1000.00,
-            "platform_fee": 50.00,
-            "tax": 25.00,
-            "number_of_guests": 2,
-            "breakfast": [
-              {
+        // const data={
+        //     "property_id": 123,
+        //     "guest_id": 456,
+        //     "host_id": 789,
+        //     "booking_type": "stay_with_meal",
+        //     "start_date": "2024-02-22",
+        //     "end_date": "2024-02-24",
+        //     "base_price": 1000.00,
+        //     "platform_fee": 50.00,
+        //     "tax": 25.00,
+        //     "number_of_guests": 2,
+        //     "breakfast": [
+        //       {
                 
-                "meal_name": "Continental Breakfast",
-                "quantity": 2,
-                "date": "2024-02-22",
-                "price": 10.00
-              },
-              { 
-                "meal_name": "Pasta",
-                "quantity": 2,
-                "date": "2024-02-22",
-                "price": 15.00
-              }
-            ],
-            "lunch": [
-                {
+        //         "meal_name": "Continental Breakfast",
+        //         "quantity": 2,
+        //         "date": "2024-02-22",
+        //         "price": 10.00
+        //       },
+        //       { 
+        //         "meal_name": "Pasta",
+        //         "quantity": 2,
+        //         "date": "2024-02-22",
+        //         "price": 15.00
+        //       }
+        //     ],
+        //     "lunch": [
+        //         {
                   
-                  "meal_name": "Continental Breakfast",
-                  "quantity": 2,
-                  "date": "2024-02-22",
-                  "price": 10.00
-                },
-                { 
-                  "meal_name": "Pasta",
-                  "quantity": 2,
-                  "date": "2024-02-22",
-                  "price": 15.00
-                }
-              ],
-              "dinner": [
-                {
+        //           "meal_name": "Continental Breakfast",
+        //           "quantity": 2,
+        //           "date": "2024-02-22",
+        //           "price": 10.00
+        //         },
+        //         { 
+        //           "meal_name": "Pasta",
+        //           "quantity": 2,
+        //           "date": "2024-02-22",
+        //           "price": 15.00
+        //         }
+        //       ],
+        //       "dinner": [
+        //         {
                   
-                  "meal_name": "Continental Breakfast",
-                  "quantity": 2,
-                  "date": "2024-02-22",
-                  "price": 10.00
-                },
-                { 
-                  "meal_name": "Pasta",
-                  "quantity": 2,
-                  "date": "2024-02-22",
-                  "price": 15.00
-                }
-              ]
-          };
+        //           "meal_name": "Continental Breakfast",
+        //           "quantity": 2,
+        //           "date": "2024-02-22",
+        //           "price": 10.00
+        //         },
+        //         { 
+        //           "meal_name": "Pasta",
+        //           "quantity": 2,
+        //           "date": "2024-02-22",
+        //           "price": 15.00
+        //         }
+        //       ]
+        //   };
        
         const response = await axios.post("guest/api/reserve/", data );
-        console.log(response);
+        if (response.status === 201) {
+            if (typeof response.data === 'string') {
+                response.data = JSON.parse(response.data);
+            }
+
+            getReservation(response.data.reservation_id);
+        }
+        // console.log(response);
         return response;
+
+    }
+    catch (error) {
+        console.error(error);
+    }
+}
+
+let ok =
+{"property_id":"70",
+"guest_id":5,
+"host_id":10,
+"booking_type":"stay_with_meal",
+"start_date":"2024-02-25",
+"end_date":"2024-02-26",
+"base_price":"1800.00",
+"plaform_fee":90,
+"tax":180,
+"number_of_guests":"3",
+"breakfast":[{
+    "id":16,"quantity":2,"date":"2024-02-23","meal_name":"Khichuri","price":"100.00"
+}],
+"lunch":[{"id":18,"quantity":2,"date":"2024-02-23","meal_name":"Fresh Ilsha Rice","price":"300.00"}],
+"dinner":[{"id":19,"quantity":1,"date":"2024-02-23","meal_name":"Kalavuna","price":"200.00"}
+]}
+
+
+export async function getReservation(reservationId) {
+    try {
+        const response = await axios.get(`guest/api/reservation/${reservationId}`);
+        let data = response.data;
+        if(typeof data === 'string'){
+            data = JSON.parse(data);
+        }
+        const property_response= await axios.get(`host/api/property/${data.property_id}`);
+        property=property_response.data;
+        if (typeof property === 'string'){
+            property= JSON.parse(property_response.data);
+        }
+        data.property=property;
+
+        console.log(data);
+        return response.data;
 
     }
     catch (error) {

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Card, Button } from 'flowbite-react';
 import {Payment} from '@/Components/Payment';
 
+
 export default function ReservationSummary({ reservation }) {
 
     // const reservation={
@@ -92,9 +93,18 @@ export default function ReservationSummary({ reservation }) {
 
     const handlePayment =async () => {
         const response = await reserveProperty(parsedData);
-        if (response.status /100===2 ) {
+        let data = response.data;
+        if (typeof data === 'string') {
+            data = JSON.parse(data);
+            // alert(response.data);
+        }
+        if (response.status ===201 ) {
             setOpenModal(true);
             alert('Booking successful');
+        }
+        else if (response.status === 200) {
+            
+            alert(data.message );
         }
         else {
             alert('Booking failed');
@@ -111,14 +121,10 @@ export default function ReservationSummary({ reservation }) {
                     
                         {reservationData && (
                             <>
-                                <p>Property ID: {reservationData.property_id}</p>
-                                <p>Guest ID: {reservationData.guest_id}</p>
-                                <p>Host ID: {reservationData.host_id}</p>
+                                
                                 <p>Booking Type: {reservationData.booking_type}</p>
                                 <p>Check-In: {reservationData.start_date}</p>
                                 <p>Check-Out: {reservationData.end_date}</p>
-                                <p>Base Price: {reservationData.base_price}</p>
-                                <p>Platform Fee: {reservationData.plaform_fee}</p>
                                 <p>Tax: {reservationData.tax}</p>
                                 <p>Number of Guests: {reservationData.number_of_guests}</p>
                                 <h2>Meals</h2>
@@ -129,7 +135,6 @@ export default function ReservationSummary({ reservation }) {
                                             <p>Meal Name: {meal.meal_name}</p>
                                             <p>Quantity: {meal.quantity}</p>
                                             <p>Date: {meal.date}</p>
-                                            <p>Price: {meal.price}</p>
                                         </li>
                                     ))}
                                 </ul>
@@ -140,7 +145,6 @@ export default function ReservationSummary({ reservation }) {
                                             <p>Meal Name: {meal.meal_name}</p>
                                             <p>Quantity: {meal.quantity}</p>
                                             <p>Date: {meal.date}</p>
-                                            <p>Price: {meal.price}</p>
                                         </li>
                                     ))}
                                 </ul>
@@ -151,7 +155,6 @@ export default function ReservationSummary({ reservation }) {
                                             <p>Meal Name: {meal.meal_name}</p>
                                             <p>Quantity: {meal.quantity}</p>
                                             <p>Date: {meal.date}</p>
-                                            <p>Price: {meal.price}</p>
                                         </li>
                                     ))}
                                 </ul>
@@ -162,8 +165,13 @@ export default function ReservationSummary({ reservation }) {
                         )}
                     </div>
                     <div className="pl-4">
+                               
                         {reservationData && (
                             <>
+                                <h1 className="text-2xl font-bold mb-4">Pricing</h1>
+                                <p>Base price: {reservationData.base_price}</p>
+                                <p>Platform Fee: {reservationData.platform_fee}</p>
+                                <p>Tax: {reservationData.tax}</p>
                                <p>Total meals price: {reservationData.total_meals_price}</p>
                                 <p>Total price: {reservationData.total_price}</p>
                             </>
