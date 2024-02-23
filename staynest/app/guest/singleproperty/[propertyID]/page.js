@@ -17,6 +17,7 @@ import { formatDate } from '@/Components/utills';
 import { Label, Radio } from 'flowbite-react';
 import DatePicker from "react-datepicker";
 import { subDays } from 'date-fns';
+import { NegotiationModal } from '@/Components/GuestSide/NegotiateModal';
 
 export default function SingleProperty({ params }) {
   const [openModal, setOpenModal] = useState(false);
@@ -29,12 +30,18 @@ export default function SingleProperty({ params }) {
   const [lunch, setLunch] = useState([]);
   const [dinner, setDinner] = useState([]);
   const [booking_options, setBookingOptions] = useState('stay');
+  const [negotiateModal, setNegotiateModal] = useState(false);
+  const [guestPrice, setGuestPrice] = useState(0);
   const id = params.propertyID;
-
   const router = useRouter();
+
+
+
+
   const updateCart = (updatedCart) => {
     setCart(updatedCart);
   };
+
   const rating = () => {
     if (!property || !property.reviews || !property.reviews.length) {
       return null; // or any other default value you prefer
@@ -51,14 +58,12 @@ export default function SingleProperty({ params }) {
     if (!property || !property.host || !property.host.reviews || !property.host.reviews.length) {
       return null; // or any other default value you prefer
     }
-
     let total_rating = 0;
     for (let i = 0; i < property.host.reviews.length; i++) {
       total_rating += property.host.reviews[i].rating || 0; // Handle if rating is null or undefined
     }
     return total_rating / property.host.reviews.length;
   };
-
 
   const dateIntervals = () => {
     let list = [];
@@ -70,6 +75,7 @@ export default function SingleProperty({ params }) {
     });
     return list;
   };
+
   const handleCheckInDateChange = (date) => {
     setCheckInDate(date);
   };
@@ -81,17 +87,6 @@ export default function SingleProperty({ params }) {
   const handleNumberOfGuestsChange = (event) => {
     setNumberOfGuests(event.target.value);
   };
-
-
-
-  const print = () => {
-    // console.log(breakfast);
-    // console.log(lunch);
-    // console.log(dinner);
-    console.log(cart);
-  }
-
-
 
   useEffect(() => {
     async function fetchData() {
@@ -106,7 +101,7 @@ export default function SingleProperty({ params }) {
         setBreakfast(mealresponse.breakfast);
         setLunch(mealresponse.lunch);
         setDinner(mealresponse.dinner);
-      
+
 
       }
       catch (error) {
@@ -116,7 +111,6 @@ export default function SingleProperty({ params }) {
 
     fetchData();
   }, []);
-
 
   const handleReserve = async () => {
     const data = {
@@ -134,13 +128,24 @@ export default function SingleProperty({ params }) {
       lunch: cart.lunch[0],
       dinner: cart.dinner[0],
       total_price: property.price * (checkOutDate - checkInDate) + 0.05 * property.price + 0.1 * property.price,
-
-
     };
     const queryString = JSON.stringify(data);
     // Redirect to the next page with response data
     router.push(`/guest/summary/?query=${queryString}`);
   };
+
+  const handleNegotiate = () => {
+    // Redirect to the next page with response data
+    router.push(`/guest/negotiate/?propertyID=${id}`);
+  }
+
+  const print = () => {
+    // console.log(breakfast);
+    // console.log(lunch);
+    // console.log(dinner);
+    console.log(cart);
+    console.log(negotiateModal);
+  }
 
 
 
@@ -310,9 +315,12 @@ export default function SingleProperty({ params }) {
             </button>
           </div>
           <div className='flex flex-row justify-center w-full my-2'>
-            <button type="button" className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-4">
+            <button type="button" className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-4" onClick={() => setNegotiateModal(true)}>
               Negotiate
             </button>
+
+            {negotiateModal && <NegotiationModal data={property} openModal={negotiateModal} setOpenModal={setNegotiateModal} />}
+
           </div>
         </div>
       </div>
@@ -376,14 +384,9 @@ export default function SingleProperty({ params }) {
 
       </div>
 
+      {/* pop up a modal if showmodal is true */}
 
     </div>
-
-
-
-
-  )
-
-
-
+  );
 }
+
