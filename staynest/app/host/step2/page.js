@@ -107,19 +107,6 @@ const Step2 = () => {
 
         // for loop to change regular aminities and standout aminities to json format
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         const regular_amenities_json = [];
         for (let i = 0; i < regular_amenities.length; i++) {
             regular_amenities_json.push({ "name": regular_amenities[i] });
@@ -132,7 +119,6 @@ const Step2 = () => {
         for (let i = 0; i < uploadedFiles.length; i++) {
             // need to extract from formdata
             photos_json.push({ "image_data": uploadedFiles[i], "description": "Living Room" });
-
         }
 
         const data = {
@@ -162,7 +148,6 @@ const Step2 = () => {
 
 
 
-
     return (
         <div>
             <h1>Make your place stand out</h1>
@@ -173,69 +158,82 @@ const Step2 = () => {
                     <text className="text-lg text-gray-400 font-bold pl-10">You can add more amenities later</text>
                 </div>
                 <div className="flex justify-center">
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
-                        <div onClick={(e) => handleRegularAmenities(e, "Wifi")} >
-                            <FaWifi className="text-2xl text-center" />
+                    <button onClick={(e) => handleRegularAmenities(e, "Wifi")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <div className="flex">
+                            <div>
+                                <FaWifi className="text-2xl text-center" />
+                            </div>
+                            <div className="pl-5 font-bold">
+                                wifi
+                            </div>
                         </div>
-                        <div className="pl-5 font-bold">
-                            wifi
+                    </button>
+                    <button onClick={(e) => handleRegularAmenities(e, "TV")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <div className="flex">
+                            <div >
+                                <PiTelevisionSimpleDuotone className="text-2xl text-center" />
+                            </div>
+                            <div className="pl-5 font-bold">
+                                TV
+                            </div>
                         </div>
-                    </div>
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
-                        <div onClick={(e) => handleRegularAmenities(e, "TV")} >
-                            <PiTelevisionSimpleDuotone className="text-2xl text-center" />
+                    </button>
+                    <button onClick={(e) => handleRegularAmenities(e, "Kitchen")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <div className="flex">
+                            <div >
+                                <MdOutlineSoupKitchen className="text-2xl text-center" />
+                            </div>
+                            <div className="pl-5 font-bold">
+                                Kitchen
+                            </div>
                         </div>
-                        <div className="pl-5 font-bold">
-                            TV
-                        </div>
-                    </div>
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
-                        <div onClick={(e) => handleRegularAmenities(e, "Kitchen")} >
-                            <MdOutlineSoupKitchen className="text-2xl text-center" />
-                        </div>
-                        <div className="pl-5 font-bold">
-                            Kitchen
-                        </div>
-                    </div>
+                    </button>
                 </div>
                 <div className="flex justify-center">
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
-                        <div onClick={(e) => handleRegularAmenities(e, "Workspace")} >
-                            <BsPersonWorkspace className="text-2xl text-center" />
+                    <button onClick={(e) => handleRegularAmenities(e, "Workspace")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <div className="flex">
+                            <div >
+                                <BsPersonWorkspace className="text-2xl text-center" />
+                            </div>
+                            <div className="pl-5 font-bold">
+                                Workspace
+                            </div>
                         </div>
-                        <div className="pl-5 font-bold">
-                            Workspace
+                    </button>
+                    <button onClick={(e) => handleRegularAmenities(e, "Parking")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <div className="flex">
+                            <div >
+                                <FaParking className="text-2xl text-center" />
+                            </div>
+                            <div className="pl-5 font-bold">
+                                Parking
+                            </div>
                         </div>
-                    </div>
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
-                        <div onClick={(e) => handleRegularAmenities(e, "Parking")} >
-                            <FaParking className="text-2xl text-center" />
+                    </button>
+                    <button onClick={(e) => handleRegularAmenities(e, "Air conditioning")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <div className="flex">
+                            <div>
+                                <TbAirConditioning className="text-2xl text-center" />
+                            </div>
+                            <div className="pl-5 font-bold">
+                                Air conditioning
+                            </div>
                         </div>
-                        <div className="pl-5 font-bold">
-                            Parking
-                        </div>
-                    </div>
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
-                        <div onClick={(e) => handleRegularAmenities(e, "Air conditioning")} >
-                            <TbAirConditioning className="text-2xl text-center" />
-                        </div>
-                        <div className="pl-5 font-bold">
-                            Air conditioning
-                        </div>
-                    </div>
+                    </button>
                 </div>
 
                 <div className="flex justify-center">
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
-                        <div onClick={(e) => handleRegularAmenities(e, "Washing machine")} >
-                            <GiWashingMachine className="text-2xl text-center" />
+                    <button onClick={(e) => handleRegularAmenities(e, "Washing machine")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <div className="flex">
+                            <div >
+                                <GiWashingMachine className="text-2xl text-center" />
+                            </div>
+                            <div className="pl-5 font-bold">
+                                Washing machine
+                            </div>
                         </div>
-                        <div className="pl-5 font-bold">
-                            Washing machine
-                        </div>
-                    </div>
+                    </button>
                 </div>
-
             </div>
 
             <div className="flex flex-col justify-center items-center mb-48">
@@ -245,92 +243,112 @@ const Step2 = () => {
                     <text className="text-lg text-gray-400 font-bold pl-10">You can add more later</text>
                 </div>
                 <div className="flex justify-center">
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
-                        <div onClick={(e) => handleStandoutAmenities(e, "Pool")} >
-                            <TbPool className="text-2xl text-center" />
+                    <button onClick={(e) => handleStandoutAmenities(e, "Pool")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <div className="flex">
+                            <div >
+                                <TbPool className="text-2xl text-center" />
+                            </div>
+                            <div className="pl-5 font-bold">
+                                Pool
+                            </div>
                         </div>
-                        <div className="pl-5 font-bold">
-                            Pool
+                    </button>
+                    <button onClick={(e) => handleStandoutAmenities(e, "Hot tub")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <div className="flex">
+                            <div >
+                                <FaHotTub className="text-2xl text-center" />
+                            </div>
+                            <div className="pl-5 font-bold">
+                                Hot tub
+                            </div>
                         </div>
-                    </div>
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
-                        <div onClick={(e) => handleStandoutAmenities(e, "Hot tub")} >
-                            <FaHotTub className="text-2xl text-center" />
+                    </button>
+                    <button onClick={(e) => handleStandoutAmenities(e, "Barbecue")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <div className="flex">
+                            <div >
+                                <GiBarbecue className="text-2xl text-center" />
+                            </div>
+                            <div className="pl-5 font-bold">
+                                Barbecue
+                            </div>
                         </div>
-                        <div className="pl-5 font-bold">
-                            Hot tub
-                        </div>
-                    </div>
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
-                        <div onClick={(e) => handleStandoutAmenities(e, "Barbecue")} >
-                            <GiBarbecue className="text-2xl text-center" />
-                        </div>
-                        <div className="pl-5 font-bold">
-                            Barbecue
-                        </div>
-                    </div>
+                    </button>
                 </div>
                 <div className="flex justify-center">
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
-                        <div onClick={(e) => handleStandoutAmenities(e, "Dining")} >
-                            <MdOutlineDinnerDining className="text-2xl text-center" />
+                    <button onClick={(e) => handleStandoutAmenities(e, "Dining")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <div className="flex">
+                            <div >
+                                <MdOutlineDinnerDining className="text-2xl text-center" />
+                            </div>
+                            <div className="pl-5 font-bold">
+                                Dining
+                            </div>
                         </div>
-                        <div className="pl-5 font-bold">
-                            Dining
+                    </button>
+                    <button onClick={(e) => handleStandoutAmenities(e, "Bonfire")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <div className="flex">
+                            <div >
+                                <IoMdBonfire className="text-2xl text-center" />
+                            </div>
+                            <div className="pl-5 font-bold">
+                                Bonfire
+                            </div>
                         </div>
-                    </div>
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
-                        <div onClick={(e) => handleStandoutAmenities(e, "Bonfire")} >
-                            <IoMdBonfire className="text-2xl text-center" />
+                    </button>
+                    <button onClick={(e) => handleStandoutAmenities(e, "Fireplace")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <div className="flex">
+                            <div >
+                                <GiFireplace className="text-2xl text-center" />
+                            </div>
+                            <div className="pl-5 font-bold">
+                                Fireplace
+                            </div>
                         </div>
-                        <div className="pl-5 font-bold">
-                            Bonfire
-                        </div>
-                    </div>
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
-                        <div onClick={(e) => handleStandoutAmenities(e, "Fireplace")} >
-                            <GiFireplace className="text-2xl text-center" />
-                        </div>
-                        <div className="pl-5 font-bold">
-                            Fireplace
-                        </div>
-                    </div>
+                    </button>
                 </div>
                 <div className="flex justify-center">
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
-                        <div onClick={(e) => handleStandoutAmenities(e, "Piano")} >
-                            <CgPiano className="text-2xl text-center" />
+                    <button onClick={(e) => handleStandoutAmenities(e, "Piano")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <div className="flex">
+                            <div >
+                                <CgPiano className="text-2xl text-center" />
+                            </div>
+                            <div className="pl-5 font-bold">
+                                Piano
+                            </div>
                         </div>
-                        <div className="pl-5 font-bold">
-                            Piano
+                    </button>
+                    <button onClick={(e) => handleStandoutAmenities(e, "Pool table")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <div className="flex">
+                            <div >
+                                <GiPoolTableCorner className="text-2xl text-center" />
+                            </div>
+                            <div className="pl-5 font-bold">
+                                Pool table
+                            </div>
                         </div>
-                    </div>
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
-                        <div onClick={(e) => handleStandoutAmenities(e, "Pool table")} >
-                            <GiPoolTableCorner className="text-2xl text-center" />
+                    </button>
+                    <button onClick={(e) => handleStandoutAmenities(e, "Gym")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <div className="flex">
+                            <div >
+                                <CgGym className="text-2xl text-center" />
+                            </div>
+                            <div className="pl-5 font-bold">
+                                Gym
+                            </div>
                         </div>
-                        <div className="pl-5 font-bold">
-                            Pool table
-                        </div>
-                    </div>
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
-                        <div onClick={(e) => handleStandoutAmenities(e, "Gym")} >
-                            <CgGym className="text-2xl text-center" />
-                        </div>
-                        <div className="pl-5 font-bold">
-                            Gym
-                        </div>
-                    </div>
+                    </button>
                 </div>
                 <div className="flex justify-center">
-                    <div className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 w-48">
-                        <div onClick={(e) => handleStandoutAmenities(e, "Beach")} >
-                            <FaUmbrellaBeach className="text-2xl text-center" />
+                    <button onClick={(e) => handleStandoutAmenities(e, "Beach")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <div className="flex">
+                            <div >
+                                <FaUmbrellaBeach className="text-2xl text-center" />
+                            </div>
+                            <div className="pl-5 font-bold">
+                                Beach
+                            </div>
                         </div>
-                        <div className="pl-5 font-bold">
-                            Beach
-                        </div>
-                    </div>
+                    </button>
                 </div>
             </div>
 
