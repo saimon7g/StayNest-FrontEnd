@@ -190,3 +190,26 @@ export async function offerRejectedByGuest(data) {
         return error;
     }
 }
+
+export async function startNegotiationbyGuest(data) {
+    // export async function Step1Post(data) {
+    //     console.log(data);
+    //     try {
+    //         const response = await axios.post("host/api/property_registration/step1/", data);
+    //         console.log(response.data);
+    //         return response;
+    //     }
+    //     catch (error) {
+    //         console.error(error);
+    //     }
+    // }
+
+    try {
+        const response = await axios.post(`guest/api/nego/start_negotiation_by_guest/`, data);
+        return response;
+    }
+    catch (error) {
+        console.error(error);
+    }
+
+}

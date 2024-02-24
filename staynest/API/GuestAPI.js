@@ -83,7 +83,7 @@ export async function getPropertyByIDd(property_id) {
         if(typeof response.data === 'string'){
             return JSON.parse(response.data);
         }
-        getReservation(7);
+
         return response.data;
     }
     catch (error) {

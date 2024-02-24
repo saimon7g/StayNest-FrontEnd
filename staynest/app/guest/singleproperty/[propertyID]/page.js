@@ -32,6 +32,7 @@ export default function SingleProperty({ params }) {
   const [booking_options, setBookingOptions] = useState('stay');
   const [negotiateModal, setNegotiateModal] = useState(false);
   const [guestPrice, setGuestPrice] = useState(0);
+  const [bookingSummary, setBookingSummary] = useState({});
   const id = params.propertyID;
   const router = useRouter();
 
@@ -134,17 +135,47 @@ export default function SingleProperty({ params }) {
     router.push(`/guest/summary/?query=${queryString}`);
   };
 
-  const handleNegotiate = () => {
-    // Redirect to the next page with response data
-    router.push(`/guest/negotiate/?propertyID=${id}`);
-  }
+
+
+  const negotiatleModalDataPreparation = () => {
+
+    const days = (checkOutDate - checkInDate) / (1000 * 60 * 60 * 24);
+    const data = {
+      booking_details: {
+        property_id: id,
+        guest_id: 5,
+        host_id: property.host.host_id,
+        booking_type: booking_options,
+        start_date: formatDate(checkInDate),
+        end_date: formatDate(checkOutDate),
+        base_price: property.price,
+        platform_fee: 0.05 * property.price,
+        tax: 0.1 * property.price,
+        number_of_guests: numberOfGuests,
+        total_price: property.price * days + 0.05 * property.price + 0.1 * property.price,
+        status: "negotiation",
+        default_price: property.price * days + 0.05 * property.price + 0.1 * property.price,
+        guest_price: guestPrice,
+        host_price: null,
+        negotiation_status: "offeredbyguest",
+      },
+      meals: {
+        breakfast: cart.breakfast[0],
+        lunch: cart.lunch[0],
+        dinner: cart.dinner[0],
+      }
+    };
+
+    setBookingSummary(data);
+  };
 
   const print = () => {
     // console.log(breakfast);
     // console.log(lunch);
     // console.log(dinner);
-    console.log(cart);
-    console.log(negotiateModal);
+    // console.log(cart);
+    // console.log(negotiateModal);
+    console.log(bookingSummary);
   }
 
 
@@ -315,11 +346,11 @@ export default function SingleProperty({ params }) {
             </button>
           </div>
           <div className='flex flex-row justify-center w-full my-2'>
-            <button type="button" className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-4" onClick={() => setNegotiateModal(true)}>
+            <button type="button" className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-4" onClick={() => { setNegotiateModal(true); negotiatleModalDataPreparation(); }}>
               Negotiate
             </button>
 
-            {negotiateModal && <NegotiationModal data={property} openModal={negotiateModal} setOpenModal={setNegotiateModal} />}
+            {negotiateModal && <NegotiationModal reservationData={bookingSummary} openModal={negotiateModal} setOpenModal={setNegotiateModal} />}
 
           </div>
         </div>
@@ -381,11 +412,7 @@ export default function SingleProperty({ params }) {
         <div className='my-2'>
           {property && property.host && property.host.response_time && (<text className='text-slate-400 ml-4 mx-4'>response rate {property.host.response_time}</text>)}
         </div>
-
       </div>
-
-      {/* pop up a modal if showmodal is true */}
-
     </div>
   );
 }

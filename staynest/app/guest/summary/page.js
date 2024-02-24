@@ -118,7 +118,6 @@ export default function ReservationSummary({ reservation }) {
                 <div className="grid grid-cols-2 gap-4">
                     <div className="pr-4 border-r border-gray-400">
                         <h1 className="text-4xl font-bold mb-4">Reservation Summary</h1>
-                    
                         {reservationData && (
                             <>
                                 
