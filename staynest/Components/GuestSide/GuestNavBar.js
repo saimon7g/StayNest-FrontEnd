@@ -63,7 +63,7 @@ const GuestNavbar = () => {
     };
 
     return (
-        <Navbar fluid rounded className="bg-blue-200">
+        <Navbar fluid rounded className="bg-cyan-700">
             {/* Logo on the left */}
             <Navbar.Brand href="/">
                 <Image src={Logo} alt="logo" width={100} height={100} />

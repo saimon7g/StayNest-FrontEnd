@@ -19,7 +19,7 @@ export function NegotiationModal( {data, openModal, setOpenModal} ) {
                 <p>Request for negotiation has been sent to the host. You will be notified once the host responds to your request.</p>
                 
             </Modal.Body>
-            <Modal.Footer className="bg-white">
+            <Modal.Footer className="flex justify-center">
                 <Button 
                 onClick={ () => setOpenModal(false) } >
                     Close

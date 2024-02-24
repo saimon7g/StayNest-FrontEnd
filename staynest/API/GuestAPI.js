@@ -6,7 +6,7 @@ import axios from './axios'; // Import the configured Axios instance
 export async function getHostByID(hostId) {
     console.log("single host get");
     try {
-        const response = await fetch(`http://127.0.0.1:8000/auth/host_profile/${hostId}/`); // Fetch the data
+        const response = await fetch(`auth/host_profile/${hostId}/`); // Fetch the data
         const data = await response.json(); // Get the data in JSON format
         console.log(data);
         return data;
@@ -83,6 +83,7 @@ export async function getPropertyByIDd(property_id) {
         if(typeof response.data === 'string'){
             return JSON.parse(response.data);
         }
+        getReservation(7);
         return response.data;
     }
     catch (error) {
@@ -282,7 +283,7 @@ export async function reserveProperty(data) {
                 response.data = JSON.parse(response.data);
             }
 
-            getReservation(response.data.reservation_id);
+
         }
         // console.log(response);
         return response;
@@ -319,12 +320,12 @@ export async function getReservation(reservationId) {
         if(typeof data === 'string'){
             data = JSON.parse(data);
         }
-        const property_response= await axios.get(`host/api/property/${data.property_id}`);
-        property=property_response.data;
+        const property_response= await axios.get(`host/api/dashboard/property/${data.property_id}/`);
+        let property=property_response.data;
         if (typeof property === 'string'){
             property= JSON.parse(property_response.data);
         }
-        data.property=property;
+        data['property']=property;
 
         console.log(data);
         return response.data;
