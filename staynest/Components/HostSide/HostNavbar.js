@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Avatar, Button,Dropdown, Navbar } from 'flowbite-react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import Logo from '@/StaticImage/logo1.png';
+import Logo from '@/StaticImage/logo2.png';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FiSearch, FiBell } from 'react-icons/fi'; // Import notification icon
@@ -12,7 +12,7 @@ import LoginForm from '@/Components/GuestSide/LoginForm';
 import SignupForm from '@/Components/SignupForm';
 import Link from 'next/link';
 
-const GuestNavbar = () => {
+const HostNavBar = () => {
     const router = useRouter();
     const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
@@ -83,4 +83,4 @@ const GuestNavbar = () => {
     );
 };
 
-export default GuestNavbar;
+export default HostNavBar;

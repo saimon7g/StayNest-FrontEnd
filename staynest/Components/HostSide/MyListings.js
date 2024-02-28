@@ -1,15 +1,14 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { HiArrowSmRight } from "react-icons/hi";
-import { getPropertiesByHost } from '@/API/UserDashBoard'; // Assuming you have an API function to fetch properties by host
-// import PropertyCard from './PropertyCard'; // Assuming you have a component to display individual property cards
-
+import { getMyListings } from '@/API/UserDashBoard'; 
+import Image from 'next/image'
 export function MyListings({ handleOptionClick, setSelectedPropertyId }) {
     const [listings, setListings] = useState(null);
 
     const fetchListings = async () => {
-        const response = await getPropertiesByHost(); // Fetch properties listed by the host
-        setListings(response.data);
+        const response = await getMyListings(); // Fetch properties listed by the host
+        setListings(response);
     };
 
     useEffect(() => {
@@ -30,6 +29,20 @@ export function MyListings({ handleOptionClick, setSelectedPropertyId }) {
                     {listings.map((property, index) => (
                         <div key={index} className="border-b-2 border-gray-100 p-5 hover:bg-gray-200" onClick={clickHandler(property.id)}>
                             {/* <PropertyCard property={property} /> */}
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center">
+                                   <Image src={property.photo} width={100} height={100} className="rounded-lg" />
+                                    <div className="ml-4">
+                                        <h2 className="text-lg font-bold">{property.name}</h2>
+                                        <p className="text-sm">{property.location_name}</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center">
+                                    <p className="text-sm">{property.online_type}</p>
+                                </div>
+                            </div>
+
+                            
                             <div className="flex items-center justify-end">
                                 <button className="flex items-center text-blue-500" onClick={clickHandler(property.id)}>
                                     Details
