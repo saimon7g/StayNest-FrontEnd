@@ -1,5 +1,23 @@
 import axios from './axios'; // Import the configured Axios instance
 
+export async function getPropertiesbyType(type) {
+    console.log("properties by type");
+    try {
+const response = await axios.put(`host/api/properties/bytype/`, {"online_type": type});
+        console.log(response.data);
+        if (typeof response.data === 'string') {
+            // If response.data is a string, parse it to JSON
+            return JSON.parse(response.data);
+        } else {
+            // If response.data is already JSON, return it directly
+            return response.data;
+        }
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
 export async function getUpcomingBookings() {
     // Placeholder constant data
     const constantData = {

@@ -16,7 +16,23 @@ export async function getHostByID(hostId) {
     }
 }
 
-
+export async function getPropertiesbyType(type) {
+    console.log("properties by type");
+    try {
+const response = await axios.put(`host/api/properties/bytype/`, {type: type});
+        console.log(response.data);
+        if (typeof response.data === 'string') {
+            // If response.data is a string, parse it to JSON
+            return JSON.parse(response.data);
+        } else {
+            // If response.data is already JSON, return it directly
+            return response.data;
+        }
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
 
 export async function getServerSideProps() {
     // const response = await fetch('your-api-endpoint');

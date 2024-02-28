@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { HiArrowSmRight, HiUser, HiPencilAlt, HiCollection, HiChatAlt2, HiCheckCircle, HiCog, HiCheck } from 'react-icons/hi';
 import { Sidebar, Avatar } from 'flowbite-react';
 import  BookingDetails  from '@/Components/GuestSide/BookinsDeatails';
-import MyBookings from '@/Components/GuestSide/MyBookings';
+import MyListings from '@/Components/HostSide/MyListings';
 import EditProfile from '@/Components/GuestSide/EditProfile';
 import Settings from '@/Components/GuestSide/Settings';
 import PreviousBookings from '@/Components/GuestSide/PreviousBookings';
@@ -49,8 +49,8 @@ function Dashboard() {
                             <Sidebar.Item onClick={() => handleOptionClick('EditProfile')} icon={HiPencilAlt} active={selectedOption === 'EditProfile'}>
                                 Edit Profile
                             </Sidebar.Item>
-                            <Sidebar.Item onClick={() => handleOptionClick('MyBookings')} icon={HiCollection} active={selectedOption === 'MyBookings'}>
-                                My Bookings
+                            <Sidebar.Item onClick={() => handleOptionClick('MyListings')} icon={HiCollection} active={selectedOption === 'MyListings'}>
+                                My Listings
                             </Sidebar.Item>
                             <Sidebar.Item onClick={() => handleOptionClick('Negotiation')} icon={HiChatAlt2} active={selectedOption === 'Negotiation'}>
                                 Negotiation
@@ -65,12 +65,11 @@ function Dashboard() {
                     </Sidebar.Items>
                 </Sidebar>
             </div>
-            <textarea value={specialType} onChange={handleSpecialType} rows="1" cols="1" ></textarea>
             {/* Main Content */}
             <div className="flex-grow p-10 mt-10 relative">
                 {/* Load components related to selected option */}
                 {selectedOption === 'EditProfile' && <EditProfile />}
-                {selectedOption === 'MyBookings' && <MyBookings handleOptionClick={handleOptionClick} setSelectedBookingId={setSelectedBookingId} />}
+                {selectedOption === 'MyListings' && <MyListings handleOptionClick={handleOptionClick} setSelectedBookingId={setSelectedBookingId} />}
                 {selectedOption === 'BookingDetails' && <BookingDetails bookingId={selectedBookingId} handleOptionClick={handleOptionClick} />}
                 {selectedOption === 'Negotiation' && <Negotiation handleOptionClick={handleOptionClick} setSelectedNegotiationId={setSelectedNegotiationId} />}
                 {selectedOption === 'NegotiationDetails' && <NegotiationDetails negotiationId={selectedNegotiationId} handleOptionClick={handleOptionClick} />}

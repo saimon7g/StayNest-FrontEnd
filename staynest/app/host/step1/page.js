@@ -6,7 +6,7 @@ import { Step1Post } from "@/API/Registration";
 import { Step1GET } from "@/API/Registration";
 import RegistrationContext from "@/contexts/registrationContext";
 import { useState } from "react";
-import { Button } from 'flowbite-react';
+
 import { FaHouse } from "react-icons/fa6";
 import { MdApartment } from "react-icons/md";
 import { MdOutlineCabin } from "react-icons/md";
@@ -20,7 +20,8 @@ import { FaHome } from "react-icons/fa";
 import { FaDoorClosed } from "react-icons/fa";
 import { MdAirlineSeatIndividualSuite } from "react-icons/md";
 import Map from "@/Components/HostSide/Map";
-
+import { Avatar, Button,Dropdown, } from 'flowbite-react';
+import { useSearchParams } from 'next/navigation';
 
 const Step1 = () => {
     const { registrationId, setRegistrationId} = useContext(RegistrationContext);  // use the context
@@ -33,6 +34,34 @@ const Step1 = () => {
     const [bedrooms, setBedrooms] = React.useState("4");
     const [beds, setBeds] = React.useState("3");
     const [bathrooms, setBathrooms] = React.useState("2");
+    const [specialType, setSpecialType] = React.useState("Standard");
+    const [services, setServices] = useState({
+    stay: false,
+    stay_with_meal: false,
+    paying_guest: false
+  });
+
+   const searchParams = useSearchParams();
+
+   useEffect(() => {
+     const parseServicesFromQuery = () => {
+       const queryParams = searchParams.get('services'); // Get the query parameters
+       const queryParamsArray = queryParams.split(','); // Split query parameters into an array
+ 
+       const updatedServices = {
+         stay: queryParamsArray.includes('stay'),
+         stay_with_meal: queryParamsArray.includes('stay_with_meal'),
+         paying_guest: queryParamsArray.includes('paying_guest')
+       };
+       console.log(updatedServices);
+       // Set the updated services state
+       setServices(updatedServices);
+     };
+ 
+     // Call the function to parse services from query when the component mounts
+     parseServicesFromQuery();
+   }, [searchParams]);
+ 
     useEffect(() => {
         Step1GET();
         clearState();
@@ -49,6 +78,7 @@ const Step1 = () => {
         setBedrooms("");
         setBeds("");
         setBathrooms("");
+        setSpecialType("");
     }
 
 
@@ -80,6 +110,12 @@ const Step1 = () => {
         setBathrooms(event.target.value);
     }
 
+    const handleSpecialType = (event, type) => {
+        console.log(type);
+       
+        setSpecialType(type);
+       
+    }
     const handleSubmit = async (event) => {
 
         // console.log("submit");
@@ -89,6 +125,7 @@ const Step1 = () => {
 
             "property_type": propertyType,
             "property_sub_type": propertySubType,
+            "online_type":specialType,
             "location": {
                 "selected_location": "Dhaka",
                 "latitude": latlng.lat,
@@ -100,7 +137,10 @@ const Step1 = () => {
                 "number_of_bedrooms": bedrooms,
                 "number_of_beds": beds,
                 "number_of_bathrooms": bathrooms
-            }
+            },
+            "stay": services.stay,
+            "stay_with_meal": services.stay_with_meal,
+            "paying_guest": services.paying_guest,  
         }
         const response = await Step1Post(result);
         console.log('Response Data:', response.data);
@@ -307,7 +347,22 @@ const Step1 = () => {
                         <textarea value={bathrooms} onChange={handleBathrooms} rows="1" cols="2" className=" bg-slate-200"></textarea>
                     </div>
                 </div>
+                <Dropdown
+                        arrowIcon={false}
+                        inline
+                        label={
+                            <h2>Add Special type</h2>
+                        }
+                    >
+                        <Dropdown.Header>
+                            <span className="block text-sm">Bonnie Green</span>
+                            <span className="block truncate text-sm font-medium">name@flowbite.com</span>
+                        </Dropdown.Header>
+                        <Dropdown.Item onClick={(e) => handleSpecialType(e, "Standard")}>Standard</Dropdown.Item>
+                        <Dropdown.Item onClick={(e) => handleSpecialType(e, "Premium")}>Premium</Dropdown.Item>
+                        <Dropdown.Item  onClick={(e) => handleSpecialType(e, "Luxury")}    >Luxury</Dropdown.Item>
 
+                    </Dropdown>
 
             </div>
 

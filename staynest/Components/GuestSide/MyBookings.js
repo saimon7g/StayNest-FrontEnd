@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { HiUser, HiArrowSmRight } from "react-icons/hi";
 import { getUpcomingBookings } from '@/API/UserDashBoard';
+import {getPropertiesbyType} from '@/API/UserDashBoard';
 import { useEffect } from 'react';
 
 export function MyBookings({ handleOptionClick, setSelectedBookingId }) {
@@ -9,9 +10,13 @@ export function MyBookings({ handleOptionClick, setSelectedBookingId }) {
 
 
     const fetchUpcomingBookings = async () => {
-        const response = await getUpcomingBookings();
-        setUpcomingBookings(response.data.upcoming_bookings);
+        const response = await getPropertiesbyType('Standard');
+        setUpcomingBookings(response.data);
     };
+    const fetchProperties = async () => {
+        const response = await getPropertiesbyType('Entire home/apt');
+        console.log(response);
+    }
 
     useEffect(() => {
         fetchUpcomingBookings();
