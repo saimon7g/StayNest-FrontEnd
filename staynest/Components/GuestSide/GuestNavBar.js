@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { Avatar, Button,Dropdown, Navbar } from 'flowbite-react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -11,6 +11,7 @@ import { formatDate } from '../utills';
 import LoginForm from './LoginForm';
 import SignupForm from '../SignupForm';
 import Link from 'next/link';
+import { getUser , logout} from '@/API/auth';
 
 const GuestNavbar = () => {
     const router = useRouter();
@@ -22,7 +23,38 @@ const GuestNavbar = () => {
     const [location, setLocation] = useState('');
     const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
     const [signupFormVisible, setSignupFormVisible] = useState(false);
+    const [user, setUser] = useState(null);
 
+    useEffect(() => {
+        // Fetch the user data from the server
+        const fetchUser = async () => {
+            console.log('Fetching user...');
+            try {
+                const response = await getUser();
+                setUser(response);
+                setLoggedIn(true);
+
+            } catch (error) {
+                console.error('Get user failed:', error);
+                setLoggedIn(false);
+            }
+        };
+
+        fetchUser();
+    }
+    , [loggedIn]);
+
+
+   
+    const handleLogout = async () => {
+        try {
+            await logout();
+            setLoggedIn(false);
+            setIsLoginFormVisible(true);
+        } catch (error) {
+            console.logout('Logout failed:', error);
+        }
+    }
     const handleStartDateChange = (date) => {
         setStartDate(date);
     };
@@ -86,8 +118,7 @@ const GuestNavbar = () => {
                         arrowIcon={false}
                         inline
                         label={
-                            <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
-                        }
+                            <Image src={user?.profile_picture} alt="avatar" width={40} height={40} className="rounded-full" />                  }
                     >
                         <Dropdown.Header>
                             <span className="block text-sm">Bonnie Green</span>
@@ -99,7 +130,7 @@ const GuestNavbar = () => {
                         <Dropdown.Item>Settings</Dropdown.Item>
                         <Dropdown.Item>Earnings</Dropdown.Item>
                         <Dropdown.Divider />
-                        <Dropdown.Item>Sign out</Dropdown.Item>
+                        <Dropdown.Item onClick={handleLogout}>Sign out</Dropdown.Item>
                         {/* Switch to toggle between host and guest modes */}
                         <div className="flex items-center ml-4">
                             <label htmlFor="switch" className="flex items-center cursor-pointer">

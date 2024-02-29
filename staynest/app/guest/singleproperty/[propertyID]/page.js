@@ -346,7 +346,7 @@ export default function SingleProperty({ params }) {
             </button>
           </div>
           <div className='flex flex-row justify-center w-full my-2'>
-            <button type="button" className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-4" onClick={() => { setNegotiateModal(true); negotiatleModalDataPreparation(); }}>
+            <button type="button" className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-4" onClick={() => { negotiatleModalDataPreparation();setNegotiateModal(true); }}>
               Negotiate
             </button>
 

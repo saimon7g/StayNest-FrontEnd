@@ -1,15 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import { Modal, Button, Card } from 'flowbite-react';
 import { startNegotiationbyGuest } from '@/API/Negotiations';
 
 
 export function NegotiationModal({ reservationData, openModal, setOpenModal }) {
     const [price, setPrice] = React.useState(0);
-    const [negotiationStarted, setNegotiationStarted] = React.useState(false);
-    const [negotiationData, setNegotiationData] = React.useState({});
+    const [negotiationStarted, setNegotiationStarted] =useState(false);
+    const [negotiationData, setNegotiationData] = useState(null);
 
     useEffect( () => {
         setNegotiationData(reservationData);
+        console.log(reservationData);   
+        console.log(negotiationData);
     }, [reservationData]);
 
 
@@ -79,7 +81,7 @@ export function NegotiationModal({ reservationData, openModal, setOpenModal }) {
                                 {negotiationData && (
                                     <>
 
-                                        <p>Booking Type: {negotiationData.booking_details && negotiationData.booking_details.booking_type}</p>
+                                        {/* <p>Booking Type: {negotiationData.booking_details && negotiationData.booking_details.booking_type}</p>
                                         <p>Check-In: {negotiationData.booking_details && negotiationData.booking_details.start_date}</p>
                                         <p>Check-Out: {negotiationData.booking_details && negotiationData.booking_details.end_date}</p>
                                         <p>Tax: {negotiationData.booking_details && negotiationData.booking_details.tax}</p>
@@ -116,23 +118,24 @@ export function NegotiationModal({ reservationData, openModal, setOpenModal }) {
                                             ))}
                                         </ul>
 
-
+ */}
 
                                     </>
                                 )}
                             </div>
                             <div className="pl-4">
 
-                                {negotiationData && (
+                                    {reservationData && (
                                     <>
                                         <h1 className="text-2xl font-bold mb-4">Pricing</h1>
-                                        <p>Base price: {negotiationData.booking_details.base_price}</p>
-                                        <p>Platform Fee: {negotiationData.booking_details.platform_fee}</p>
-                                        <p>Tax: {negotiationData.booking_details.tax}</p>
-                                        <p>Total meals price: {negotiationData.booking_details.total_meals_price}</p>
-                                        <p>Total price: {negotiationData.booking_details.total_price}</p>
+                                        <p>Base price: {reservationData.booking_details.base_price}</p>
+                                        <p>Platform Fee: {reservationData.booking_details.platform_fee}</p>
+                                        <p>Tax: {reservationData.booking_details.tax}</p>
+                                        <p>Total meals price: {reservationData.booking_details.total_meals_price}</p>
+                                        <p>Total price: {reservationData.booking_details.total_price}</p>
                                     </>
-                                )}
+                                    )}
+
                                 <Button className="ml-4" onClick={print}>   
                                     print
                                 </Button>
