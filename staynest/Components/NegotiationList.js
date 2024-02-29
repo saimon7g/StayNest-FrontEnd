@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { HiArrowSmRight } from "react-icons/hi";
-import { getNegotiationsOfHost ,offerHostPrice} from '@/API/Negotiations';
+import { getNegotiationsOfHost ,offerHostPrice,changeNegoStatus} from '@/API/Negotiations';
 import Image from 'next/image';
 import { Button,TextInput } from 'flowbite-react';
 import PriceInput from './PriceInput';
@@ -39,6 +39,28 @@ export function NegotiationList({ handleOptionClick, setSelectedNegotiationId })
 
         
         
+    }
+    const handleAccept = async (negotiationId) => {
+        try {
+            const response = await changeNegoStatus(negotiationId,"Accepted By Host");
+            console.log('Response',response);
+            if(response.status === 200){
+                fetchNegotiations();
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    const handleReject = async (negotiationId) => {
+        try {
+            const response = await changeNegoStatus(negotiationId,"Rejected By Host");
+            console.log('Response',response);
+            if(response.status === 200){
+                fetchNegotiations();
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
 

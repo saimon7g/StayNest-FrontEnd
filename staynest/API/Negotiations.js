@@ -24,6 +24,17 @@ export async function offerHostPrice(price,negotiation_id) {
         return null;
     }
 }
+export async function changeNegoStatus(negotiationId,status) {
+    try {
+        const response = await axios.put(`guest/api/nego/update_status/${negotiationId}/`, {
+            negotiation_status: status
+        });
+        return response;
+    } catch (error) {
+        console.error('Change negotiation status failed:', error);
+        return null;
+    }
+}
 
 
 export async function getNegotiations() {
