@@ -7,7 +7,7 @@ import MyListings from '@/Components/HostSide/MyListings';
 import EditProfile from '@/Components/GuestSide/EditProfile';
 import Settings from '@/Components/GuestSide/Settings';
 import PreviousBookings from '@/Components/GuestSide/PreviousBookings';
-import Negotiation from '@/Components/GuestSide/Negotiation';
+import NegotiationList from '@/Components/NegotiationList';
 import NegotiationDetails from '@/Components/GuestSide/NegotiationDetails';
 import {getPropertiesbyType} from '@/API/UserDashBoard';
 
@@ -17,24 +17,14 @@ function Dashboard() {
     const [selectedOption, setSelectedOption] = useState('EditProfile');
     const [selectedBookingId, setSelectedBookingId] = useState(null);
     const [selectedNegotiationId, setSelectedNegotiationId] = useState(null);
-    const [specialType, setSpecialType] =useState("Standard");
-    const [properties, setProperties] = useState(null);
+    
 
     // function to fetch data for selected option
-    const fetchData = async () => {
-        
-            const response = await getPropertiesbyType('Standard');
-            setProperties(response.data);
-        
-
-    };
-    const handleSpecialType = (e) => {
-        setSpecialType(e.target.value);
-        console.log(specialType);
-    }
+ 
+   
     const handleOptionClick = (option) => {
         setSelectedOption(option);
-        fetchData(option);
+        
     };
 
     return (
@@ -56,6 +46,9 @@ function Dashboard() {
                                 Negotiation
                             </Sidebar.Item>
                             <Sidebar.Item onClick={() => handleOptionClick('PreviousBookings')} icon={HiCheckCircle} active={selectedOption === 'PreviousBookings'}>
+                                Upcoming Bookings
+                            </Sidebar.Item>
+                            <Sidebar.Item onClick={() => handleOptionClick('PreviousBookings')} icon={HiCheckCircle} active={selectedOption === 'PreviousBookings'}>
                                 Previous Bookings
                             </Sidebar.Item>
                             <Sidebar.Item onClick={() => handleOptionClick('Settings')} icon={HiCog} active={selectedOption === 'Settings'}>
@@ -71,7 +64,7 @@ function Dashboard() {
                 {selectedOption === 'EditProfile' && <EditProfile />}
                 {selectedOption === 'MyListings' && <MyListings handleOptionClick={handleOptionClick} setSelectedBookingId={setSelectedBookingId} />}
                 {selectedOption === 'BookingDetails' && <BookingDetails bookingId={selectedBookingId} handleOptionClick={handleOptionClick} />}
-                {selectedOption === 'Negotiation' && <Negotiation handleOptionClick={handleOptionClick} setSelectedNegotiationId={setSelectedNegotiationId} />}
+                {selectedOption === 'Negotiation' && <NegotiationList handleOptionClick={handleOptionClick} setSelectedNegotiationId={setSelectedNegotiationId} />}
                 {selectedOption === 'NegotiationDetails' && <NegotiationDetails negotiationId={selectedNegotiationId} handleOptionClick={handleOptionClick} />}
                 {selectedOption === 'PreviousBookings' && <PreviousBookings handleOptionClick={handleOptionClick} setSelectedBookingId={setSelectedBookingId} />}
                 {selectedOption === 'Settings' && <Settings />}

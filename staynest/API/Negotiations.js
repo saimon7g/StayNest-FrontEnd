@@ -1,5 +1,31 @@
 import axios from './axios'; // Import the configured Axios instance
 
+export async function getNegotiationsOfHost() {
+    try {
+        const response = await axios.get('guest/api/nego/negotiations/as_host/');
+        if(typeof response.data === 'string') {
+            return JSON.parse(response.data);
+        }
+        return response.data;
+    } catch (error) {
+        console.error('Get negotiations failed:', error);
+        return null;
+    }
+}
+export async function offerHostPrice(price,negotiation_id) {
+    try {
+        const response = await axios.put(`guest/api/nego/host_proposed/${negotiation_id}/`, {
+            negotiation_id: negotiation_id,
+            host_price: price
+        });
+        return response;
+    } catch (error) {
+        console.error('Offer host price failed:', error);
+        return null;
+    }
+}
+
+
 export async function getNegotiations() {
     const constantdata = {
         "status": "success",

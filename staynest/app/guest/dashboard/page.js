@@ -9,7 +9,6 @@ import Settings from '@/Components/GuestSide/Settings';
 import PreviousBookings from '@/Components/GuestSide/PreviousBookings';
 import Negotiation from '@/Components/GuestSide/Negotiation';
 import NegotiationDetails from '@/Components/GuestSide/NegotiationDetails';
-import {getPropertiesbyType} from '@/API/UserDashBoard';
 
 
 function Dashboard() {
@@ -20,21 +19,14 @@ function Dashboard() {
     const [specialType, setSpecialType] =useState("Standard");
     const [properties, setProperties] = useState(null);
 
-    // function to fetch data for selected option
-    const fetchData = async () => {
-        
-            const response = await getPropertiesbyType('Standard');
-            setProperties(response.data);
-        
-
-    };
+   
     const handleSpecialType = (e) => {
         setSpecialType(e.target.value);
         console.log(specialType);
     }
     const handleOptionClick = (option) => {
         setSelectedOption(option);
-        fetchData(option);
+        
     };
 
     return (

@@ -138,12 +138,14 @@ export default function SingleProperty({ params }) {
 
 
   const negotiatleModalDataPreparation = () => {
-
-    const days = (checkOutDate - checkInDate) / (1000 * 60 * 60 * 24);
+    checkInDate.setHours(0, 0, 0, 0);
+    checkOutDate.setHours(0, 0, 0, 0);
+    const days = Math.ceil(checkOutDate - checkInDate) / (1000 * 60 * 60 * 24);
+    //console.log('days -- ',days);
     const data = {
       booking_details: {
         property_id: id,
-        guest_id: 5,
+        guest_id: 3,
         host_id: property.host.host_id,
         booking_type: booking_options,
         start_date: formatDate(checkInDate),
@@ -346,7 +348,7 @@ export default function SingleProperty({ params }) {
             </button>
           </div>
           <div className='flex flex-row justify-center w-full my-2'>
-            <button type="button" className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-4" onClick={() => { negotiatleModalDataPreparation();setNegotiateModal(true); }}>
+            <button type="button" className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-4" onClick={() => { setNegotiateModal(true); negotiatleModalDataPreparation(); }}>
               Negotiate
             </button>
 
