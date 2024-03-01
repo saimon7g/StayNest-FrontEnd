@@ -7,7 +7,7 @@ import MyBookings from '@/Components/GuestSide/MyBookings';
 import EditProfile from '@/Components/GuestSide/EditProfile';
 import Settings from '@/Components/GuestSide/Settings';
 import PreviousBookings from '@/Components/GuestSide/PreviousBookings';
-import Negotiation from '@/Components/GuestSide/Negotiation';
+import NegotiationList from '@/Components/GuestSide/NegotiationList';
 import NegotiationDetails from '@/Components/GuestSide/NegotiationDetails';
 
 
@@ -16,14 +16,10 @@ function Dashboard() {
     const [selectedOption, setSelectedOption] = useState('EditProfile');
     const [selectedBookingId, setSelectedBookingId] = useState(null);
     const [selectedNegotiationId, setSelectedNegotiationId] = useState(null);
-    const [specialType, setSpecialType] =useState("Standard");
     const [properties, setProperties] = useState(null);
 
    
-    const handleSpecialType = (e) => {
-        setSpecialType(e.target.value);
-        console.log(specialType);
-    }
+   
     const handleOptionClick = (option) => {
         setSelectedOption(option);
         
@@ -57,14 +53,14 @@ function Dashboard() {
                     </Sidebar.Items>
                 </Sidebar>
             </div>
-            <textarea value={specialType} onChange={handleSpecialType} rows="1" cols="1" ></textarea>
+            {/* <textarea value={specialType} onChange={handleSpecialType} rows="1" cols="1" ></textarea> */}
             {/* Main Content */}
             <div className="flex-grow p-10 mt-10 relative">
                 {/* Load components related to selected option */}
                 {selectedOption === 'EditProfile' && <EditProfile />}
                 {selectedOption === 'MyBookings' && <MyBookings handleOptionClick={handleOptionClick} setSelectedBookingId={setSelectedBookingId} />}
                 {selectedOption === 'BookingDetails' && <BookingDetails bookingId={selectedBookingId} handleOptionClick={handleOptionClick} />}
-                {selectedOption === 'Negotiation' && <Negotiation handleOptionClick={handleOptionClick} setSelectedNegotiationId={setSelectedNegotiationId} />}
+                {selectedOption === 'Negotiation' && <NegotiationList handleOptionClick={handleOptionClick} setSelectedNegotiationId={setSelectedNegotiationId} />}
                 {selectedOption === 'NegotiationDetails' && <NegotiationDetails negotiationId={selectedNegotiationId} handleOptionClick={handleOptionClick} />}
                 {selectedOption === 'PreviousBookings' && <PreviousBookings handleOptionClick={handleOptionClick} setSelectedBookingId={setSelectedBookingId} />}
                 {selectedOption === 'Settings' && <Settings />}
