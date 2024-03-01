@@ -12,6 +12,19 @@ export async function getNegotiationsOfHost() {
         return null;
     }
 }
+export async function getNegotiationsOfGuest() {   
+    try {
+        const response = await axios.get('guest/api/nego/negotiations/as_guest/');
+        if(typeof response.data === 'string') {
+            return JSON.parse(response.data);
+        }
+        return response.data;
+    } catch (error) {
+        console.error('Get negotiations failed:', error);
+        return null;
+    }
+}
+
 export async function offerHostPrice(price,negotiation_id) {
     try {
         const response = await axios.put(`guest/api/nego/host_proposed/${negotiation_id}/`, {

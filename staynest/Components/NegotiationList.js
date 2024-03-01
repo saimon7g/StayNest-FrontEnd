@@ -7,10 +7,14 @@ import PriceInput from './PriceInput';
 
 export function NegotiationList({ handleOptionClick, setSelectedNegotiationId }) {
     const [negotiations, setNegotiations] = useState(null);
+    const [currentNegotiations, setCurrentNegotiations] = useState(null);
+    const [filter, setFilter] = useState('All');
 
     const fetchNegotiations = async () => {
         const response = await getNegotiationsOfHost();
         setNegotiations(response);
+        setCurrentNegotiations(response.filter(negotiation => negotiation.negotiation_status === "Host Proposed" ||negotiation.negotiation_status === "Guest Proposed" ));
+
     };
 
     useEffect(() => {
@@ -67,10 +71,17 @@ export function NegotiationList({ handleOptionClick, setSelectedNegotiationId })
     return (
         negotiations === null ? <div>Loading...</div> :
             <div className="flex flex-col">
-                <h1 className="text-2xl font-bold mb-5">All Negotiations</h1>
+                <div>
+                
+                <span className={`cursor-pointer mr-4 ${filter === 'Current' ? 'font-bold' : ''}`} onClick={() => setFilter('Current')}>Current</span>
+,                
+                    <span className={`cursor-pointer mr-4 ${filter === 'All' ? 'font-bold' : ''}`} onClick={() => setFilter('All')}>All</span>
+                
+                </div>
+                <h1 className="text-2xl font-bold mb-5">{filter} Negotiations</h1>
                 <div className="flex flex-col">
                     {/* Display negotiations */}
-                    {negotiations.map((negotiation, index) => (
+                    {(filter=="All"? negotiations:currentNegotiations).map((negotiation, index) => (
                         <div key={index} className="flex items-center justify-between border-b-2 border-gray-100 p-5 hover:bg-gray-200" >
                             <>
                             <div className="flex items-center">
