@@ -8,6 +8,7 @@ import GoogleMap from '@/Components/Maps';
 import {useState} from 'react';
 import { Modal,Button } from 'flowbite-react';
 import ServiceSelectionModal from '@/Components/HostSide/ServiceSelection';
+import HostNavBar from '@/Components/HostSide/HostNavbar';
 
 export default function GuesrRootPage() {
     const [modalOpen, setModalOpen] = useState(false);
@@ -19,6 +20,7 @@ export default function GuesrRootPage() {
     
     return (
         <div>
+            <HostNavBar />
             <h1 className="title text-center">Welcome to StayNest</h1>
             <GoogleMap />
             {/* button using tailwind for next page */}
