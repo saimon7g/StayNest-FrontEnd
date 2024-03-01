@@ -7,6 +7,7 @@ import { Step1GET } from "@/API/Registration";
 import RegistrationContext from "@/contexts/registrationContext";
 import { useState } from "react";
 import HostNavBar from "@/Components/HostSide/HostNavbar";
+import Footer from "@/Components/Footer";
 
 import { FaHouse } from "react-icons/fa6";
 import { MdApartment } from "react-icons/md";
@@ -23,9 +24,10 @@ import { MdAirlineSeatIndividualSuite } from "react-icons/md";
 import Map from "@/Components/HostSide/Map";
 import { Avatar, Button, Dropdown, } from 'flowbite-react';
 import { useSearchParams } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 const Step1 = () => {
-    const { registrationId, setRegistrationId} = useContext(RegistrationContext);  // use the context
+    const { registrationId, setRegistrationId } = useContext(RegistrationContext);  // use the context
     const [propertyType, setPropertyType] = React.useState("");
     const [propertySubType, setPropertySubType] = React.useState("");
     const [cityName, setCityName] = React.useState("");
@@ -178,7 +180,7 @@ const Step1 = () => {
             "location": {
                 "latitude": latlng.lat,
                 "longitude": latlng.lng,
-                "city": cityName,
+                "selected_location": cityName,
                 "house_name": houseName,
                 "holding_number": holdingNumber,
                 "flat_number": flatNumber,
@@ -201,6 +203,10 @@ const Step1 = () => {
         try {
             setRegistrationId(response.data.registration_id);
             console.log("Registration ID is set to:", response.data.registration_id);
+            const router = useRouter();
+            router.push('/host/step2');
+            // router push to next page
+
         } catch (error) {
             console.error("Error setting registration ID in context:", error);
         }
@@ -496,13 +502,13 @@ const Step1 = () => {
                 </Link>
 
                 <div className="flex justify-between items-center" onClick={handleSubmit}>
-                    <Link href="/host/step2">
-                        <Button color="blue" className="border border-gray-400 rounded-lg p-2 mr-96 my-20">
-                            Next
-                        </Button>
-                    </Link>
+                    <Button color="blue" className="border border-gray-400 rounded-lg p-2 mr-96 my-20">
+                        Next
+                    </Button>
+
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

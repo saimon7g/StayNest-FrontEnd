@@ -9,6 +9,7 @@ import {useState} from 'react';
 import { Modal,Button } from 'flowbite-react';
 import ServiceSelectionModal from '@/Components/HostSide/ServiceSelection';
 import HostNavBar from '@/Components/HostSide/HostNavbar';
+import Footer from '@/Components/Footer';
 
 export default function GuesrRootPage() {
     const [modalOpen, setModalOpen] = useState(false);
@@ -31,6 +32,7 @@ export default function GuesrRootPage() {
             
             {/*open Modal */}
             <ServiceSelectionModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+            <Footer />
         </div>
     );
 }

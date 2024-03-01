@@ -11,6 +11,9 @@ import NegotiationList from '@/Components/NegotiationList';
 import NegotiationDetails from '@/Components/GuestSide/NegotiationDetails';
 import {getPropertiesbyType} from '@/API/UserDashBoard';
 
+import HostNavBar from '@/Components/HostSide/HostNavbar';
+import Footer from '@/Components/Footer';
+
 
 function Dashboard() {
 
@@ -28,6 +31,9 @@ function Dashboard() {
     };
 
     return (
+        <div>
+            <HostNavBar />
+
         <div className="flex flex-row h-screen">
             {/* Sidebar */}
             
@@ -69,6 +75,8 @@ function Dashboard() {
                 {selectedOption === 'PreviousBookings' && <PreviousBookings handleOptionClick={handleOptionClick} setSelectedBookingId={setSelectedBookingId} />}
                 {selectedOption === 'Settings' && <Settings />}
             </div>
+        </div>
+        <Footer />
         </div>
     );
 
