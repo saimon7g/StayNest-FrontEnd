@@ -177,6 +177,9 @@ const Step1 = () => {
             "property_type": propertyType,
             "property_sub_type": propertySubType,
             "online_type": specialType,
+            "stay": services.stay,
+            "stay_with_meal": services.stay_with_meal,
+            "paying_guest": services.paying_guest,
             "location": {
                 "latitude": latlng.lat,
                 "longitude": latlng.lng,
@@ -193,9 +196,7 @@ const Step1 = () => {
                 "number_of_beds": beds,
                 "number_of_bathrooms": bathrooms
             },
-            "stay": services.stay,
-            "stay_with_meal": services.stay_with_meal,
-            "paying_guest": services.paying_guest,
+
         }
         const response = await Step1Post(result);
         console.log('Response Data:', response.data);
