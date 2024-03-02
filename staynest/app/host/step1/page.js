@@ -323,7 +323,7 @@ const Step1 = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-col items-center justify-center">
+                <div className="flex flex-col items-center justify-center mb-20">
                     <div className="mb-16">
                         <text className="text-2xl font-bold">2. What type of place your guest will be staying?</text>
                     </div>
@@ -366,11 +366,11 @@ const Step1 = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-col">
+                <div className="flex flex-col mb-20">
                     <div className="flex justify-center">
                         <text className="text-2xl font-bold">3. Where's your place located?</text>
                     </div>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center mb-10 ">
 
                         {/* const [cityName, setCityName] = React.useState("Dhaka"); mandatory 
                         const [houseName, setHouseName] = React.useState(""); mandatory
@@ -380,14 +380,21 @@ const Step1 = () => {
                         const [areaName, setAreaName] = React.useState("");  mandatory                       */}
 
                         <div className="flex flex-col items-center justify-center">
-                            <div className="flex items-center justify-between p-4 mb-4 w-96">
+                            <div className="flex items-center justify-between p-4 mb-4 w-96 border shadow-lg bg-slate-100">
                                 <div className="">
                                     {/* city with red star * meaning mandatory */}
                                     <text className="text-center">City <text className="text-red-500">*</text></text>
                                 </div>
                                 <div className="ml-auto">
                                     {/* mandatory */}
-                                    <textarea value={cityName} onChange={(e) => setCityName(e.target.value)} rows="1" cols="10" className=" bg-slate-200"></textarea>
+                                    {/* <textarea value={cityName} onChange={(e) => setCityName(e.target.value)} rows="1" cols="10" className=" bg-slate-200"></textarea> */}
+                                    <input
+                                        type="text"
+                                        placeholder="Enter your text"
+                                        value={cityName}
+                                        onChange={(e) => setHouseName(e.target.value)}
+                                        className="bg-white border border-slate-500 text-slate-700 placeholder-slate-700 text-sm rounded-full focus:ring-slate-500 focus:border-slate-500  w-full p-2.5"
+                                    />
                                 </div>
                             </div>
                             <div className="flex items-center justify-between p-4 mb-4 w-96">
@@ -395,7 +402,14 @@ const Step1 = () => {
                                     <text className="text-center">House Name<text className="text-red-500">*</text></text>
                                 </div>
                                 <div className="ml-auto">
-                                    <textarea value={houseName} onChange={(e) => setHouseName(e.target.value)} rows="1" cols="10" className=" bg-slate-200"></textarea>
+                                    {/* <textarea value={houseName} onChange={(e) => setHouseName(e.target.value)} rows="1" cols="10" className=" bg-slate-200"></textarea> */}
+                                    <input
+                                        type="text"
+                                        placeholder="Enter your text"
+                                        value={houseName}
+                                        onChange={(e) => setHouseName(e.target.value)}
+                                        className="bg-white border border-slate-500 text-slate-700 placeholder-slate-700 text-sm rounded-full focus:ring-slate-500 focus:border-slate-500  w-full p-2.5"
+                                    />
                                 </div>
                             </div>
                             <div className="flex items-center justify-between p-4 mb-4 w-96">
@@ -403,7 +417,14 @@ const Step1 = () => {
                                     <text className="text-center">Holding Number</text>
                                 </div>
                                 <div className="ml-auto">
-                                    <textarea value={holdingNumber} onChange={(e) => setHoldingNumber(e.target.value)} rows="1" cols="10" className=" bg-slate-200"></textarea>
+                                    {/* <textarea value={holdingNumber} onChange={(e) => setHoldingNumber(e.target.value)} rows="1" cols="10" className=" bg-slate-200"></textarea> */}
+                                    <input
+                                        type="text"
+                                        placeholder="Enter your text"
+                                        value={holdingNumber}
+                                        onChange={(e) => setHouseName(e.target.value)}
+                                        className="bg-white border border-slate-500 text-slate-700 placeholder-slate-700 text-sm rounded-full focus:ring-slate-500 focus:border-slate-500  w-full p-2.5"
+                                    />
                                 </div>
                             </div>
                             <div className="flex items-center justify-between p-4 mb-4 w-96">
@@ -444,11 +465,11 @@ const Step1 = () => {
                 </div>
 
 
-                <div className="flex flex-col items-center justify-center " >
+                <div className="flex flex-col items-center justify-center mb-20" >
                     <div>
                         <text className="text-2xl font-bold">4. How many guests can your place accommodate?</text>
                     </div>
-                    <div className="flex items-center justify-between p-4 mb-4 w-96">
+                    <div className="flex items-center justify-between p-4 mb-4 w-5/12">
                         <div className="">
                             <text className="text-center">Guests</text>
                         </div>
@@ -456,7 +477,7 @@ const Step1 = () => {
                             <textarea value={guests} onChange={handleGuests} rows="1" cols="2" className=" bg-slate-200"></textarea>
                         </div>
                     </div>
-                    <div className="flex items-center justify-between p-4 mb-4 w-96">
+                    <div className="flex items-center justify-between p-4 mb-4 w-5/12">
                         <div className="">
                             <text className="text-center">Bedrooms</text>
                         </div>
@@ -464,7 +485,7 @@ const Step1 = () => {
                             <textarea value={bedrooms} onChange={handleBedrooms} rows="1" cols="2" className=" bg-slate-200"></textarea>
                         </div>
                     </div>
-                    <div className="flex items-center justify-between p-4 mb-4 w-96">
+                    <div className="flex items-center justify-between p-4 mb-4 w-5/12">
                         <div className="">
                             <text className="text-center">Beds</text>
                         </div>
@@ -472,7 +493,7 @@ const Step1 = () => {
                             <textarea value={beds} onChange={handleBeds} rows="1" cols="2" className=" bg-slate-200"></textarea>
                         </div>
                     </div>
-                    <div className="flex items-center justify-between p-4 mb-4 w-96">
+                    <div className="flex items-center justify-between p-4 mb-4 w-5/12">
                         <div className="">
                             <text className="text-center">Bathrooms</text>
                         </div>
