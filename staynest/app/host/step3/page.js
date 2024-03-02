@@ -82,8 +82,8 @@ const Step3 = () => {
     return (
         <div>
             <HostNavBar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
-        <div className="flex flex-col items-center justify-center w-7/12">
-            <div className="mb-40">
+        <div className="flex flex-col items-center justify-center w-7/12 border-4 rounded mx-auto shadow-2xl my-20">
+            <div className="my-20 ">
                 <div className="pb-10">
                     <text className="text-2xl font-bold ">7. Now, let's give your house a title</text>
                     <br></br>
@@ -91,7 +91,6 @@ const Step3 = () => {
                 </div>
                 <div className="pl-10">
                     <textarea className="border-2 border-black rounded" rows="7" cols="60" placeholder="Type your text here..." value={houseTitle} onChange={(e) => handleTitleChange(e)}></textarea>
-
                 </div>
             </div>
 
