@@ -20,6 +20,9 @@ const Step6 = () => {
         mealDescription: '',
     });
 
+    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
+
     // setRegistrationId(57);
     useEffect(() => {
         console.log("useEffect step6")
@@ -80,7 +83,7 @@ const Step6 = () => {
 
     return (
         <div>
-            <HostNavBar />
+            <HostNavBar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
         <div className="flex flex-col justify-center items-center">
             {/* do you allow paying guest */}
             <div>

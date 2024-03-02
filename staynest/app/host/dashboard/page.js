@@ -20,6 +20,8 @@ function Dashboard() {
     const [selectedOption, setSelectedOption] = useState('EditProfile');
     const [selectedBookingId, setSelectedBookingId] = useState(null);
     const [selectedNegotiationId, setSelectedNegotiationId] = useState(null);
+    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
     
 
     // function to fetch data for selected option
@@ -32,7 +34,7 @@ function Dashboard() {
 
     return (
         <div>
-            <HostNavBar />
+            <HostNavBar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
 
         <div className="flex flex-row h-screen">
             {/* Sidebar */}

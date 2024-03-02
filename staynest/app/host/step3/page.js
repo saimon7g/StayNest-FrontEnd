@@ -22,6 +22,8 @@ const Step3 = () => {
     const [houseTitle, setHouseTitle] = React.useState('');
     const [highlights, setHighlights] = React.useState([]);
     const [description, setDescription] = React.useState('');
+    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
 
     useEffect(() => {
         const fetchStep3Data = async () => {
@@ -79,7 +81,7 @@ const Step3 = () => {
 
     return (
         <div>
-            <HostNavBar />
+            <HostNavBar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
         <div className="flex flex-col items-center justify-center">
             <div className="mb-40">
                 <div className="pb-10">

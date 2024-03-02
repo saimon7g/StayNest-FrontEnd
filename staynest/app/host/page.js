@@ -14,6 +14,9 @@ import Footer from '@/Components/Footer';
 export default function GuesrRootPage() {
     const [modalOpen, setModalOpen] = useState(false);
 
+    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
+
     const handleSubmit = () => {
         setModalOpen(true);
     }
@@ -21,7 +24,7 @@ export default function GuesrRootPage() {
     
     return (
         <div>
-            <HostNavBar />
+            <HostNavBar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
             <h1 className="title text-center">Welcome to StayNest</h1>
             <GoogleMap />
             {/* button using tailwind for next page */}
