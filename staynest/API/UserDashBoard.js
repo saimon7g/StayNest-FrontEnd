@@ -137,7 +137,7 @@ export async function getBookingDetails(bookingId) {
     try {
         // Perform the API request
         const response = await axios.get(`guest/api/booking_details/${bookingId}/`);
-        return constantdata;
+        return response.data; // Return the response data
     }
     catch (error) {
         console.error(error);
@@ -194,7 +194,7 @@ export async function getPreviousBookings() {
 export async function cancelBooking(data) {
     // Placeholder constant data
     const constantData = {
-        // Your constant data here...
+      
     };
 
     try {
