@@ -14,13 +14,14 @@ import { MealSelectionForm } from '@/Components/GuestSide/MealSelectionForm';
 import { Button, Card, Modal } from 'flowbite-react';
 import { Datepicker } from 'flowbite-react';
 import { formatDate } from '@/Components/utills';
-import { Label, Radio } from 'flowbite-react';
+import { Label, Radio,Spinner } from 'flowbite-react';
 import DatePicker from "react-datepicker";
 import { subDays } from 'date-fns';
 import { NegotiationModal } from '@/Components/GuestSide/NegotiateModal';
 import Navbar from "@/Components/GuestSide/GuestNavBar";
 import Footer from "@/Components/Footer";
 import { loggedInCheck } from '@/API/auth';
+
 
 
 export default function SingleProperty({ params }) {
@@ -130,7 +131,9 @@ export default function SingleProperty({ params }) {
     }
     const data = {
       property_id: id,
-      guest_id: 5,
+      property_name: property.name,
+      property_type: property.property_type,
+      property_photo: property.photos[0].image_data,
       host_id: property.host.host_id,
       booking_type: booking_options,
       start_date: formatDate(checkInDate),
@@ -143,6 +146,7 @@ export default function SingleProperty({ params }) {
       lunch: cart.lunch[0],
       dinner: cart.dinner[0],
       total_price: property.price * (checkOutDate - checkInDate) + 0.05 * property.price + 0.1 * property.price,
+      status: "approved",
     };
     const queryString = JSON.stringify(data);
     // Redirect to the next page with response data
@@ -199,6 +203,11 @@ export default function SingleProperty({ params }) {
   return (
     <div>
             <Navbar isLoginFormVisible={isLoginFormVisible} setIsLoginFormVisible={setIsLoginFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+            {(property&&property.name==null) && (
+  <div className="flex justify-center items-center h-96">
+    <Spinner aria-label="Extra large spinner example" size="xl" />
+  </div>
+)}
     <div className='flex flex-col items-around justify-center w-4/6 mx-auto'>
       <div className='my-6 '>
         {property && property.name && (<p className='text-3xl font-bold'>{property.name}</p>)}
