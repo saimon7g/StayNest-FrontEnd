@@ -24,12 +24,12 @@ export async function getUpcomingBookingsForGuest() {
     try {
         // Perform the API request
         const response = await axios.get(`guest/api/upcoming_bookings/as_guest/`);
-        console.log(response.data);
+        console.log("response fromm getUpcomingBookingsForGuest", response.data);
         return response.data; // Return the response data
     }
     catch (error) {
         console.error(error);
-        return constantData; // Return placeholder data in case of error
+        return;
     }
 }
 
@@ -59,22 +59,18 @@ export async function getBookingDetails(bookingId) {
 
     try {
         // Perform the API request
+        console.log("bookingId", bookingId);
         const bookingResponse = await axios.get(`guest/api/booking_details/${bookingId}/`);
-        const bookingDetails = response.data;
-        const propertyId = bookingDetails.property_id;
-        const propertyResponse = await axios.get(`host/api/property/${propertyId}/`);
-        const propertyDetails = propertyResponse.data;
-        const response = {
-            bookingDetails: bookingDetails,
-            propertyDetails: propertyDetails
-        };
 
-        console.log(response);
-        return response.data; // Return the response data
+        if(typeof bookingResponse.data === 'string'){
+            bookingResponse.data = JSON.parse(bookingResponse.data);
+        }
+        
+        return bookingResponse.data; // Return the response data
     }
     catch (error) {
         console.error(error);
-        return constantdata; // Return placeholder data in case of error
+        return;
     }
 };
 
@@ -115,12 +111,12 @@ export async function getPreviousBookings() {
 
     try {
         // Perform the API request
-        const response = await axios.get(`guest/api/previous_bookings/`);
+        const response = await axios.get(`guest/api/upcoming_bookings/as_guest/`);
         return response.data; // Return the response data
     }
     catch (error) {
         console.error(error);
-        return constantData; // Return placeholder data in case of error
+        return ;
     }
 }
 
