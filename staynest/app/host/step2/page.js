@@ -351,8 +351,6 @@ const Step2 = () => {
 
 
 
-
-
     return (
         <div>
             <HostNavBar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
@@ -628,3 +626,4 @@ const Step2 = () => {
 };
 
 export default Step2;
+
