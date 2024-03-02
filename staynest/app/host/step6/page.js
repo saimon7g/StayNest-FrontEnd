@@ -96,7 +96,7 @@ const Step6 = () => {
             {state.allow_paying_guests ? (
                 <div>
                     <h1 className="text-2xl font-bold">Meal price</h1>
-                    <input className="block m-0 m-auto border-2 border-black" type="number" value={state.mealPrice} onChange={handleMealPriceChange} />
+                    <input className="block m-auto border-2 border-black" type="number" value={state.mealPrice} onChange={handleMealPriceChange} />
                     <h1 className="text-2xl font-bold">Meal description</h1>
                     <textarea className="border-2 border-black" value={state.mealDescription} rows="10" cols="50"   onChange={handleMealDescriptionChange}  />
                 </div>

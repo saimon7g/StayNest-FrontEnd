@@ -1,6 +1,6 @@
 'use client';
-import { useState,useEffect } from 'react';
-import { Avatar, Button,Dropdown, Navbar } from 'flowbite-react';
+import { useState, useEffect } from 'react';
+import { Avatar, Button, Dropdown, Navbar } from 'flowbite-react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Logo from '@/StaticImage/logo1.png';
@@ -11,12 +11,15 @@ import { formatDate } from '../utills';
 import LoginForm from './LoginForm';
 import SignupForm from '../SignupForm';
 import Link from 'next/link';
-import { getUser , logout} from '@/API/auth';
+import { getUser, logout } from '@/API/auth';
 
-const GuestNavbar = () => {
+import SearchUsingMap from './SearchUsingMap';
+// const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+//     const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
+
+const GuestNavbar = ({ isSearchFormVisible, setIsSearchFormVisible, loggedIn, setLoggedIn }) => {
     const router = useRouter();
-    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
-    const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
+
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [numberOfPeople, setNumberOfPeople] = useState(1);
@@ -24,6 +27,8 @@ const GuestNavbar = () => {
     const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
     const [signupFormVisible, setSignupFormVisible] = useState(false);
     const [user, setUser] = useState(null);
+    const [latlng, setLatlng] = useState({ lat: 0, lng: 0 });
+    const [isMapVisible, setIsMapVisible] = useState(false);
 
     useEffect(() => {
         // Fetch the user data from the server
@@ -42,10 +47,10 @@ const GuestNavbar = () => {
 
         fetchUser();
     }
-    , [loggedIn]);
+        , [loggedIn]);
 
 
-   
+
     const handleLogout = async () => {
         try {
             await logout();
@@ -100,7 +105,7 @@ const GuestNavbar = () => {
             <Navbar.Brand href="/">
                 <Image src={Logo} alt="logo" width={100} height={100} />
             </Navbar.Brand>
-            
+
             {/* Search bar in the middle */}
             <div className="flex justify-center items-center flex-grow">
                 <div className="flex justify-between bg-slate-100 rounded-full py-2 px-6 cursor-pointer" onClick={() => setIsSearchFormVisible(!isSearchFormVisible)}>
@@ -118,7 +123,7 @@ const GuestNavbar = () => {
                         arrowIcon={false}
                         inline
                         label={
-                            <Image src={user?.profile_picture} alt="avatar" width={40} height={40} className="rounded-full" />                  }
+                            <Image src={user?.profile_picture} alt="avatar" width={40} height={40} className="rounded-full" />}
                     >
                         <Dropdown.Header>
                             <span className="block text-sm">Bonnie Green</span>
@@ -144,13 +149,13 @@ const GuestNavbar = () => {
                     </Dropdown>
                 ) : (
                     <>
-                    <Button onClick={() => setIsLoginFormVisible(true)}>Log In</Button>
-                    {/* Render the LoginForm component conditionally */}
-                    {isLoginFormVisible && <LoginForm isOpen={isLoginFormVisible} onClose={() => setIsLoginFormVisible(false)}
-                    setLoginFormVisible={setIsLoginFormVisible} setLoggedIn={setLoggedIn} setSignupFormVisible={setSignupFormVisible}/>}
-                    {signupFormVisible && <SignupForm isOpen={signupFormVisible} onClose={() => setSignupFormVisible(false)}
-                    setSignupFormVisible={setSignupFormVisible} setLoggedIn={setLoggedIn}/>}
-    </>
+                        <Button onClick={() => setIsLoginFormVisible(true)}>Log In</Button>
+                        {/* Render the LoginForm component conditionally */}
+                        {isLoginFormVisible && <LoginForm isOpen={isLoginFormVisible} onClose={() => setIsLoginFormVisible(false)}
+                            setLoginFormVisible={setIsLoginFormVisible} setLoggedIn={setLoggedIn} setSignupFormVisible={setSignupFormVisible} />}
+                        {signupFormVisible && <SignupForm isOpen={signupFormVisible} onClose={() => setSignupFormVisible(false)}
+                            setSignupFormVisible={setSignupFormVisible} setLoggedIn={setLoggedIn} />}
+                    </>
                 )}
             </div>
 
@@ -161,6 +166,7 @@ const GuestNavbar = () => {
                     <form onSubmit={handleSearchSubmit} >
                         <div>
                             <label htmlFor="location">Location</label>
+                            <Button onClick={() => setIsMapVisible(true)}>Search using map</Button>
                             <input
                                 type="text"
                                 placeholder="Anywhere"
@@ -169,6 +175,7 @@ const GuestNavbar = () => {
                                 className="mb-2 border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-full"
                             />
                         </div>
+
                         <div className="flex items-center mb-2">
                             <div className="flex flex-col">
                                 <label htmlFor="arrival">Arrival</label>
@@ -214,6 +221,9 @@ const GuestNavbar = () => {
                     </form>
                 </div>
             )}
+
+            {/* Search using map */}
+            {isMapVisible && <SearchUsingMap setLatlng={setLatlng} isMapVisible={isMapVisible} setIsMapVisible={setIsMapVisible} />}
         </Navbar>
     );
 };

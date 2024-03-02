@@ -14,6 +14,8 @@ import Footer from "@/Components/Footer";
 
 
 function Dashboard() {
+    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
 
     const [selectedOption, setSelectedOption] = useState('EditProfile');
     const [selectedBookingId, setSelectedBookingId] = useState(null);
@@ -29,7 +31,7 @@ function Dashboard() {
 
     return (
         <div>
-            <Navbar />
+            <Navbar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
         <div className="flex flex-row h-screen">
             {/* Sidebar */}
             
