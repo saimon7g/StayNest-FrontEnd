@@ -1,29 +1,9 @@
 import axios from './axios'; // Import the configured Axios instance
 export async function getMyListings() {
-        try {
+    try {
 
 
         const response = await axios.get(`host/api/mylistings/`);
-        if (typeof response.data === 'string') {
-            // If response.data is a string, parse it to JSON
-            return JSON.parse(response.data);
-        } else {    
-            // If response.data is already JSON, return it directly
-            return response.data;
-        } 
-        }
-        catch (error) {
-            console.log(error);
-            return error;
-        }
-
-    }
-
-export async function getPropertiesbyType(type) {
-    console.log("properties by type");
-    try {
-const response = await axios.put(`host/api/properties/bytype/`, {"online_type": type});
-        console.log(response.data);
         if (typeof response.data === 'string') {
             // If response.data is a string, parse it to JSON
             return JSON.parse(response.data);
@@ -34,120 +14,69 @@ const response = await axios.put(`host/api/properties/bytype/`, {"online_type": 
     }
     catch (error) {
         console.log(error);
+        return error;
     }
+
 }
 
-export async function getUpcomingBookings() {
-    // Placeholder constant data
-    const constantData = {
-        "status": "success",
-        "message": "Upcoming bookings retrieved successfully",
-        "data": {
-            "upcoming_bookings": [
-                {
-                    "booking_id": "<booking id>",
-                    "property_name": "Property Name",
-                    "check_in": "2024-01-12",
-                    "check_out": "2024-01-15",
-                    "booking_type": "Stay",
-                    "photo": "base64 encoded image"
-                },
-                {
-                    "booking_id": "<booking id>",
-                    "property_name": "Property Name",
-                    "check_in": "2024-01-12",
-                    "check_out": "2024-01-15",
-                    "booking_type": "Stay with Meals",
-                    "photo": "base64 encoded image"
-                },
-                {
-                    "booking_id": "<booking id>",
-                    "property_name": "Property Name",
-                    "check_in": "2024-01-12",
-                    "check_out": "2024-01-15",
-                    "booking_type": "Paying Guest",
-                    "photo": "base64 encoded image"
-                }
-            ]
-        }
-    };
+export async function getUpcomingBookingsForGuest() {
 
     try {
         // Perform the API request
-        const response = await axios.get(`guest/api/upcoming_bookings/`);
+        const response = await axios.get(`guest/api/upcoming_bookings/as_guest/`);
+        console.log("response fromm getUpcomingBookingsForGuest", response.data);
         return response.data; // Return the response data
     }
     catch (error) {
         console.error(error);
-        return constantData; // Return placeholder data in case of error
+        return;
     }
 }
 
 export async function getBookingDetails(bookingId) {
-    // Placeholder constant data
-    const constantdata = {
-        "status": "success",
-        "message": "Booking confirmation details retrieved successfully",
-        "data": {
-            "guest_id": 21314235,
-            "host": {
-                "host_id": 123456,
-                "host_name": "John Doe",
-                "host_email": "sadgdsgsdfg@gmail.com",
-                "host_phone": "1234567890",
-            },
-            "propert_details": {
-                "property_id": 123456,
-                "property_name": "Aloha",
-                "property_type": "Villa",
-                "property_sub_type": "Entire Villa",
-                "image_data": "sfgsgsdgdfsgsdgsdg",
-                "address": "123, Aloha Street, Aloha, Aloha",
-                "number_of_guests": 4,
-                "number_of_bedrooms": 2,
-                "number_of_beds": 3,
-                "number_of_bathrooms": 2,
-            },
-            "booking_details": {
-                "booking_id": "<booking id>",
-                "booking_type": "Stay with Meals",
-                "start_date": "2024-01-12",
-                "end_date": "2024-01-15",
-                "staying_price": 300,
-                "booking_status": "upcoming",
-            },
-            "meals": {
-                "breakfast": [
-                    { "name": "Continental", "quantity": 2, "date": "2024-01-12", "price": 10 },
-                    { "name": "Full English", "quantity": 2, "date": "2024-01-12", "price": 10 },
-                ],
-                "lunch": [
-                    { "name": "Italian", "quantity": 2, "date": "2024-01-13", "price": 10 },
-                    { "name": "BBQ", "quantity": 2, "date": "2024-01-13", "price": 10 }
-                ],
-                "dinner": [
-                    { "name": "Italian", "quantity": 2, "date": "2024-01-13", "price": 10 },
-                    { "name": "BBQ", "quantity": 2, "date": "2024-01-13", "price": 10 }
-                ]
-            }
-        }
-    };
 
+    // {
+    //     "id": 1,
+    //     "breakfast": [],
+    //     "lunch": [],
+    //     "dinner": [],
+    //     "property_id": 1,
+    //     "property_name": "ABC Home",
+    //     "property_photo": null,
+    //     "booking_type": "stay_with_meal",
+    //     "start_date": "2024-03-02",
+    //     "end_date": "2024-03-02",
+    //     "base_price": "2000.00",
+    //     "platform_fee": "100.00",
+    //     "tax": "200.00",
+    //     "number_of_guests": 5,
+    //     "status": "pending",
+    //     "created_at": "2024-03-02T17:51:38.046659+06:00",
+    //     "updated_at": "2024-03-02T17:51:38.134527+06:00",
+    //     "guest_id": 3,
+    //     "host_id": 3
+    // }
 
     try {
         // Perform the API request
-        const response = await axios.get(`guest/api/booking_details/${bookingId}/`);
-        return response.data; // Return the response data
+        console.log("bookingId", bookingId);
+        const bookingResponse = await axios.get(`guest/api/booking_details/${bookingId}/`);
+
+        if(typeof bookingResponse.data === 'string'){
+            bookingResponse.data = JSON.parse(bookingResponse.data);
+        }
+        
+        return bookingResponse.data; // Return the response data
     }
     catch (error) {
         console.error(error);
-        return constantdata; // Return placeholder data in case of error
+        return;
     }
-}
+};
 
 export async function getPreviousBookings() {
     // Placeholder constant data
-    const constantData ={
+    const constantData = {
         "status": "success",
         "message": "Upcoming bookings retrieved successfully",
         "data": {
@@ -182,19 +111,19 @@ export async function getPreviousBookings() {
 
     try {
         // Perform the API request
-        const response = await axios.get(`guest/api/previous_bookings/`);
+        const response = await axios.get(`guest/api/upcoming_bookings/as_guest/`);
         return response.data; // Return the response data
     }
     catch (error) {
         console.error(error);
-        return constantData; // Return placeholder data in case of error
+        return ;
     }
 }
 
 export async function cancelBooking(data) {
     // Placeholder constant data
     const constantData = {
-      
+
     };
 
     try {
