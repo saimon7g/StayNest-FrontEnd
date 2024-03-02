@@ -4,6 +4,7 @@ import { reserveProperty } from '@/API/GuestAPI';
 import { useEffect, useState } from 'react';
 import { Card, Button } from 'flowbite-react';
 import {Payment} from '@/Components/Payment';
+import Navbar from '@/Components/GuestSide/GuestNavBar';
 
 
 export default function ReservationSummary({ reservation }) {
