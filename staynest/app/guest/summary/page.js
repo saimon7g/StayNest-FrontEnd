@@ -93,34 +93,62 @@ export default function ReservationSummary({ reservation }) {
 
         fetchData();
     }, [parsedData]);
-
-    const handlePayment =async () => {
+    const reserve=async()=>{
 
         try{
-            console.log('hnadling payment' );
-
             const response = await reserveProperty(parsedData);
+
+            setOpenModal(false);
+            
             if (response.status ===201 ) {
-                setOpenModal(true);
+               
                 alert('Booking successful');
             }
-            else if (response.status === 401) {
+            else if (response.status ===200) {
                 console.log('401-----')
                 alert(response.message );
                 console.log(response.message);  
             }
-
-
-            else {
-                console.log('Error----------');
-                alert(response['message']);
+            else 
+            {
+                alert(response.message);
             }
+
         }
         catch(error){
-            console.log(error);
-        }
-        
+                console.log(error);
+             }
 
+             
+    };
+
+
+    const handlePayment =async () => {
+        console.log('hnadling payment' );
+        // try{
+        //     
+
+        //     const response = await reserveProperty(parsedData);
+        //     if (response.status ===201 ) {
+        //         setOpenModal(true);
+        //         alert('Booking successful');
+        //     }
+        //     else if (response.status === 401) {
+        //         console.log('401-----')
+        //         alert(response.message );
+        //         console.log(response.message);  
+        //     }
+
+
+        //     else {
+        //         alert(response['message']);
+        //     }
+        // }
+        // catch(error){
+        //     console.log(error);
+        // }
+        
+        setOpenModal(true)
        
     };
 
@@ -192,6 +220,11 @@ export default function ReservationSummary({ reservation }) {
                         <Button className="mt-8 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" onClick={() => handlePayment()}>
                             Make Payment
                         </Button>
+                        <Payment
+                        openModal={openModal}
+                        setOpenModal={setOpenModal}
+                        onPaymentComplete={reserve}
+                        />
                     </div>
                 </div>
             </Card>
