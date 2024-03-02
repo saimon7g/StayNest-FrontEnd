@@ -48,7 +48,11 @@ const Step1 = () => {
         paying_guest: false
     });
 
+    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
+
     const searchParams = useSearchParams();
+    const router = useRouter();
 
     useEffect(() => {
         const parseServicesFromQuery = () => {
@@ -204,8 +208,8 @@ const Step1 = () => {
         try {
             setRegistrationId(response.data.registration_id);
             console.log("Registration ID is set to:", response.data.registration_id);
-            const router = useRouter();
-            router.push('/host/step2');
+            
+            router.push('step2');
             // router push to next page
 
         } catch (error) {
@@ -220,11 +224,20 @@ const Step1 = () => {
 
     return (
         <div>
-            <HostNavBar />
-            <div className="my-20 border-4 rounded w-7/12 mx-auto shadow-2xl ">
-                <div className="flex flex-col items-center justify-center my-20">
-                    <div className="pb-5">
-                        <text className="text-2xl font-bold ">1. What type of place are you listing?</text>
+            <HostNavBar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+            <div className="flex flex-col items-center justify-center">
+                <div className="pb-5">
+                    <text className="text-2xl font-bold ">1. What type of place are you listing?</text>
+                </div>
+                <div className="flex justify-center">
+                    <div onClick={(e) => handlePropertyType(e, "House")} className={`flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 hover:text-white hover:bg-black 
+                    ${propertyType == "House" ? 'text-white bg-black' : 'text-black bg-white'}`} >
+                        <div >
+                            <FaHouse className="text-2xl text-center" />
+                        </div>
+                        <div className="pl-5 font-bold">
+                            House
+                        </div>
                     </div>
                     <div className="flex justify-center">
                         <div onClick={(e) => handlePropertyType(e, "House")} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2  

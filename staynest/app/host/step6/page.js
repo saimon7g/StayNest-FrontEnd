@@ -7,6 +7,8 @@ import Link from 'next/link';
 import RegistrationContext from "@/contexts/registrationContext";
 import { useEffect,useContext } from 'react';
 import { Step6GET,Step6PUT } from "@/API/Registration";
+import HostNavBar from "@/Components/HostSide/HostNavbar";
+import Footer from "@/Components/Footer";
 
 
 
@@ -17,6 +19,9 @@ const Step6 = () => {
         mealPrice: 0,
         mealDescription: '',
     });
+
+    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
 
     // setRegistrationId(57);
     useEffect(() => {
@@ -77,6 +82,8 @@ const Step6 = () => {
     };
 
     return (
+        <div>
+            <HostNavBar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
         <div className="flex flex-col justify-center items-center">
             {/* do you allow paying guest */}
             <div>
@@ -92,7 +99,7 @@ const Step6 = () => {
             {state.allow_paying_guests ? (
                 <div>
                     <h1 className="text-2xl font-bold">Meal price</h1>
-                    <input className="block m-0 m-auto border-2 border-black" type="number" value={state.mealPrice} onChange={handleMealPriceChange} />
+                    <input className="block m-auto border-2 border-black" type="number" value={state.mealPrice} onChange={handleMealPriceChange} />
                     <h1 className="text-2xl font-bold">Meal description</h1>
                     <textarea className="border-2 border-black" value={state.mealDescription} rows="10" cols="50"   onChange={handleMealDescriptionChange}  />
                 </div>
@@ -107,6 +114,8 @@ const Step6 = () => {
                     <button className="border border-gray-400 rounded-lg p-2 m-2" onClick={handleSubmit}>Next</button>
                 </Link>
             </div>
+        </div>
+        <Footer />
         </div>
     );
 

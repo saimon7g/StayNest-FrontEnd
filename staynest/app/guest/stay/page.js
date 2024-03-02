@@ -8,6 +8,8 @@ import { getProperties } from '@/API/GuestAPI';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Card, Button } from 'flowbite-react';
+import Navbar from "@/Components/GuestSide/GuestNavBar";
+import Footer from "@/Components/Footer";
 
 
 export default function GuestStay() {
@@ -15,6 +17,8 @@ export default function GuestStay() {
   const params = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState('stay');
   const [newParams, setNewParams] = useState({});
+  const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
 
   useEffect(() => {
     setNewParams(JSON.parse(params.get('search')));
@@ -46,6 +50,8 @@ export default function GuestStay() {
 
    
   return (
+    <div>
+      <Navbar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
     <div className="flex flex-col items-center justify-center">
       {/* <div className='flex flex-row items-center justify-center w-11/12 my-20'>
         <div className='border-4 border-black rounded-lg w-1/4 ml-8'>
@@ -191,6 +197,8 @@ export default function GuestStay() {
           </div>
         ))}
       </div>
+    </div>
+    <Footer />
     </div>
   );
 }

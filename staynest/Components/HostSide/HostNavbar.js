@@ -13,10 +13,9 @@ import SignupForm from '@/Components/SignupForm';
 import Link from 'next/link';
 import { getUser , logout} from '@/API/auth';
 
-const HostNavBar = () => {
+const HostNavBar = ( {isSearchFormVisible, setIsSearchFormVisible, loggedIn, setLoggedIn} ) => {
     const router = useRouter();
-    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
-    const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
+
     const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
     const [signupFormVisible, setSignupFormVisible] = useState(false);
     const [user, setUser] = useState(null);

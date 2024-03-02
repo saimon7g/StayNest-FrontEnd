@@ -14,12 +14,16 @@ import { IoLocation } from "react-icons/io5";
 import { FaPeopleArrows } from "react-icons/fa6";
 import { useEffect, useContext } from 'react';
 import RegistrationContext from "@/contexts/registrationContext"; // Line 24setRegistrationId
+import HostNavBar from "@/Components/HostSide/HostNavbar";
+import Footer from "@/Components/Footer";
 
 const Step3 = () => {
     const { registrationId, setRegistrationId } = useContext(RegistrationContext);  // use the context
     const [houseTitle, setHouseTitle] = React.useState('');
     const [highlights, setHighlights] = React.useState([]);
     const [description, setDescription] = React.useState('');
+    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
 
     useEffect(() => {
         const fetchStep3Data = async () => {
@@ -76,6 +80,8 @@ const Step3 = () => {
     };
 
     return (
+        <div>
+            <HostNavBar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
         <div className="flex flex-col items-center justify-center">
             <div className="mb-40">
                 <div className="pb-10">
@@ -179,6 +185,8 @@ const Step3 = () => {
                     </div>
                 </div>
             </div>
+        </div>
+        <Footer />
         </div>
     );
 };
