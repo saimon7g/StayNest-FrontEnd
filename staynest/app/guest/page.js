@@ -14,7 +14,7 @@ import Footer from "@/Components/Footer";
 export default function GuestHome() {
   const [properties, setProperties] = useState([]);
   const { queryParams, setQueryParams } = useContext(QueryParamsContext);
-  const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+  const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function GuestHome() {
 
   return (
     <div>
-      <Navbar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+      <Navbar isLoginFormVisible={isLoginFormVisible} setIsLoginFormVisible={setIsLoginFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
       <div className="flex flex-col items-center justify-center">
         <div className="">
           <Image src={Logo} alt="logo" width={1400} height={1000} />

@@ -4,7 +4,7 @@
 import { useState } from 'react';
 
 import { Modal, Card, Button ,Spinner } from 'flowbite-react';
-import { Spinner } from 'flowbite-react';
+
 export function Payment({ openModal, setOpenModal, onPaymentComplete,negotiation}) {
     const [processing,setProcessing]=useState(false)
 
