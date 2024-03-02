@@ -225,103 +225,106 @@ const Step1 = () => {
     return (
         <div>
             <HostNavBar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
-            <div className="flex flex-col items-center justify-center border-4 ">
-                <div className="pb-5">
-                    <text className="text-2xl font-bold ">1. What type of place are you listing?</text>
-                </div>
-                <div className="flex flex-col items-center justify-center">
-                    <div className="flex justify-center">
-                        <div onClick={(e) => handlePropertyType(e, "House")} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2  
-                                ${propertyType == "House" ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`} >
-                            <div>
-                                <FaHouse className="text-2xl text-center" />
-                            </div>
-                            <div className="pl-5 font-bold">
-                                House
-                            </div>
-                        </div>
 
-                        <div onClick={(e) => handlePropertyType(e, "Apartment")} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2  
-                                ${propertyType == "Apartment" ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
-                            <div>
-                                <MdApartment className="text-2xl text-center" />
-                            </div>
-                            <div className="pl-5 font-bold">
-                                Apartment
-                            </div>
-                        </div>
-
-                        <div onClick={(e) => handlePropertyType(e, "Cabin")} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2  
-                                ${propertyType == "Cabin" ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
-                            <div>
-                                <MdOutlineCabin className="text-2xl text-center" />
-                            </div>
-                            <div className="pl-5 font-bold">
-                                Cabin
-                            </div>
-                        </div>
+            <div className="flex flex-col items-center justify-center border-4  w-7/12 mx-auto my-20 rounded shadow-2xl">
+                <div className="flex flex-col items-center justify-center mb-20">
+                    <div className="pb-5 my-10">
+                        <text className="text-2xl font-bold ">1. What type of place are you listing?</text>
                     </div>
-
-                    <div className="flex justify-center">
-                        <div onClick={(e) => handlePropertyType(e, "Campground")} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2  
-                                ${propertyType == "Campground" ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
-                            <div>
-                                <FaCampground className="text-2xl text-center" />
+                    <div className="flex flex-col items-center justify-center">
+                        <div className="flex justify-center">
+                            <div onClick={(e) => handlePropertyType(e, "House")} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2  
+                                    ${propertyType == "House" ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`} >
+                                <div>
+                                    <FaHouse className="text-2xl text-center" />
+                                </div>
+                                <div className="pl-5 font-bold">
+                                    House
+                                </div>
                             </div>
-                            <div className="pl-5 font-bold">
-                                Campground
+
+                            <div onClick={(e) => handlePropertyType(e, "Apartment")} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2  
+                                    ${propertyType == "Apartment" ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
+                                <div>
+                                    <MdApartment className="text-2xl text-center" />
+                                </div>
+                                <div className="pl-5 font-bold">
+                                    Apartment
+                                </div>
+                            </div>
+
+                            <div onClick={(e) => handlePropertyType(e, "Cabin")} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2  
+                                    ${propertyType == "Cabin" ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
+                                <div>
+                                    <MdOutlineCabin className="text-2xl text-center" />
+                                </div>
+                                <div className="pl-5 font-bold">
+                                    Cabin
+                                </div>
                             </div>
                         </div>
 
-                        <div onClick={(e) => handlePropertyType(e, "Tower")} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2  
-                                ${propertyType == "Tower" ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
-                            <div>
-                                <LuTowerControl className="text-2xl text-center" />
+                        <div className="flex justify-center">
+                            <div onClick={(e) => handlePropertyType(e, "Campground")} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2  
+                                    ${propertyType == "Campground" ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
+                                <div>
+                                    <FaCampground className="text-2xl text-center" />
+                                </div>
+                                <div className="pl-5 font-bold">
+                                    Campground
+                                </div>
                             </div>
-                            <div className="pl-5 font-bold">
-                                Tower
+
+                            <div onClick={(e) => handlePropertyType(e, "Tower")} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2  
+                                    ${propertyType == "Tower" ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
+                                <div>
+                                    <LuTowerControl className="text-2xl text-center" />
+                                </div>
+                                <div className="pl-5 font-bold">
+                                    Tower
+                                </div>
+                            </div>
+
+                            <div onClick={(e) => handlePropertyType(e, "Castle")} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2  
+                                    ${propertyType == "Castle" ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
+                                <div>
+                                    <MdOutlineCastle className="text-2xl text-center" />
+                                </div>
+                                <div className="pl-5 font-bold">
+                                    Castle
+                                </div>
                             </div>
                         </div>
 
-                        <div onClick={(e) => handlePropertyType(e, "Castle")} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2  
-                                ${propertyType == "Castle" ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
-                            <div>
-                                <MdOutlineCastle className="text-2xl text-center" />
+                        <div className="flex justify-center">
+                            <div onClick={(e) => handlePropertyType(e, "Houseboat")} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2  
+                                    ${propertyType == "Houseboat" ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
+                                <div>
+                                    <MdHouseboat className="text-2xl text-center" />
+                                </div>
+                                <div className="pl-5 font-bold">
+                                    Houseboat
+                                </div>
                             </div>
-                            <div className="pl-5 font-bold">
-                                Castle
-                            </div>
-                        </div>
-                    </div>
 
-                    <div className="flex justify-center">
-                        <div onClick={(e) => handlePropertyType(e, "Houseboat")} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2  
-                                ${propertyType == "Houseboat" ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
-                            <div>
-                                <MdHouseboat className="text-2xl text-center" />
+                            <div onClick={(e) => handlePropertyType(e, "Hotel")} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2  
+                                    ${propertyType == "Hotel" ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
+                                <div>
+                                    <FaHotel className="text-2xl text-center" />
+                                </div>
+                                <div className="pl-5 font-bold">
+                                    Hotel
+                                </div>
                             </div>
-                            <div className="pl-5 font-bold">
-                                Houseboat
-                            </div>
-                        </div>
 
-                        <div onClick={(e) => handlePropertyType(e, "Hotel")} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2  
-                                ${propertyType == "Hotel" ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
-                            <div>
-                                <FaHotel className="text-2xl text-center" />
-                            </div>
-                            <div className="pl-5 font-bold">
-                                Hotel
-                            </div>
-                        </div>
-
-                        <div onClick={(e) => handlePropertyType(e, "Dome")} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2  
-                                ${propertyType == "Dome" ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
-                            <div>
-                                <FaLandmarkDome className="text-2xl text-center" />
-                            </div>
-                            <div className="pl-5 font-bold">
-                                Dome
+                            <div onClick={(e) => handlePropertyType(e, "Dome")} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2  
+                                    ${propertyType == "Dome" ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
+                                <div>
+                                    <FaLandmarkDome className="text-2xl text-center" />
+                                </div>
+                                <div className="pl-5 font-bold">
+                                    Dome
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -370,12 +373,11 @@ const Step1 = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-col mb-20">
+                <div className="flex flex-col mb-20 w-full">
                     <div className="flex justify-center">
                         <text className="text-2xl font-bold">3. Where's your place located?</text>
                     </div>
-                    <div className="flex justify-center mb-10 ">
-
+                    
                         {/* const [cityName, setCityName] = React.useState("Dhaka"); mandatory 
                         const [houseName, setHouseName] = React.useState(""); mandatory
                         const [holdingNumber, setHoldingNumber] = React.useState("");
@@ -383,126 +385,170 @@ const Step1 = () => {
                         const [roadNumber, setRoadNumber] = React.useState("");
                         const [areaName, setAreaName] = React.useState("");  mandatory                       */}
 
-                        <div className="flex flex-col items-center justify-center">
-                            <div className="flex items-center justify-between p-4 mb-4 w-96 border shadow-lg bg-slate-100">
-                                <div className="">
-                                    {/* city with red star * meaning mandatory */}
-                                    <text className="text-center">City <text className="text-red-500">*</text></text>
-                                </div>
-                                <div className="ml-auto">
-                                    {/* mandatory */}
-                                    {/* <textarea value={cityName} onChange={(e) => setCityName(e.target.value)} rows="1" cols="10" className=" bg-slate-200"></textarea> */}
-                                    <input
-                                        type="text"
-                                        placeholder="Enter your text"
-                                        value={cityName}
-                                        onChange={(e) => setHouseName(e.target.value)}
-                                        className="bg-white border border-slate-500 text-slate-700 placeholder-slate-700 text-sm rounded-full focus:ring-slate-500 focus:border-slate-500  w-full p-2.5"
-                                    />
-                                </div>
+                    <div className="flex flex-col items-center justify-center w-full">
+                        <div className="flex items-center justify-between p-4 mb-4 w-1/2 border shadow-lg bg-slate-100 ">
+                            <div className="">
+                                {/* city with red star * meaning mandatory */}
+                                <text className="text-center">City <text className="text-red-500">*</text></text>
                             </div>
-                            <div className="flex items-center justify-between p-4 mb-4 w-96">
-                                <div className="">
-                                    <text className="text-center">House Name<text className="text-red-500">*</text></text>
-                                </div>
-                                <div className="ml-auto">
-                                    {/* <textarea value={houseName} onChange={(e) => setHouseName(e.target.value)} rows="1" cols="10" className=" bg-slate-200"></textarea> */}
-                                    <input
-                                        type="text"
-                                        placeholder="Enter your text"
-                                        value={houseName}
-                                        onChange={(e) => setHouseName(e.target.value)}
-                                        className="bg-white border border-slate-500 text-slate-700 placeholder-slate-700 text-sm rounded-full focus:ring-slate-500 focus:border-slate-500  w-full p-2.5"
-                                    />
-                                </div>
-                            </div>
-                            <div className="flex items-center justify-between p-4 mb-4 w-96">
-                                <div className="">
-                                    <text className="text-center">Holding Number</text>
-                                </div>
-                                <div className="ml-auto">
-                                    {/* <textarea value={holdingNumber} onChange={(e) => setHoldingNumber(e.target.value)} rows="1" cols="10" className=" bg-slate-200"></textarea> */}
-                                    <input
-                                        type="text"
-                                        placeholder="Enter your text"
-                                        value={holdingNumber}
-                                        onChange={(e) => setHouseName(e.target.value)}
-                                        className="bg-white border border-slate-500 text-slate-700 placeholder-slate-700 text-sm rounded-full focus:ring-slate-500 focus:border-slate-500  w-full p-2.5"
-                                    />
-                                </div>
-                            </div>
-                            <div className="flex items-center justify-between p-4 mb-4 w-96">
-                                <div className="">
-                                    <text className="text-center">Flat Number</text>
-                                </div>
-                                <div className="ml-auto">
-                                    <textarea value={flatNumber} onChange={(e) => setFlatNumber(e.target.value)} rows="1" cols="10" className=" bg-slate-200"></textarea>
-                                </div>
-                            </div>
-                            <div className="flex items-center justify-between p-4 mb-4 w-96">
-                                <div className="">
-                                    <text className="text-center">Road Number</text>
-                                </div>
-                                <div className="ml-auto">
-                                    <textarea value={roadNumber} onChange={(e) => setRoadNumber(e.target.value)} rows="1" cols="10" className=" bg-slate-200"></textarea>
-                                </div>
-                            </div>
-                            <div className="flex items-center justify-between p-4 mb-4 w-96">
-                                <div className="">
-                                    <text className="text-center">Area Details <text className="text-red-500">*</text></text>
-                                </div>
-                                <div className="ml-auto">
-                                    <textarea value={areaName} onChange={(e) => setAreaName(e.target.value)} rows="1" cols="10" className=" bg-slate-200"></textarea>
-                                </div>
+                            <div className="ml-auto">
+                                {/* mandatory */}
+                                {/* <textarea value={cityName} onChange={(e) => setCityName(e.target.value)} rows="1" cols="10" className=" bg-slate-200"></textarea> */}
+                                <input
+                                    type="text"
+                                    placeholder="Enter your text"
+                                    value={cityName}
+                                    onChange={(e) => setHouseName(e.target.value)}
+                                    className="bg-white border border-slate-500 text-slate-700 placeholder-slate-700 text-sm rounded-full focus:ring-slate-500 focus:border-slate-500  w-full p-2.5"
+                                />
                             </div>
                         </div>
-
+                        <div className="flex items-center justify-between p-4 mb-4 w-1/2 border shadow-lg bg-slate-100">
+                            <div className="">
+                                <text className="text-center">House Name<text className="text-red-500">*</text></text>
+                            </div>
+                            <div className="ml-auto">
+                                {/* <textarea value={houseName} onChange={(e) => setHouseName(e.target.value)} rows="1" cols="10" className=" bg-slate-200"></textarea> */}
+                                <input
+                                    type="text"
+                                    placeholder="Enter your text"
+                                    value={houseName}
+                                    onChange={(e) => setHouseName(e.target.value)}
+                                    className="bg-white border border-slate-500 text-slate-700 placeholder-slate-700 text-sm rounded-full focus:ring-slate-500 focus:border-slate-500  w-full p-2.5"
+                                />
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-between p-4 mb-4 w-1/2 border shadow-lg bg-slate-100">
+                            <div className="">
+                                <text className="text-center">Holding Number</text>
+                            </div>
+                            <div className="ml-auto">
+                                {/* <textarea value={holdingNumber} onChange={(e) => setHoldingNumber(e.target.value)} rows="1" cols="10" className=" bg-slate-200"></textarea> */}
+                                <input
+                                    type="text"
+                                    placeholder="Enter your text"
+                                    value={holdingNumber}
+                                    onChange={(e) => setHoldingNumber(e.target.value)}
+                                    className="bg-white border border-slate-500 text-slate-700 placeholder-slate-700 text-sm rounded-full focus:ring-slate-500 focus:border-slate-500  w-full p-2.5"
+                                />
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-between p-4 mb-4 w-1/2 border shadow-lg bg-slate-100">
+                            <div className="">
+                                <text className="text-center">Flat Number</text>
+                            </div>
+                            <div className="ml-auto">
+                                <input
+                                    type="text"
+                                    placeholder="Enter your text"
+                                    value={flatNumber}
+                                    onChange={(e) => setFlatNumber(e.target.value)}
+                                    className="bg-white border border-slate-500 text-slate-700 placeholder-slate-700 text-sm rounded-full focus:ring-slate-500 focus:border-slate-500  w-full p-2.5"
+                                />
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-between p-4 mb-4 w-1/2 border shadow-lg bg-slate-100">
+                            <div className="">
+                                <text className="text-center">Road Number</text>
+                            </div>
+                            <div className="ml-auto">
+                                <input
+                                    type="text"
+                                    placeholder="Enter your text"
+                                    value={roadNumber}
+                                    onChange={(e) => setRoadNumber(e.target.value)}
+                                    className="bg-white border border-slate-500 text-slate-700 placeholder-slate-700 text-sm rounded-full focus:ring-slate-500 focus:border-slate-500  w-full p-2.5"
+                                />
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-between p-4 mb-4 w-1/2 border shadow-lg bg-slate-100">
+                            <div className="">
+                                <text className="text-center">Area Details <text className="text-red-500">*</text></text>
+                            </div>
+                            <div className="ml-auto">
+                                <input
+                                    type="text"
+                                    placeholder="Enter your text"
+                                    value={areaName}
+                                    onChange={(e) => setAreaName(e.target.value)}
+                                    className="bg-white border border-slate-500 text-slate-700 placeholder-slate-700 text-sm rounded-full focus:ring-slate-500 focus:border-slate-500  w-full p-2.5"
+                                />
+                                
+                            </div>
+                        </div>
                     </div>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center ">
                         <text className="text-2xl font-bold">Set Location on Map<text className="text-red-500">*</text></text>
                     </div>
 
                     <div className="flex justify-center ">
-
-                        <div className="w-6/12"><Map setLatlng={setLatlng} /></div>
+                        <div className="w-9/12"><Map setLatlng={setLatlng} /></div>
                     </div>
                 </div>
 
 
-                <div className="flex flex-col items-center justify-center mb-20" >
+                <div className="flex flex-col items-center justify-center mb-20 w-full" >
                     <div>
                         <text className="text-2xl font-bold">4. How many guests can your place accommodate?</text>
                     </div>
-                    <div className="flex items-center justify-between p-4 mb-4 w-5/12">
+                    <div className="flex items-center justify-between p-4 mb-4 w-1/2 border shadow-lg bg-slate-100">
                         <div className="">
                             <text className="text-center">Guests</text>
                         </div>
                         <div className="ml-auto">
-                            <textarea value={guests} onChange={handleGuests} rows="1" cols="2" className=" bg-slate-200"></textarea>
+                            <input
+                                type="text"
+                                placeholder="Enter your text"
+                                value={guests}
+                                onChange={handleGuests}
+                                className="bg-white border border-slate-500 text-slate-700 placeholder-slate-700 text-sm rounded-full focus:ring-slate-500 focus:border-slate-500  w-full p-2.5"
+                            />
+                            {/* <textarea value={guests} onChange={handleGuests} rows="1" cols="2" className=" bg-slate-200"></textarea> */}
                         </div>
                     </div>
-                    <div className="flex items-center justify-between p-4 mb-4 w-5/12">
+                    <div className="flex items-center justify-between p-4 mb-4 w-1/2 border shadow-lg bg-slate-100">
                         <div className="">
                             <text className="text-center">Bedrooms</text>
                         </div>
                         <div className="ml-auto">
-                            <textarea value={bedrooms} onChange={handleBedrooms} rows="1" cols="2" className=" bg-slate-200"></textarea>
+                            <input
+                                type="text"
+                                placeholder="Enter your text"
+                                value={bedrooms}
+                                onChange={handleBedrooms}
+                                className="bg-white border border-slate-500 text-slate-700 placeholder-slate-700 text-sm rounded-full focus:ring-slate-500 focus:border-slate-500  w-full p-2.5"
+                            />
+                            {/* <textarea value={bedrooms} onChange={handleBedrooms} rows="1" cols="2" className=" bg-slate-200"></textarea> */}
                         </div>
                     </div>
-                    <div className="flex items-center justify-between p-4 mb-4 w-5/12">
+                    <div className="flex items-center justify-between p-4 mb-4 w-1/2 border shadow-lg bg-slate-100">
                         <div className="">
                             <text className="text-center">Beds</text>
                         </div>
                         <div className="ml-auto">
-                            <textarea value={beds} onChange={handleBeds} rows="1" cols="2" className=" bg-slate-200"></textarea>
+                            <input
+                                type="text"
+                                placeholder="Enter your text"
+                                value={beds}
+                                onChange={handleBeds}
+                                className="bg-white border border-slate-500 text-slate-700 placeholder-slate-700 text-sm rounded-full focus:ring-slate-500 focus:border-slate-500  w-full p-2.5"
+                            />
+                            {/* <textarea value={beds} onChange={handleBeds} rows="1" cols="2" className=" bg-slate-200"></textarea> */}
                         </div>
                     </div>
-                    <div className="flex items-center justify-between p-4 mb-4 w-5/12">
+                    <div className="flex items-center justify-between p-4 mb-4 w-1/2 border shadow-lg bg-slate-100">
                         <div className="">
                             <text className="text-center">Bathrooms</text>
                         </div>
                         <div className="ml-auto">
-                            <textarea value={bathrooms} onChange={handleBathrooms} rows="1" cols="2" className=" bg-slate-200"></textarea>
+                            <input
+                                type="text"
+                                placeholder="Enter your text"
+                                value={bathrooms}
+                                onChange={handleBathrooms}
+                                className="bg-white border border-slate-500 text-slate-700 placeholder-slate-700 text-sm rounded-full focus:ring-slate-500 focus:border-slate-500  w-full p-2.5"
+                            />
+                            {/* <textarea value={bathrooms} onChange={handleBathrooms} rows="1" cols="2" className=" bg-slate-200"></textarea> */}
                         </div>
                     </div>
                     {/* <Dropdown
@@ -528,15 +574,15 @@ const Step1 = () => {
                 </div>
 
                 {/* next button to go to the next page and prev button to go to the prev page */}
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center w-full">
                     <Link href="/host">
-                        <Button color="light" className="border border-gray-400 rounded-lg p-2 ml-96">
+                        <Button color="light" className="border border-gray-400 rounded-lg p-2 ml-20">
                             Prev
                         </Button>
                     </Link>
 
                     <div className="flex justify-between items-center" onClick={handleSubmit}>
-                        <Button color="blue" className="border border-gray-400 rounded-lg p-2 mr-96 my-20">
+                        <Button color="blue" className="border border-gray-400 rounded-lg p-2 mr-20 my-20">
                             Next
                         </Button>
 
