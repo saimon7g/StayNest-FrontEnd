@@ -37,10 +37,7 @@ export function PreviousBookings({ handleOptionClick, setSelectedBookingId }) {
                             {/* on hoever change color */}
                             <div className="flex flex-row items-center" >
                             <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
-                                   {/* if booking.property_photo is null then show default image */}
                                     {booking.property_photo === null ? <FaHome className="text-3xl text-gray-500" /> : <Image src={booking.property_photo} alt="property" width={100} height={100} />}
-
-
                                 </div>
                                 <div className="ml-5">
                                     <h3 className="text-lg font-bold">{booking.property_name}</h3>

@@ -6,10 +6,17 @@ import axios from './axios'; // Import the configured Axios instance
 export async function getHostByID(hostId) {
     console.log("single host get");
     try {
-        const response = await fetch(`auth/host_profile/${hostId}/`); // Fetch the data
-        const data = await response.json(); // Get the data in JSON format
-        console.log(data);
-        return data;
+        // const response = await fetch(`auth/host_profile/${hostId}/`); // Fetch the data
+        const response = await axios.get(`auth/host_profile/${hostId}/`);
+        if (typeof response.data === 'string') {
+            // If response.data is a string, parse it to JSON
+            return JSON.parse(response.data);
+        }
+        else {
+            // If response.data is already JSON, return it directly
+            return response.data;
+        }
+
     }
     catch (error) {
         console.log(error);
