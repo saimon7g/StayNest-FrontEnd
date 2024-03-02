@@ -103,6 +103,14 @@ const GuestNavbar = ({ isLoginFormVisible, setIsLoginFormVisible, loggedIn, setL
         router.push('/host');
     }
 
+    const print = () => {
+        console.log("location", location);
+        console.log("startDate", startDate);
+        console.log("endDate", endDate);
+        console.log("numberOfPeople", numberOfPeople);
+        console.log("latlng", latlng);
+    }
+
     return (
         <Navbar fluid rounded className="bg-cyan-700">
             {/* Logo on the left */}
@@ -166,7 +174,8 @@ const GuestNavbar = ({ isLoginFormVisible, setIsLoginFormVisible, loggedIn, setL
                     <form onSubmit={handleSearchSubmit} >
                         <div>
                             <label htmlFor="location">Location</label>
-                            <Button onClick={() => setIsMapVisible(true)}>Search using map</Button>
+                            <Button onClick={() => setIsMapVisible(true)}>Select on Map</Button>
+                            {/* <Button onClick={() => print()}>Print</Button> */}
                             <input
                                 type="text"
                                 placeholder="Anywhere"
