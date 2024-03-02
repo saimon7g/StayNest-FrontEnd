@@ -195,5 +195,6 @@ export default function ReservationSummary({ reservation }) {
                 </div>
             </Card>
         </div>
+    </div>
     );
 }
