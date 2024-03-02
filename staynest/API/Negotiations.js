@@ -84,12 +84,7 @@ export async function getNegotiations() {
     console.log("getNegotiations");
     try {
         const authToken = sessionStorage.getItem('authToken');
-        // if (authToken === null) {
-        //     console.log("//-----No token found");
-        //     // geenrate error
-        //     // return;
-        //     return constantdata;
-        // }
+        
         const response = await axios.get(`http://127.0.0.1:8000/guest/api/nego/negotiations/`, {
             headers: {
                 'Authorization': `Token ${authToken}`,
@@ -159,12 +154,7 @@ export async function getNegotiationDetails(negotiationId) {
     };
     try {
         const authToken = sessionStorage.getItem('authToken');
-        // if (authToken === null) {
-        //     console.log("//-----No token found");
-        //     // geenrate error
-        //     // return;
-        //     return constantdata;
-        // }
+       
         const response = await axios.get(`http://127.0.0.1:8000/guest/api/nego/negotiation_details/${negotiationId}/`, {
             headers: {
                 'Authorization': `Token ${authToken}`,
