@@ -36,6 +36,25 @@ const Step2 = () => {
     const [regular_amenities, setRegularAmenities] = React.useState([]);
     const [standout_amenities, setStandoutAmenities] = React.useState([]);
     const [uploadedFiles, setUploadedFiles] = React.useState([]);
+    //regular amenities
+    const [wifi, setWifi] = useState(false);
+    const [tv, setTv] = useState(false);
+    const [kitchen, setKitchen] = useState(false);
+    const [workplace, setWorkplace] = useState(false);
+    const [parking, setParking] = useState(false);
+    const [airConditioning, setAirConditioning] = useState(false);
+    const [washingMachine, setWashingMachine] = useState(false);
+    //standout amenities
+    const [pool, setPool] = useState(false);
+    const [hotTub, setHotTub] = useState(false);
+    const [barbecue, setBarbecue] = useState(false);
+    const [dining, setDining] = useState(false);
+    const [bonFire, setBonFire] = useState(false);
+    const [firePlace, setFirePlace] = useState(false);
+    const [piano, setPiano] = useState(false);
+    const [poolTable, setPoolTable] = useState(false);
+    const [gym, setGym] = useState(false);
+    const [beach, setBeach] = useState(false);
 
     const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
@@ -56,9 +75,10 @@ const Step2 = () => {
 
                     // Handle the response data as needed
                     setRegularAmenities(response.data.regular_amenities);
+                    updateRegularAmenities(regular_amenities);
                     setStandoutAmenities(response.data.standout_amenities);
+                    updateStandoutAmenities(standout_amenities);
                     setUploadedFiles(response.data.photos);
-
                 }
                 // Handle the response data as needed
             } catch (error) {
@@ -72,16 +92,198 @@ const Step2 = () => {
         }
     }, [registrationId]);
 
-    const handleRegularAmenities = (event, type) => {
-        console.log(type);
-        event.preventDefault();
-        setRegularAmenities([...regular_amenities, type]);
+    //regular
+    const getRegularAmenities = () => {
+        const trueAmenities = [];
+        
+        if (wifi) trueAmenities.push("Wifi");
+        if (tv) trueAmenities.push("TV");
+        if (kitchen) trueAmenities.push("Kitchen");
+        if (workplace) trueAmenities.push("Workplace");
+        if (parking) trueAmenities.push("Parking");
+        if (airConditioning) trueAmenities.push("Air conditioning");
+        if (washingMachine) trueAmenities.push("Washing machine");
+        
+        return trueAmenities;
+    };
+    const updateRegularAmenities = (amenitiesArray) => {
+        amenitiesArray.forEach(amenity => {
+            switch (amenity) {
+                case "Wifi":
+                    setWifi(true);
+                    break;
+                case "TV":
+                    setTv(true);
+                    break;
+                case "Kitchen":
+                    setKitchen(true);
+                    break;
+                case "Workspace":
+                    setWorkplace(true);
+                    break;
+                case "Parking":
+                    setParking(true);
+                    break;
+                case "Air conditioning":
+                    setAirConditioning(true);
+                    break;
+                case "Washing machine":
+                    setWashingMachine(true);
+                    break;
+                default:
+                    break;
+            }
+        });
+    };
+    const handleRegularAmenities = () => {
+        setRegularAmenities(getRegularAmenities());
     }
-    const handleStandoutAmenities = (event, type) => {
-        console.log(type);
-        event.preventDefault();
-        setStandoutAmenities([...standout_amenities, type]);
+
+    
+    const handleWifiClick = () => {
+        setWifi(!wifi);
+        handleRegularAmenities(); // Update regular amenities array
+        console.log(regular_amenities);
+    };
+    
+    const handleTvClick = () => {
+        setTv(!tv);
+        handleRegularAmenities(); // Update regular amenities array
+    };
+    
+    const handleKitchenClick = () => {
+        setKitchen(!kitchen);
+        handleRegularAmenities(); // Update regular amenities array
+    };
+    
+    const handleWorkplaceClick = () => {
+        setWorkplace(!workplace);
+        handleRegularAmenities(); // Update regular amenities array
+    };
+    
+    const handleParkingClick = () => {
+        setParking(!parking);
+        handleRegularAmenities(); // Update regular amenities array
+    };
+    
+    const handleAirConditioningClick = () => {
+        setAirConditioning(!airConditioning);
+        handleRegularAmenities(); // Update regular amenities array
+    };
+    
+    const handleWashingMachineClick = () => {
+        setWashingMachine(!washingMachine);
+        handleRegularAmenities(); // Update regular amenities array
+    };
+    
+    //standout
+    const getStandoutAmenities = () => {
+        const standoutAmenitiesArray = [];
+        if (pool) standoutAmenitiesArray.push("Pool");
+        if (hotTub) standoutAmenitiesArray.push("Hot tub");
+        if (barbecue) standoutAmenitiesArray.push("Barbecue");
+        if (dining) standoutAmenitiesArray.push("Dining");
+        if (bonFire) standoutAmenitiesArray.push("Bonfire");
+        if (firePlace) standoutAmenitiesArray.push("Fireplace");
+        if (piano) standoutAmenitiesArray.push("Piano");
+        if (poolTable) standoutAmenitiesArray.push("Pool table");
+        if (gym) standoutAmenitiesArray.push("Gym");
+        if (beach) standoutAmenitiesArray.push("Beach");
+    
+        return standoutAmenitiesArray;
+    };
+    const updateStandoutAmenities = (amenitiesArray) => {
+        amenitiesArray.forEach(amenity => {
+            switch (amenity) {
+                case "Pool":
+                    setPool(true);
+                    break;
+                case "Hot tub":
+                    setHotTub(true);
+                    break;
+                case "Barbecue":
+                    setBarbecue(true);
+                    break;
+                case "Dining":
+                    setDining(true);
+                    break;
+                case "Bonfire":
+                    setBonFire(true);
+                    break;
+                case "Fireplace":
+                    setFirePlace(true);
+                    break;
+                case "Piano":
+                    setPiano(true);
+                    break;
+                case "Pool table":
+                    setPoolTable(true);
+                    break;
+                case "Gym":
+                    setGym(true);
+                    break;
+                case "Beach":
+                    setBeach(true);
+                    break;
+                default:
+                    break;
+            }
+        });
+    };
+    const handleStandoutAmenities = () => {
+        setStandoutAmenities(getStandoutAmenities());
     }
+    
+    const handlePoolClick = () => {
+        setPool(!pool);
+        handleStandoutAmenities(); // Update standout amenities array
+        console.log(standout_amenities);
+    };
+    
+    const handleHotTubClick = () => {
+        setHotTub(!hotTub);
+        handleStandoutAmenities(); // Update standout amenities array
+    };
+    
+    const handleBarbecueClick = () => {
+        setBarbecue(!barbecue);
+        handleStandoutAmenities(); // Update standout amenities array
+    };
+    
+    const handleDiningClick = () => {
+        setDining(!dining);
+        handleStandoutAmenities(); // Update standout amenities array
+    };
+    
+    const handleBonFireClick = () => {
+        setBonFire(!bonFire);
+        handleStandoutAmenities(); // Update standout amenities array
+    };
+    
+    const handleFirePlaceClick = () => {
+        setFirePlace(!firePlace);
+        handleStandoutAmenities(); // Update standout amenities array
+    };
+    
+    const handlePianoClick = () => {
+        setPiano(!piano);
+        handleStandoutAmenities(); // Update standout amenities array
+    };
+    
+    const handlePoolTableClick = () => {
+        setPoolTable(!poolTable);
+        handleStandoutAmenities(); // Update standout amenities array
+    };
+    
+    const handleGymClick = () => {
+        setGym(!gym);
+        handleStandoutAmenities(); // Update standout amenities array
+    };
+    
+    const handleBeachClick = () => {
+        setBeach(!beach);
+        handleStandoutAmenities(); // Update standout amenities array
+    };
 
 
     const handleUpload = async (files) => {
@@ -154,8 +356,8 @@ const Step2 = () => {
     return (
         <div>
             <HostNavBar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
-            <div>
-                <h1>Make your place stand out</h1>
+            <div className="border-4 rounded shadow-2xl w-7/12 mx-auto my-20">
+                {/* <h1>Make your place stand out</h1> */}
                 <div className="flex flex-col justify-center items-center mb-48">
                     <div className="my-10">
                         <text className="text-2xl font-bold">4. Tell us what your place has to offer</text>
@@ -163,19 +365,19 @@ const Step2 = () => {
                         <text className="text-lg text-gray-400 font-bold pl-10">You can add more amenities later</text>
                     </div>
                     <div className="flex justify-center">
-                        <button onClick={(e) => handleRegularAmenities(e, "Wifi")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <button onClick={handleWifiClick} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2 ${wifi ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
                             <div className="flex">
                                 <div>
                                     <FaWifi className="text-2xl text-center" />
                                 </div>
                                 <div className="pl-5 font-bold">
-                                    wifi
+                                    Wifi
                                 </div>
                             </div>
                         </button>
-                        <button onClick={(e) => handleRegularAmenities(e, "TV")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <button onClick={handleTvClick} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2 ${tv ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
                             <div className="flex">
-                                <div >
+                                <div>
                                     <PiTelevisionSimpleDuotone className="text-2xl text-center" />
                                 </div>
                                 <div className="pl-5 font-bold">
@@ -183,9 +385,9 @@ const Step2 = () => {
                                 </div>
                             </div>
                         </button>
-                        <button onClick={(e) => handleRegularAmenities(e, "Kitchen")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <button onClick={handleKitchenClick} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2 ${kitchen ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
                             <div className="flex">
-                                <div >
+                                <div>
                                     <MdOutlineSoupKitchen className="text-2xl text-center" />
                                 </div>
                                 <div className="pl-5 font-bold">
@@ -195,19 +397,19 @@ const Step2 = () => {
                         </button>
                     </div>
                     <div className="flex justify-center">
-                        <button onClick={(e) => handleRegularAmenities(e, "Workspace")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <button onClick={handleWorkplaceClick} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2 ${workplace ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
                             <div className="flex">
-                                <div >
+                                <div>
                                     <BsPersonWorkspace className="text-2xl text-center" />
                                 </div>
                                 <div className="pl-5 font-bold">
-                                    Workspace
+                                    Workplace
                                 </div>
                             </div>
                         </button>
-                        <button onClick={(e) => handleRegularAmenities(e, "Parking")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <button onClick={handleParkingClick} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2 ${parking ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
                             <div className="flex">
-                                <div >
+                                <div>
                                     <FaParking className="text-2xl text-center" />
                                 </div>
                                 <div className="pl-5 font-bold">
@@ -215,7 +417,7 @@ const Step2 = () => {
                                 </div>
                             </div>
                         </button>
-                        <button onClick={(e) => handleRegularAmenities(e, "Air conditioning")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <button onClick={handleAirConditioningClick} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2 ${airConditioning ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
                             <div className="flex">
                                 <div>
                                     <TbAirConditioning className="text-2xl text-center" />
@@ -226,11 +428,10 @@ const Step2 = () => {
                             </div>
                         </button>
                     </div>
-
                     <div className="flex justify-center">
-                        <button onClick={(e) => handleRegularAmenities(e, "Washing machine")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <button onClick={handleWashingMachineClick} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2 ${washingMachine ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
                             <div className="flex">
-                                <div >
+                                <div>
                                     <GiWashingMachine className="text-2xl text-center" />
                                 </div>
                                 <div className="pl-5 font-bold">
@@ -241,6 +442,7 @@ const Step2 = () => {
                     </div>
                 </div>
 
+
                 <div className="flex flex-col justify-center items-center mb-48">
                     <div className="mb-16">
                         <text className="text-2xl font-bold">5. Do you have any stand out features?</text>
@@ -248,7 +450,7 @@ const Step2 = () => {
                         <text className="text-lg text-gray-400 font-bold pl-10">You can add more later</text>
                     </div>
                     <div className="flex justify-center">
-                        <button onClick={(e) => handleStandoutAmenities(e, "Pool")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <button onClick={handlePoolClick} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2 ${pool? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'} `}>
                             <div className="flex">
                                 <div >
                                     <TbPool className="text-2xl text-center" />
@@ -258,7 +460,7 @@ const Step2 = () => {
                                 </div>
                             </div>
                         </button>
-                        <button onClick={(e) => handleStandoutAmenities(e, "Hot tub")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <button onClick={handleHotTubClick} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2 ${hotTub ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
                             <div className="flex">
                                 <div >
                                     <FaHotTub className="text-2xl text-center" />
@@ -268,7 +470,8 @@ const Step2 = () => {
                                 </div>
                             </div>
                         </button>
-                        <button onClick={(e) => handleStandoutAmenities(e, "Barbecue")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+
+                        <button onClick={handleBarbecueClick} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2 ${barbecue ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
                             <div className="flex">
                                 <div >
                                     <GiBarbecue className="text-2xl text-center" />
@@ -280,9 +483,9 @@ const Step2 = () => {
                         </button>
                     </div>
                     <div className="flex justify-center">
-                        <button onClick={(e) => handleStandoutAmenities(e, "Dining")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <button onClick={handleDiningClick} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2 ${dining ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
                             <div className="flex">
-                                <div >
+                                <div>
                                     <MdOutlineDinnerDining className="text-2xl text-center" />
                                 </div>
                                 <div className="pl-5 font-bold">
@@ -290,9 +493,10 @@ const Step2 = () => {
                                 </div>
                             </div>
                         </button>
-                        <button onClick={(e) => handleStandoutAmenities(e, "Bonfire")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+
+                        <button onClick={handleBonFireClick} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2 ${bonFire ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
                             <div className="flex">
-                                <div >
+                                <div>
                                     <IoMdBonfire className="text-2xl text-center" />
                                 </div>
                                 <div className="pl-5 font-bold">
@@ -300,9 +504,10 @@ const Step2 = () => {
                                 </div>
                             </div>
                         </button>
-                        <button onClick={(e) => handleStandoutAmenities(e, "Fireplace")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+
+                        <button onClick={handleFirePlaceClick} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2 ${firePlace ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
                             <div className="flex">
-                                <div >
+                                <div>
                                     <GiFireplace className="text-2xl text-center" />
                                 </div>
                                 <div className="pl-5 font-bold">
@@ -310,11 +515,12 @@ const Step2 = () => {
                                 </div>
                             </div>
                         </button>
+
                     </div>
                     <div className="flex justify-center">
-                        <button onClick={(e) => handleStandoutAmenities(e, "Piano")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <button onClick={handlePianoClick} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2 ${piano ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
                             <div className="flex">
-                                <div >
+                                <div>
                                     <CgPiano className="text-2xl text-center" />
                                 </div>
                                 <div className="pl-5 font-bold">
@@ -322,9 +528,10 @@ const Step2 = () => {
                                 </div>
                             </div>
                         </button>
-                        <button onClick={(e) => handleStandoutAmenities(e, "Pool table")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+
+                        <button onClick={handlePoolTableClick} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2 ${poolTable ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
                             <div className="flex">
-                                <div >
+                                <div>
                                     <GiPoolTableCorner className="text-2xl text-center" />
                                 </div>
                                 <div className="pl-5 font-bold">
@@ -332,9 +539,10 @@ const Step2 = () => {
                                 </div>
                             </div>
                         </button>
-                        <button onClick={(e) => handleStandoutAmenities(e, "Gym")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+
+                        <button onClick={handleGymClick} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2 ${gym ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
                             <div className="flex">
-                                <div >
+                                <div>
                                     <CgGym className="text-2xl text-center" />
                                 </div>
                                 <div className="pl-5 font-bold">
@@ -344,9 +552,9 @@ const Step2 = () => {
                         </button>
                     </div>
                     <div className="flex justify-center">
-                        <button onClick={(e) => handleStandoutAmenities(e, "Beach")} className="flex border-2 border-stone-600 rounded-lg w-auto p-5 m-2 active:bg-black active:text-white ">
+                        <button onClick={handleBeachClick} className={`flex border-2 border-amber-500 rounded-lg w-auto p-5 m-2 ${beach ? 'bg-amber-300 text-black' : 'hover:bg-amber-100 bg-white text-black'}`}>
                             <div className="flex">
-                                <div >
+                                <div>
                                     <FaUmbrellaBeach className="text-2xl text-center" />
                                 </div>
                                 <div className="pl-5 font-bold">
