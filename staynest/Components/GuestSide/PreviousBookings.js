@@ -1,7 +1,9 @@
 import React, { use, useState } from 'react';
-import { HiUser, HiArrowSmRight } from "react-icons/hi";
+import { HiArrowSmRight } from "react-icons/hi";
 import { getPreviousBookings } from '@/API/UserDashBoard';
 import { useEffect } from 'react';
+import { FaHome } from "react-icons/fa";
+
 
 export function PreviousBookings({ handleOptionClick, setSelectedBookingId }) {
     const [previousBookings, setPreviousBookings] = useState(null);
@@ -9,12 +11,14 @@ export function PreviousBookings({ handleOptionClick, setSelectedBookingId }) {
 
     const fetchPreviousBookings = async () => {
         const response = await getPreviousBookings();
-        setPreviousBookings(response.data.previous_bookings);
+        if (response) {
+            console.log("result from getPreviousBookings component", response);
+            setPreviousBookings(response);
+        }
     }
     useEffect(() => {
         fetchPreviousBookings();
-    }
-        , []);
+    }, []);
     const clickHandler = (x) => () => {
         handleOptionClick('BookingDetails');
         setSelectedBooking(x);
@@ -27,12 +31,16 @@ export function PreviousBookings({ handleOptionClick, setSelectedBookingId }) {
                 <h1 className="text-2xl font-bold mb-5">All Previous Bookings</h1>
                 <div className="flex flex-col">
                     {/* Display previous bookings */}
+
                     {previousBookings.map((booking, index) => (
-                        <div key={index} className="flex flex-row items-center justify-between border-b-2 border-gray-100 p-5 hover:bg-gray-200" onClick={clickHandler(booking.booking_id)}>
+                        <div key={index} className="flex flex-row items-center justify-between border-b-2 border-gray-100 p-5 hover:bg-gray-200" onClick={clickHandler(booking.id)}>
                             {/* on hoever change color */}
                             <div className="flex flex-row items-center" >
-                                <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
-                                    <HiUser className="text-3xl text-gray-500" />
+                            <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                                   {/* if booking.property_photo is null then show default image */}
+                                    {booking.property_photo === null ? <FaHome className="text-3xl text-gray-500" /> : <Image src={booking.property_photo} alt="property" width={100} height={100} />}
+
+
                                 </div>
                                 <div className="ml-5">
                                     <h3 className="text-lg font-bold">{booking.property_name}</h3>

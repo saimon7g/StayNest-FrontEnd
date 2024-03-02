@@ -73,7 +73,7 @@ export default function ReservationSummary({ reservation }) {
     const params = useSearchParams();
     const parsedData = JSON.parse(params.get('query'));
     const [openModal, setOpenModal] = useState(false);
-    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+    const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
 
     const handlePaymentComplete = () => {
@@ -93,7 +93,7 @@ export default function ReservationSummary({ reservation }) {
 
         fetchData();
     }, [parsedData]);
-    const reserve=async()=>{
+    const reserve=async(data)=>{
 
         try{
             const response = await reserveProperty(parsedData);
@@ -125,28 +125,7 @@ export default function ReservationSummary({ reservation }) {
 
     const handlePayment =async () => {
         console.log('hnadling payment' );
-        // try{
-        //     
-
-        //     const response = await reserveProperty(parsedData);
-        //     if (response.status ===201 ) {
-        //         setOpenModal(true);
-        //         alert('Booking successful');
-        //     }
-        //     else if (response.status === 401) {
-        //         console.log('401-----')
-        //         alert(response.message );
-        //         console.log(response.message);  
-        //     }
-
-
-        //     else {
-        //         alert(response['message']);
-        //     }
-        // }
-        // catch(error){
-        //     console.log(error);
-        // }
+        
         
         setOpenModal(true)
        
@@ -154,7 +133,7 @@ export default function ReservationSummary({ reservation }) {
 
     return (
         <div>
-            <Navbar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+            <Navbar isLoginFormVisible={isLoginFormVisible} setIsLoginFormVisible={setIsLoginFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
         <div className="flex justify-center items-center h-screen">
             <Card className="w-200 mx-auto p-4">
                 <div className="grid grid-cols-2 gap-4">
@@ -224,6 +203,7 @@ export default function ReservationSummary({ reservation }) {
                         openModal={openModal}
                         setOpenModal={setOpenModal}
                         onPaymentComplete={reserve}
+                        negotiation={reservationData}
                         />
                     </div>
                 </div>
