@@ -14,6 +14,8 @@ import { IoLocation } from "react-icons/io5";
 import { FaPeopleArrows } from "react-icons/fa6";
 import { useEffect, useContext } from 'react';
 import RegistrationContext from "@/contexts/registrationContext"; // Line 24setRegistrationId
+import HostNavBar from "@/Components/HostSide/HostNavbar";
+import Footer from "@/Components/Footer";
 
 const Step3 = () => {
     const { registrationId, setRegistrationId } = useContext(RegistrationContext);  // use the context
@@ -76,6 +78,8 @@ const Step3 = () => {
     };
 
     return (
+        <div>
+            <HostNavBar />
         <div className="flex flex-col items-center justify-center">
             <div className="mb-40">
                 <div className="pb-10">
@@ -179,6 +183,8 @@ const Step3 = () => {
                     </div>
                 </div>
             </div>
+        </div>
+        <Footer />
         </div>
     );
 };

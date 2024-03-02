@@ -18,6 +18,8 @@ import { Label, Radio } from 'flowbite-react';
 import DatePicker from "react-datepicker";
 import { subDays } from 'date-fns';
 import { NegotiationModal } from '@/Components/GuestSide/NegotiateModal';
+import Navbar from "@/Components/GuestSide/GuestNavBar";
+import Footer from "@/Components/Footer";
 import { loggedInCheck } from '@/API/auth';
 
 
@@ -194,6 +196,8 @@ export default function SingleProperty({ params }) {
 
 
   return (
+    <div>
+      <Navbar />
 
     <div className='flex flex-col items-around justify-center w-4/6 mx-auto'>
       <div className='my-6 '>
@@ -426,6 +430,8 @@ export default function SingleProperty({ params }) {
           {property && property.host && property.host.response_time && (<text className='text-slate-400 ml-4 mx-4'>response rate {property.host.response_time}</text>)}
         </div>
       </div>
+    </div>
+    <Footer />
     </div>
   );
 }

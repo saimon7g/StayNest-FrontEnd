@@ -4,6 +4,8 @@ import { reserveProperty } from '@/API/GuestAPI';
 import { useEffect, useState } from 'react';
 import { Card, Button } from 'flowbite-react';
 import {Payment} from '@/Components/Payment';
+import Navbar from "@/Components/GuestSide/GuestNavBar";
+import Footer from "@/Components/Footer";
 
 
 export default function ReservationSummary({ reservation }) {
@@ -123,6 +125,8 @@ export default function ReservationSummary({ reservation }) {
     };
 
     return (
+        <div>
+            <Navbar />
         <div className="flex justify-center items-center h-screen">
             <Card className="w-200 mx-auto p-4">
                 <div className="grid grid-cols-2 gap-4">
@@ -191,6 +195,8 @@ export default function ReservationSummary({ reservation }) {
                     </div>
                 </div>
             </Card>
+        </div>
+        <Footer />
         </div>
     );
 }

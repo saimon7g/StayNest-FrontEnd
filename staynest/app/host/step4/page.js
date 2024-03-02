@@ -6,6 +6,8 @@ import FileUpload from "@/Components/ImageUpload";
 import { useState } from "react";
 import { Step4GET, Step4PUT } from "@/API/Registration";
 import { MdAttachMoney } from "react-icons/md";
+import HostNavBar from "@/Components/HostSide/HostNavbar";
+import Footer from "@/Components/Footer";
 
 import RegistrationContext from "@/contexts/registrationContext";
 import { MealForm} from '@/Components/HostSide/MealForm.js';
@@ -88,6 +90,8 @@ const Step4 = () => {
     };
 
     return (
+        <div>
+            <HostNavBar />
         <div className="flex flex-col items-center justify-center">
             <div className="my-20">
                 <Card className="p-6">
@@ -147,6 +151,8 @@ const Step4 = () => {
                     <Button className="border border-gray-400 rounded-lg p-2" onClick={handleSubmit}>Next</Button>
                 </Link>
             </div>
+        </div>
+        <Footer />
         </div>
     );
 };

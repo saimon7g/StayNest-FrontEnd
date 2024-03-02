@@ -9,6 +9,8 @@ import Settings from '@/Components/GuestSide/Settings';
 import PreviousBookings from '@/Components/GuestSide/PreviousBookings';
 import NegotiationList from '@/Components/GuestSide/NegotiationList';
 import NegotiationDetails from '@/Components/GuestSide/NegotiationDetails';
+import Navbar from "@/Components/GuestSide/GuestNavBar";
+import Footer from "@/Components/Footer";
 
 
 function Dashboard() {
@@ -26,6 +28,8 @@ function Dashboard() {
     };
 
     return (
+        <div>
+            <Navbar />
         <div className="flex flex-row h-screen">
             {/* Sidebar */}
             
@@ -65,6 +69,8 @@ function Dashboard() {
                 {selectedOption === 'PreviousBookings' && <PreviousBookings handleOptionClick={handleOptionClick} setSelectedBookingId={setSelectedBookingId} />}
                 {selectedOption === 'Settings' && <Settings />}
             </div>
+        </div>
+        <Footer />
         </div>
     );
 

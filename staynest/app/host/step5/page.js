@@ -7,6 +7,11 @@ import FileUpload from "@/Components/ImageUpload";
 import { Step5GET, Step5PUT } from "@/API/Registration";
 import { useEffect,useContext } from 'react';
 import RegistrationContext from "@/contexts/registrationContext";
+import HostNavBar from "@/Components/HostSide/HostNavbar";
+import Footer from "@/Components/Footer";
+
+
+
 const Modal = ({ isOpen, onClose }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [mealType, setMealType] = useState('Breakfast');
@@ -97,6 +102,8 @@ const Modal = ({ isOpen, onClose }) => {
   
 
   return (
+    <div>
+      <HostNavBar/>
     <div className={`modal ${isOpen ? 'flex justify-center items-center' : 'hidden'}`}>
       <div className="modal-overlay"></div>
       <div className="modal-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '80%' }}>
@@ -214,6 +221,8 @@ const Modal = ({ isOpen, onClose }) => {
           </div>
       </div>
      
+    </div>
+    <Footer/>
     </div>
   );
 };
