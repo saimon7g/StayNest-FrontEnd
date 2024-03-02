@@ -3,6 +3,7 @@ import { HiArrowSmRight } from "react-icons/hi";
 import { getPreviousBookings } from '@/API/UserDashBoard';
 import { useEffect } from 'react';
 import { FaHome } from "react-icons/fa";
+import { Spinner } from 'flowbite-react';
 
 
 export function PreviousBookings({ handleOptionClick, setSelectedBookingId }) {
@@ -26,7 +27,7 @@ export function PreviousBookings({ handleOptionClick, setSelectedBookingId }) {
     }
 
     return (
-        previousBookings === null ? <div>Loading...</div> :
+        previousBookings === null ? <div className="flex justify-center items-center h-96">       <Spinner aria-label="Extra large spinner example" size="xl" /> </div> :
             <div className="flex flex-col">
                 <h1 className="text-2xl font-bold mb-5">All Previous Bookings</h1>
                 <div className="flex flex-col">

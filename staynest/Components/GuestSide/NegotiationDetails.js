@@ -7,6 +7,7 @@ import { FaArrowCircleLeft } from "react-icons/fa";
 import { getNegotiationDetails } from "@/API/Negotiations";
 import { offerAcceptedByGuest } from "@/API/Negotiations";
 import { offerRejectedByGuest } from "@/API/Negotiations";
+import { Spinner } from 'flowbite-react';
 
 export function NegotiationDetails({ negotiationId, handleOptionClick }) {
 
@@ -253,7 +254,8 @@ export function NegotiationDetails({ negotiationId, handleOptionClick }) {
 
             </div>
         ) : (
-            <div>Loading...</div>
+            <div className="flex justify-center items-center h-96">       <Spinner aria-label="Extra large spinner example" size="xl" />
+            </div>
         )
     );
 

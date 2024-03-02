@@ -90,16 +90,6 @@ export function BookingDetails({ bookingId, handleOptionClick }) {
         // regular_amenities: ["wifi", "parking", "pool"]
         // reviews: [{ review: "", rating: 5, guest_id: 1, property_id: 1, created_at: "", updated_at: "" }]
         // special_amenities: ["gym", "spa", "sauna"]
-
-
-
-
-
-
-
-
-
-
         <div>
             <FaArrowCircleLeft onClick={goBack} className="text-2xl cursor-pointer" />
 

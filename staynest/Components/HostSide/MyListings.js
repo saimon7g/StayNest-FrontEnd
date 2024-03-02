@@ -2,7 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { HiArrowSmRight } from "react-icons/hi";
 import { getMyListings } from '@/API/UserDashBoard'; 
-import Image from 'next/image'
+import Image from 'next/image';
+import { Spinner } from 'flowbite-react';
+
+
+
+
+
 export function MyListings({ handleOptionClick, setSelectedPropertyId }) {
     const [listings, setListings] = useState(null);
 
@@ -21,7 +27,7 @@ export function MyListings({ handleOptionClick, setSelectedPropertyId }) {
     };
 
     return (
-        listings === null ? <div>Loading...</div> :
+        listings === null ? <div className="flex justify-center items-center h-96">       <Spinner aria-label="Extra large spinner example" size="xl" /> </div> :
             <div className="flex flex-col">
                 <h1 className="text-2xl font-bold mb-5">My Listings</h1>
                 <div className="flex flex-col">
