@@ -7,6 +7,8 @@ import Link from 'next/link';
 import RegistrationContext from "@/contexts/registrationContext";
 import { useEffect,useContext } from 'react';
 import { Step6GET,Step6PUT } from "@/API/Registration";
+import HostNavBar from "@/Components/HostSide/HostNavbar";
+import Footer from "@/Components/Footer";
 
 
 
@@ -77,6 +79,8 @@ const Step6 = () => {
     };
 
     return (
+        <div>
+            <HostNavBar />
         <div className="flex flex-col justify-center items-center">
             {/* do you allow paying guest */}
             <div>
@@ -107,6 +111,8 @@ const Step6 = () => {
                     <button className="border border-gray-400 rounded-lg p-2 m-2" onClick={handleSubmit}>Next</button>
                 </Link>
             </div>
+        </div>
+        <Footer />
         </div>
     );
 
