@@ -13,6 +13,15 @@ import SignupForm from '../SignupForm';
 import Link from 'next/link';
 import { getUser , logout} from '@/API/auth';
 
+export function loggedInCheck() {
+    return GuestNavbar.loggedIn;
+}
+
+
+// GuestNavbar component
+
+
+
 const GuestNavbar = () => {
     const router = useRouter();
     const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);

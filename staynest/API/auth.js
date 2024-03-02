@@ -75,4 +75,14 @@ const getUser = async () => {
     throw error;
   }
 };  
-export { setAuthToken, signup, hostSignup, login, logout, getUser};
+const loggedInCheck = () => {
+  
+   if(localStorage.getItem('authToken')){
+      return true;
+    }
+    else{
+      return false;
+    }
+  
+};
+export { setAuthToken, signup, hostSignup, login, logout, getUser, loggedInCheck};

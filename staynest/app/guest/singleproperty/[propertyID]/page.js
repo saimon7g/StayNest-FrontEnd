@@ -18,6 +18,8 @@ import { Label, Radio } from 'flowbite-react';
 import DatePicker from "react-datepicker";
 import { subDays } from 'date-fns';
 import { NegotiationModal } from '@/Components/GuestSide/NegotiateModal';
+import { loggedInCheck } from '@/API/auth';
+
 
 export default function SingleProperty({ params }) {
   const [openModal, setOpenModal] = useState(false);
@@ -33,6 +35,7 @@ export default function SingleProperty({ params }) {
   const [negotiateModal, setNegotiateModal] = useState(false);
   const [guestPrice, setGuestPrice] = useState(0);
   const [bookingSummary, setBookingSummary] = useState({});
+  const [loggedIn, setLoggedIn] = useState(false);
   const id = params.propertyID;
   const router = useRouter();
 
@@ -103,17 +106,25 @@ export default function SingleProperty({ params }) {
         setLunch(mealresponse.lunch);
         setDinner(mealresponse.dinner);
 
-
+        let flag=loggedInCheck();
+    setLoggedIn(flag);
       }
       catch (error) {
         console.error(error);
       }
     }
 
+    
+
     fetchData();
   }, []);
 
   const handleReserve = async () => {
+    let flag=loggedInCheck();
+    if (!flag) {
+      alert('Please login to continue');
+      return;
+    }
     const data = {
       property_id: id,
       guest_id: 5,

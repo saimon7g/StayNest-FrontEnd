@@ -235,78 +235,43 @@ export async function getProperties(data) {
 
 export async function reserveProperty(data) {
     try {
-        // const data={
-        //     "property_id": 123,
-        //     "guest_id": 456,
-        //     "host_id": 789,
-        //     "booking_type": "stay_with_meal",
-        //     "start_date": "2024-02-22",
-        //     "end_date": "2024-02-24",
-        //     "base_price": 1000.00,
-        //     "platform_fee": 50.00,
-        //     "tax": 25.00,
-        //     "number_of_guests": 2,
-        //     "breakfast": [
-        //       {
-                
-        //         "meal_name": "Continental Breakfast",
-        //         "quantity": 2,
-        //         "date": "2024-02-22",
-        //         "price": 10.00
-        //       },
-        //       { 
-        //         "meal_name": "Pasta",
-        //         "quantity": 2,
-        //         "date": "2024-02-22",
-        //         "price": 15.00
-        //       }
-        //     ],
-        //     "lunch": [
-        //         {
-                  
-        //           "meal_name": "Continental Breakfast",
-        //           "quantity": 2,
-        //           "date": "2024-02-22",
-        //           "price": 10.00
-        //         },
-        //         { 
-        //           "meal_name": "Pasta",
-        //           "quantity": 2,
-        //           "date": "2024-02-22",
-        //           "price": 15.00
-        //         }
-        //       ],
-        //       "dinner": [
-        //         {
-                  
-        //           "meal_name": "Continental Breakfast",
-        //           "quantity": 2,
-        //           "date": "2024-02-22",
-        //           "price": 10.00
-        //         },
-        //         { 
-        //           "meal_name": "Pasta",
-        //           "quantity": 2,
-        //           "date": "2024-02-22",
-        //           "price": 15.00
-        //         }
-        //       ]
-        //   };
-       
+        
         const response = await axios.post("guest/api/reserve/", data );
+        console.log(response)
         if (response.status === 201) {
             if (typeof response.data === 'string') {
                 response.data = JSON.parse(response.data);
+                response.data['status'] = response.status;
+                return response.data;
+            }
+        }
+            else if(response.status === 401)
+            {
+                return{"status":401,"message":"Please login to continue"}
+            }
+            else if(response.status === 200)
+            {
+                return({"status":200,"message":"This property is already booked for the selected dates. Please try anoyher"})
+            }
+            else
+            {
+                return{"status":400,"message":"Booking Failed. Please try again later."}    
             }
 
 
-        }
+        
+        
         // console.log(response);
         return response;
 
     }
     catch (error) {
         console.error(error);
+        if(response.status)
+        return{"error_status":response.status,"message":"what1"}
+        else 
+        return{"error_status":408,"message":"Request Timeout"}
+
     }
 }
 

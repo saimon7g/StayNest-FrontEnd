@@ -92,23 +92,33 @@ export default function ReservationSummary({ reservation }) {
     }, [parsedData]);
 
     const handlePayment =async () => {
-        const response = await reserveProperty(parsedData);
-        let data = response.data;
-        if (typeof data === 'string') {
-            data = JSON.parse(data);
-            // alert(response.data);
+
+        try{
+            const loggedIn= await loggedInCheck();
+           
+
+            const response = await reserveProperty(parsedData);
+            if (response.status ===201 ) {
+                setOpenModal(true);
+                alert('Booking successful');
+            }
+            else if (response.status === 401) {
+                console.log('401-----')
+                alert(response.message );
+                console.log(response.message);  
+            }
+
+
+            else {
+                console.log('Error----------');
+                alert(response['message']);
+            }
         }
-        if (response.status ===201 ) {
-            setOpenModal(true);
-            alert('Booking successful');
+        catch(error){
+            console.log(error);
         }
-        else if (response.status === 200) {
-            
-            alert(data.message );
-        }
-        else {
-            alert('Booking failed');
-        }
+        
+
        
     };
 
