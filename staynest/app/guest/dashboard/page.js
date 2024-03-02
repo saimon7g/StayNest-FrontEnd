@@ -15,7 +15,7 @@ import Footer from "@/Components/Footer";
 
 function Dashboard() {
     const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
-    const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
+    const [loggedIn, setLoggedIn] = useState(false); 
 
     const [selectedOption, setSelectedOption] = useState('EditProfile');
     const [selectedBookingId, setSelectedBookingId] = useState(null);

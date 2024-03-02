@@ -12,9 +12,10 @@ export function NegotiationList({ handleOptionClick, setSelectedNegotiationId })
 
     const fetchNegotiations = async () => {
         const response = await getNegotiationsOfHost();
+        if(response){
         setNegotiations(response);
         setCurrentNegotiations(response.filter(negotiation => negotiation.negotiation_status === "Host Proposed" || negotiation.negotiation_status === "Guest Proposed"));
-
+        }
     };
 
     useEffect(() => {
@@ -116,7 +117,13 @@ export function NegotiationList({ handleOptionClick, setSelectedNegotiationId })
                                                 <Badge color="red" size="xs">
                                                     {negotiation.negotiation_status}
                                                 </Badge>
-                                            ) : (
+                                            ) : (negotiation.negotiation_status === "Host Payment" || negotiation.negotiation_status === "Guest Payment") ? (
+                                                <Badge color="red" size="xs">
+                                                    "Payment Pending"
+                                                </Badge>
+                                            ) : 
+                                            
+                                            (
                                                 <Badge color="blue" size="xs">
                                                     {negotiation.negotiation_status}
                                                 </Badge>
@@ -128,7 +135,7 @@ export function NegotiationList({ handleOptionClick, setSelectedNegotiationId })
                                         <p className='text-grey-500'>Guest Price: {negotiation.guest_price}</p>
                                         <p className='text-grey-500'>Host Price: {negotiation.host_price}</p>
                                         <div className='flex items-center'>
-                                            {negotiation.host_price === null && (
+                                            {negotiation.host_price === null &&negotiation.negotiation_status==="Guest Proposed"&& (
                                                 <PriceInput
                                                     placeholder="0"
                                                     buttonText={"Offer New Price"}

@@ -13,10 +13,10 @@ import SignupForm from '@/Components/SignupForm';
 import Link from 'next/link';
 import { getUser , logout} from '@/API/auth';
 
-const HostNavBar = ( {isSearchFormVisible, setIsSearchFormVisible, loggedIn, setLoggedIn} ) => {
+const HostNavBar = ( {isLoginFormVisible,setIsLoginFormVisible, loggedIn, setLoggedIn} ) => {
     const router = useRouter();
 
-    const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
+    
     const [signupFormVisible, setSignupFormVisible] = useState(false);
     const [user, setUser] = useState(null);
 

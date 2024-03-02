@@ -5,15 +5,58 @@ import Image from 'next/image';
 import { Button,TextInput } from 'flowbite-react';
 import PriceInput from '@/Components/PriceInput';
 import { Badge } from 'flowbite-react';
+import { Payment } from '../Payment';
+import { reserveProperty } from '@/API/GuestAPI';
 
 export function NegotiationList({ handleOptionClick, setSelectedNegotiationId }) {
     const [negotiations, setNegotiations] = useState(null);
     const [currentNegotiations, setCurrentNegotiations] = useState(null);
     const [filter, setFilter] = useState('All');
+    const [openModal, setOpenModal] = useState(false);
+    const handlePayment=()=> {
+        setOpenModal(true);
+    }
+    const reserve = async (negotiation) => {
+        try {
+            negotiation['status'] = "approved"
+            const response = await reserveProperty(negotiation);
+            setOpenModal(false);
+            if (response.status === 201) {
+                alert('Booking successful');
+            }
+            else if (response.status === 200) {
+                console.log('401-----')
+                alert(response.message);
+                console.log(response.message);
+            }
+            else {
+                alert(response.message);
+            }
+            if(negotiation.negotiation_status=="Host Payment")
+            {
+                const response2 = await changeNegoStatus(negotiation.id, "Accepted By Host");
+            }
+            else 
+            {
+                const response2 = await changeNegoStatus(negotiation.id, "Accepted By Guest");
+            }
+
+
+            
+        }
+        catch (error) {
+            console.log(error);
+            return {"message":"System Error. Please try again later."}
+        }
+    };
+
+
     const fetchNegotiations = async () => {
         const response = await getNegotiationsOfGuest();
-        setNegotiations(response);
-        setCurrentNegotiations(response.filter(negotiation => negotiation.negotiation_status === "Host Proposed" ||negotiation.negotiation_status === "Guest Proposed" ));
+        if(response){
+            setNegotiations(response);
+            setCurrentNegotiations(response.filter(negotiation => negotiation.negotiation_status === "Host Proposed" ||negotiation.negotiation_status === "Guest Proposed" ));
+        }
     };
     
 
@@ -46,7 +89,7 @@ export function NegotiationList({ handleOptionClick, setSelectedNegotiationId })
     }
     const handleAccept = async (negotiationId) => {
         try {
-            const response = await changeNegoStatus(negotiationId,"Accepted By Guest");
+            const response = await changeNegoStatus(negotiationId,"Guest Payment");
             console.log('Response',response);
             if(response.status === 200){
                 fetchNegotiations();
@@ -117,12 +160,17 @@ export function NegotiationList({ handleOptionClick, setSelectedNegotiationId })
                                             ) : (negotiation.negotiation_status === "Accepted By Host" || negotiation.negotiation_status === "Accepted By Guest") ? (
                                                 <Badge color="green" size="xs">
                                                     {negotiation.negotiation_status}
-                                                </Badge>
+                                                </Badge> 
                                             ) : (negotiation.negotiation_status === "Rejected By Host" || negotiation.negotiation_status === "Rejected By Guest") ? (
                                                 <Badge color="red" size="xs">
                                                     {negotiation.negotiation_status}
                                                 </Badge>
-                                            ) : (
+                                            ) :  (negotiation.negotiation_status === "Host Payment" || negotiation.negotiation_status === "Guest Payment") ? (
+                                                <Badge color="red" size="xs">
+                                                    "Payment Pending"
+                                                </Badge>
+                                            ) : 
+                                            (
                                                 <Badge color="blue" size="xs">
                                                     {negotiation.negotiation_status}
                                                 </Badge>
@@ -152,7 +200,22 @@ export function NegotiationList({ handleOptionClick, setSelectedNegotiationId })
                                         </Button>
                                     </>
                                 )}
-                                
+
+                                {(negotiation.negotiation_status === "Host Payment" || negotiation.negotiation_status === "Guest Payment") && (
+                                    <div>
+                                     <Button className="mt-8 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" onClick={() => handlePayment()}>
+                                        Make Payment
+                                    </Button>
+
+                                    <Payment
+                                    openModal={openModal}
+                                    setOpenModal={setOpenModal}
+                                    onPaymentComplete={reserve}
+                                    negotiation={negotiation}
+                                    />
+                                    </div>
+                                        
+                                )}
                             </div>
                             </>
                         </div>

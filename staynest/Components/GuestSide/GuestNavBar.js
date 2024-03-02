@@ -17,14 +17,14 @@ import SearchUsingMap from './SearchUsingMap';
 // const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
 //     const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
 
-const GuestNavbar = ({ isSearchFormVisible, setIsSearchFormVisible, loggedIn, setLoggedIn }) => {
+const GuestNavbar = ({ isLoginFormVisible, setIsLoginFormVisible, loggedIn, setLoggedIn }) => {
     const router = useRouter();
 
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [numberOfPeople, setNumberOfPeople] = useState(1);
     const [location, setLocation] = useState('');
-    const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
+    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
     const [signupFormVisible, setSignupFormVisible] = useState(false);
     const [user, setUser] = useState(null);
     const [latlng, setLatlng] = useState({ lat: 0, lng: 0 });

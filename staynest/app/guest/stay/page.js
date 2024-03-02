@@ -17,7 +17,7 @@ export default function GuestStay() {
   const params = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState('stay');
   const [newParams, setNewParams] = useState({});
-  const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+  const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function GuestStay() {
    
   return (
     <div>
-      <Navbar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+      <Navbar isLoginFormVisible={isLoginFormVisible} setIsLoginFormVisible={setIsLoginFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
     <div className="flex flex-col items-center justify-center">
       {/* <div className='flex flex-row items-center justify-center w-11/12 my-20'>
         <div className='border-4 border-black rounded-lg w-1/4 ml-8'>

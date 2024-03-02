@@ -5,15 +5,17 @@ import { useState } from 'react';
 
 import { Modal, Card, Button ,Spinner } from 'flowbite-react';
 
-export function Payment({ openModal, setOpenModal, onPaymentComplete }) {
+export function Payment({ openModal, setOpenModal, onPaymentComplete,negotiation}) {
     const [processing,setProcessing]=useState(false)
 
   
 
     const handlePayment = () => {
         // Simulate payment processing
+        console.log('Processing payment...');
+        console.log(negotiation);
       setProcessing(true)
-        onPaymentComplete();
+        onPaymentComplete(negotiation);
         
         
     };

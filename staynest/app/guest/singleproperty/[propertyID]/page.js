@@ -39,7 +39,7 @@ export default function SingleProperty({ params }) {
   const [bookingSummary, setBookingSummary] = useState({});
   const id = params.propertyID;
   const router = useRouter();
-  const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+  const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
 
 
@@ -198,7 +198,7 @@ export default function SingleProperty({ params }) {
 
   return (
     <div>
-            <Navbar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+            <Navbar isLoginFormVisible={isLoginFormVisible} setIsLoginFormVisible={setIsLoginFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
     <div className='flex flex-col items-around justify-center w-4/6 mx-auto'>
       <div className='my-6 '>
         {property && property.name && (<p className='text-3xl font-bold'>{property.name}</p>)}
