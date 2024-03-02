@@ -129,6 +129,7 @@ export default function SingleProperty({ params }) {
       alert('Please login to continue');
       return;
     }
+    const days = Math.ceil(checkOutDate - checkInDate) / (1000 * 60 * 60 * 24);
     const data = {
       property_id: id,
       property_name: property.name,
@@ -145,7 +146,7 @@ export default function SingleProperty({ params }) {
       breakfast: cart.breakfast[0],
       lunch: cart.lunch[0],
       dinner: cart.dinner[0],
-      total_price: property.price * (checkOutDate - checkInDate) + 0.05 * property.price + 0.1 * property.price,
+      total_price: property.price * days + 0.05 * property.price + 0.1 * property.price,
       status: "approved",
     };
     const queryString = JSON.stringify(data);
@@ -163,6 +164,8 @@ export default function SingleProperty({ params }) {
     const data = {
       booking_details: {
         property_id: id,
+        property_type: property.property_type,
+        property_photo: property.photos[0].image_data,
         guest_id: 3,
         host_id: property.host.host_id,
         booking_type: booking_options,
@@ -177,7 +180,7 @@ export default function SingleProperty({ params }) {
         default_price: property.price * days + 0.05 * property.price + 0.1 * property.price,
         guest_price: guestPrice,
         host_price: null,
-        negotiation_status: "offeredbyguest",
+        negotiation_status: "Guest Proposed",
       },
       meals: {
         breakfast: cart.breakfast[0],
@@ -228,10 +231,9 @@ export default function SingleProperty({ params }) {
       </div>
       <div className='my-8'>
 
-        <Button className='bg-blue-500 text-white' onClick={() => print()}>Print</Button>
-        {breakfast && lunch && dinner && (
+        {breakfast && lunch && dinner  &&(
           <>
-            <Button onClick={() => setOpenModal(true)}>Add meal</Button>
+            <Button disabled={booking_options != 'stay_with_meal'} onClick={() => setOpenModal(true)}>Add meal</Button>
             <MealSelectionForm
               breakfast={breakfast}
               lunch={lunch}
@@ -316,19 +318,19 @@ export default function SingleProperty({ params }) {
           <div className='border-2 rounded-lg '>
             <fieldset className="flex max-w-md flex-col gap-4 p-4 ">
               <legend className="mb-4">Choose your booking option</legend>
-              {property && property.booking_options && property.booking_options.stay && (
+              {property && property.booking_options && property.stay && (
                 <div className="flex items-center gap-2">
                   <Radio name="bookingOption" onClick={() => setBookingOptions('stay')} defaultChecked />
                   <Label>Stay</Label>
                 </div>
               )}
-              {property && property.booking_options && property.booking_options.stay_with_meal && (
+              {property && property.booking_options && property.stay_with_meal && (
                 <div className="flex items-center gap-2">
                   <Radio name="bookingOption" onClick={() => setBookingOptions('stay_with_meal')} />
                   <Label>Stay with meal</Label>
                 </div>
               )}
-              {property && property.booking_options && property.booking_options.paying_guest && (
+              {property && property.booking_options && property.paying_guest && (
                 <div className="flex items-center gap-2">
                   <Radio name="bookingOption" onClick={() => setBookingOptions('paying_guest')} />
                   <Label>Paying guest</Label>
@@ -372,7 +374,7 @@ export default function SingleProperty({ params }) {
             </button>
           </div>
           <div className='flex flex-row justify-center w-full my-2'>
-            <button type="button" className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-4" onClick={() => { setNegotiateModal(true); negotiatleModalDataPreparation(); }}>
+            <button disabled={property&&(property.negotiation_availability===null||property.negotiation_availability)===false} type="button" className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-sm px-5 py-4" onClick={() => { setNegotiateModal(true); negotiatleModalDataPreparation(); }}>
               Negotiate
             </button>
 

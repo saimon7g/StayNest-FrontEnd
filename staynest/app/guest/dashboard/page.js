@@ -25,7 +25,15 @@ function Dashboard() {
    
    
     const handleOptionClick = (option) => {
+        
+        if(!loggedIn)
+        {
+            setIsLoginFormVisible(false);
+            setIsLoginFormVisible(true);
+            return;
+        }
         setSelectedOption(option);
+        
         
     };
 
