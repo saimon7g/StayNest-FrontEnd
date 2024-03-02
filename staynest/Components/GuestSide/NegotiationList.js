@@ -4,6 +4,7 @@ import { getNegotiationsOfGuest ,changeNegoStatus} from '@/API/Negotiations';
 import Image from 'next/image';
 import { Button,TextInput } from 'flowbite-react';
 import PriceInput from '@/Components/PriceInput';
+import { Badge } from 'flowbite-react';
 
 export function NegotiationList({ handleOptionClick, setSelectedNegotiationId }) {
     const [negotiations, setNegotiations] = useState(null);
@@ -89,7 +90,11 @@ export function NegotiationList({ handleOptionClick, setSelectedNegotiationId })
                             <>
                             <div className="flex items-center">
                                 <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
-                                    <Image src={negotiation.property_photo} width={100} height={100} className="rounded-lg " alt='property' />
+                                    {
+                                        negotiation?.property_photo === null ? (<div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                                            <HiArrowSmRight className="text-3xl" /></div>): <Image src={negotiation?.property_photo} width={100} height={100} className="rounded-lg " alt='property' />
+                                    }
+                                   
                                 </div>
                                 <div className="ml-5">
                                     <h3 className="text-lg font-bold">{negotiation.property_name}</h3>
@@ -97,28 +102,38 @@ export function NegotiationList({ handleOptionClick, setSelectedNegotiationId })
                                     <p className="text-gray-500">Check-out: {negotiation.check_out_date}</p>
                                     <p className="text-gray-500">Type: {negotiation.booking_type}</p>
                                     <p className="text-gray-500">Negotiation Id {negotiation.id}</p>
-                                    <p className='text-yellow-500'>Negotiation Status: {negotiation.negotiation_status}</p>
                                 </div>
                             </div>
                             </>
                             <>
                             <div className="flex items-start ml-5 border-l-2 pl-5">
                                 <div>
-                                    
+                                <p className='text-grey-500'>Status: 
+                                        {
+                                            (negotiation.negotiation_status === "Host Proposed" || negotiation.negotiation_status === "Guest Proposed") ? (
+                                                <Badge color="purple" size="xs">
+                                                    {negotiation.negotiation_status}
+                                                </Badge>
+                                            ) : (negotiation.negotiation_status === "Accepted By Host" || negotiation.negotiation_status === "Accepted By Guest") ? (
+                                                <Badge color="green" size="xs">
+                                                    {negotiation.negotiation_status}
+                                                </Badge>
+                                            ) : (negotiation.negotiation_status === "Rejected By Host" || negotiation.negotiation_status === "Rejected By Guest") ? (
+                                                <Badge color="red" size="xs">
+                                                    {negotiation.negotiation_status}
+                                                </Badge>
+                                            ) : (
+                                                <Badge color="blue" size="xs">
+                                                    {negotiation.negotiation_status}
+                                                </Badge>
+                                            )
+                                        }
+                                        </p>
                                     <p className='text-grey-500'>System Price: {negotiation.default_price}</p>
                                     <p className='text-grey-500'>Guest Price: {negotiation.guest_price}</p>
                                     <p className='text-grey-500'>Host Price: {negotiation.host_price}</p>
                                     <div className='flex items-center'>
-                                    {negotiation.host_price === null && (
-                                        <PriceInput 
-                                        placeholder="0"
-                                        buttonText={"Offer New Price"}
-                                        negotiationId={negotiation.id}
-                                        handlePrice={setHostPrice}
-                                        
-                                        
-                                        />
-                                    )}
+                                    
                                                                             
                                     </div>
                                 </div>
