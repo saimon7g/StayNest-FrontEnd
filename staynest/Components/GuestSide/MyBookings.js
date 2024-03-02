@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { HiUser, HiArrowSmRight } from "react-icons/hi";
-import { getUpcomingBookings } from '@/API/UserDashBoard';
-import {getPropertiesbyType} from '@/API/UserDashBoard';
+import { getUpcomingBookingsForGuest } from '@/API/UserDashBoard';
 import { useEffect } from 'react';
 
 export function MyBookings({ handleOptionClick, setSelectedBookingId }) {
@@ -9,17 +8,13 @@ export function MyBookings({ handleOptionClick, setSelectedBookingId }) {
     const [selectedBooking, setSelectedBooking] = useState(null);
 
 
-    const fetchUpcomingBookings = async () => {
-        const response = await getPropertiesbyType('Standard');
-        setUpcomingBookings(response.data);
-    };
-    const fetchProperties = async () => {
-        const response = await getPropertiesbyType('Entire home/apt');
-        console.log(response);
-    }
+   
 
     useEffect(() => {
-        fetchUpcomingBookings();
+       const result = getUpcomingBookingsForGuest();
+       if(result){
+              setUpcomingBookings(result);
+         }
     }, []);
 
     const clickHandler = (x) => () => {
