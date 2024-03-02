@@ -585,7 +585,6 @@ const Step1 = () => {
                         <Button color="blue" className="border border-gray-400 rounded-lg p-2 mr-20 my-20">
                             Next
                         </Button>
-
                     </div>
                 </div>
                 
