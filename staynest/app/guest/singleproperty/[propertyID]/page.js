@@ -37,7 +37,6 @@ export default function SingleProperty({ params }) {
   const [negotiateModal, setNegotiateModal] = useState(false);
   const [guestPrice, setGuestPrice] = useState(0);
   const [bookingSummary, setBookingSummary] = useState({});
-  const [loggedIn, setLoggedIn] = useState(false);
   const id = params.propertyID;
   const router = useRouter();
   const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
