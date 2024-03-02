@@ -2,10 +2,15 @@
 import React, { useState, useEffect } from 'react';
 import { HiArrowSmRight } from "react-icons/hi";
 import { getMyListings } from '@/API/UserDashBoard'; 
-import Image from 'next/image'
+import Image from 'next/image';
+import { Spinner } from 'flowbite-react';
+
+
+
+
+
 export function MyListings({ handleOptionClick, setSelectedPropertyId }) {
     const [listings, setListings] = useState(null);
-
     const fetchListings = async () => {
         const response = await getMyListings(); // Fetch properties listed by the host
         setListings(response);
@@ -21,7 +26,7 @@ export function MyListings({ handleOptionClick, setSelectedPropertyId }) {
     };
 
     return (
-        listings === null ? <div>Loading...</div> :
+        listings === null ? <div className="flex justify-center items-center h-96">       <Spinner aria-label="Extra large spinner example" size="xl" /> </div> :
             <div className="flex flex-col">
                 <h1 className="text-2xl font-bold mb-5">My Listings</h1>
                 <div className="flex flex-col">
@@ -31,7 +36,7 @@ export function MyListings({ handleOptionClick, setSelectedPropertyId }) {
                             {/* <PropertyCard property={property} /> */}
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center">
-                                   <Image src={property.photo} width={100} height={100} className="rounded-lg" />
+                                   <Image src={property.photo} width={100} height={100} className="rounded-lg " alt='property' />
                                     <div className="ml-4">
                                         <h2 className="text-lg font-bold">{property.name}</h2>
                                         <p className="text-sm">{property.location_name}</p>

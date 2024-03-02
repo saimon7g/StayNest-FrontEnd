@@ -7,6 +7,7 @@ import PriceInput from '@/Components/PriceInput';
 import { Badge } from 'flowbite-react';
 import { Payment } from '../Payment';
 import { reserveProperty } from '@/API/GuestAPI';
+import { Spinner } from 'flowbite-react';
 
 export function NegotiationList({ handleOptionClick, setSelectedNegotiationId }) {
     const [negotiations, setNegotiations] = useState(null);
@@ -113,7 +114,8 @@ export function NegotiationList({ handleOptionClick, setSelectedNegotiationId })
 
     return (
 
-        negotiations === null ? <div>Loading...</div> :
+        negotiations === null ? <divn className="flex justify-center items-center h-96">       <Spinner aria-label="Extra large spinner example" size="xl" />
+        </divn> :
             <div className="flex flex-col">
                  <div className="flex justify-between mb-4">
                 <div>

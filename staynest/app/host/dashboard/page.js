@@ -10,7 +10,6 @@ import PreviousBookings from '@/Components/GuestSide/PreviousBookings';
 import NegotiationList from '@/Components/NegotiationList';
 import NegotiationDetails from '@/Components/GuestSide/NegotiationDetails';
 import {getPropertiesbyType} from '@/API/UserDashBoard';
-
 import HostNavBar from '@/Components/HostSide/HostNavbar';
 import Footer from '@/Components/Footer';
 

@@ -3,6 +3,7 @@ import { HiArrowSmRight } from "react-icons/hi";
 import { getPreviousBookings } from '@/API/UserDashBoard';
 import { useEffect } from 'react';
 import { FaHome } from "react-icons/fa";
+import { Spinner } from 'flowbite-react';
 
 
 export function PreviousBookings({ handleOptionClick, setSelectedBookingId }) {
@@ -26,7 +27,7 @@ export function PreviousBookings({ handleOptionClick, setSelectedBookingId }) {
     }
 
     return (
-        previousBookings === null ? <div>Loading...</div> :
+        previousBookings === null ? <div className="flex justify-center items-center h-96">       <Spinner aria-label="Extra large spinner example" size="xl" /> </div> :
             <div className="flex flex-col">
                 <h1 className="text-2xl font-bold mb-5">All Previous Bookings</h1>
                 <div className="flex flex-col">
@@ -37,10 +38,7 @@ export function PreviousBookings({ handleOptionClick, setSelectedBookingId }) {
                             {/* on hoever change color */}
                             <div className="flex flex-row items-center" >
                             <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
-                                   {/* if booking.property_photo is null then show default image */}
                                     {booking.property_photo === null ? <FaHome className="text-3xl text-gray-500" /> : <Image src={booking.property_photo} alt="property" width={100} height={100} />}
-
-
                                 </div>
                                 <div className="ml-5">
                                     <h3 className="text-lg font-bold">{booking.property_name}</h3>

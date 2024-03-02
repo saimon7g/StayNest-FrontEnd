@@ -4,6 +4,7 @@ import { getNegotiationsOfHost, offerHostPrice, changeNegoStatus } from '@/API/N
 import Image from 'next/image';
 import { Button, TextInput,Badge } from 'flowbite-react';
 import PriceInput from './PriceInput';
+import { Spinner } from 'flowbite-react';
 
 export function NegotiationList({ handleOptionClick, setSelectedNegotiationId }) {
     const [negotiations, setNegotiations] = useState(null);
@@ -70,7 +71,7 @@ export function NegotiationList({ handleOptionClick, setSelectedNegotiationId })
 
 
     return (
-        negotiations === null ? <div>Loading...</div> :
+        negotiations === null ? <div className="flex justify-center items-center h-96">       <Spinner aria-label="Extra large spinner example" size="xl" /> </div> :
             <div className="flex flex-col">
                 <div>
 

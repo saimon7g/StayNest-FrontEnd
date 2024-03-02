@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { HiUser, HiArrowSmRight } from "react-icons/hi";
 import { getNegotiations } from '@/API/Negotiations';
 import { useEffect } from 'react';
+import { Spinner } from 'flowbite-react';
 
 export function Negotiation({ handleOptionClick, setSelectedNegotiationId }) {
     const [negotiations, setNegotiations] = useState(null);
@@ -23,7 +24,8 @@ export function Negotiation({ handleOptionClick, setSelectedNegotiationId }) {
     }
 
     return (
-        negotiations === null ? <div>Loading...</div> :
+        negotiations === null ? <div className="flex justify-center items-center h-96">       <Spinner aria-label="Extra large spinner example" size="xl" />
+        </div> :
             <div className="flex flex-col">
                 <h1 className="text-2xl font-bold mb-5">All Negotiations</h1>
                 <div className="flex flex-col">

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { HiArrowSmRight } from "react-icons/hi";
 import { FaHome } from "react-icons/fa";
+import { Spinner } from 'flowbite-react';
 
 import { getUpcomingBookingsForGuest } from '@/API/UserDashBoard';
 import { useEffect } from 'react';
@@ -14,7 +15,7 @@ export function MyBookings({ handleOptionClick, setSelectedBookingId }) {
 
         const fetchUpcomingBookings = async () => {
             const response = await getUpcomingBookingsForGuest();
-            if (response){
+            if (response) {
                 console.log("result from getUpcomingBookingsForGuest component", response);
                 setUpcomingBookings(response);
             }
@@ -51,7 +52,8 @@ export function MyBookings({ handleOptionClick, setSelectedBookingId }) {
 
     return (
 
-        upcomingBookings === null ? <div>Loading...</div> :
+        upcomingBookings === null ? <div className="flex justify-center items-center h-96">       <Spinner aria-label="Extra large spinner example" size="xl" />
+        </div> :
             <div className="flex flex-col">
                 <h1 className="text-2xl font-bold mb-5">All Upcoming Bookings</h1>
                 <div className="flex flex-col">
@@ -61,7 +63,7 @@ export function MyBookings({ handleOptionClick, setSelectedBookingId }) {
                             {/* on hoever change color */}
                             <div className="flex flex-row items-center" >
                                 <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
-                                   {/* if booking.property_photo is null then show default image */}
+                                    {/* if booking.property_photo is null then show default image */}
                                     {booking.property_photo === null ? <FaHome className="text-3xl text-gray-500" /> : <Image src={booking.property_photo} alt="property" width={100} height={100} />}
 
 
