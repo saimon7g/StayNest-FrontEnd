@@ -48,6 +48,9 @@ const Step1 = () => {
         paying_guest: false
     });
 
+    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
+
     const searchParams = useSearchParams();
     const router = useRouter();
 
@@ -221,7 +224,7 @@ const Step1 = () => {
 
     return (
         <div>
-            <HostNavBar />
+            <HostNavBar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
             <div className="flex flex-col items-center justify-center">
                 <div className="pb-5">
                     <text className="text-2xl font-bold ">1. What type of place are you listing?</text>

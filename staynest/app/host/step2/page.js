@@ -36,6 +36,11 @@ const Step2 = () => {
     const [regular_amenities, setRegularAmenities] = React.useState([]);
     const [standout_amenities, setStandoutAmenities] = React.useState([]);
     const [uploadedFiles, setUploadedFiles] = React.useState([]);
+
+    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
+
+
     useEffect(() => {
         console.log("useEffect step2")
         const fetchStep2Data = async () => {
@@ -148,7 +153,7 @@ const Step2 = () => {
 
     return (
         <div>
-            <HostNavBar />
+            <HostNavBar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
             <div>
                 <h1>Make your place stand out</h1>
                 <div className="flex flex-col justify-center items-center mb-48">

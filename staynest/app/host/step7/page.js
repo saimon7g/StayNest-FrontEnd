@@ -16,6 +16,10 @@ const Step7 = () => {
 
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
+
+    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
+
     useEffect(() => {
         console.log("useEffect step7")
         const fetchStep7Data = async () => {
@@ -66,7 +70,7 @@ const Step7 = () => {
 
     return (
         <div>
-            <HostNavBar />
+            <HostNavBar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
             {/* Date inputs using react-datepicker */}
             <div>
                 <label htmlFor="startDate">Start Date:</label>

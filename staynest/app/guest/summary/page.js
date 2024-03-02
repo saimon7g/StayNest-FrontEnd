@@ -72,6 +72,8 @@ export default function ReservationSummary({ reservation }) {
     const params = useSearchParams();
     const parsedData = JSON.parse(params.get('query'));
     const [openModal, setOpenModal] = useState(false);
+    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
 
     const handlePaymentComplete = () => {
         console.log('Payment completed');
@@ -122,6 +124,8 @@ export default function ReservationSummary({ reservation }) {
     };
 
     return (
+        <div>
+            <Navbar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
         <div className="flex justify-center items-center h-screen">
             <Card className="w-200 mx-auto p-4">
                 <div className="grid grid-cols-2 gap-4">

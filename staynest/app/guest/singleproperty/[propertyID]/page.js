@@ -40,6 +40,8 @@ export default function SingleProperty({ params }) {
   const [loggedIn, setLoggedIn] = useState(false);
   const id = params.propertyID;
   const router = useRouter();
+  const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
 
 
 
@@ -197,8 +199,7 @@ export default function SingleProperty({ params }) {
 
   return (
     <div>
-      <Navbar />
-
+            <Navbar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
     <div className='flex flex-col items-around justify-center w-4/6 mx-auto'>
       <div className='my-6 '>
         {property && property.name && (<p className='text-3xl font-bold'>{property.name}</p>)}
