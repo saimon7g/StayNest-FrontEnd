@@ -99,13 +99,21 @@ export async function getPropertyByIDd(property_id) {
     try {
         const authToken = 'Token 12345';
         const response = await axios.get(`host/api/property/${property_id}/`);
-       
+        
        
         // const result = await response.json();
         console.log(response.data);
         if(typeof response.data === 'string'){
-            return JSON.parse(response.data);
+        
+        response.data=JSON.parse(response.data);
+        
+       
         }
+        const response2 = await getHostByID(response.data['host'].host_id)
+       
+        console.log(response2)
+        response.data['host']=response2
+      
 
         return response.data;
     }

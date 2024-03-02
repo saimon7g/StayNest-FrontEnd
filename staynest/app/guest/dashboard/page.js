@@ -14,7 +14,7 @@ import Footer from "@/Components/Footer";
 
 
 function Dashboard() {
-    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+    const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false); 
 
     const [selectedOption, setSelectedOption] = useState('EditProfile');
@@ -31,7 +31,7 @@ function Dashboard() {
 
     return (
         <div>
-            <Navbar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+            <Navbar isLoginFormVisible={isLoginFormVisible} setIsLoginFormVisible={setIsLoginFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
         <div className="flex flex-row h-screen">
             {/* Sidebar */}
             
@@ -85,73 +85,4 @@ function Dashboard() {
 
 }
 
-
-
-// function Negotiation() {
-//     return (
-//         <div className="flex flex-col">
-//             <h1 className="text-2xl font-bold mb-5">All Negotiations</h1>
-//             <div className="flex flex-col">
-//                 {/* Display negotiations */}
-//                 {negotiations.map((negotiation, index) => (
-//                     <div key={index} className="flex flex-row items-center justify-between border-b-2 border-gray-100 p-5">
-//                         <div className="flex flex-row items-center">
-//                             <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
-//                                 <HiUser className="text-3xl text-gray-500" />
-//                             </div>
-//                             <div className="ml-5">
-//                                 <h3 className="text-lg font-bold">{negotiation.property_name}</h3>
-//                                 <p className="text-gray-500">Property Type: {negotiation.booking_type}</p>
-//                                 <p className="text-gray-500">Negotiation Status: {negotiation.negotiation_status}</p>
-//                             </div>
-//                         </div>
-//                         <div className="flex flex-row items-center">
-//                             <button className="flex items-center text-blue-500" onClick={() => handleOptionClick('BookingDetails')} icon={HiCog} active={selectedOption === 'BookingDetails'}>
-//                                 Details
-//                                 <HiArrowSmRight className="ml-2" />
-//                             </button>
-//                         </div>
-//                     </div>
-//                 ))}
-//             </div>
-//         </div>
-
-
-
-
-
-//     );
-// }
-
-// function PreviousBookings({ previousBookings }) {
-//     return (
-//         <div className="flex flex-col">
-//             <h1 className="text-2xl font-bold mb-5">All Previous Bookings</h1>
-//             <div className="flex flex-col">
-//                 {/* Display previous bookings */}
-//                 {previousBookings.map((booking, index) => (
-//                     <div key={index} className="flex flex-row items-center justify-between border-b-2 border-gray-100 p-5">
-//                         <div className="flex flex-row items-center">
-//                             <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
-//                                 <HiUser className="text-3xl text-gray-500" />
-//                             </div>
-//                             <div className="ml-5">
-//                                 <h3 className="text-lg font-bold">{booking.property_name}</h3>
-//                                 <p className="text-gray-500">Check-in: {booking.check_in}</p>
-//                                 <p className="text-gray-500">Check-out: {booking.check_out}</p>
-//                                 <p className="text-gray-500">Type: {booking.booking_type}</p>
-//                             </div>
-//                         </div>
-//                         <div className="flex flex-row items-center">
-//                             <button className="flex items-center text-blue-500" onClick={() => handleOptionClick('BookingDetails')} icon={HiCog} active={selectedOption === 'BookingDetails'}>
-//                                 Details
-//                                 <HiArrowSmRight className="ml-2" />
-//                             </button>
-//                         </div>
-//                     </div>
-//                 ))}
-//             </div>
-//         </div>
-//     );
-// }
 export default Dashboard;

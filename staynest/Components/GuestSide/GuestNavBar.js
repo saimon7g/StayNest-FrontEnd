@@ -57,7 +57,7 @@ const GuestNavbar = ({ isLoginFormVisible, setIsLoginFormVisible, loggedIn, setL
             setLoggedIn(false);
             setIsLoginFormVisible(true);
         } catch (error) {
-            console.logout('Logout failed:', error);
+            console.log('Logout failed:', error);
         }
     }
     const handleStartDateChange = (date) => {
