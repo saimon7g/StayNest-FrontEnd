@@ -99,10 +99,14 @@ const GuestNavbar = ({ isSearchFormVisible, setIsSearchFormVisible, loggedIn, se
         setIsSearchFormVisible(false);
     };
 
+    const switchToHostMode = () => {
+        router.push('/host');
+    }
+
     return (
         <Navbar fluid rounded className="bg-cyan-700">
             {/* Logo on the left */}
-            <Navbar.Brand href="/">
+            <Navbar.Brand href="/guest">
                 <Image src={Logo} alt="logo" width={100} height={100} />
             </Navbar.Brand>
 
@@ -139,11 +143,7 @@ const GuestNavbar = ({ isSearchFormVisible, setIsSearchFormVisible, loggedIn, se
                         {/* Switch to toggle between host and guest modes */}
                         <div className="flex items-center ml-4">
                             <label htmlFor="switch" className="flex items-center cursor-pointer">
-                                <span className="mr-2">Switch to</span>
-                                <input type="checkbox" id="switch" className="hidden" />
-                                <div className="toggle-wrapper relative w-12 h-6 bg-gray-400 rounded-full border-2 border-gray-400">
-                                    <div className="toggle-block absolute w-6 h-6 bg-white rounded-full shadow-md transform duration-300 ease-in-out"></div>
-                                </div>
+                                <span className="mr-2" onClick={switchToHostMode}>Switch to Host Mode</span>
                             </label>
                         </div>
                     </Dropdown>

@@ -30,7 +30,7 @@ export function NegotiationModal({ reservationData, openModal, setOpenModal }) {
                 'default_price': negotiationData.booking_details.total_price,
                 'guest_price': price,
                 'host_price': null,
-                'negotiation_status': "offeredbyguest",
+                'negotiation_status': "Guest Proposed",
             
             
                 breakfast: negotiationData.meals.breakfast,
