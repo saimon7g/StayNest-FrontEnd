@@ -49,6 +49,7 @@ const Step1 = () => {
     });
 
     const searchParams = useSearchParams();
+    const router = useRouter();
 
     useEffect(() => {
         const parseServicesFromQuery = () => {
@@ -204,8 +205,8 @@ const Step1 = () => {
         try {
             setRegistrationId(response.data.registration_id);
             console.log("Registration ID is set to:", response.data.registration_id);
-            const router = useRouter();
-            router.push('/host/step2');
+            
+            router.push('step2');
             // router push to next page
 
         } catch (error) {
