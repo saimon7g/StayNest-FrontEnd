@@ -7,6 +7,7 @@ import MyLogo from '@/StaticImage/logo1.png';
 import { getProperties } from '@/API/GuestAPI';
 import { useEffect, useContext } from 'react';
 import QueryParamsContext from '@/contexts/queryParamsContext';
+import { Badge } from 'flowbite-react';
 
 import Navbar from "@/Components/GuestSide/GuestNavBar";
 import Footer from "@/Components/Footer";
@@ -68,11 +69,29 @@ export default function GuestHome() {
                       //layout="fill" // Optional: Responsive layout
                       />
                     </a>
+                    <div className='flex p-2'>
+                  {e.stay&&(
+                  <div className='max-w-12'>
+                    <Badge color="info">Stay</Badge>
+                  </div>
+                  )}
+                  {e.stay_with_meal&&(
+                  <div className='max-w-24'>
+                    <Badge color="indigo">Stay + meal</Badge>
+                  </div>
+                  )}
+                  {e.paying_guest&&(
+                  <div className='max-w-24'>
+                    <Badge color="pink">Paying guest</Badge>
+                  </div>
+                  )}
+                  
+                </div>
                     <div className="p-5">
                       <a href="#">
-                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"> {e?.location_name}</h5>
+                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"> {e?.name}</h5>
                       </a>
-                      <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{e?.name}</p>
+                      <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{e?.location_name}</p>
                       <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Starting from {e?.price_per_night} taka per night</p>
                       <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"> from {e?.availability?.start_date} to {e?.availability?.end_date}</p>
                     </div>

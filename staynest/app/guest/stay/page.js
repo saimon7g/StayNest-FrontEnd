@@ -102,7 +102,7 @@ export default function GuestStay() {
                 />
               </a>
               <div className="p-5">
-                <div className='flex'>
+                <div className='flex p-2'>
                   {e.stay&&(
                   <div className='max-w-12'>
                     <Badge color="info">Stay</Badge>
