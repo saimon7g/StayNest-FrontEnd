@@ -20,7 +20,7 @@ const Step6 = () => {
         mealDescription: '',
     });
 
-    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+    const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
 
     // setRegistrationId(57);
@@ -83,7 +83,7 @@ const Step6 = () => {
 
     return (
         <div>
-            <HostNavBar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+            <HostNavBar isLoginFormVisible={isLoginFormVisible} setIsLoginFormVisible={setIsLoginFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
         <div className="flex flex-col justify-center items-center">
             {/* do you allow paying guest */}
             <div>

@@ -48,7 +48,7 @@ const Step1 = () => {
         paying_guest: false
     });
 
-    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+    const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
 
     const searchParams = useSearchParams();
@@ -100,12 +100,22 @@ const Step1 = () => {
 
 
     const handlePropertyType = (event, type) => {
+        if(!loggedIn)
+        {
+            setIsLoginFormVisible(true);
+            return;
+        }
         console.log(type);
-        event.preventDefault();
+       
         setPropertyType(type);
     };
 
     const handlePropertySubType = (event, subtype) => {
+        if(!loggedIn)
+        {
+            setIsLoginFormVisible(true);
+            return;
+        }
         console.log(subtype);
         setPropertySubType(subtype);
     };
@@ -130,6 +140,11 @@ const Step1 = () => {
 
     }
     const handleSubmit = async (event) => {
+        if(!loggedIn)
+        {
+            setIsLoginFormVisible(true);
+            return;
+        }
         event.preventDefault();
         {
             if (propertyType === "") {
@@ -172,10 +187,10 @@ const Step1 = () => {
                 alert("Please enter number of bathrooms");
                 return;
             }
-            if (specialType === "") {
-                alert("Please select special type");
-                return;
-            }
+            // if (specialType === "") {
+            //     alert("Please select special type");
+            //     return;
+            // }
         }
         const result = {
             "property_type": propertyType,
@@ -209,7 +224,7 @@ const Step1 = () => {
             setRegistrationId(response.data.registration_id);
             console.log("Registration ID is set to:", response.data.registration_id);
             
-            router.push('step2');
+            router.push('step2/');
             // router push to next page
 
         } catch (error) {
@@ -224,7 +239,7 @@ const Step1 = () => {
 
     return (
         <div>
-            <HostNavBar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+            <HostNavBar isLoginFormVisible={isLoginFormVisible} setIsLoginFormVisible={setIsLoginFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
 
             <div className="flex flex-col items-center justify-center border-4  w-7/12 mx-auto my-20 rounded shadow-2xl">
                 <div className="flex flex-col items-center justify-center mb-20">
@@ -398,7 +413,7 @@ const Step1 = () => {
                                     type="text"
                                     placeholder="Enter your text"
                                     value={cityName}
-                                    onChange={(e) => setHouseName(e.target.value)}
+                                    onChange={(e) => setCityName(e.target.value)}
                                     className="bg-white border border-slate-500 text-slate-700 placeholder-slate-700 text-sm rounded-full focus:ring-slate-500 focus:border-slate-500  w-full p-2.5"
                                 />
                             </div>

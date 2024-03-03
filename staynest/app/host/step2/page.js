@@ -56,7 +56,7 @@ const Step2 = () => {
     const [gym, setGym] = useState(false);
     const [beach, setBeach] = useState(false);
 
-    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+    const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
 
 
@@ -79,6 +79,24 @@ const Step2 = () => {
                     setStandoutAmenities(response.data.standout_amenities);
                     updateStandoutAmenities(standout_amenities);
                     setUploadedFiles(response.data.photos);
+                    setWifi(response.data.regular_amenities.includes("Wifi"));
+                    setTv(response.data.regular_amenities.includes("TV"));
+
+                    setKitchen(response.data.regular_amenities.includes("Kitchen"));
+                    setWorkplace(response.data.regular_amenities.includes("Workplace"));
+                    setParking(response.data.regular_amenities.includes("Parking"));
+                    setAirConditioning(response.data.regular_amenities.includes("Air conditioning"));
+                    setWashingMachine(response.data.regular_amenities.includes("Washing machine"));
+                    setPool(response.data.standout_amenities.includes("Pool"));
+                    setAirConditioning(response.data.standout_amenities.includes("Air conditioning"));
+                    setHotTub(response.data.standout_amenities.includes("Hot tub"));
+                    setBarbecue(response.data.standout_amenities.includes("Barbecue"));
+                    setDining(response.data.standout_amenities.includes("Dining"));
+                    setBonFire(response.data.standout_amenities.includes("Bonfire"));
+                    setFirePlace(response.data.standout_amenities.includes("Fireplace"));
+                    setPiano(response.data.standout_amenities.includes("Piano"));
+                    
+
                 }
                 // Handle the response data as needed
             } catch (error) {
@@ -353,7 +371,7 @@ const Step2 = () => {
 
     return (
         <div>
-            <HostNavBar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+            <HostNavBar isLoginFormVisible={isLoginFormVisible} setIsLoginFormVisible={setIsLoginFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
             <div className="border-4 rounded shadow-2xl w-7/12 mx-auto my-20">
                 {/* <h1>Make your place stand out</h1> */}
                 <div className="flex flex-col justify-center items-center mb-48">
@@ -589,12 +607,7 @@ const Step2 = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-col items-center justify-center mb-16">
-                    {/* next button  */}
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleSubmit}>
-                        Next
-                    </button>
-                </div>
+                
 
                 {/* next button to go to the next page and prev button to go to the prev page */}
                 <div className="flex justify-between items-center">

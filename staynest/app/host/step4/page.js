@@ -18,7 +18,7 @@ const Step4 = () => {
     const { registrationId, setRegistrationId } = useContext(RegistrationContext);  // use the context
     const [negotiationAvailability, setNegotiationAvailability] = useState(false);
     const [showMealModal, setShowMealModal] = useState(false);
-    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+    const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
 
     const [securityFeatures, setSecurityFeatures] = useState({
@@ -94,7 +94,7 @@ const Step4 = () => {
 
     return (
         <div>
-            <HostNavBar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+            <HostNavBar isLoginFormVisible={isLoginFormVisible} setIsLoginFormVisible={setIsLoginFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
         <div className="flex flex-col items-center justify-center">
             <div className="my-20">
                 <Card className="p-6">

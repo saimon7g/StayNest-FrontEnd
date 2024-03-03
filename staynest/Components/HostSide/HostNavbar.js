@@ -47,7 +47,7 @@ const HostNavBar = ( {isLoginFormVisible,setIsLoginFormVisible, loggedIn, setLog
             setLoggedIn(false);
             setIsLoginFormVisible(true);
         } catch (error) {
-            console.logout('Logout failed:', error);
+            console.log('Logout failed:', error);
         }
     }
     const switchMode = () => {

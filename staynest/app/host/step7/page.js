@@ -17,7 +17,7 @@ const Step7 = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
 
-    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+    const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
 
     useEffect(() => {
@@ -47,6 +47,11 @@ const Step7 = () => {
     }, [registrationId]);
 
     const handleSubmit = async () => {
+        if(!loggedIn)
+        {
+            setIsLoginFormVisible(true);
+            return;
+        }
         try {
             setRegistrationId(registrationId);
             let start_date=startDate.toISOString().split('T')[0];
@@ -70,7 +75,7 @@ const Step7 = () => {
 
     return (
         <div>
-            <HostNavBar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+            <HostNavBar isLoginFormVisible={isLoginFormVisible} setIsLoginFormVisible={setIsLoginFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
             {/* Date inputs using react-datepicker */}
             <div>
                 <label htmlFor="startDate">Start Date:</label>

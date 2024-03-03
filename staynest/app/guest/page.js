@@ -7,15 +7,18 @@ import MyLogo from '@/StaticImage/logo1.png';
 import { getProperties } from '@/API/GuestAPI';
 import { useEffect, useContext } from 'react';
 import QueryParamsContext from '@/contexts/queryParamsContext';
+import { Spinner } from 'flowbite-react';
 
 import Navbar from "@/Components/GuestSide/GuestNavBar";
 import Footer from "@/Components/Footer";
+
 
 export default function GuestHome() {
   const [properties, setProperties] = useState([]);
   const { queryParams, setQueryParams } = useContext(QueryParamsContext);
   const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
+  const [spinner, setSpinner] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -44,6 +47,7 @@ export default function GuestHome() {
     <div>
       <Navbar isLoginFormVisible={isLoginFormVisible} setIsLoginFormVisible={setIsLoginFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
       <div className="flex flex-col items-center justify-center">
+      
         <div className="">
           <Image src={Logo} alt="logo" width={1400} height={1000} />
         </div>
@@ -54,9 +58,10 @@ export default function GuestHome() {
         </div>
         <div className="ml-8 grid grid-cols-3 grid-rows-1">
           {
+            spinner ? <Spinner size="large" /> :
             properties.map((e) => {
               return <div className='row-span-1 col-span-1' key={e.property_id}>
-                <Link href="/guest/singleproperty/[id]" as={`/guest/singleproperty/${e.property_id}`}>
+                <Link href="/guest/singleproperty/[id]" onClick={()=>setSpinner(true)} as={`/guest/singleproperty/${e.property_id}`} >
                   <div className="max-w-sm h-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <a href="#">
                       <Image

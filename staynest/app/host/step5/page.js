@@ -23,7 +23,7 @@ const Modal = ({ isOpen, onClose }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const { registrationId, setRegistrationId} = useContext(RegistrationContext); 
 
-  const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+  const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
 
   useEffect(() => {
@@ -106,7 +106,7 @@ const Modal = ({ isOpen, onClose }) => {
 
   return (
     <div className='min-h-full'>
-      <HostNavBar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+      <HostNavBar isLoginFormVisible={isLoginFormVisible} setIsLoginFormVisible={setIsLoginFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
     <div className={`modal ${isOpen ? 'flex justify-center items-center' : 'hidden'} min-h-full mb-96`}>
       <div className="modal-overlay"></div>
       <div className="modal-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '80%' }}>

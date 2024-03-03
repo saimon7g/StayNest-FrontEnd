@@ -55,6 +55,8 @@ const handleFileChange = (event) => {
         nid_document: null,  // Assuming nid_document and passport_document are not included in the form data
         passport_document: null,
         superhost: false,
+        
+
       },
     };
 
