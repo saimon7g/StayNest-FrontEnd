@@ -65,7 +65,8 @@ const Step7 = () => {
             }
             console.log("data--page7 --",data);
             const response = await Step7PUT(data,registrationId);
-            console.log(response)
+            //console.log(response)
+            alert("Congratulations! Listed.")
             // console.log(response.data.message); // Assuming your API returns a message upon successful update
         } catch (error) {
             console.error('Error updating step 7 data: ', error);

@@ -15,7 +15,7 @@ import Footer from "@/Components/Footer";
 const Step6 = () => {
     const { registrationId, setRegistrationId} = useContext(RegistrationContext);  // use the context
     const [state, setState] = useState({
-        allow_paying_guests: false,
+        allow_paying_guests: true,
         mealPrice: 0,
         mealDescription: '',
     });
@@ -87,12 +87,12 @@ const Step6 = () => {
         <div className="flex flex-col justify-center items-center">
             {/* do you allow paying guest */}
             <div>
-                <h1 className="text-2xl font-bold">Do you allow paying guests?</h1>
+                <h1 className="text-2xl font-bold">This is required for Paying Guesd</h1>
                 {/* two option yes or no */}
-                <div className="flex justify-between">
+                {/* <div className="flex justify-between">
                     <button className="border border-gray-400 rounded-lg p-2 m-2" onClick={() => setState({ ...state, allow_paying_guests: true })}>Yes</button>
                     <button className="border border-gray-400 rounded-lg p-2 m-2" onClick={() => setState({ ...state, allow_paying_guests: false })}>No</button>
-                </div>
+                </div> */}
             </div>
 
             {/* if allow paying guest the give meal price and description */}

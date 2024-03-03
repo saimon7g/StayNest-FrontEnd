@@ -300,6 +300,12 @@ export default function SingleProperty({ params }) {
               {property && property.description && property.description}
             </p>
           </div>
+          <div className=''>
+            <p className='font-bold '>Meal description: </p>
+            <p className='font-medium '>
+              {property && property.paying_guest_description && property.paying_guest_description}
+            </p>
+          </div>
         </div>
         {/*right floating card*/}
         <div className='flex flex-col items-around justify-center border-4 p-4 ml-auto w-auto mt-16 shadow-xl'>
