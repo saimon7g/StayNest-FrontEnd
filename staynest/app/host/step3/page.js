@@ -22,7 +22,7 @@ const Step3 = () => {
     const [houseTitle, setHouseTitle] = React.useState('');
     const [highlights, setHighlights] = React.useState([]);
     const [description, setDescription] = React.useState('');
-    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+    const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
 
     useEffect(() => {
@@ -63,7 +63,7 @@ const Step3 = () => {
     }
     
     const handleSubmit = async (event) => {
-        event.preventDefault();
+        
     
         const data = {
             "house_title": houseTitle,
@@ -81,7 +81,8 @@ const Step3 = () => {
 
     return (
         <div>
-            <HostNavBar isSearchFormVisible={isSearchFormVisible} setIsSearchFormVisible={setIsSearchFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+            <HostNavBar isLoginFormVisible={isLoginFormVisible} setIsLoginFormVisible={setIsLoginFormVisible
+            } loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
         <div className="flex flex-col items-center justify-center w-7/12 border-4 rounded mx-auto shadow-2xl my-20">
             <div className="my-20 ">
                 <div className="pb-10">
