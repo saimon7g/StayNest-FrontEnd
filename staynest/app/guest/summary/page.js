@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Card, Button } from 'flowbite-react';
 import {Payment} from '@/Components/Payment';
 import Navbar from '@/Components/GuestSide/GuestNavBar';
+import { useRouter } from 'next/navigation';
 
 
 export default function ReservationSummary({ reservation }) {
@@ -76,13 +77,8 @@ export default function ReservationSummary({ reservation }) {
     const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
 
-    const handlePaymentComplete = () => {
-        console.log('Payment completed');
-    }
+    const router = useRouter();
     
-
-
-
     useEffect(() => {
         const fetchData =() => {
             if (parsedData) {
@@ -97,12 +93,11 @@ export default function ReservationSummary({ reservation }) {
 
         try{
             const response = await reserveProperty(parsedData);
-
             setOpenModal(false);
-            
             if (response.status ===201 ) {
-               
                 alert('Booking successful');
+                router.push('/guest/dashboard');
+
             }
             else if (response.status ===200) {
                 console.log('401-----')
