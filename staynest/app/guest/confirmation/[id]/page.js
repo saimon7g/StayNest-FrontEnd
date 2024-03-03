@@ -1,7 +1,7 @@
 'use client';
 import { use, useState } from 'react';
 import { HiArrowSmRight, HiUser, HiPencilAlt, HiCollection, HiChatAlt2, HiCheckCircle, HiCog, HiCheck } from 'react-icons/hi';
-import { Sidebar, Avatar } from 'flowbite-react';
+import { Sidebar, Avatar, Button } from 'flowbite-react';
 import { getBookingDetails } from '@/API/UserDashBoard';
 import { useEffect } from 'react';
 import Image from 'next/image';
@@ -9,10 +9,15 @@ import { FaArrowCircleLeft } from "react-icons/fa";
 import { Card } from 'flowbite-react';
 import { getPropertyByIDd } from '@/API/GuestAPI';
 import { getHostByID } from '@/API/GuestAPI';
+import Link from 'next/link';
+import Footer from '@/Components/Footer';
+import GuestNavbar from '@/Components/GuestSide/GuestNavBar';
 
 export function Confirmation({ params }) {
 
     const reservationID = params.id;
+    const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false);
 
     const [bookingDetails, setBookingDetails] = useState({});
     const [propertyDetails, setPropertyDetails] = useState({});
@@ -63,14 +68,16 @@ export function Confirmation({ params }) {
         // regular_amenities: ["wifi", "parking", "pool"]
         // reviews: [{ review: "", rating: 5, guest_id: 1, property_id: 1, created_at: "", updated_at: "" }]
         // special_amenities: ["gym", "spa", "sauna"]
-        <div>
+        <div className="min-h-screen">
+            {/* const GuestNavbar = ({ isLoginFormVisible, setIsLoginFormVisible, loggedIn, setLoggedIn }) => { */}
+            <GuestNavbar isLoginFormVisible={isLoginFormVisible} setIsLoginFormVisible={setIsLoginFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
             {propertyDetails && (
 
                 <div className="flex flex-col items-center">
                     <h2 className="text-2xl font-semibold">{propertyDetails.name}</h2>
                     <p className="text-gray-500">Property Type: {propertyDetails.property_type}</p>
                     <p className="text-gray-500">More Precisely: {propertyDetails.property_sub_type}</p>
-                    <p className="text-gray-500">Location: {propertyDetails.location}</p> 
+                    <p className="text-gray-500">Location: {propertyDetails.location}</p>
                     <p className="text-gray-500"> Description: {propertyDetails.description}</p>
                     <div className="flex flex-row items-center justify-center">
                         <text className="text-gray-500">Highlights: </text>
@@ -125,28 +132,7 @@ export function Confirmation({ params }) {
             {propertyDetails && (
                 <div className="flex flex-col items-center">
 
-                    {/* 
-    
-    // bookingDetails:
-            // base_price:
-            // booking_type:
-            // breakfast: []
-            // lunch: []
-            // dinner : []
-            // created at:
-            // end_date:
-            // guest_id:
-            // host_id:
-            // id:
-            // number_of_guests:
-            // platform_fee:
-            // property_id:
-            // property_name:
-            // property_photo:
-            // start_date:
-            // status:
-            // tax:
-            // updated_at: */}
+
                     <h2 className="text-2xl font-semibold">Booking Details</h2>
                     <p className="text-gray-500">Booking Type: {bookingDetails.booking_type}</p>
                     <p className="text-gray-500">Start Date: {bookingDetails.start_date}</p>
@@ -232,6 +218,20 @@ export function Confirmation({ params }) {
                         </div>
                     </Card>
                 </div>
+            </div>
+
+            {/* go gome */}
+            <div className="flex flex-row items-center justify-center">
+
+                <Link href="/guest/home">
+                    <Button className="text-2xl font-semibold">Go Home</Button>
+                </Link>
+
+            </div>
+
+            {/* footer always at bottom */}
+            <div>
+                <Footer />
             </div>
 
         </div>
