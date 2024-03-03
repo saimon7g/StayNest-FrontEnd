@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { HiArrowSmRight, HiUser, HiPencilAlt, HiCollection, HiChatAlt2, HiCheckCircle, HiCog, HiCheck } from 'react-icons/hi';
 import { Sidebar, Avatar } from 'flowbite-react';
 import  BookingDetails  from '@/Components/GuestSide/BookinsDeatails';
+import PreviousBookingDetails from '@/Components/GuestSide/PreviousBookingDetails';
 import MyBookings from '@/Components/GuestSide/MyBookings';
 import EditProfile from '@/Components/GuestSide/EditProfile';
 import Settings from '@/Components/GuestSide/Settings';
@@ -77,6 +78,7 @@ function Dashboard() {
                 {selectedOption === 'Negotiation' && <NegotiationList handleOptionClick={handleOptionClick} setSelectedNegotiationId={setSelectedNegotiationId} />}
                 {selectedOption === 'NegotiationDetails' && <NegotiationDetails negotiationId={selectedNegotiationId} handleOptionClick={handleOptionClick} />}
                 {selectedOption === 'PreviousBookings' && <PreviousBookings handleOptionClick={handleOptionClick} setSelectedBookingId={setSelectedBookingId} />}
+                {selectedOption === 'PreviousBookingDetails' && <PreviousBookingDetails bookingId={selectedBookingId} handleOptionClick={handleOptionClick} />}
                 {selectedOption === 'Settings' && <Settings />}
             </div>
         </div>

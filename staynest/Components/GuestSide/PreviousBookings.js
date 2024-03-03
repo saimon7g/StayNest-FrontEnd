@@ -4,6 +4,8 @@ import { getPreviousBookings } from '@/API/UserDashBoard';
 import { useEffect } from 'react';
 import { FaHome } from "react-icons/fa";
 import { Spinner } from 'flowbite-react';
+import Image from 'next/image';
+
 
 
 export function PreviousBookings({ handleOptionClick, setSelectedBookingId }) {
