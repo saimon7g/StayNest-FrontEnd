@@ -12,7 +12,8 @@ import { Spinner } from 'flowbite-react';
 export function MyListings({ handleOptionClick, setSelectedPropertyId }) {
     const [listings, setListings] = useState(null);
     const fetchListings = async () => {
-        const response = await getMyListings(); // Fetch properties listed by the host
+        const response = await getMyListings(); // Fetch properties listed by the host\
+        console.log(" yeeeeeeeeeee listingggggggggg ",response);
         setListings(response);
     };
 
@@ -32,7 +33,7 @@ export function MyListings({ handleOptionClick, setSelectedPropertyId }) {
                 <div className="flex flex-col">
                     {/* Display property listings */}
                     {listings.map((property, index) => (
-                        <div key={index} className="border-b-2 border-gray-100 p-5 hover:bg-gray-200" onClick={clickHandler(property.id)}>
+                        <div key={index} className="border-b-2 border-gray-100 p-5 hover:bg-gray-200" onClick={clickHandler(property.property_id)}>
                             {/* <PropertyCard property={property} /> */}
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center">
