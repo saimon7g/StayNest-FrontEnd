@@ -56,17 +56,17 @@ const Step1 = () => {
 
     useEffect(() => {
         const parseServicesFromQuery = () => {
-            // const queryParams = searchParams.get('services'); // Get the query parameters
-            // const queryParamsArray = queryParams.split(','); // Split query parameters into an array
+            const queryParams = searchParams.get('services'); // Get the query parameters
+            const queryParamsArray = queryParams.split(','); // Split query parameters into an array
 
-            // const updatedServices = {
-            //     stay: queryParamsArray.includes('stay'),
-            //     stay_with_meal: queryParamsArray.includes('stay_with_meal'),
-            //     paying_guest: queryParamsArray.includes('paying_guest')
-            // };
-            // console.log(updatedServices);
-            // // Set the updated services state
-            // setServices(updatedServices);
+            const updatedServices = {
+                stay: queryParamsArray.includes('stay'),
+                stay_with_meal: queryParamsArray.includes('stay_with_meal'),
+                paying_guest: queryParamsArray.includes('paying_guest')
+            };
+            console.log(updatedServices);
+            // Set the updated services state
+            setServices(updatedServices);
         };
 
         // Call the function to parse services from query when the component mounts
@@ -218,6 +218,7 @@ const Step1 = () => {
 
         }
         const response = await Step1Post(result);
+        if(response)
         console.log('Response Data:', response.data);
 
         try {
