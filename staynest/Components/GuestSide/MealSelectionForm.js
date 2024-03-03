@@ -35,6 +35,7 @@ export function MealSelectionForm({ breakfast, lunch, dinner, updateCart, openMo
   const [selectedType, setSelectedType] = useState('Breakfast');
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [cart, setCart] = useState({ breakfast: [], lunch: [], dinner: [] });
+  
 
   const handleQuantityChange = (mealId, newValue) => {
     setSelectedMeals({ ...selectedMeals, [mealId]: Math.max(0, newValue) });
