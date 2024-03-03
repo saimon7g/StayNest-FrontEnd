@@ -70,7 +70,7 @@ export function Confirmation({ params }) {
                     <h2 className="text-2xl font-semibold">{propertyDetails.name}</h2>
                     <p className="text-gray-500">Property Type: {propertyDetails.property_type}</p>
                     <p className="text-gray-500">More Precisely: {propertyDetails.property_sub_type}</p>
-                    <p className="text-gray-500">Location: {propertyDetails.location}</p>
+                    <p className="text-gray-500">Location: {propertyDetails.location}</p> 
                     <p className="text-gray-500"> Description: {propertyDetails.description}</p>
                     <div className="flex flex-row items-center justify-center">
                         <text className="text-gray-500">Highlights: </text>
