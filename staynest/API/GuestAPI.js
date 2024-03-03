@@ -97,7 +97,7 @@ export async function  getMealOption(registration_id) {
 export async function getPropertyByIDd(property_id) {
     console.log("single property get");
     try {
-        const authToken = 'Token 12345';
+
         const response = await axios.get(`host/api/property/${property_id}/`);
         
        
