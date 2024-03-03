@@ -157,7 +157,7 @@ const Modal = ({ isOpen, onClose }) => {
             <Link href="/host/step4">
                 <Button color="gray"  className="mt-4 ml-20 px-3 py-1"onClick={() => setRegistrationId(registrationId)}>Prev</Button>
             </Link>
-            <Link href="/host/step4">
+            <Link href="/host/step6">
                 <Button color="blue" onClick={handleConfirm}  className="mt-4 mr-20 px-3 py-1">Next</Button>
             </Link>
           </div>

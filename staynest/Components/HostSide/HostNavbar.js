@@ -61,7 +61,7 @@ const HostNavBar = ( {isLoginFormVisible,setIsLoginFormVisible, loggedIn, setLog
     return (
         <Navbar fluid rounded className="bg-amber-200">
             {/* Logo on the left */}
-            <Navbar.Brand href="/guest">
+            <Navbar.Brand href="/host">
                 <Image src={Logo} alt="logo" width={100} height={100} />
             </Navbar.Brand>
           
