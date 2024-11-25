@@ -1,26 +1,30 @@
 'use client';
-import { Card } from 'flowbite-react';
+import { use, useState } from 'react';
+import { HiArrowSmRight, HiUser, HiPencilAlt, HiCollection, HiChatAlt2, HiCheckCircle, HiCog, HiCheck } from 'react-icons/hi';
+import { Sidebar, Avatar, Button } from 'flowbite-react';
 import { getBookingDetails } from '@/API/UserDashBoard';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Image from 'next/image';
 import { FaArrowCircleLeft } from "react-icons/fa";
-import { cancelBooking } from '@/API/UserDashBoard';
+import { Card } from 'flowbite-react';
 import { getPropertyByIDd } from '@/API/GuestAPI';
 import { getHostByID } from '@/API/GuestAPI';
+import Link from 'next/link';
+import Footer from '@/Components/Footer';
+import GuestNavbar from '@/Components/GuestSide/GuestNavBar';
 
+export function Confirmation({ params }) {
 
+    const reservationID = params.id;
+    const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false);
 
-export function BookingDetails({ bookingId, handleOptionClick }) {
-
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [bookingDetails, setBookingDetails] = useState(null);
-    const [propertyDetails, setPropertyDetails] = useState(null);
-    const [hostDetails, setHostDetails] = useState(null);
-
+    const [bookingDetails, setBookingDetails] = useState({});
+    const [propertyDetails, setPropertyDetails] = useState({});
+    const [hostDetails, setHostDetails] = useState({});
 
     const fetchBookingDetails = async () => {
-        const data = await getBookingDetails(bookingId);
+        const data = await getBookingDetails(reservationID);
         if (data) {
             console.log("result from getBookingDetails component", data);
             setBookingDetails(data);
@@ -42,38 +46,12 @@ export function BookingDetails({ bookingId, handleOptionClick }) {
 
     useEffect(() => {
         fetchBookingDetails();
-    }, [bookingId]);
-
-    const goBack = () => {
-        handleOptionClick('MyBookings');
     }
-
-    const handleCancelBooking = () => {
-
-        // Call the API to cancel the booking
-        // If successful, close the modal and display a success message
-        // If failed, display an error message
-        const data = {
-            "booking_id": bookingId
-        };
-        cancelBooking(data);
-        closeModal();
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
-
-    const cancelBooking = async () => {
-        setIsModalOpen(true);
-    }
-
-
-
+        , []);
 
 
     return (
-        
+
 
         // property_details:
         // availability:
@@ -90,9 +68,9 @@ export function BookingDetails({ bookingId, handleOptionClick }) {
         // regular_amenities: ["wifi", "parking", "pool"]
         // reviews: [{ review: "", rating: 5, guest_id: 1, property_id: 1, created_at: "", updated_at: "" }]
         // special_amenities: ["gym", "spa", "sauna"]
-        <div>
-            <FaArrowCircleLeft onClick={goBack} className="text-2xl cursor-pointer" />
-
+        <div className="min-h-screen">
+            {/* const GuestNavbar = ({ isLoginFormVisible, setIsLoginFormVisible, loggedIn, setLoggedIn }) => { */}
+            <GuestNavbar isLoginFormVisible={isLoginFormVisible} setIsLoginFormVisible={setIsLoginFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
             {propertyDetails && (
 
                 <div className="flex flex-col items-center">
@@ -154,28 +132,7 @@ export function BookingDetails({ bookingId, handleOptionClick }) {
             {propertyDetails && (
                 <div className="flex flex-col items-center">
 
-{/* 
 
-// bookingDetails:
-        // base_price:
-        // booking_type:
-        // breakfast: []
-        // lunch: []
-        // dinner : []
-        // created at:
-        // end_date:
-        // guest_id:
-        // host_id:
-        // id:
-        // number_of_guests:
-        // platform_fee:
-        // property_id:
-        // property_name:
-        // property_photo:
-        // start_date:
-        // status:
-        // tax:
-        // updated_at: */}
                     <h2 className="text-2xl font-semibold">Booking Details</h2>
                     <p className="text-gray-500">Booking Type: {bookingDetails.booking_type}</p>
                     <p className="text-gray-500">Start Date: {bookingDetails.start_date}</p>
@@ -183,7 +140,7 @@ export function BookingDetails({ bookingId, handleOptionClick }) {
                     <p className="text-gray-500">Staying Price: {bookingDetails.base_price}</p>
                     <p className="text-gray-500">Booking Status: {bookingDetails.status}</p>
                     <p className="text-gray-500">Number of Guests: {bookingDetails.number_of_guests}</p>
-                    
+
                 </div>)
             }
             <div className="flex flex-col items-center">
@@ -261,33 +218,24 @@ export function BookingDetails({ bookingId, handleOptionClick }) {
                         </div>
                     </Card>
                 </div>
+            </div>
 
-                <div className="flex flex-row items-center justify-center">
-                    {bookingDetails && bookingDetails.status === 'pending' && (
-                        <button className="bg-blue-500 text-white p-2 rounded-lg mt-5" onClick={cancelBooking}>
-                            Cancel Booking
-                        </button>
-                    )}
+            {/* go gome */}
+            <div className="flex flex-row items-center justify-center">
 
+                <Link href="/guest/home">
+                    <Button className="text-2xl font-semibold">Go Home</Button>
+                </Link>
 
-                    {/* Modal */}
-                    {isModalOpen && (
-                        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50">
-                            <div className="bg-white p-8 rounded-lg">
-                                <h2 className="text-2xl font-bold mb-4">Confirmation</h2>
-                                <p>Are you sure you want to cancel this booking?</p>
-                                <div className="flex justify-end mt-4">
-                                    <button className="bg-gray-500 text-white px-4 py-2 rounded mr-4" onClick={closeModal}>Close</button>
-                                    <button className="bg-red-500 text-white px-4 py-2 rounded" onClick={handleCancelBooking}>Confirm</button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div>
+            </div>
+
+            {/* footer always at bottom */}
+            <div>
+                <Footer />
             </div>
 
         </div>
     );
 }
 
-export default BookingDetails;
+export default Confirmation;

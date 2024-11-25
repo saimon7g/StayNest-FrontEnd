@@ -7,6 +7,11 @@ import FileUpload from "@/Components/ImageUpload";
 import { Step5GET, Step5PUT } from "@/API/Registration";
 import { useEffect,useContext } from 'react';
 import RegistrationContext from "@/contexts/registrationContext";
+import HostNavBar from "@/Components/HostSide/HostNavbar";
+import Footer from "@/Components/Footer";
+
+
+
 const Modal = ({ isOpen, onClose }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [mealType, setMealType] = useState('Breakfast');
@@ -17,6 +22,9 @@ const Modal = ({ isOpen, onClose }) => {
   const [dinnerMenu, setDinnerMenu] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const { registrationId, setRegistrationId} = useContext(RegistrationContext); 
+
+  const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
 
   useEffect(() => {
     console.log("useEffect step5")
@@ -97,19 +105,21 @@ const Modal = ({ isOpen, onClose }) => {
   
 
   return (
-    <div className={`modal ${isOpen ? 'flex justify-center items-center' : 'hidden'}`}>
+    <div className='min-h-full'>
+      <HostNavBar isLoginFormVisible={isLoginFormVisible} setIsLoginFormVisible={setIsLoginFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+    <div className={`modal ${isOpen ? 'flex justify-center items-center' : 'hidden'} min-h-full mb-96`}>
       <div className="modal-overlay"></div>
       <div className="modal-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '80%' }}>
       <div style={{ width: '25%' }}></div>
 
-      <div className="modal-content" style={{ width: '35%' }}>
+      <div className="modal-content" style={{ width: '75%' }}>
         
           <div>
             <h2>Select Meal Type</h2>
-            <div className="flex">
-              <Button className={`mr-4 ${mealType === 'Breakfast' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`} onClick={() => handleMealType('Breakfast')}>Breakfast</Button>
-              <Button className={`mr-4 ${mealType === 'Lunch' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`} onClick={() => handleMealType('Lunch')}>Lunch</Button>
-              <Button className={`${mealType === 'Dinner' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`} onClick={() => handleMealType('Dinner')}>Dinner</Button>
+            <div className="flex my-10">
+              <Button className={`mr-4 ${mealType === 'Breakfast' ? 'bg-teal-700 text-white' : 'bg-gray-200'}`} onClick={() => handleMealType('Breakfast')}>Breakfast</Button>
+              <Button className={`mr-4 ${mealType === 'Lunch' ? 'bg-teal-700 text-white' : 'bg-gray-200'}`} onClick={() => handleMealType('Lunch')}>Lunch</Button>
+              <Button className={`${mealType === 'Dinner' ? 'bg-teal-700 text-white' : 'bg-gray-200'}`} onClick={() => handleMealType('Dinner')}>Dinner</Button>
             </div>
           </div>
           {mealType && (
@@ -117,7 +127,7 @@ const Modal = ({ isOpen, onClose }) => {
               <TextInput type="text" placeholder="Meal Name" value={mealName} onChange={(e) => setMealName(e.target.value)} className="mt-2 p-2 border" />
               <TextInput type="text" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} className="mt-2 p-2 border" />
                             
-              <div class="flex items-center justify-center w-full">
+              <div class="flex items-center justify-center w-full my-10">
                   <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-50 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                   
                       <div class="flex flex-col items-center justify-center pt-5 pb-6">
@@ -137,21 +147,21 @@ const Modal = ({ isOpen, onClose }) => {
                   </label>
               </div> 
 
-              <div className="flex justify-end">
+              <div className="flex justify-center">
                     <Button onClick={handleSubmit} className="mt-1 mr-4 bg-blue-300 text-white px-4 py-0.1"><FaPlus/></Button>
               </div>
             </div>
           )}
-          <div>
-            <div class='flex justify-center'>
+          
+          <div class='flex justify-between'>
             <Link href="/host/step4">
-                    <Button  className="mt-4 mr-4 bg-green-500 text-white px-3 py-1"onClick={() => setRegistrationId(registrationId)}>Prev</Button>
-                </Link>
-                <Link href="/host/step4">
-                <Button onClick={handleConfirm}  className="mt-4 mr-4 bg-green-500 text-white px-3 py-1">Next</Button>
-                </Link>
-                </div>
+                <Button color="gray"  className="mt-4 ml-20 px-3 py-1"onClick={() => setRegistrationId(registrationId)}>Prev</Button>
+            </Link>
+            <Link href="/host/step4">
+                <Button color="blue" onClick={handleConfirm}  className="mt-4 mr-20 px-3 py-1">Next</Button>
+            </Link>
           </div>
+          
          
         </div>
         <div style={{ width: '10%' }}></div>
@@ -215,8 +225,10 @@ const Modal = ({ isOpen, onClose }) => {
       </div>
      
     </div>
+    <Footer/>
+  </div>
   );
-};
+};  
 
 const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(true);
@@ -230,7 +242,7 @@ const App = () => {
   };
 
   return (
-    <div className="container mx-auto mt-8 xl:w-9/10">
+    <div className="min-h-screen">
       <Button onClick={openModal} className="bg-blue-500 text-white px-4 py-2 hidden ">Add Meal</Button>
       <Modal isOpen={isModalOpen} onClose={closeModal} />
     </div>

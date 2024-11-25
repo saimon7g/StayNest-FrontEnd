@@ -8,13 +8,17 @@ import { getProperties } from '@/API/GuestAPI';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Card, Button } from 'flowbite-react';
-
+import Navbar from "@/Components/GuestSide/GuestNavBar";
+import Footer from "@/Components/Footer";
+import { Badge } from 'flowbite-react';
 
 export default function GuestStay() {
   const [properties, setProperties] = useState([]);
   const params = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState('stay');
   const [newParams, setNewParams] = useState({});
+  const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
 
   useEffect(() => {
     setNewParams(JSON.parse(params.get('search')));
@@ -46,95 +50,21 @@ export default function GuestStay() {
 
    
   return (
+    <div className='min-h-full'>
+      <Navbar isLoginFormVisible={isLoginFormVisible} setIsLoginFormVisible={setIsLoginFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
     <div className="flex flex-col items-center justify-center">
-      {/* <div className='flex flex-row items-center justify-center w-11/12 my-20'>
-        <div className='border-4 border-black rounded-lg w-1/4 ml-8'>
-          <p className="text-slate-400">Location</p>
-          <p>Dhaka</p>
-        </div>
-
-        <div className='flex flex-row items-center justify-center w-11/12 my-20'>
-            <div className='flex flex-row border-4 border-black rounded-lg w-1/6 ml-8'>
-                <div className='w-1/3 ml-4'>
-                    <FaHome size={50}/>
-                </div>
-                <div>
-                    <p className="">Stay</p>
-                </div>
-                
-            </div>
-            <div className='flex flex-row border-4 border-black rounded-lg w-1/6 ml-8'>
-                <div className='w-1/3 ml-4'>
-                    <GiMeal size={50}/>
-                </div>
-                <div>
-                    <p>Stay including meals</p>
-                </div>
-                
-            </div>
-            <div className='flex flex-row border-4 border-black rounded-lg w-1/6 ml-8'>
-                <div className='w-1/3 ml-4'>
-                    <FaHandshake size={50}/>
-                </div>
-                <div>
-                    <p>Paying guest</p>
-                </div>
-                
-            </div>
-        </div>
-
-       
-        <div className="my-20">
-          <p className='text-2xl font-bold'>discover safe travel with stay nest</p>
-          <p className='text-lg text-slate-400'>multiday trips organised by local experts with activities</p>
-          <p className='text-lg text-slate-400'> with meals and accomodationincluded</p>
-        </div>
-        <div className="ml-8 grid grid-cols-3 grid-rows-1">
-          {
-            properties.map((e)=>{
-              return <div className='row-span-1 col-span-1' key={e.property_id}>
-                        <div className="max-w-sm h-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                            <a href="#">
-                            <Image
-                                key={e.property_id} // Unique key for each image
-                                src={e.photo} // Image URL
-                                width={400}
-                                height={240}
-                                alt="StayNest" // Alt text
-                                //layout="fill" // Optional: Responsive layout
-                            />
-                            </a>
-                            <div className="p-5">
-                                <a href="#">
-                                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"> { e.location_name}</h5>
-                                </a>
-                                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{e.name}</p>
-                                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Starting from {e.price_per_night} taka per night</p>
-                                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"> from {e.availability.check_in} to {e.availability.check_out}</p>
-                            </div>
-                        </div>
-                      </div>
-            })
-          }
-
-          
-
-          
-        </div>
-      </div> */}
-
       <div className='flex flex-row items-center justify-center w-11/12 my-20'>
-        <Button onClick={() => handleCategoryChange('stay')} className={`flex flex-row border-4 border-black rounded-lg w-1/6 ml-8 ${selectedCategory === 'stay' ? '' : 'bg-green-300'}`}>
+        <Button className={`flex flex-row border-4 border-black rounded-lg w-1/6 ml-8 ${selectedCategory === 'stay' ? '' : 'bg-green-300'}`}
+        onClick={() => handleCategoryChange('stay')} >
           <div className='w-1/3 ml-4'>
             <FaHome size={50}/>
           </div>
-          <div>
-          Stay
-            
+          <div className='px-8'>
+            <h3>Stay </h3>
           </div>
         </Button>
         <Button className={`flex flex-row border-4 border-black rounded-lg w-1/6 ml-8 ${selectedCategory === 'stay_with_meals' ? '' : 'bg-green-300'}`}
- onClick={() => handleCategoryChange('stay_with_meals')}>
+        onClick={() => handleCategoryChange('stay_with_meals')}>
           <div className='w-1/3 ml-4'>
             <GiMeal size={50}/>
           </div>
@@ -161,7 +91,7 @@ export default function GuestStay() {
       <div className="ml-8 grid grid-cols-3 grid-rows-1">
         {properties.map((e) => (
           <div className='row-span-1 col-span-1' key={e.property_id}>
-            <Card>
+            <Card className='h-9/12 mb-20'>
             <Link href="/guest/singleproperty/[id]" as={`/guest/singleproperty/${e.property_id}`}>
               <a href="#">
                 <Image
@@ -172,13 +102,29 @@ export default function GuestStay() {
                 />
               </a>
               <div className="p-5">
-                {/*  */}
-               
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"> {e?.location_name}</h5>
+                <div className='flex p-2'>
+                  {e.stay&&(
+                  <div className='max-w-12'>
+                    <Badge color="info">Stay</Badge>
+                  </div>
+                  )}
+                  {e.stay_with_meal&&(
+                  <div className='max-w-24'>
+                    <Badge color="indigo">Stay + meal</Badge>
+                  </div>
+                  )}
+                  {e.paying_guest&&(
+                  <div className='max-w-24'>
+                    <Badge color="pink">Paying guest</Badge>
+                  </div>
+                  )}
+                  
+                </div>
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"> {e?.name}</h5>
                           
-                          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{e?.name}</p>
-                          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Starting from {e?.price_per_night} taka per night</p>
-                          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"> from {e?.availability?.start_date} to {e?.availability?.end_date}</p>
+                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{e?.location_name}</p>
+                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Starting from {e?.price_per_night} taka per night</p>
+                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"> from {e?.availability?.start_date} to {e?.availability?.end_date}</p>
                       
                   {/* <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{e.location_name}</h5>
                 
@@ -191,6 +137,8 @@ export default function GuestStay() {
           </div>
         ))}
       </div>
+    </div>
+    <Footer />
     </div>
   );
 }

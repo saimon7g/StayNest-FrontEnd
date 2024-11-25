@@ -3,7 +3,9 @@ import { useSearchParams } from 'next/navigation';
 import { reserveProperty } from '@/API/GuestAPI';
 import { useEffect, useState } from 'react';
 import { Card, Button } from 'flowbite-react';
-import {Payment} from '@/Components/Payment';
+import { Payment } from '@/Components/Payment';
+import Navbar from '@/Components/GuestSide/GuestNavBar';
+import { useRouter } from 'next/navigation';
 
 
 export default function ReservationSummary({ reservation }) {
@@ -21,7 +23,7 @@ export default function ReservationSummary({ reservation }) {
     //     "number_of_guests": 2,
     //     "breakfast": [
     //       {
-            
+
     //         "meal_name": "Continental Breakfast",
     //         "quantity": 2,
     //         "date": "2024-02-22",
@@ -36,7 +38,7 @@ export default function ReservationSummary({ reservation }) {
     //     ],
     //     "lunch": [
     //         {
-              
+
     //           "meal_name": "Continental Breakfast",
     //           "quantity": 2,
     //           "date": "2024-02-22",
@@ -51,7 +53,7 @@ export default function ReservationSummary({ reservation }) {
     //       ],
     //       "dinner": [
     //         {
-              
+
     //           "meal_name": "Continental Breakfast",
     //           "quantity": 2,
     //           "date": "2024-02-22",
@@ -72,115 +74,141 @@ export default function ReservationSummary({ reservation }) {
     const params = useSearchParams();
     const parsedData = JSON.parse(params.get('query'));
     const [openModal, setOpenModal] = useState(false);
+    const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
 
-    const handlePaymentComplete = () => {
-        console.log('Payment completed');
-    }
-    
-
-
+    const router = useRouter();
 
     useEffect(() => {
-        const fetchData =() => {
+        const fetchData = () => {
             if (parsedData) {
-                
+
                 setReservationData(parsedData);
             }
         };
 
         fetchData();
-    }, [parsedData]);
+    }, []);
+    const reserve = async (data) => {
 
-    const handlePayment =async () => {
-        const response = await reserveProperty(parsedData);
-        let data = response.data;
-        if (typeof data === 'string') {
-            data = JSON.parse(data);
-            // alert(response.data);
+        try {
+            const response = await reserveProperty(parsedData);
+            setOpenModal(false);
+            if (response.status === 201) {
+                console.log('201-----')
+                alert('Booking successful');
+                console.log(" yeeeeeeeeeeee");
+                const responseData = await response.data
+                console.log(responseData);
+                console.log(responseData.reservation_id);
+                const reservation_id = responseData.reservation_id;
+                router.push('/guest/confirmation/' + reservation_id);
+
+            }
+            else if (response.status === 200) {
+                console.log('401-----')
+                alert(response.message);
+                console.log(response.message);
+            }
+            else {
+                alert(response.message);
+            }
+
         }
-        if (response.status ===201 ) {
-            setOpenModal(true);
-            alert('Booking successful');
+        catch (error) {
+            console.log(error);
         }
-        else if (response.status === 200) {
-            
-            alert(data.message );
-        }
-        else {
-            alert('Booking failed');
-        }
-       
+
+
+    };
+
+
+    const handlePayment = async () => {
+        console.log('hnadling payment');
+
+
+        setOpenModal(true)
+
     };
 
     return (
-        <div className="flex justify-center items-center h-screen">
-            <Card className="w-200 mx-auto p-4">
-                <div className="grid grid-cols-2 gap-4">
-                    <div className="pr-4 border-r border-gray-400">
-                        <h1 className="text-4xl font-bold mb-4">Reservation Summary</h1>
-                        {reservationData && (
-                            <>
-                                
-                                <p>Booking Type: {reservationData.booking_type}</p>
-                                <p>Check-In: {reservationData.start_date}</p>
-                                <p>Check-Out: {reservationData.end_date}</p>
-                                <p>Tax: {reservationData.tax}</p>
-                                <p>Number of Guests: {reservationData.number_of_guests}</p>
-                                <h2>Meals</h2>
-                                <p>Breakfast</p>
-                                <ul>
-                                    {reservationData.breakfast && reservationData.breakfast.map((meal, index) => (
-                                        <li key={index}>
-                                            <p>Meal Name: {meal.meal_name}</p>
-                                            <p>Quantity: {meal.quantity}</p>
-                                            <p>Date: {meal.date}</p>
-                                        </li>
-                                    ))}
-                                </ul>
-                                <p>Lunch</p>
-                                <ul>
-                                    {reservationData.lunch && reservationData.lunch.map((meal, index) => (
-                                        <li key={index}>
-                                            <p>Meal Name: {meal.meal_name}</p>
-                                            <p>Quantity: {meal.quantity}</p>
-                                            <p>Date: {meal.date}</p>
-                                        </li>
-                                    ))}
-                                </ul>
-                                <p>Dinner</p>
-                                <ul>
-                                    {reservationData.dinner && reservationData.dinner.map((meal, index) => (
-                                        <li key={index}>
-                                            <p>Meal Name: {meal.meal_name}</p>
-                                            <p>Quantity: {meal.quantity}</p>
-                                            <p>Date: {meal.date}</p>
-                                        </li>
-                                    ))}
-                                </ul>
-                                
+        <div>
+            <Navbar isLoginFormVisible={isLoginFormVisible} setIsLoginFormVisible={setIsLoginFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+            <div className="flex justify-center items-center h-screen">
+                <Card className="w-200 mx-auto p-4">
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="pr-4 border-r border-gray-400">
+                            <h1 className="text-4xl font-bold mb-4">Reservation Summary</h1>
+                            {reservationData && (
+                                <>
 
-                                
-                            </>
-                        )}
+                                    <p>Booking Type: {reservationData.booking_type}</p>
+                                    <p>Check-In: {reservationData.start_date}</p>
+                                    <p>Check-Out: {reservationData.end_date}</p>
+                                    <p>Tax: {reservationData.tax}</p>
+                                    <p>Number of Guests: {reservationData.number_of_guests}</p>
+                                    <h2>Meals</h2>
+                                    <p>Breakfast</p>
+                                    <ul>
+                                        {reservationData.breakfast && reservationData.breakfast.map((meal, index) => (
+                                            <li key={index}>
+                                                <p>Meal Name: {meal.meal_name}</p>
+                                                <p>Quantity: {meal.quantity}</p>
+                                                <p>Date: {meal.date}</p>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <p>Lunch</p>
+                                    <ul>
+                                        {reservationData.lunch && reservationData.lunch.map((meal, index) => (
+                                            <li key={index}>
+                                                <p>Meal Name: {meal.meal_name}</p>
+                                                <p>Quantity: {meal.quantity}</p>
+                                                <p>Date: {meal.date}</p>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <p>Dinner</p>
+                                    <ul>
+                                        {reservationData.dinner && reservationData.dinner.map((meal, index) => (
+                                            <li key={index}>
+                                                <p>Meal Name: {meal.meal_name}</p>
+                                                <p>Quantity: {meal.quantity}</p>
+                                                <p>Date: {meal.date}</p>
+                                            </li>
+                                        ))}
+                                    </ul>
+
+
+
+                                </>
+                            )}
+                        </div>
+                        <div className="pl-4">
+
+                            {reservationData && (
+                                <>
+                                    <h1 className="text-2xl font-bold mb-4">Pricing</h1>
+                                    <p>Base price: {reservationData.base_price}</p>
+                                    <p>Platform Fee: {reservationData.platform_fee}</p>
+                                    <p>Tax: {reservationData.tax}</p>
+                                    <p>Total meals price: {reservationData.total_meals_price}</p>
+                                    <p>Total price: {reservationData.total_price}</p>
+                                </>
+                            )}
+                            <Button className="mt-8 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" onClick={() => handlePayment()}>
+                                Make Payment
+                            </Button>
+                            <Payment
+                                openModal={openModal}
+                                setOpenModal={setOpenModal}
+                                onPaymentComplete={reserve}
+                                negotiation={reservationData}
+                            />
+                        </div>
                     </div>
-                    <div className="pl-4">
-                               
-                        {reservationData && (
-                            <>
-                                <h1 className="text-2xl font-bold mb-4">Pricing</h1>
-                                <p>Base price: {reservationData.base_price}</p>
-                                <p>Platform Fee: {reservationData.platform_fee}</p>
-                                <p>Tax: {reservationData.tax}</p>
-                               <p>Total meals price: {reservationData.total_meals_price}</p>
-                                <p>Total price: {reservationData.total_price}</p>
-                            </>
-                        )}
-                        <Button className="mt-8 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" onClick={() => handlePayment()}>
-                            Make Payment
-                        </Button>
-                    </div>
-                </div>
-            </Card>
+                </Card>
+            </div>
         </div>
     );
 }

@@ -58,4 +58,31 @@ const logout = async () => {
   }
 };
 
-export { setAuthToken, signup, hostSignup, login, logout };
+const getUser = async () => {
+  try {
+    console.log('Fetching user...api ');
+    const response = await axios.get('/auth/user/');
+    console.log('response.data', response.data);
+    if (typeof response.data === 'string') {
+     
+     return JSON.parse(response.data);
+    }
+
+    return response.data;
+
+  } catch (error) {
+    console.error('Get user failed:', error.response.data);
+    throw error;
+  }
+};  
+const loggedInCheck = () => {
+  
+   if(localStorage.getItem('authToken')){
+      return true;
+    }
+    else{
+      return false;
+    }
+  
+};
+export { setAuthToken, signup, hostSignup, login, logout, getUser, loggedInCheck};

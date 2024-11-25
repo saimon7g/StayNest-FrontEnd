@@ -6,6 +6,8 @@ import FileUpload from "@/Components/ImageUpload";
 import { useState } from "react";
 import { Step4GET, Step4PUT } from "@/API/Registration";
 import { MdAttachMoney } from "react-icons/md";
+import HostNavBar from "@/Components/HostSide/HostNavbar";
+import Footer from "@/Components/Footer";
 
 import RegistrationContext from "@/contexts/registrationContext";
 import { MealForm} from '@/Components/HostSide/MealForm.js';
@@ -16,6 +18,9 @@ const Step4 = () => {
     const { registrationId, setRegistrationId } = useContext(RegistrationContext);  // use the context
     const [negotiationAvailability, setNegotiationAvailability] = useState(false);
     const [showMealModal, setShowMealModal] = useState(false);
+    const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
+
     const [securityFeatures, setSecurityFeatures] = useState({
         "24/7 Security": false,
         "Security Camera": false
@@ -88,6 +93,8 @@ const Step4 = () => {
     };
 
     return (
+        <div>
+            <HostNavBar isLoginFormVisible={isLoginFormVisible} setIsLoginFormVisible={setIsLoginFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
         <div className="flex flex-col items-center justify-center">
             <div className="my-20">
                 <Card className="p-6">
@@ -147,6 +154,8 @@ const Step4 = () => {
                     <Button className="border border-gray-400 rounded-lg p-2" onClick={handleSubmit}>Next</Button>
                 </Link>
             </div>
+        </div>
+        <Footer />
         </div>
     );
 };

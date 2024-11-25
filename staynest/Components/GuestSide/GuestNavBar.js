@@ -1,6 +1,6 @@
 'use client';
-import { useState } from 'react';
-import { Avatar, Button,Dropdown, Navbar } from 'flowbite-react';
+import { useState, useEffect } from 'react';
+import { Avatar, Button, Dropdown, Navbar } from 'flowbite-react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Logo from '@/StaticImage/logo1.png';
@@ -11,18 +11,55 @@ import { formatDate } from '../utills';
 import LoginForm from './LoginForm';
 import SignupForm from '../SignupForm';
 import Link from 'next/link';
+import { getUser, logout } from '@/API/auth';
 
-const GuestNavbar = () => {
+import SearchUsingMap from './SearchUsingMap';
+// const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
+//     const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
+
+const GuestNavbar = ({ isLoginFormVisible, setIsLoginFormVisible, loggedIn, setLoggedIn }) => {
     const router = useRouter();
-    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
-    const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
+
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [numberOfPeople, setNumberOfPeople] = useState(1);
     const [location, setLocation] = useState('');
-    const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
+    const [isSearchFormVisible, setIsSearchFormVisible] = useState(false);
     const [signupFormVisible, setSignupFormVisible] = useState(false);
+    const [user, setUser] = useState(null);
+    const [latlng, setLatlng] = useState({ lat: 0, lng: 0 });
+    const [isMapVisible, setIsMapVisible] = useState(false);
 
+    useEffect(() => {
+        // Fetch the user data from the server
+        const fetchUser = async () => {
+            console.log('Fetching user...');
+            try {
+                const response = await getUser();
+                setUser(response);
+                setLoggedIn(true);
+
+            } catch (error) {
+                console.error('Get user failed:', error);
+                setLoggedIn(false);
+            }
+        };
+
+        fetchUser();
+    }
+        , [loggedIn]);
+
+
+
+    const handleLogout = async () => {
+        try {
+            await logout();
+            setLoggedIn(false);
+            setIsLoginFormVisible(true);
+        } catch (error) {
+            console.log('Logout failed:', error);
+        }
+    }
     const handleStartDateChange = (date) => {
         setStartDate(date);
     };
@@ -62,13 +99,25 @@ const GuestNavbar = () => {
         setIsSearchFormVisible(false);
     };
 
+    const switchToHostMode = () => {
+        router.push('/host');
+    }
+
+    const print = () => {
+        console.log("location", location);
+        console.log("startDate", startDate);
+        console.log("endDate", endDate);
+        console.log("numberOfPeople", numberOfPeople);
+        console.log("latlng", latlng);
+    }
+
     return (
         <Navbar fluid rounded className="bg-cyan-700">
             {/* Logo on the left */}
-            <Navbar.Brand href="/">
+            <Navbar.Brand href="/guest">
                 <Image src={Logo} alt="logo" width={100} height={100} />
             </Navbar.Brand>
-            
+
             {/* Search bar in the middle */}
             <div className="flex justify-center items-center flex-grow">
                 <div className="flex justify-between bg-slate-100 rounded-full py-2 px-6 cursor-pointer" onClick={() => setIsSearchFormVisible(!isSearchFormVisible)}>
@@ -86,8 +135,7 @@ const GuestNavbar = () => {
                         arrowIcon={false}
                         inline
                         label={
-                            <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
-                        }
+                            <Image src={user?.profile_picture} alt="avatar" width={40} height={40} className="rounded-full" />}
                     >
                         <Dropdown.Header>
                             <span className="block text-sm">Bonnie Green</span>
@@ -99,27 +147,23 @@ const GuestNavbar = () => {
                         <Dropdown.Item>Settings</Dropdown.Item>
                         <Dropdown.Item>Earnings</Dropdown.Item>
                         <Dropdown.Divider />
-                        <Dropdown.Item>Sign out</Dropdown.Item>
+                        <Dropdown.Item onClick={handleLogout}>Sign out</Dropdown.Item>
                         {/* Switch to toggle between host and guest modes */}
                         <div className="flex items-center ml-4">
                             <label htmlFor="switch" className="flex items-center cursor-pointer">
-                                <span className="mr-2">Switch to</span>
-                                <input type="checkbox" id="switch" className="hidden" />
-                                <div className="toggle-wrapper relative w-12 h-6 bg-gray-400 rounded-full border-2 border-gray-400">
-                                    <div className="toggle-block absolute w-6 h-6 bg-white rounded-full shadow-md transform duration-300 ease-in-out"></div>
-                                </div>
+                                <span className="mr-2" onClick={switchToHostMode}>Switch to Host Mode</span>
                             </label>
                         </div>
                     </Dropdown>
                 ) : (
                     <>
-                    <Button onClick={() => setIsLoginFormVisible(true)}>Log In</Button>
-                    {/* Render the LoginForm component conditionally */}
-                    {isLoginFormVisible && <LoginForm isOpen={isLoginFormVisible} onClose={() => setIsLoginFormVisible(false)}
-                    setLoginFormVisible={setIsLoginFormVisible} setLoggedIn={setLoggedIn} setSignupFormVisible={setSignupFormVisible}/>}
-                    {signupFormVisible && <SignupForm isOpen={signupFormVisible} onClose={() => setSignupFormVisible(false)}
-                    setSignupFormVisible={setSignupFormVisible} setLoggedIn={setLoggedIn}/>}
-    </>
+                        <Button onClick={() => setIsLoginFormVisible(true)}>Log In</Button>
+                        {/* Render the LoginForm component conditionally */}
+                        {isLoginFormVisible && <LoginForm isOpen={isLoginFormVisible} onClose={() => setIsLoginFormVisible(false)}
+                            setLoginFormVisible={setIsLoginFormVisible} setLoggedIn={setLoggedIn} setSignupFormVisible={setSignupFormVisible} />}
+                        {signupFormVisible && <SignupForm isOpen={signupFormVisible} onClose={() => setSignupFormVisible(false)}
+                            setSignupFormVisible={setSignupFormVisible} setLoggedIn={setLoggedIn} />}
+                    </>
                 )}
             </div>
 
@@ -130,6 +174,8 @@ const GuestNavbar = () => {
                     <form onSubmit={handleSearchSubmit} >
                         <div>
                             <label htmlFor="location">Location</label>
+                            <Button onClick={() => setIsMapVisible(true)}>Select on Map</Button>
+                            {/* <Button onClick={() => print()}>Print</Button> */}
                             <input
                                 type="text"
                                 placeholder="Anywhere"
@@ -138,6 +184,7 @@ const GuestNavbar = () => {
                                 className="mb-2 border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none w-full"
                             />
                         </div>
+
                         <div className="flex items-center mb-2">
                             <div className="flex flex-col">
                                 <label htmlFor="arrival">Arrival</label>
@@ -183,6 +230,9 @@ const GuestNavbar = () => {
                     </form>
                 </div>
             )}
+
+            {/* Search using map */}
+            {isMapVisible && <SearchUsingMap setLatlng={setLatlng} isMapVisible={isMapVisible} setIsMapVisible={setIsMapVisible} />}
         </Navbar>
     );
 };

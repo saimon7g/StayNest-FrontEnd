@@ -1,59 +1,113 @@
-// components/Navbar.js
 'use client';
+import { useState , useEffect} from 'react';
+import { Avatar, Button,Dropdown, Navbar } from 'flowbite-react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import Logo from '@/StaticImage/logo2.png';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { FiSearch, FiBell } from 'react-icons/fi'; // Import notification icon
+import { formatDate } from '../utills';
+import LoginForm from '@/Components/GuestSide/LoginForm';
+import SignupForm from '@/Components/SignupForm';
 import Link from 'next/link';
-import React from 'react';
-import Image from 'next/image'
-import Logo from '@/StaticImage/logo2.png'
+import { getUser , logout} from '@/API/auth';
 
-export default function Navbar() {
+const HostNavBar = ( {isLoginFormVisible,setIsLoginFormVisible, loggedIn, setLoggedIn} ) => {
+    const router = useRouter();
 
-  const [userMode, setUserMode] = React.useState(false);
-  function hostMode() {
-    setUserMode(false);
-  }
-  function guestMode() {
-    setUserMode(true);
-  }
+    
+    const [signupFormVisible, setSignupFormVisible] = useState(false);
+    const [user, setUser] = useState(null);
 
-  return (
-    <nav className="bg-yellow-200 p-1">
-      <div className="mx-auto flex justify-between items-center">
-        <Link href="/">
-          <div ><Image
-            src={Logo}
-            width={65}
-            alt="Picture of the author"
-          /></div>
-        </Link>
-        <Link href="/host">
-          <div className="font-bold text-2xl">StayNest</div>
-        </Link>
+    useEffect(() => {
+        // Fetch the user data from the server
+        const fetchUser = async () => {
+            console.log('Fetching user...');
+            try {
+                const response = await getUser();
+                setUser(response);
+                setLoggedIn(true);
 
-        <div className="flex">
-          <div className="flex">
-            <Link href="/host">
-              <button className="bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={hostMode}>
-                host
-              </button>
-            </Link>
+            } catch (error) {
+                console.error('Get user failed:', error);
+                setLoggedIn(false);
+            }
+        };
 
-            {/* black back ground button */}
-            {/* <button className="bg-black-700 text-white font-bold py-2 px-4 rounded"  onClick={guestMode}> */}
-            <Link href="/guest">
-              <button className="bg-gray-700 text-white font-bold py-2 px-4 rounded" onClick={guestMode}>
-                guest
-              </button>
-            </Link>
-          </div>
-          <Link href="/account">
-            <div >
-              <Image src={Logo} width={65} alt="Picture of the author" className='border rounded-full'/>
+        fetchUser();
+    }
+    , [loggedIn]);
+
+
+   
+    const handleLogout = async () => {
+        try {
+            await logout();
+            setLoggedIn(false);
+            setIsLoginFormVisible(true);
+        } catch (error) {
+            console.log('Logout failed:', error);
+        }
+    }
+    const switchMode = () => {
+        router.push('/guest');
+    }
+
+ 
+
+        
+
+    return (
+        <Navbar fluid rounded className="bg-amber-200">
+            {/* Logo on the left */}
+            <Navbar.Brand href="/guest">
+                <Image src={Logo} alt="logo" width={100} height={100} />
+            </Navbar.Brand>
+          
+            {/* User login/profile dropdown and notification icon on the right */}
+            <div className="flex items-center ml-auto">
+                <FiBell className="cursor-pointer text-black mr-4" size={24} />
+                {/* Notification icon */}
+                {loggedIn ? ( // Check if the user is logged in
+                    <Dropdown
+                        arrowIcon={false}
+                        inline
+                        label={
+                            <Image src={user?.profile_picture} alt="avatar" width={40} height={40} className="rounded-full" />
+                        }
+                    >
+                       
+                        <Link href="/host/dashboard">
+                            <Dropdown.Item>Dashboard</Dropdown.Item>
+                        </Link>
+                        <Dropdown.Item>Settings</Dropdown.Item>
+                        <Dropdown.Item>Earnings</Dropdown.Item>
+                        <Dropdown.Divider />
+                        <Dropdown.Item onClick={handleLogout}>Sign out</Dropdown.Item>
+                        {/* Switch to toggle between host and guest modes */}
+                        <div className="flex items-center ml-4">
+                            <label htmlFor="switch" className="flex items-center cursor-pointer">
+                                <span className="mr-2" onClick={switchMode}>Switch to guest mode</span>
+
+                            </label>
+                        </div>
+                    </Dropdown>
+                ) : (
+                    <>
+                    <Button onClick={() => setIsLoginFormVisible(true)}>Log In</Button>
+                    {/* Render the LoginForm component conditionally */}
+                    {isLoginFormVisible && <LoginForm isOpen={isLoginFormVisible} onClose={() => setIsLoginFormVisible(false)}
+                    setLoginFormVisible={setIsLoginFormVisible} setLoggedIn={setLoggedIn} setSignupFormVisible={setSignupFormVisible}/>}
+                    {signupFormVisible && <SignupForm isOpen={signupFormVisible} onClose={() => setSignupFormVisible(false)}
+                    setSignupFormVisible={setSignupFormVisible} setLoggedIn={setLoggedIn}/>}
+    </>
+                )}
             </div>
-          </Link>
-        </div>
 
-      </div>
+            
+        </Navbar>
+    );
+};
 
-    </nav>
-  );
-}
+export default HostNavBar;

@@ -7,6 +7,8 @@ import Link from "next/link";
 import RegistrationContext from "@/contexts/registrationContext"; // Line 24
 import { useEffect,useContext } from 'react';
 import { Step7GET,Step7PUT } from "@/API/Registration";
+import HostNavBar from "@/Components/HostSide/HostNavbar";
+import Footer from "@/Components/Footer";
 
 
 const Step7 = () => {
@@ -14,6 +16,10 @@ const Step7 = () => {
 
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
+
+    const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
+
     useEffect(() => {
         console.log("useEffect step7")
         const fetchStep7Data = async () => {
@@ -41,6 +47,11 @@ const Step7 = () => {
     }, [registrationId]);
 
     const handleSubmit = async () => {
+        if(!loggedIn)
+        {
+            setIsLoginFormVisible(true);
+            return;
+        }
         try {
             setRegistrationId(registrationId);
             let start_date=startDate.toISOString().split('T')[0];
@@ -64,6 +75,7 @@ const Step7 = () => {
 
     return (
         <div>
+            <HostNavBar isLoginFormVisible={isLoginFormVisible} setIsLoginFormVisible={setIsLoginFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
             {/* Date inputs using react-datepicker */}
             <div>
                 <label htmlFor="startDate">Start Date:</label>
@@ -101,6 +113,7 @@ const Step7 = () => {
                     </button>
                 </Link>
             </div>
+            <Footer />
         </div>
     );
 };

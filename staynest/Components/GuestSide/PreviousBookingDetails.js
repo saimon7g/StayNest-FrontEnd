@@ -4,19 +4,21 @@ import { getBookingDetails } from '@/API/UserDashBoard';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { FaArrowCircleLeft } from "react-icons/fa";
-import { cancelBooking } from '@/API/UserDashBoard';
 import { getPropertyByIDd } from '@/API/GuestAPI';
 import { getHostByID } from '@/API/GuestAPI';
+import { Avatar, Blockquote, Rating } from 'flowbite-react';
 
 
 
-export function BookingDetails({ bookingId, handleOptionClick }) {
+export function PreviousBookingDetails({ bookingId, handleOptionClick }) {
 
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [bookingDetails, setBookingDetails] = useState(null);
     const [propertyDetails, setPropertyDetails] = useState(null);
     const [hostDetails, setHostDetails] = useState(null);
+    const [rating, setRating] = useState(0);
+    const [review, setReview] = useState("");
 
 
     const fetchBookingDetails = async () => {
@@ -45,7 +47,7 @@ export function BookingDetails({ bookingId, handleOptionClick }) {
     }, [bookingId]);
 
     const goBack = () => {
-        handleOptionClick('MyBookings');
+        handleOptionClick('PreviousBookings');
     }
 
     const handleCancelBooking = () => {
@@ -56,7 +58,6 @@ export function BookingDetails({ bookingId, handleOptionClick }) {
         const data = {
             "booking_id": bookingId
         };
-        cancelBooking(data);
         closeModal();
     };
 
@@ -64,16 +65,16 @@ export function BookingDetails({ bookingId, handleOptionClick }) {
         setIsModalOpen(false);
     };
 
-    const cancelBooking = async () => {
-        setIsModalOpen(true);
+    const giveReview = () => {
     }
 
 
 
 
 
+
     return (
-        
+
 
         // property_details:
         // availability:
@@ -154,7 +155,7 @@ export function BookingDetails({ bookingId, handleOptionClick }) {
             {propertyDetails && (
                 <div className="flex flex-col items-center">
 
-{/* 
+                    {/* 
 
 // bookingDetails:
         // base_price:
@@ -183,7 +184,7 @@ export function BookingDetails({ bookingId, handleOptionClick }) {
                     <p className="text-gray-500">Staying Price: {bookingDetails.base_price}</p>
                     <p className="text-gray-500">Booking Status: {bookingDetails.status}</p>
                     <p className="text-gray-500">Number of Guests: {bookingDetails.number_of_guests}</p>
-                    
+
                 </div>)
             }
             <div className="flex flex-col items-center">
@@ -264,9 +265,36 @@ export function BookingDetails({ bookingId, handleOptionClick }) {
 
                 <div className="flex flex-row items-center justify-center">
                     {bookingDetails && bookingDetails.status === 'pending' && (
-                        <button className="bg-blue-500 text-white p-2 rounded-lg mt-5" onClick={cancelBooking}>
-                            Cancel Booking
-                        </button>
+                        // a text field to give review and rating
+                        <div>
+
+                            <figure className="max-w-screen-md">
+                                <div className="mb-4 flex items-center">
+                                    <Rating size="md">
+                                        <Rating.Star />
+                                        <Rating.Star />
+                                        <Rating.Star />
+                                        <Rating.Star />
+                                        <Rating.Star />
+                                    </Rating>
+                                </div>
+                                <Blockquote>
+                                    {/* input field to take review  */}
+                                    <input type="text" value={review} onChange={(e) => setReview(e.target.value)} />
+                                    
+                                </Blockquote>
+                                <figcaption className="mt-6 flex items-center space-x-3">
+                                    <Avatar rounded size="xs" img="/images/people/profile-picture-3.jpg" alt="profile picture" />
+                                    <div className="flex items-center divide-x-2 divide-gray-300 dark:divide-gray-700">
+                                        <cite className="pr-3 font-medium text-gray-900 dark:text-white">Bonnie Green</cite>
+                                        <cite className="pl-3 text-sm text-gray-500 dark:text-gray-400">CTO at Flowbite</cite>
+                                    </div>
+                                </figcaption>
+                            </figure>
+
+                        </div>
+
+
                     )}
 
 
@@ -290,4 +318,4 @@ export function BookingDetails({ bookingId, handleOptionClick }) {
     );
 }
 
-export default BookingDetails;
+export default PreviousBookingDetails;

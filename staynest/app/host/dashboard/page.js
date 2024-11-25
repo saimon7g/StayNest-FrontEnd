@@ -3,30 +3,32 @@ import { useState } from 'react';
 import { HiArrowSmRight, HiUser, HiPencilAlt, HiCollection, HiChatAlt2, HiCheckCircle, HiCog, HiCheck } from 'react-icons/hi';
 import { Sidebar, Avatar } from 'flowbite-react';
 import  BookingDetails  from '@/Components/GuestSide/BookinsDeatails';
-import PreviousBookingDetails from '@/Components/GuestSide/PreviousBookingDetails';
-import MyBookings from '@/Components/GuestSide/MyBookings';
+import MyListings from '@/Components/HostSide/MyListings';
 import EditProfile from '@/Components/GuestSide/EditProfile';
 import Settings from '@/Components/GuestSide/Settings';
 import PreviousBookings from '@/Components/GuestSide/PreviousBookings';
-import NegotiationList from '@/Components/GuestSide/NegotiationList';
+import NegotiationList from '@/Components/NegotiationList';
 import NegotiationDetails from '@/Components/GuestSide/NegotiationDetails';
-import Navbar from "@/Components/GuestSide/GuestNavBar";
-import Footer from "@/Components/Footer";
+import ListingDetails from '@/Components/HostSide/ListingDetails';
+import {getPropertiesbyType} from '@/API/UserDashBoard';
+import HostNavBar from '@/Components/HostSide/HostNavbar';
+import Footer from '@/Components/Footer';
 
 
 function Dashboard() {
-    const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
-    const [loggedIn, setLoggedIn] = useState(false); 
 
     const [selectedOption, setSelectedOption] = useState('EditProfile');
     const [selectedBookingId, setSelectedBookingId] = useState(null);
+    const [selectedPropertyId, setSelectedPropertyId] = useState(null);
     const [selectedNegotiationId, setSelectedNegotiationId] = useState(null);
-    const [properties, setProperties] = useState(null);
+    const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
+    
 
-   
+    // function to fetch data for selected option
+    
    
     const handleOptionClick = (option) => {
-        
         if(!loggedIn)
         {
             setIsLoginFormVisible(false);
@@ -35,12 +37,12 @@ function Dashboard() {
         }
         setSelectedOption(option);
         
-        
     };
 
     return (
         <div>
-            <Navbar isLoginFormVisible={isLoginFormVisible} setIsLoginFormVisible={setIsLoginFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+            <HostNavBar isLoginFormVisible={isLoginFormVisible} setIsLoginFormVisible={setIsLoginFormVisible} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+
         <div className="flex flex-row h-screen">
             {/* Sidebar */}
             
@@ -52,11 +54,14 @@ function Dashboard() {
                             <Sidebar.Item onClick={() => handleOptionClick('EditProfile')} icon={HiPencilAlt} active={selectedOption === 'EditProfile'}>
                                 Edit Profile
                             </Sidebar.Item>
-                            <Sidebar.Item onClick={() => handleOptionClick('MyBookings')} icon={HiCollection} active={selectedOption === 'MyBookings'}>
-                                My Bookings
+                            <Sidebar.Item onClick={() => handleOptionClick('MyListings')} icon={HiCollection} active={selectedOption === 'MyListings'}>
+                                My Listings
                             </Sidebar.Item>
                             <Sidebar.Item onClick={() => handleOptionClick('Negotiation')} icon={HiChatAlt2} active={selectedOption === 'Negotiation'}>
                                 Negotiation
+                            </Sidebar.Item>
+                            <Sidebar.Item onClick={() => handleOptionClick('PreviousBookings')} icon={HiCheckCircle} active={selectedOption === 'PreviousBookings'}>
+                                Upcoming Bookings
                             </Sidebar.Item>
                             <Sidebar.Item onClick={() => handleOptionClick('PreviousBookings')} icon={HiCheckCircle} active={selectedOption === 'PreviousBookings'}>
                                 Previous Bookings
@@ -68,30 +73,23 @@ function Dashboard() {
                     </Sidebar.Items>
                 </Sidebar>
             </div>
-            {/* <textarea value={specialType} onChange={handleSpecialType} rows="1" cols="1" ></textarea> */}
             {/* Main Content */}
             <div className="flex-grow p-10 mt-10 relative">
                 {/* Load components related to selected option */}
                 {selectedOption === 'EditProfile' && <EditProfile />}
-                {selectedOption === 'MyBookings' && <MyBookings handleOptionClick={handleOptionClick} setSelectedBookingId={setSelectedBookingId} />}
+                {selectedOption === 'MyListings' && <MyListings handleOptionClick={handleOptionClick} setSelectedPropertyId={setSelectedPropertyId} />}
+                {selectedOption === 'ListingDetails' && <ListingDetails propertyId={selectedPropertyId} handleOptionClick={handleOptionClick} />}
+                {selectedOption === 'UpcomingBookings' && <UpcomingBookings handleOptionClick={handleOptionClick} setSelectedBookingId={setSelectedBookingId} />}
                 {selectedOption === 'BookingDetails' && <BookingDetails bookingId={selectedBookingId} handleOptionClick={handleOptionClick} />}
                 {selectedOption === 'Negotiation' && <NegotiationList handleOptionClick={handleOptionClick} setSelectedNegotiationId={setSelectedNegotiationId} />}
                 {selectedOption === 'NegotiationDetails' && <NegotiationDetails negotiationId={selectedNegotiationId} handleOptionClick={handleOptionClick} />}
                 {selectedOption === 'PreviousBookings' && <PreviousBookings handleOptionClick={handleOptionClick} setSelectedBookingId={setSelectedBookingId} />}
-                {selectedOption === 'PreviousBookingDetails' && <PreviousBookingDetails bookingId={selectedBookingId} handleOptionClick={handleOptionClick} />}
                 {selectedOption === 'Settings' && <Settings />}
             </div>
         </div>
         <Footer />
         </div>
     );
-
-
-
-
-
-    // Sample components related to sidebar options
-
 
 }
 

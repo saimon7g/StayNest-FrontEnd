@@ -2,40 +2,51 @@
 'use client';
 
 import { useState } from 'react';
-import { Modal, Card, Button } from 'flowbite-react';
 
-export function Payment({ openModal, setOpenModal, onPaymentComplete }) {
+import { Modal, Card, Button ,Spinner } from 'flowbite-react';
+
+export function Payment({ openModal, setOpenModal, onPaymentComplete,negotiation}) {
+    const [processing,setProcessing]=useState(false)
+
   
 
     const handlePayment = () => {
         // Simulate payment processing
-      
-        onPaymentComplete();
-        setOpenModal(false);
+        console.log('Processing payment...');
+        console.log(negotiation);
+      setProcessing(true)
+        onPaymentComplete(negotiation);
+        
+        
     };
 
     return (
-        <div>
-        <Modal show={openModal} onClose={() => setOpenModal(false)}>
-            <Modal.Header>Make Payment</Modal.Header>
+       
+        <Modal show={openModal} size="md" popup onClose={()=>setOpenModal(false)}>
+            <Modal.Header>
+                <h3 className="text-xl font-medium text-gray-900 dark:text-white">Payment</h3>
+            </Modal.Header>
             <Modal.Body>
                 <Card>
-                    
-                        <p>Please confirm your payment to proceed.</p>
+               {processing&&(
+                <div>
+                <Spinner aria-label="Extra large spinner example" size="xl" />
+                <p>Please wait...</p>
+                </div>
+                
+               )}    
+                
+                        <p className="text-gray-700 dark:text-gray-300">
+                            Please click the button below to complete the payment.
+                        </p>
+
                     
                 </Card>
             </Modal.Body>
             <Modal.Footer>
-                <Button
-                    onClick={handlePayment}
-                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-                   
-                >
-                    
-                </Button>
-                <Button color="gray" onClick={() => setOpenModal(false)}>Cancel</Button>
+                <Button onClick={handlePayment}>Complete payment</Button>
             </Modal.Footer>
-        </Modal>
-        </div>
+
+            </Modal>
     );
 };

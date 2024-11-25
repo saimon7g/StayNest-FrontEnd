@@ -35,6 +35,7 @@ export function MealSelectionForm({ breakfast, lunch, dinner, updateCart, openMo
   const [selectedType, setSelectedType] = useState('Breakfast');
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [cart, setCart] = useState({ breakfast: [], lunch: [], dinner: [] });
+  
 
   const handleQuantityChange = (mealId, newValue) => {
     setSelectedMeals({ ...selectedMeals, [mealId]: Math.max(0, newValue) });
@@ -72,34 +73,33 @@ export function MealSelectionForm({ breakfast, lunch, dinner, updateCart, openMo
 
       <Datepicker value={selectedDate.toLocaleDateString()}
        onChange={setSelectedDate} />
-      <Modal.Header className="flex justify-center">
-        <div>  </div>
+      <Modal.Header className="flex justify-center mx-auto">
         <div className="flex justify-center">
           <Button className={`mr-4 ${selectedType === 'Breakfast' ? 'bg-blue-500 text-white' : 'bg-gray-400'}`} onClick={() => handleMealTypeChange('Breakfast')}>Breakfast</Button>
           <Button className={`mr-4 ${selectedType === 'Lunch' ? 'bg-blue-500 text-white' : 'bg-gray-400'}`} onClick={() => handleMealTypeChange('Lunch')}>Lunch</Button>
           <Button className={`${selectedType === 'Dinner' ? 'bg-blue-500 text-white' : 'bg-gray-400'}`} onClick={() => handleMealTypeChange('Dinner')}>Dinner</Button>
         </div>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body className='max-h-96'>
 
         {/* <Button className="bg-blue-500 text-white" onClick={() => print()}>Print</Button> */}
 
 
-        <div className="container mx-auto mt-8 xl:w-9/10">
+        <div className=" mx-auto mt-8 w-full">
 
-          <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
-            <List className="w-96">
+          <div>
+            <List className="w-full">
               {(selectedType === 'Breakfast' ? breakfast : selectedType === 'Lunch' ? lunch : dinner).map((meal) => (
                 <List.Item key={meal.id}>
                   <div className="flex items-center justify-between">
-                    <Card>
+                    <Card className='w-full'>
                       <div className="flex items-center justify-between">
                         <div>
                           <h4>{meal.name}</h4>
                           <p>{meal.price}</p>
                         </div>
                         <div>
-                          <img src={meal.photo} alt={meal.name} className="w-24 h-24" />
+                          <img src={meal.photo} alt="photo" className="w-24 h-24" />
                         </div>
                         <div>
                           <Stepper value={selectedMeals[meal.id] || 0} onChange={(newValue) => handleQuantityChange(meal.id, newValue)} />

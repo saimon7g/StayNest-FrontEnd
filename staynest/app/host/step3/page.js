@@ -14,12 +14,16 @@ import { IoLocation } from "react-icons/io5";
 import { FaPeopleArrows } from "react-icons/fa6";
 import { useEffect, useContext } from 'react';
 import RegistrationContext from "@/contexts/registrationContext"; // Line 24setRegistrationId
+import HostNavBar from "@/Components/HostSide/HostNavbar";
+import Footer from "@/Components/Footer";
 
 const Step3 = () => {
     const { registrationId, setRegistrationId } = useContext(RegistrationContext);  // use the context
     const [houseTitle, setHouseTitle] = React.useState('');
     const [highlights, setHighlights] = React.useState([]);
     const [description, setDescription] = React.useState('');
+    const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false); // State to manage login status
 
     useEffect(() => {
         const fetchStep3Data = async () => {
@@ -59,7 +63,7 @@ const Step3 = () => {
     }
     
     const handleSubmit = async (event) => {
-        event.preventDefault();
+        
     
         const data = {
             "house_title": houseTitle,
@@ -76,8 +80,11 @@ const Step3 = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center">
-            <div className="mb-40">
+        <div>
+            <HostNavBar isLoginFormVisible={isLoginFormVisible} setIsLoginFormVisible={setIsLoginFormVisible
+            } loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+        <div className="flex flex-col items-center justify-center w-7/12 border-4 rounded mx-auto shadow-2xl my-20">
+            <div className="my-20 ">
                 <div className="pb-10">
                     <text className="text-2xl font-bold ">7. Now, let's give your house a title</text>
                     <br></br>
@@ -85,7 +92,6 @@ const Step3 = () => {
                 </div>
                 <div className="pl-10">
                     <textarea className="border-2 border-black rounded" rows="7" cols="60" placeholder="Type your text here..." value={houseTitle} onChange={(e) => handleTitleChange(e)}></textarea>
-
                 </div>
             </div>
 
@@ -93,10 +99,10 @@ const Step3 = () => {
                 <div className="pb-5">
                     <text className="text-2xl font-bold ">8. Next, let's describe your house</text>
                     <br></br>
-                    <text className="text-bg text-gray-400 font-bold pb-15 pl-10">Choose up to 2 highlights. We'll use these to get your description started</text>
+                    <text className="text-bg text-gray-400 font-bold pb-15 pl-10">We'll use these hito get your description started</text>
                 </div>
                 <div className="flex">
-                    <div className={`flex border-2 border-stone-600 rounded-full w-auto p-5 m-2 cursor-pointer ${highlights.includes("Peaceful") ? 'bg-slate-300' : ''}`} onClick={() => handleHighlightChange("Peaceful")} title="Peaceful">
+                    <div className={`flex border-2 border-amber-500 rounded-full w-auto p-5 m-2 cursor-pointer ${highlights.includes("Peaceful") ? 'bg-amber-200' : 'hover:bg-amber-100'}`} onClick={() => handleHighlightChange("Peaceful")} title="Peaceful">
                         <div>
                             <FaTree className="text-2xl text-center" />
                         </div>
@@ -104,7 +110,7 @@ const Step3 = () => {
                             Peaceful
                         </div>
                     </div>
-                    <div className={`flex border-2 border-stone-600 rounded-full w-auto p-5 m-2 cursor-pointer ${highlights.includes("Unique") ? 'bg-slate-300' : ''}`} onClick={() => handleHighlightChange("Unique")} title="Unique">
+                    <div className={`flex border-2 border-amber-500 rounded-full w-auto p-5 m-2 cursor-pointer ${highlights.includes("Unique") ? 'bg-amber-200' : 'hover:bg-amber-100'}`} onClick={() => handleHighlightChange("Unique")} title="Unique">
 
                         <div>
                             <FaLightbulb className="text-2xl text-center" />
@@ -113,7 +119,7 @@ const Step3 = () => {
                             Unique
                         </div>
                     </div>
-                    <div className={`flex border-2 border-stone-600 rounded-full w-auto p-5 m-2 cursor-pointer ${highlights.includes("Family-friendly") ? 'bg-slate-300' : ''}`} onClick={() => handleHighlightChange("Family-friendly")} title="Family-friendly">
+                    <div className={`flex border-2 border-amber-500 rounded-full w-auto p-5 m-2 cursor-pointer ${highlights.includes("Family-friendly") ? 'bg-amber-200' : 'hover:bg-amber-100'}`} onClick={() => handleHighlightChange("Family-friendly")} title="Family-friendly">
                         <div>
                             <MdOutlineFamilyRestroom className="text-2xl text-center" />
                         </div>
@@ -121,7 +127,7 @@ const Step3 = () => {
                             Family-friendly
                         </div>
                     </div>
-                    <div className={`flex border-2 border-stone-600 rounded-full w-auto p-5 m-2 cursor-pointer ${highlights.includes("Stylish") ? 'bg-slate-300' : ''}`} onClick={() => handleHighlightChange("Stylish")} title="Stylish">
+                    <div className={`flex border-2 border-amber-500 rounded-full w-auto p-5 m-2 cursor-pointer ${highlights.includes("Stylish") ? 'bg-amber-200' : 'hover:bg-amber-100'}`} onClick={() => handleHighlightChange("Stylish")} title="Stylish">
 
                         <div>
                             <HiMiniHomeModern className="text-2xl text-center" />
@@ -133,7 +139,7 @@ const Step3 = () => {
                 </div>
 
                 <div className="flex">
-                    <div className={`flex border-2 border-stone-600 rounded-full w-auto p-5 m-2 cursor-pointer ${highlights.includes("Central") ? 'bg-slate-300' : ''}`} onClick={() => handleHighlightChange("Central")} title="Central">
+                    <div className={`flex border-2 border-amber-500 rounded-full w-auto p-5 m-2 cursor-pointer ${highlights.includes("Central") ? 'bg-amber-200' : 'hover:bg-amber-100'}`} onClick={() => handleHighlightChange("Central")} title="Central">
                         <div>
                             <IoLocation className="text-2xl text-center" />
                         </div>
@@ -141,7 +147,7 @@ const Step3 = () => {
                             Central
                         </div>
                     </div>
-                    <div className={`flex border-2 border-stone-600 rounded-full w-auto p-5 m-2 cursor-pointer ${highlights.includes("Spacious") ? 'bg-slate-300' : ''}`} onClick={() => handleHighlightChange("Spacious")} title="Spacious">
+                    <div className={`flex border-2 border-amber-500 rounded-full w-auto p-5 m-2 cursor-pointer ${highlights.includes("Spacious") ? 'bg-amber-200' : 'hover:bg-amber-100'}`} onClick={() => handleHighlightChange("Spacious")} title="Spacious">
                         <div>
                             <FaPeopleArrows className="text-2xl text-center" />
                         </div>
@@ -163,22 +169,23 @@ const Step3 = () => {
                 </div>
             </div>
 
-            <div className="flex flex-row-reverse w-5/6 mb-20">
-                <div className="flex justify-between items-center">
-                    <Link href="/host/step2">
-                        <button className="border border-gray-400 rounded-lg p-2 m-2" onClick={() => setRegistrationId(registrationId)}>
-                            Prev
-                        </button>
-                    </Link>
-                    <div className="flex justify-between items-center" onClick={handleSubmit}>
-                        <Link href="/host/step4">
-                            <button className="border border-gray-400 rounded-lg p-2 m-2" >
-                                Next
-                            </button>
-                        </Link>
-                    </div>
-                </div>
+            <div className="flex flex-row justify-between w-5/6 mb-20">
+                
+                <Link href="/host/step2">
+                    <button className="border border-gray-400 rounded-lg p-2 m-2" onClick={() => setRegistrationId(registrationId)}>
+                        Prev
+                    </button>
+                </Link>
+                
+                <Link href="/host/step4">
+                    <button className="border border-gray-400 rounded-lg p-2 m-2" onClick={handleSubmit}>
+                        Next
+                    </button>
+                </Link>
+                    
             </div>
+        </div>
+        <Footer />
         </div>
     );
 };
