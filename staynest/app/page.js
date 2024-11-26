@@ -7,7 +7,7 @@ import { LogInAPI } from '@/API/test';
 export default async function RootPage() {
   const handleLogin = async () => {
     const data = {
-      "username": "nahin",
+      "username": "saimon77",
       "password": "12345"
     }
     const response = await LogInAPI(data);
